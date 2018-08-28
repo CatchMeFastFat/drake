@@ -25,6 +25,7 @@ PYBIND11_MODULE(_symbolic_py, m) {
 
   // Install NumPy warning filtres.
   // N.B. This may interfere with other code, but until that is a confirmed
+<<<<<<< HEAD
   // issue, we should aggressively try to avoid these warnings.
   py::module::import("pydrake.util.deprecation")
       .attr("install_numpy_warning_filters")();
@@ -33,6 +34,12 @@ PYBIND11_MODULE(_symbolic_py, m) {
   py::module::import("pydrake.util.compatibility")
       .attr("maybe_patch_numpy_formatters")();
 
+=======
+  // issue, we should agressively try to avoid these warnings.
+  py::module::import("pydrake.util.deprecation")
+      .attr("install_numpy_warning_filters")();
+
+>>>>>>> intial
   m.doc() =
       "Symbolic variable, variables, monomial, expression, polynomial, and "
       "formula";

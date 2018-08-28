@@ -42,6 +42,7 @@ class RobotStateEncoder final : public LeafSystem<double> {
   /// Returns the output port on which the LCM message is presented.
   const OutputPort<double>& lcm_message_port() const;
 
+<<<<<<< HEAD
   /// Returns kinematics result input port.
   const InputPort<double>& kinematics_results_port() const;
 
@@ -50,6 +51,16 @@ class RobotStateEncoder final : public LeafSystem<double> {
 
   /// Returns effort input port corresponding to @param actuator.
   const InputPort<double>& effort_port(
+=======
+  /// Returns descriptor of kinematics result input port.
+  const InputPortDescriptor<double>& kinematics_results_port() const;
+
+  /// Returns descriptor of contact results input port.
+  const InputPortDescriptor<double>& contact_results_port() const;
+
+  /// Returns descriptor of effort input port corresponding to @param actuator.
+  const InputPortDescriptor<double>& effort_port(
+>>>>>>> intial
       const RigidBodyActuator& actuator) const;
 
  private:

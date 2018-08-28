@@ -30,7 +30,11 @@ config_setting(
     visibility = ["//visibility:private"],
 )
 
+<<<<<<< HEAD
 PROJECT_MAJOR = 5
+=======
+PROJECT_MAJOR = 4
+>>>>>>> intial
 
 PROJECT_MINOR = 0
 
@@ -81,10 +85,15 @@ generate_file(
 
 public_headers_no_gen = [
     "include/ignition/math/Angle.hh",
+<<<<<<< HEAD
     "include/ignition/math/AxisAlignedBox.hh",
     "include/ignition/math/Box.hh",
     "include/ignition/math/Color.hh",
     "include/ignition/math/Cylinder.hh",
+=======
+    "include/ignition/math/Box.hh",
+    "include/ignition/math/Color.hh",
+>>>>>>> intial
     "include/ignition/math/Filter.hh",
     "include/ignition/math/Frustum.hh",
     "include/ignition/math/Helpers.hh",
@@ -93,11 +102,16 @@ public_headers_no_gen = [
     "include/ignition/math/Line2.hh",
     "include/ignition/math/Line3.hh",
     "include/ignition/math/MassMatrix3.hh",
+<<<<<<< HEAD
     "include/ignition/math/Material.hh",
     "include/ignition/math/MaterialType.hh",
     "include/ignition/math/Matrix3.hh",
     "include/ignition/math/Matrix4.hh",
     "include/ignition/math/MovingWindowFilter.hh",
+=======
+    "include/ignition/math/Matrix3.hh",
+    "include/ignition/math/Matrix4.hh",
+>>>>>>> intial
     "include/ignition/math/OrientedBox.hh",
     "include/ignition/math/PID.hh",
     "include/ignition/math/Plane.hh",
@@ -107,7 +121,10 @@ public_headers_no_gen = [
     "include/ignition/math/RotationSpline.hh",
     "include/ignition/math/SemanticVersion.hh",
     "include/ignition/math/SignalStats.hh",
+<<<<<<< HEAD
     "include/ignition/math/Sphere.hh",
+=======
+>>>>>>> intial
     "include/ignition/math/SphericalCoordinates.hh",
     "include/ignition/math/Spline.hh",
     "include/ignition/math/Temperature.hh",
@@ -117,19 +134,31 @@ public_headers_no_gen = [
     "include/ignition/math/Vector3.hh",
     "include/ignition/math/Vector3Stats.hh",
     "include/ignition/math/Vector4.hh",
+<<<<<<< HEAD
     "include/ignition/math/detail/Box.hh",
     "include/ignition/math/detail/Cylinder.hh",
     "include/ignition/math/detail/Sphere.hh",
     "include/ignition/math/graph/Edge.hh",
     "include/ignition/math/graph/Graph.hh",
     "include/ignition/math/graph/GraphAlgorithms.hh",
+=======
+    "include/ignition/math/graph/Edge.hh",
+    "include/ignition/math/graph/GraphAlgorithms.hh",
+    "include/ignition/math/graph/Graph.hh",
+>>>>>>> intial
     "include/ignition/math/graph/Vertex.hh",
 ]
 
 private_headers = [
+<<<<<<< HEAD
     "src/FrustumPrivate.hh",
     "src/KmeansPrivate.hh",
     "src/MaterialType.hh",
+=======
+    "src/BoxPrivate.hh",
+    "src/FrustumPrivate.hh",
+    "src/KmeansPrivate.hh",
+>>>>>>> intial
     "src/RotationSplinePrivate.hh",
     "src/SignalStatsPrivate.hh",
     "src/SplinePrivate.hh",
@@ -167,12 +196,19 @@ cc_binary(
     name = "libdrake_ignition_math4.so",
     srcs = [
         "src/Angle.cc",
+<<<<<<< HEAD
         "src/AxisAlignedBox.cc",
+=======
+        "src/Box.cc",
+>>>>>>> intial
         "src/Color.cc",
         "src/Frustum.cc",
         "src/Helpers.cc",
         "src/Kmeans.cc",
+<<<<<<< HEAD
         "src/Material.cc",
+=======
+>>>>>>> intial
         "src/PID.cc",
         "src/Rand.cc",
         "src/RotationSpline.cc",

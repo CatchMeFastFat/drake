@@ -49,7 +49,11 @@ int DoMain() {
       std::move(tree_));
   plant_->set_name("plant_");
 
+<<<<<<< HEAD
   // Send the PR2's actuators zeros in absence of a controller.
+=======
+  // Send the PR2's actuators zeros in abscence of a controller.
+>>>>>>> intial
   auto constant_zero_source =
       diagram_builder.AddSystem<systems::ConstantVectorSource<double>>(
           VectorX<double>::Zero(plant_->actuator_command_input_port().size()));

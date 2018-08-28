@@ -26,7 +26,12 @@ struct FunctionTraits {
   static size_t numOutputs(F const& f) { return f.numOutputs(); }
   template <typename ScalarType>
   static void eval(F const& f, VecIn<ScalarType> const& x,
+<<<<<<< HEAD
                    VecOut<ScalarType>* y) {
+=======
+                   // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+                   VecOut<ScalarType>& y) {
+>>>>>>> intial
     f.eval(x, y);
   }
 };
@@ -41,7 +46,12 @@ struct FunctionTraits<std::reference_wrapper<F>> {
   }
   template <typename ScalarType>
   static void eval(std::reference_wrapper<F> const& f,
+<<<<<<< HEAD
                    VecIn<ScalarType> const& x, VecOut<ScalarType>* y) {
+=======
+                   // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+                   VecIn<ScalarType> const& x, VecOut<ScalarType>& y) {
+>>>>>>> intial
     FunctionTraits<F>::eval(f.get(), x, y);
   }
 };
@@ -56,7 +66,12 @@ struct FunctionTraits<std::shared_ptr<F>> {
   }
   template <typename ScalarType>
   static void eval(std::shared_ptr<F> const& f, VecIn<ScalarType> const& x,
+<<<<<<< HEAD
                    VecOut<ScalarType>* y) {
+=======
+                   // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+                   VecOut<ScalarType>& y) {
+>>>>>>> intial
     FunctionTraits<F>::eval(*f, x, y);
   }
 };
@@ -71,7 +86,12 @@ struct FunctionTraits<std::unique_ptr<F>> {
   }
   template <typename ScalarType>
   static void eval(std::unique_ptr<F> const& f, VecIn<ScalarType> const& x,
+<<<<<<< HEAD
                    VecOut<ScalarType>* y) {
+=======
+                   // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+                   VecOut<ScalarType>& y) {
+>>>>>>> intial
     FunctionTraits<F>::eval(*f, x, y);
   }
 };

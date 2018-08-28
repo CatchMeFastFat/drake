@@ -2,7 +2,10 @@
 
 #include <algorithm>
 #include <cmath>
+<<<<<<< HEAD
 #include <cstdlib>
+=======
+>>>>>>> intial
 #include <limits>
 #include <list>
 #include <stdexcept>
@@ -19,6 +22,7 @@ namespace drake {
 namespace solvers {
 namespace {
 
+<<<<<<< HEAD
 // This function is used to print information for each iteration to the console,
 // it will show PRSTATUS, PFEAS, DFEAS, etc. For more information, check out
 // https://docs.mosek.com/8.1/capi/solver-io.html. This printstr is copied
@@ -27,6 +31,8 @@ void MSKAPI printstr(void* , const char str[]) {
   printf("%s", str);
 }
 
+=======
+>>>>>>> intial
 // Add LinearConstraints and LinearEqualityConstraints to the Mosek task.
 template <typename C>
 MSKrescodee AddLinearConstraintsFromBindings(
@@ -597,6 +603,7 @@ MSKrescodee SpecifyVariableType(const MathematicalProgram& prog,
 class MosekSolver::License {
  public:
   License() {
+<<<<<<< HEAD
     const char* moseklm_license_file = std::getenv("MOSEKLM_LICENSE_FILE");
     if (moseklm_license_file == nullptr) {
       throw std::runtime_error(
@@ -604,12 +611,15 @@ class MosekSolver::License {
           "environment variable was not set.");
     }
 
+=======
+>>>>>>> intial
     MSKrescodee rescode = MSK_makeenv(&mosek_env_, nullptr);
     if (rescode != MSK_RES_OK) {
       throw std::runtime_error("Could not create MOSEK environment.");
     }
     DRAKE_DEMAND(mosek_env_ != nullptr);
 
+<<<<<<< HEAD
     const int num_tries = 3;
     rescode = MSK_RES_TRM_INTERNAL;
     for (int i = 0; i < num_tries && rescode != MSK_RES_OK; ++i) {
@@ -622,6 +632,15 @@ class MosekSolver::License {
       rescode = MSK_checkoutlicense(mosek_env_, MSK_FEATURE_PTS);
     }
 
+=======
+    // Acquire the license for the base MOSEK system so that we can
+    // fail fast if the license file is missing or the server is
+    // unavailable. Any additional features should be checked out
+    // later by MSK_optimizetrm if needed (so there's still the
+    // possiblity of later failure at that stage if the desired
+    // feature is unavailable or another error occurs).
+    rescode = MSK_checkoutlicense(mosek_env_, MSK_FEATURE_PTS);
+>>>>>>> intial
     if (rescode != MSK_RES_OK) {
       throw std::runtime_error("Could not acquire MOSEK license.");
     }
@@ -717,6 +736,7 @@ SolutionResult MosekSolver::Solve(MathematicalProgram& prog) const {
   if (rescode == MSK_RES_OK) {
     rescode = AddLinearMatrixInequalityConstraint(prog, &task);
   }
+<<<<<<< HEAD
   if (rescode == MSK_RES_OK && stream_logging_) {
     if (log_file_.empty()) {
       rescode =
@@ -726,6 +746,8 @@ SolutionResult MosekSolver::Solve(MathematicalProgram& prog) const {
           MSK_linkfiletotaskstream(task, MSK_STREAM_LOG, log_file_.c_str(), 0);
     }
   }
+=======
+>>>>>>> intial
 
   SolutionResult result = SolutionResult::kUnknownError;
   // Run optimizer.
@@ -752,7 +774,11 @@ SolutionResult MosekSolver::Solve(MathematicalProgram& prog) const {
   }
 
   SolverResult solver_result(id());
+<<<<<<< HEAD
   // TODO(hongkai.dai@tri.global) : Add MOSEK parameters.
+=======
+  // TODO(hongkai.dai@tri.global) : Add MOSEK paramaters.
+>>>>>>> intial
   // Mosek parameter are added by enum, not by string.
   if (rescode == MSK_RES_OK) {
     MSKsolstae solution_status;

@@ -69,7 +69,11 @@ def _get_required_helpers(scope_locals):
             return slice(*pieces)
 
     def make_slice_arg(*args):
+<<<<<<< HEAD
         """Create a scalar or tuple for accessing objects via slices. """
+=======
+        """Create a scalar or tuple for acessing objects via slices. """
+>>>>>>> intial
         out = [None] * len(args)
         for i, arg in enumerate(args):
             if isinstance(arg, str):

@@ -19,7 +19,11 @@ void CheckOutput(const System<T>& dut,
                  const Eigen::Ref<const VectorX<T>>& input,
                  const Eigen::Ref<const VectorX<T>>& expected_output) {
   auto context = dut.CreateDefaultContext();
+<<<<<<< HEAD
   auto output = dut.AllocateOutput();
+=======
+  auto output = dut.AllocateOutput(*context);
+>>>>>>> intial
   context->FixInputPort(0, input);
   dut.CalcOutput(*context, output.get());
   EXPECT_TRUE(CompareMatrices(output->get_vector_data(0)->CopyToVector(),

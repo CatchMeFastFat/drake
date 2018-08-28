@@ -19,7 +19,10 @@ def drake_lcm_cc_library(
         strip_include_prefix = None,
         **kwargs):
     """A wrapper to insert Drake-specific customizations."""
+<<<<<<< HEAD
 
+=======
+>>>>>>> intial
     # Drake's *.lcm files all live in our //drake/lcmtypes package.  Per LCM
     # upstream convention, the include directory for generated code should
     # always look like "my_lcm_package/my_lcm_struct.h", but by default Bazel
@@ -34,8 +37,12 @@ def drake_lcm_cc_library(
         deps = deps,
         tags = tags + ["nolint"],
         strip_include_prefix = strip_include_prefix,
+<<<<<<< HEAD
         **kwargs
     )
+=======
+        **kwargs)
+>>>>>>> intial
     drake_installed_headers(
         name = name + ".installed_headers",
         hdrs = detail.hdrs,
@@ -51,8 +58,12 @@ def drake_lcm_java_library(
     lcm_java_library(
         name = name,
         tags = tags + ["nolint"],
+<<<<<<< HEAD
         **kwargs
     )
+=======
+        **kwargs)
+>>>>>>> intial
 
 def drake_lcm_py_library(
         name,
@@ -62,5 +73,9 @@ def drake_lcm_py_library(
     lcm_py_library(
         name = name,
         tags = tags + ["nolint"],
+<<<<<<< HEAD
         **kwargs
     )
+=======
+        **kwargs)
+>>>>>>> intial

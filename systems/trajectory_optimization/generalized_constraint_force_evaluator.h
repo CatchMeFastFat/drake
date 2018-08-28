@@ -78,6 +78,7 @@ class GeneralizedConstraintForceEvaluator : public solvers::EvaluatorBase {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
+<<<<<<< HEAD
               Eigen::VectorXd* y) const override;
 
   void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
@@ -89,6 +90,14 @@ class GeneralizedConstraintForceEvaluator : public solvers::EvaluatorBase {
         "GeneralizedConstraintForceEvaluator does not support symbolic "
         "evaluation.");
   }
+=======
+              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+              Eigen::VectorXd& y) const override;
+
+  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
+              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
+              AutoDiffVecXd& y) const override;
+>>>>>>> intial
 
   template <typename DerivedX, typename DerivedY>
   typename std::enable_if<std::is_same<typename DerivedX::Scalar,

@@ -11,12 +11,17 @@
 
 namespace drake {
 
+<<<<<<< HEAD
 /// Class representing a Boolean value independent of the underlying
+=======
+/// Class representing a boolean value independent of the underlying
+>>>>>>> intial
 /// scalar type T:
 ///  - For `double` or autodiff, this class embeds a `bool` value.
 ///  - For `symbolic::Expression`, this class embeds a `symbolic::Formula`
 ///    value.
 ///
+<<<<<<< HEAD
 /// When this class wraps a `bool` value (e.g. T = `double` or autodiff), this
 /// class is contextually convertible to bool. For example, the following works.
 ///
@@ -34,6 +39,14 @@ namespace drake {
 ///
 /// @code
 /// const Bool<symbolic::Expression> b{...};
+=======
+/// A value of this class is *not* contextually convertible to bool. To convert
+/// a value to `bool`, one needs to explicitly call `ExtractBoolOrThrow` defined
+/// below in this file. Here is an example use-case:
+///
+/// @code
+/// const Bool<double> b{3.0 < 4.0};
+>>>>>>> intial
 /// if (ExtractBoolOrThrow(b)) {
 ///   ...
 /// }
@@ -42,7 +55,11 @@ namespace drake {
 /// In contrast, the following code does not compile:
 ///
 /// @code
+<<<<<<< HEAD
 /// const Bool<symbolic::Expression> b{...};
+=======
+/// const Bool<double> b{3.0 < 4.0};
+>>>>>>> intial
 /// if (b) {
 ///   ...
 /// }
@@ -69,6 +86,7 @@ class Bool {
   Bool(bool b)
       : value_{b ? !(T(0) < T(0)) /* True */ : T(0) < T(0) /* False */} {}
 
+<<<<<<< HEAD
   /// Provides implicit bool conversion only if Bool<T>::value_type is bool.
   ///
   /// @note The use of std::enable_if is not allowed here. I found a workaround
@@ -79,6 +97,8 @@ class Bool {
     return value();
   }
 
+=======
+>>>>>>> intial
   /// Returns a copy of its value.
   value_type value() const { return value_; }
 
@@ -88,6 +108,24 @@ class Bool {
   /// Returns the false value.
   static Bool<T> False() { return Bool{T(0) < T(0)}; }
 
+<<<<<<< HEAD
+=======
+  /// Provides logical AND operator (&&).
+  ///
+  /// @note We define this operator in the class as a friend function so that
+  /// implicit conversion works as expected (i.e. Bool<T> &&
+  /// Bool<T>::value_type). See item 46 of Effective C++ (3rd ed.) for more
+  /// information.
+  friend Bool<T> operator&&(const Bool<T>& b1, const Bool<T>& b2) {
+    return Bool<T>{b1.value() && b2.value()};
+  }
+
+  /// Provides logical OR operator (||).
+  friend Bool<T> operator||(const Bool<T>& b1, const Bool<T>& b2) {
+    return Bool<T>{b1.value() || b2.value()};
+  }
+
+>>>>>>> intial
  private:
   value_type value_{};
 };
@@ -99,6 +137,7 @@ bool ExtractBoolOrThrow(const Bool<T>& b) {
   return bool{b.value()};
 }
 
+<<<<<<< HEAD
 /// Provides logical AND operator (&&) between Bool<T> and Bool<T> when
 /// Bool<T>::value_type is *not* bool.
 ///
@@ -170,6 +209,11 @@ template <typename T>
 std::enable_if_t<!std::is_same<typename Bool<T>::value_type, bool>::value,
                  Bool<T>>
 operator!(const Bool<T>& b) {
+=======
+/// Provides logical NOT operator (!).
+template <typename T>
+Bool<T> operator!(const Bool<T>& b) {
+>>>>>>> intial
   return Bool<T>{!b.value()};
 }
 

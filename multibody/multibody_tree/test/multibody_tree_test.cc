@@ -12,7 +12,10 @@
 #include "drake/multibody/benchmarks/kuka_iiwa_robot/MG/MG_kuka_iiwa_robot.h"
 #include "drake/multibody/benchmarks/kuka_iiwa_robot/make_kuka_iiwa_model.h"
 #include "drake/multibody/multibody_tree/joints/revolute_joint.h"
+<<<<<<< HEAD
 #include "drake/multibody/multibody_tree/weld_mobilizer.h"
+=======
+>>>>>>> intial
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/continuous_state.h"
 
@@ -23,10 +26,15 @@ namespace {
 
 using benchmarks::kuka_iiwa_robot::MakeKukaIiwaModel;
 using benchmarks::kuka_iiwa_robot::MG::MGKukaIIwaRobot;
+<<<<<<< HEAD
 using Eigen::AngleAxisd;
 using Eigen::Isometry3d;
 using Eigen::MatrixXd;
 using Eigen::Translation3d;
+=======
+using Eigen::Isometry3d;
+using Eigen::MatrixXd;
+>>>>>>> intial
 using Eigen::Vector3d;
 using multibody_tree::test_utilities::SpatialKinematicsPVA;
 using systems::Context;
@@ -99,6 +107,7 @@ void VerifyModelBasics(const MultibodyTree<T>& model) {
       model.GetBodyByName(kInvalidName), std::logic_error,
       "There is no body named '.*' in the model.");
 
+<<<<<<< HEAD
   // Test we can also retrieve links as RigidBody objects.
   for (const std::string link_name : kLinkNames) {
     const RigidBody<T>& link = model.GetRigidBodyByName(link_name);
@@ -108,6 +117,8 @@ void VerifyModelBasics(const MultibodyTree<T>& model) {
       model.GetRigidBodyByName(kInvalidName), std::logic_error,
       "There is no body named '.*' in the model.");
 
+=======
+>>>>>>> intial
   // Get joints by name.
   for (const std::string joint_name : kJointNames) {
     const Joint<T>& joint = model.GetJointByName(joint_name);
@@ -145,8 +156,12 @@ void VerifyModelBasics(const MultibodyTree<T>& model) {
     // We added actuators and joints in the same order. Assert this before
     // making that assumption in the test that follows.
     const Joint<T>& joint = actuator.joint();
+<<<<<<< HEAD
     ASSERT_EQ(static_cast<int>(actuator.index()),
               static_cast<int>(joint.index()));
+=======
+    ASSERT_EQ(actuator.index(), joint.index());
+>>>>>>> intial
     const std::string& joint_name = kJointNames[names_index];
     EXPECT_EQ(joint.name(), joint_name);
     ++names_index;
@@ -167,11 +182,18 @@ GTEST_TEST(MultibodyTree, VerifyModelBasics) {
   // Attempt to add a body having the same name as a body already part of the
   // model. This is not allowed and an exception should be thrown.
   DRAKE_EXPECT_THROWS_MESSAGE(
+<<<<<<< HEAD
       model->AddRigidBody("iiwa_link_5", default_model_instance(),
                           SpatialInertia<double>()),
       std::logic_error,
       /* Verify this method is throwing for the right reasons. */
       ".* already contains a body named 'iiwa_link_5'. "
+=======
+      model->AddRigidBody("iiwa_link_5", SpatialInertia<double>()),
+      std::logic_error,
+      /* Verify this method is throwing for the right reasons. */
+      "This model already contains a body named 'iiwa_link_5'. "
+>>>>>>> intial
       "Body names must be unique within a given model.");
 
   // Attempt to add a joint having the same name as a joint already part of the
@@ -179,12 +201,22 @@ GTEST_TEST(MultibodyTree, VerifyModelBasics) {
   DRAKE_EXPECT_THROWS_MESSAGE(
       model->AddJoint<RevoluteJoint>(
           "iiwa_joint_4",
+<<<<<<< HEAD
           model->world_body(), {},
           model->GetBodyByName("iiwa_link_5"), {},
           Vector3<double>::UnitZ()),
       std::logic_error,
       /* Verify this method is throwing for the right reasons. */
       ".* already contains a joint named 'iiwa_joint_4'. "
+=======
+          /* Dummy frame definitions. Not relevant for this test. */
+          model->world_body(), {},
+          model->world_body(), {},
+          Vector3<double>::UnitZ()),
+      std::logic_error,
+      /* Verify this method is throwing for the right reasons. */
+      "This model already contains a joint named 'iiwa_joint_4'. "
+>>>>>>> intial
       "Joint names must be unique within a given model.");
 
   // Attempt to add a joint having the same name as a joint already part of the
@@ -195,7 +227,11 @@ GTEST_TEST(MultibodyTree, VerifyModelBasics) {
           model->GetJointByName("iiwa_joint_4")),
       std::logic_error,
       /* Verify this method is throwing for the right reasons. */
+<<<<<<< HEAD
       ".* already contains a joint actuator named 'iiwa_actuator_4'. "
+=======
+      "This model already contains a joint actuator named 'iiwa_actuator_4'. "
+>>>>>>> intial
           "Joint actuator names must be unique within a given model.");
 
   // Now we tested we cannot add body or joints with an existing name, finalize
@@ -635,6 +671,7 @@ TEST_F(KukaIiwaModelTests, CalcFrameGeometricJacobianExpressedInWorld) {
   EXPECT_TRUE(Jv_WF_times_v.IsApprox(V_WEf, kTolerance));
 }
 
+<<<<<<< HEAD
 // Verify that even when the input set of points and/or the Jacobian might
 // contain garbage on input, a query for the world body Jacobian will always
 // yield the following results:
@@ -781,7 +818,13 @@ TEST_F(WeldMobilizerTest, PositionKinematics) {
       kTolerance, MatrixCompareType::relative));
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace multibody_model
 }  // namespace multibody
 }  // namespace drake
+<<<<<<< HEAD
+=======
+
+>>>>>>> intial

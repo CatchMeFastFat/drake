@@ -32,7 +32,11 @@ void TestPublisher(const std::string& channel_name, lcm::DrakeMockLcm* lcm,
   EXPECT_EQ(dut->get_name(), "LcmPublisherSystem(" + channel_name + ")");
 
   unique_ptr<Context<double>> context = dut->CreateDefaultContext();
+<<<<<<< HEAD
   unique_ptr<SystemOutput<double>> output = dut->AllocateOutput();
+=======
+  unique_ptr<SystemOutput<double>> output = dut->AllocateOutput(*context);
+>>>>>>> intial
 
   // Verifies that the context has one input port.
   EXPECT_EQ(context->get_num_input_ports(), 1);
@@ -138,7 +142,11 @@ GTEST_TEST(LcmPublisherSystemTest, SerializerTest) {
 
   // Establishes the context, output, and input for the dut.
   unique_ptr<Context<double>> context = dut->CreateDefaultContext();
+<<<<<<< HEAD
   unique_ptr<SystemOutput<double>> output = dut->AllocateOutput();
+=======
+  unique_ptr<SystemOutput<double>> output = dut->AllocateOutput(*context);
+>>>>>>> intial
   const lcmt_drake_signal sample_data{
     2, { 1.0, 2.0, }, { "x", "y", }, 12345,
   };

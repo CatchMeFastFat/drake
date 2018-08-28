@@ -1,15 +1,22 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_googletest",
+    "drake_cc_library",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "geometry",
     deps = [
@@ -34,6 +41,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "proximity_engine",
     srcs = [
@@ -49,7 +58,10 @@ drake_cc_library(
         "//common",
         "//common:default_scalars",
         "//geometry/query_results:penetration_as_point_pair",
+<<<<<<< HEAD
         "//geometry/query_results:signed_distance_pair",
+=======
+>>>>>>> intial
         "@fcl",
     ],
 )
@@ -57,16 +69,27 @@ drake_cc_library(
 drake_cc_library(
     name = "frame_kinematics",
     srcs = [
+<<<<<<< HEAD
         "frame_kinematics_vector.cc",
     ],
     hdrs = [
+=======
+        "frame_id_vector.cc",
+        "frame_kinematics_vector.cc",
+    ],
+    hdrs = [
+        "frame_id_vector.h",
+>>>>>>> intial
         "frame_kinematics_vector.h",
     ],
     deps = [
         ":geometry_ids",
         "//common:autodiff",
         "//common:essential",
+<<<<<<< HEAD
         "//common:symbolic",
+=======
+>>>>>>> intial
     ],
 )
 
@@ -112,19 +135,25 @@ drake_cc_library(
         ":geometry_ids",
         ":materials",
         ":shape_specification",
+<<<<<<< HEAD
         ":utilities",
+=======
+>>>>>>> intial
         "//common:copyable_unique_ptr",
         "//common:essential",
     ],
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     name = "geometry_set",
     hdrs = ["geometry_set.h"],
     deps = [":geometry_ids"],
 )
 
 drake_cc_library(
+=======
+>>>>>>> intial
     # NOTE: The material library and file name don't appear to match. This
     # library will eventually contain multiple types of materials (e.g.,
     # contact, rendering, depth, etc.)
@@ -144,7 +173,10 @@ drake_cc_library(
         ":geometry_ids",
         ":geometry_index",
         ":geometry_instance",
+<<<<<<< HEAD
         ":geometry_set",
+=======
+>>>>>>> intial
         ":internal_frame",
         ":internal_geometry",
         ":proximity_engine",
@@ -152,6 +184,7 @@ drake_cc_library(
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     name = "scene_graph",
     srcs = [
         "query_object.cc",
@@ -160,31 +193,50 @@ drake_cc_library(
     hdrs = [
         "query_object.h",
         "scene_graph.h",
+=======
+    name = "geometry_system",
+    srcs = [
+        "geometry_system.cc",
+        "query_object.cc",
+    ],
+    hdrs = [
+        "geometry_system.h",
+        "query_object.h",
+>>>>>>> intial
     ],
     deps = [
         ":geometry_context",
         ":geometry_state",
+<<<<<<< HEAD
         ":scene_graph_inspector",
         "//common:essential",
         "//geometry/query_results:penetration_as_point_pair",
         "//geometry/query_results:signed_distance_pair",
+=======
+        "//common:essential",
+        "//geometry/query_results:penetration_as_point_pair",
+>>>>>>> intial
         "//systems/framework",
         "//systems/rendering:pose_bundle",
     ],
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     name = "scene_graph_inspector",
     hdrs = ["scene_graph_inspector.h"],
     deps = [":geometry_state"],
 )
 
 drake_cc_library(
+=======
+>>>>>>> intial
     name = "geometry_visualization",
     srcs = ["geometry_visualization.cc"],
     hdrs = ["geometry_visualization.h"],
     deps = [
         ":geometry_state",
+<<<<<<< HEAD
         ":scene_graph",
         "//lcm",
         "//lcmtypes:viewer",
@@ -192,6 +244,12 @@ drake_cc_library(
         "//systems/framework:diagram_builder",
         "//systems/lcm",
         "//systems/rendering:pose_bundle_to_draw_message",
+=======
+        ":geometry_system",
+        "//lcm",
+        "//lcmtypes:viewer",
+        "//math:geometric_transform",
+>>>>>>> intial
     ],
 )
 
@@ -234,6 +292,7 @@ drake_cc_library(
     deps = ["//common:essential"],
 )
 
+<<<<<<< HEAD
 drake_cc_library(
     name = "utilities",
     srcs = ["utilities.cc"],
@@ -241,18 +300,34 @@ drake_cc_library(
     deps = ["//common"],
 )
 
+=======
+>>>>>>> intial
 # -----------------------------------------------------
 
 drake_cc_googletest(
     name = "proximity_engine_test",
     deps = [
         ":proximity_engine",
+<<<<<<< HEAD
         ":shape_specification",
+=======
+>>>>>>> intial
         "//common/test_utilities:eigen_matrix_compare",
     ],
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
+=======
+    name = "frame_id_vector_test",
+    deps = [
+        ":frame_kinematics",
+        "//common/test_utilities:expect_throws_message",
+    ],
+)
+
+drake_cc_googletest(
+>>>>>>> intial
     name = "frame_kinematics_vector_test",
     deps = [
         ":frame_kinematics",
@@ -270,6 +345,7 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "geometry_instance_test",
+<<<<<<< HEAD
     deps = [
         ":geometry_instance",
         "//common/test_utilities",
@@ -282,6 +358,9 @@ drake_cc_googletest(
         ":geometry_ids",
         ":geometry_set",
     ],
+=======
+    deps = [":geometry_instance"],
+>>>>>>> intial
 )
 
 drake_cc_googletest(
@@ -293,10 +372,17 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "scene_graph_test",
     deps = [
         ":geometry_visualization",
         ":scene_graph",
+=======
+    name = "geometry_system_test",
+    deps = [
+        ":geometry_system",
+        ":geometry_visualization",
+>>>>>>> intial
         "//common/test_utilities:expect_throws_message",
     ],
 )
@@ -317,9 +403,13 @@ drake_cc_googletest(
 drake_cc_googletest(
     name = "query_object_test",
     deps = [
+<<<<<<< HEAD
         ":geometry_frame",
         ":geometry_instance",
         ":scene_graph",
+=======
+        ":geometry_system",
+>>>>>>> intial
         "//common/test_utilities:expect_throws_message",
     ],
 )
@@ -333,11 +423,14 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "utilities_test",
     deps = ["utilities"],
 )
 
 drake_cc_googletest(
+=======
+>>>>>>> intial
     name = "visual_material_test",
     deps = [
         ":materials",

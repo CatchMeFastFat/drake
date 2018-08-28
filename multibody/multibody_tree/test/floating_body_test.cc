@@ -215,7 +215,11 @@ GTEST_TEST(QuaternionFloatingMobilizer, Simulation) {
   const Quaterniond q_WB = mobilizer.get_quaternion(context);
   const Vector4d q_WB_vec4(q_WB.w(), q_WB.x(), q_WB.y(), q_WB.z());
 
+<<<<<<< HEAD
   // After numerical integration, and with no projection, the quaternion
+=======
+  // After numerical intergration, and with no projection, the quaternion
+>>>>>>> intial
   // representing the body's orientation is no longer unit length, however close
   // to it by kNormalizationTolerance.
   const double kNormalizationTolerance = 5e-9;

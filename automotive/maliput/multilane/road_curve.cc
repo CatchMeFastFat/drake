@@ -1,5 +1,6 @@
 #include "drake/automotive/maliput/multilane/road_curve.h"
 
+<<<<<<< HEAD
 #include <algorithm>
 #include <memory>
 
@@ -8,10 +9,13 @@
 #include "drake/systems/analysis/integrator_base.h"
 #include "drake/systems/analysis/scalar_dense_output.h"
 
+=======
+>>>>>>> intial
 namespace drake {
 namespace maliput {
 namespace multilane {
 
+<<<<<<< HEAD
 namespace {
 
 // Arc length derivative function ds/dp = f(p; [r, h]) for numerical resolution
@@ -236,6 +240,8 @@ double RoadCurve::CalcGPrimeAsUsedForCalcSFromP(double p) const {
   return elevation().f_dot_p(p);
 }
 
+=======
+>>>>>>> intial
 Vector3<double> RoadCurve::W_of_prh(double p, double r, double h) const {
   // Calculates z (elevation) of (p,0,0).
   const double z = elevation().f_p(p) * p_scale();

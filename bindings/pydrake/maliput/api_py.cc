@@ -7,7 +7,10 @@
 #include "drake/automotive/maliput/api/road_geometry.h"
 #include "drake/automotive/maliput/api/segment.h"
 #include "drake/bindings/pydrake/pydrake_pybind.h"
+<<<<<<< HEAD
 #include "drake/bindings/pydrake/util/wrap_pybind.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace pydrake {
@@ -25,7 +28,11 @@ PYBIND11_MODULE(api, m) {
       .def(py::init<std::string>())
       .def("string", &RoadGeometryId::string, py_reference_internal);
 
+<<<<<<< HEAD
   py::class_<GeoPosition>(m, "GeoPosition")
+=======
+  py::class_<GeoPosition> (m, "GeoPosition")
+>>>>>>> intial
       .def(py::init<double, double, double>(), py::arg("x"), py::arg("y"),
            py::arg("z"))
       .def("xyz", &GeoPosition::xyz, py_reference_internal);
@@ -35,6 +42,7 @@ PYBIND11_MODULE(api, m) {
            py::arg("h"))
       .def("srh", &LanePosition::srh, py_reference_internal);
 
+<<<<<<< HEAD
   py::class_<RoadPosition> road_position(m, "RoadPosition");
   road_position
       .def(py::init<>())
@@ -45,6 +53,8 @@ PYBIND11_MODULE(api, m) {
       .def_readwrite("pos", &RoadPosition::pos);
   DefReadWriteKeepAlive(&road_position, "lane", &RoadPosition::lane);
 
+=======
+>>>>>>> intial
   py::class_<RoadGeometry>(m, "RoadGeometry")
       .def("junction", &RoadGeometry::junction, py_reference_internal);
 
@@ -54,6 +64,7 @@ PYBIND11_MODULE(api, m) {
   py::class_<Segment>(m, "Segment")
       .def("lane", &Segment::lane, py_reference_internal);
 
+<<<<<<< HEAD
   py::class_<LaneId>(m, "LaneId")
       .def(py::init<std::string>())
       .def("string", &LaneId::string, py_reference_internal);
@@ -62,6 +73,11 @@ PYBIND11_MODULE(api, m) {
       .def("ToLanePosition", &Lane::ToLanePosition)
       .def("ToGeoPosition", &Lane::ToGeoPosition)
       .def("id", &Lane::id);
+=======
+  py::class_<Lane>(m, "Lane")
+      .def("ToLanePosition", &Lane::ToLanePosition)
+      .def("ToGeoPosition", &Lane::ToGeoPosition);
+>>>>>>> intial
 }
 
 }  // namespace pydrake

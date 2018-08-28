@@ -21,6 +21,7 @@ DrakeVisualizer::DrakeVisualizer(const RigidBodyTree<double>& tree,
                                  bool enable_playback)
     : lcm_(lcm),
       load_message_(multibody::CreateLoadRobotMessage<double>(tree)),
+<<<<<<< HEAD
       draw_message_translator_(tree),
       tree_(tree) {
   set_name("drake_visualizer");
@@ -28,6 +29,13 @@ DrakeVisualizer::DrakeVisualizer(const RigidBodyTree<double>& tree,
   DeclareInputPort(kVectorValued, input_size);
   if (enable_playback)
     log_.reset(new SignalLog<double>(tree.get_num_positions()));
+=======
+      draw_message_translator_(tree) {
+  set_name("drake_visualizer");
+  const int vector_size = tree.get_num_positions() + tree.get_num_velocities();
+  DeclareInputPort(kVectorValued, vector_size);
+  if (enable_playback) log_.reset(new SignalLog<double>(vector_size));
+>>>>>>> intial
 
   PublishEvent<double> init_event(
       Event<double>::TriggerType::kInitialization);
@@ -87,10 +95,16 @@ void DrakeVisualizer::PlaybackTrajectory(
   const double kFrameLength = 1 / 60.0;
   double sim_time = input_trajectory.start_time();
   TimePoint prev_time = Clock::now();
+<<<<<<< HEAD
   const int num_positions = tree_.get_num_positions();
   BasicVector<double> data(num_positions);
   while (sim_time < input_trajectory.end_time()) {
     data.set_value(input_trajectory.value(sim_time).col(0).head(num_positions));
+=======
+  BasicVector<double> data(log_->get_input_size());
+  while (sim_time < input_trajectory.end_time()) {
+    data.set_value(input_trajectory.value(sim_time));
+>>>>>>> intial
 
     // Translates the input vector into an array of bytes representing an LCM
     // message.
@@ -110,9 +124,13 @@ void DrakeVisualizer::PlaybackTrajectory(
 
   // Final evaluation is at the final time stamp, guaranteeing the final state
   // is visualized.
+<<<<<<< HEAD
   data.set_value(input_trajectory.value(input_trajectory.end_time())
                      .col(0)
                      .head(num_positions));
+=======
+  data.set_value(input_trajectory.value(input_trajectory.end_time()));
+>>>>>>> intial
   std::vector<uint8_t> message_bytes;
   draw_message_translator_.Serialize(sim_time, data, &message_bytes);
   lcm_->Publish("DRAKE_VIEWER_DRAW", message_bytes.data(),
@@ -133,15 +151,24 @@ void DrakeVisualizer::DoPublish(
   // RigidBodyTree.
   const BasicVector<double>* input_vector =
       EvalVectorInput(context, kPortIndex);
+<<<<<<< HEAD
   const auto q = input_vector->get_value().head(tree_.get_num_positions());
   if (log_ != nullptr) {
     log_->AddData(context.get_time(), q);
+=======
+  if (log_ != nullptr) {
+    log_->AddData(context.get_time(), input_vector->get_value());
+>>>>>>> intial
   }
 
   // Translates the input vector into an array of bytes representing an LCM
   // message.
   std::vector<uint8_t> message_bytes;
+<<<<<<< HEAD
   draw_message_translator_.Serialize(context.get_time(), BasicVector<double>{q},
+=======
+  draw_message_translator_.Serialize(context.get_time(), *input_vector,
+>>>>>>> intial
                                      &message_bytes);
 
   // Publishes onto the specified LCM channel.

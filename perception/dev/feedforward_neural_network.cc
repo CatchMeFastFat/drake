@@ -4,7 +4,11 @@ namespace drake {
 
 using std::vector;
 using drake::systems::Context;
+<<<<<<< HEAD
 using drake::systems::InputPort;
+=======
+using drake::systems::InputPortDescriptor;
+>>>>>>> intial
 using drake::systems::OutputPort;
 using drake::systems::System;
 using drake::systems::BasicVector;
@@ -118,7 +122,11 @@ template <typename T>
 VectorX<T> FeedforwardNeuralNetwork<T>::EvaluateLayer(
     const VectorX<T>& layerInput, MatrixX<T> Weights, VectorX<T> bias,
     LayerType layer, NonlinearityType nonlinearity) const {
+<<<<<<< HEAD
   // Only supports fully-connected RELU at this time
+=======
+  // Only suppports fully-connected RELU at this time
+>>>>>>> intial
   DRAKE_DEMAND(layer == LayerType::FullyConnected);
   DRAKE_DEMAND(nonlinearity == NonlinearityType::Relu);
   VectorX<T> layer_output = relu(Weights * layerInput + bias);
@@ -218,7 +226,11 @@ FeedforwardNeuralNetwork<T>::DecodeWeightsFromBasicVector(
 }
 
 template <typename T>
+<<<<<<< HEAD
 const InputPort<T>& FeedforwardNeuralNetwork<T>::input() const {
+=======
+const InputPortDescriptor<T>& FeedforwardNeuralNetwork<T>::input() const {
+>>>>>>> intial
   return System<T>::get_input_port(input_index_);
 }
 
@@ -230,6 +242,7 @@ const OutputPort<T>& FeedforwardNeuralNetwork<T>::output() const {
 template <typename T>
 const VectorX<T> FeedforwardNeuralNetwork<T>::ReadInput(
     const Context<T>& context) const {
+<<<<<<< HEAD
   // This is an abstract-valued port that happens to contain a vector.
   const BasicVector<T>* input =
       this->template EvalInputValue<BasicVector<T>>(context, input_index_);
@@ -237,6 +250,13 @@ const VectorX<T> FeedforwardNeuralNetwork<T>::ReadInput(
   return input->get_value();
 }
 
+=======
+  const BasicVector<T>* input =
+      this->template EvalVectorInput<BasicVector>(context, input_index_);
+  DRAKE_ASSERT((input != nullptr));
+  return input->get_value();
+}
+>>>>>>> intial
 template <typename T>
 void FeedforwardNeuralNetwork<T>::WriteOutput(const VectorX<T> value,
                                               BasicVector<T>* output) const {

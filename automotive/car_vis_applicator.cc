@@ -35,7 +35,11 @@ CarVisApplicator<T>::CarVisApplicator() {
 }
 
 template <typename T>
+<<<<<<< HEAD
 const systems::InputPort<T>&
+=======
+const systems::InputPortDescriptor<T>&
+>>>>>>> intial
 CarVisApplicator<T>::get_car_poses_input_port() const {
   return systems::System<T>::get_input_port(input_port_index_);
 }

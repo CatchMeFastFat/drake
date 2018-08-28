@@ -3,30 +3,48 @@ namespace: "drake::automotive"
 element {
      name: "Psi"  # Must be element 0.
      doc: "yaw angle"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
      name: "Psi_dot"  # Must be element 1.
      doc: "yaw angular rate"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
      name: "beta"
      doc: "slip angle at the center of mass"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
      name: "vel"
      doc: "velocity magnitude"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
      name: "sx"
      doc: "x-position at the center of mass"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
      name: "sy"
      doc: "y-position at the center of mass"
+<<<<<<< HEAD
      default_value: "0.0"
+=======
+>>>>>>> intial
 }

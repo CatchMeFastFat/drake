@@ -43,7 +43,11 @@ class IdmControllerTest
     dut_.reset(new IdmController<double>(*road_, path_or_branches,
                cache_or_search_, period_sec_));
     context_ = dut_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
+=======
+    output_ = dut_->AllocateOutput(*context_);
+>>>>>>> intial
 
     const auto idm = dynamic_cast<const IdmController<double>*>(dut_.get());
     DRAKE_DEMAND(idm != nullptr);
@@ -117,6 +121,7 @@ TEST_P(IdmControllerTest, Topology) {
   SetUpIdm(ScanStrategy::kPath);
 
   ASSERT_EQ(3, dut_->get_num_input_ports());
+<<<<<<< HEAD
   const auto& ego_pose_input_port =
       dut_->get_input_port(ego_pose_input_index_);
   EXPECT_EQ(systems::kVectorValued, ego_pose_input_port.get_data_type());
@@ -129,6 +134,20 @@ TEST_P(IdmControllerTest, Topology) {
   const auto& traffic_input_port =
       dut_->get_input_port(traffic_input_index_);
   EXPECT_EQ(systems::kAbstractValued, traffic_input_port.get_data_type());
+=======
+  const auto& ego_pose_input_descriptor =
+      dut_->get_input_port(ego_pose_input_index_);
+  EXPECT_EQ(systems::kVectorValued, ego_pose_input_descriptor.get_data_type());
+  EXPECT_EQ(7 /* PoseVector input */, ego_pose_input_descriptor.size());
+  const auto& ego_velocity_input_descriptor =
+      dut_->get_input_port(ego_velocity_input_index_);
+  EXPECT_EQ(systems::kVectorValued,
+            ego_velocity_input_descriptor.get_data_type());
+  EXPECT_EQ(6 /* FrameVelocity input */, ego_velocity_input_descriptor.size());
+  const auto& traffic_input_descriptor =
+      dut_->get_input_port(traffic_input_index_);
+  EXPECT_EQ(systems::kAbstractValued, traffic_input_descriptor.get_data_type());
+>>>>>>> intial
 
   ASSERT_EQ(1, dut_->get_num_output_ports());
   const auto& output_port = dut_->get_output_port(acceleration_output_index_);
@@ -227,7 +246,11 @@ TEST_P(IdmControllerTest, ToAutoDiff) {
 
   EXPECT_TRUE(is_autodiffxd_convertible(*dut_, [&](const auto& other_dut) {
     const auto other_context = other_dut.CreateDefaultContext();
+<<<<<<< HEAD
     const auto other_output = other_dut.AllocateOutput();
+=======
+    const auto other_output = other_dut.AllocateOutput(*other_context);
+>>>>>>> intial
 
     // Verify that CalcOutput returns a result and validate its AutoDiff
     // derivatives.

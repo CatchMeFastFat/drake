@@ -59,6 +59,7 @@ std::unique_ptr<RigidBodyTree<double>> build_tree(
   return tree_builder->Build();
 }
 
+<<<<<<< HEAD
 GTEST_TEST(WorldSimTreeBuilderTest, TestFindNotStoredModel) {
   auto tree_builder = std::make_unique<WorldSimTreeBuilder<double>>();
   // Should throw if we are trying to find a model that doesn't exist.
@@ -108,6 +109,8 @@ GTEST_TEST(WorldSimTreeBuilderTest, TestBuildWithInitialRigidBodyTree) {
                               1e-15, MatrixCompareType::absolute));
 }
 
+=======
+>>>>>>> intial
 // Builds a diagram with 2 iiwa arm with inverse dynamics controllers. Start
 // the simulation from a non zero configuration with the controller trying to
 // maintain the initial configuration. Assert that after simulation, the robots
@@ -178,7 +181,11 @@ GTEST_TEST(SimDiagramBuilderTest, TestSimulation) {
   simulator.Initialize();
   simulator.StepTo(0.02);
 
+<<<<<<< HEAD
   auto state_output = diagram->AllocateOutput();
+=======
+  auto state_output = diagram->AllocateOutput(simulator.get_context());
+>>>>>>> intial
   diagram->CalcOutput(simulator.get_context(), state_output.get());
   const auto final_output_data = state_output->get_vector_data(0)->get_value();
 

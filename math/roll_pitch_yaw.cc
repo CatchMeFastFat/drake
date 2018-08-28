@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "drake/math/roll_pitch_yaw.h"
 
 #include <string>
@@ -231,3 +232,9 @@ void RollPitchYaw<T>::ThrowPitchAngleViolatesGimbalLockTolerance(
 DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_NONSYMBOLIC_SCALARS(
     class ::drake::math::RollPitchYaw)
 
+=======
+// For now, this is an empty .cc file that only serves to confirm
+// roll_pitch_yaw.h is a stand-alone header.
+
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial

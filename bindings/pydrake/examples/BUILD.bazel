@@ -50,6 +50,7 @@ drake_pybind_library(
 )
 
 drake_pybind_library(
+<<<<<<< HEAD
     name = "compass_gait_py",
     cc_deps = [
         "//examples/compass_gait",
@@ -64,6 +65,8 @@ drake_pybind_library(
 )
 
 drake_pybind_library(
+=======
+>>>>>>> intial
     name = "pendulum_py",
     cc_deps = [
         "//examples/pendulum:pendulum_plant",
@@ -91,6 +94,7 @@ drake_pybind_library(
     ],
 )
 
+<<<<<<< HEAD
 drake_pybind_library(
     name = "van_der_pol_py",
     cc_deps = [
@@ -112,14 +116,23 @@ PY_LIBRARIES_WITH_INSTALL = [
     ":rimless_wheel_py",
     ":van_der_pol_py",
     "//bindings/pydrake/examples/multibody",
+=======
+PY_LIBRARIES_WITH_INSTALL = [
+    ":acrobot_py",
+    ":pendulum_py",
+    ":rimless_wheel_py",
+>>>>>>> intial
 ]
 
 PY_LIBRARIES = [
     ":module_py",
 ]
 
+<<<<<<< HEAD
 # Package roll-up (for Bazel dependencies).
 # N.B. `examples` packages do not have `all` modules.
+=======
+>>>>>>> intial
 drake_py_library(
     name = "examples",
     imports = PACKAGE_INFO.py_imports,
@@ -135,6 +148,7 @@ install(
 
 drake_py_unittest(
     name = "acrobot_test",
+<<<<<<< HEAD
     deps = [
         ":acrobot_py",
     ],
@@ -145,11 +159,20 @@ drake_py_unittest(
     size = "small",
     deps = [
         ":compass_gait_py",
+=======
+    size = "small",
+    deps = [
+        ":acrobot_py",
+>>>>>>> intial
     ],
 )
 
 drake_py_unittest(
     name = "pendulum_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     deps = [
         ":pendulum_py",
     ],
@@ -157,11 +180,16 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "rimless_wheel_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     deps = [
         ":rimless_wheel_py",
     ],
 )
 
+<<<<<<< HEAD
 drake_py_unittest(
     name = "van_der_pol_test",
     deps = [
@@ -169,4 +197,6 @@ drake_py_unittest(
     ],
 )
 
+=======
+>>>>>>> intial
 add_lint_tests()

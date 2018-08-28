@@ -29,10 +29,17 @@ class AccelerometerTestLogger : public LeafSystem<double> {
       const;
   Eigen::VectorXd get_acceleration(const Context<double>& context) const;
 
+<<<<<<< HEAD
   const InputPort<double>& get_plant_state_input_port() const;
   const InputPort<double>& get_plant_state_derivative_input_port()
       const;
   const InputPort<double>& get_acceleration_input_port() const;
+=======
+  const InputPortDescriptor<double>& get_plant_state_input_port() const;
+  const InputPortDescriptor<double>& get_plant_state_derivative_input_port()
+      const;
+  const InputPortDescriptor<double>& get_acceleration_input_port() const;
+>>>>>>> intial
 
  private:
   // Logging is done in this method.

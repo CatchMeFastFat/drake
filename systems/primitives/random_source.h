@@ -22,9 +22,14 @@ typename Generator::result_type generate_unique_seed();
 template <typename Distribution, typename Generator = std::mt19937>
 class RandomState {
  public:
+<<<<<<< HEAD
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(RandomState)
 
   typedef typename Generator::result_type Seed;
+=======
+  typedef typename Generator::result_type Seed;
+  static constexpr Seed default_seed = Generator::default_seed;
+>>>>>>> intial
 
   explicit RandomState(Seed seed) : generator_(seed) {}
 
@@ -82,6 +87,13 @@ class RandomSource : public LeafSystem<double> {
     this->DeclareAbstractState(AbstractValue::Make(RandomState(seed_)));
   }
 
+<<<<<<< HEAD
+=======
+  /// Initializes the random number generator.  This must be set before
+  /// the (abstract) state is allocated to take effect.
+  void set_random_seed(Seed seed) { seed_ = seed; }
+
+>>>>>>> intial
  private:
   // Computes a random number and stores it in the discrete state.
   void DoCalcUnrestrictedUpdate(
@@ -91,7 +103,12 @@ class RandomSource : public LeafSystem<double> {
     auto& random_state =
         state->template get_mutable_abstract_state<RandomState>(0);
     auto& updates = state->get_mutable_discrete_state();
+<<<<<<< HEAD
     for (int i = 0; i < updates.size(); i++) {
+=======
+    const int N = updates.size();
+    for (int i = 0; i < N; i++) {
+>>>>>>> intial
       updates[i] = random_state.GetNextValue();
     }
   }
@@ -101,6 +118,7 @@ class RandomSource : public LeafSystem<double> {
         AbstractValue::Make(RandomState(seed_)));
   }
 
+<<<<<<< HEAD
   void SetDefaultState(const Context<double>& context,
                        State<double>* state) const override {
     unused(context);
@@ -125,13 +143,19 @@ class RandomSource : public LeafSystem<double> {
     }
   }
 
+=======
+>>>>>>> intial
   // Output is the zero-order hold of the discrete state.
   void CopyStateToOutput(const Context<double>& context,
                          BasicVector<double>* output) const {
     output->SetFromVector(context.get_discrete_state(0).CopyToVector());
   }
 
+<<<<<<< HEAD
   const Seed seed_;
+=======
+  Seed seed_{RandomState::default_seed};
+>>>>>>> intial
 };
 
 }  // namespace internal
@@ -160,7 +184,11 @@ typedef internal::RandomSource<std::exponential_distribution<double>>
     ExponentialRandomSource;
 
 /// For each subsystem input port in @p builder that is (a) not yet connected
+<<<<<<< HEAD
 /// and (b) labeled as random in the InputPort, this method will add a
+=======
+/// and (b) labeled as random in the InputPortDescriptor, this method will add a
+>>>>>>> intial
 /// new RandomSource system of the appropriate type and connect it to the
 /// subsystem input port.
 ///

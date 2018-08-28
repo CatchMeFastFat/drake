@@ -80,6 +80,7 @@ class SymbolicPolynomialTest : public ::testing::Test {
   };
 };
 
+<<<<<<< HEAD
 // Tests that default constructor and EIGEN_INITIALIZE_MATRICES_BY_ZERO
 // constructor both create the same value.
 TEST_F(SymbolicPolynomialTest, DefaultConstructors) {
@@ -88,6 +89,11 @@ TEST_F(SymbolicPolynomialTest, DefaultConstructors) {
 
   const Polynomial p_zero(0);
   EXPECT_TRUE(p_zero.monomial_to_coefficient_map().empty());
+=======
+TEST_F(SymbolicPolynomialTest, DefaultConstructor) {
+  const Polynomial p{};
+  EXPECT_TRUE(p.monomial_to_coefficient_map().empty());
+>>>>>>> intial
 }
 
 TEST_F(SymbolicPolynomialTest, ConstructFromMapType1) {
@@ -787,6 +793,7 @@ TEST_F(SymbolicPolynomialTest, Hash) {
   EXPECT_NE(h(p1), h(p2));
 }
 
+<<<<<<< HEAD
 TEST_F(SymbolicPolynomialTest, RemoveTermsWithSmallCoefficients) {
   // Single term.
   Polynomial p1{1e-5 * x_ * x_};
@@ -815,6 +822,8 @@ TEST_F(SymbolicPolynomialTest, RemoveTermsWithSmallCoefficients) {
                Polynomial(p3_map).RemoveTermsWithSmallCoefficients(1E-3),
                Polynomial(p3_expected_map));
 }
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace symbolic
 }  // namespace drake

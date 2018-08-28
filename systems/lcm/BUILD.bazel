@@ -1,15 +1,20 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "lcm",
     deps = [
@@ -22,6 +27,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "translator",
     srcs = [
@@ -50,7 +57,11 @@ drake_cc_library(
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     name = "lcm_pubsub_system",
+=======
+    name = "lcm",
+>>>>>>> intial
     srcs = [
         "lcm_publisher_system.cc",
         "lcm_subscriber_system.cc",
@@ -77,7 +88,11 @@ drake_cc_library(
         "lcm_log_playback_system.h",
     ],
     deps = [
+<<<<<<< HEAD
         ":lcm_pubsub_system",
+=======
+        ":lcm",
+>>>>>>> intial
         "//lcm:lcm_log",
         "//systems/framework",
     ],
@@ -92,7 +107,11 @@ drake_cc_library(
         "lcm_driven_loop.h",
     ],
     deps = [
+<<<<<<< HEAD
         ":lcm_pubsub_system",
+=======
+        ":lcm",
+>>>>>>> intial
         "//lcm",
         "//systems/analysis",
     ],
@@ -132,7 +151,11 @@ drake_cc_googletest(
 drake_cc_googletest(
     name = "lcm_publisher_system_test",
     deps = [
+<<<<<<< HEAD
         ":lcm_pubsub_system",
+=======
+        ":lcm",
+>>>>>>> intial
         ":lcmt_drake_signal_translator",
         "//lcm:lcmt_drake_signal_utils",
         "//lcm:mock",
@@ -152,7 +175,11 @@ drake_cc_googletest(
 drake_cc_googletest(
     name = "lcm_subscriber_system_test",
     deps = [
+<<<<<<< HEAD
         ":lcm_pubsub_system",
+=======
+        ":lcm",
+>>>>>>> intial
         ":lcmt_drake_signal_translator",
         "//lcm:lcmt_drake_signal_utils",
         "//lcm:mock",
@@ -173,7 +200,11 @@ drake_cc_googletest(
 drake_cc_googletest(
     name = "serializer_test",
     deps = [
+<<<<<<< HEAD
         ":lcm_pubsub_system",
+=======
+        ":lcm",
+>>>>>>> intial
         ":lcmt_drake_signal_translator",
         "//lcm:lcmt_drake_signal_utils",
         "//lcm:mock",

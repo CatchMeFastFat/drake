@@ -62,7 +62,11 @@ class ManipulatorMoveJointPlanEvalSystem
   /**
    * Returns the input port for desired position and velocity.
    */
+<<<<<<< HEAD
   inline const systems::InputPort<double>&
+=======
+  inline const systems::InputPortDescriptor<double>&
+>>>>>>> intial
   get_input_port_desired_state() const {
     return get_input_port(input_port_index_desired_state_);
   }
@@ -70,7 +74,11 @@ class ManipulatorMoveJointPlanEvalSystem
   /**
    * Returns the input port for desired acceleration.
    */
+<<<<<<< HEAD
   inline const systems::InputPort<double>&
+=======
+  inline const systems::InputPortDescriptor<double>&
+>>>>>>> intial
   get_input_port_desired_acceleration() const {
     return get_input_port(input_port_index_desired_acceleration_);
   }

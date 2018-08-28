@@ -75,7 +75,11 @@ class ManipulatorJointSpaceController
   /**
    * Returns the input port for estimated state.
    */
+<<<<<<< HEAD
   const systems::InputPort<double>& get_input_port_estimated_state()
+=======
+  const systems::InputPortDescriptor<double>& get_input_port_estimated_state()
+>>>>>>> intial
       const final {
     return systems::Diagram<double>::get_input_port(
         input_port_index_estimated_state_);
@@ -84,7 +88,11 @@ class ManipulatorJointSpaceController
   /**
    * Returns the input port for desired state.
    */
+<<<<<<< HEAD
   const systems::InputPort<double>& get_input_port_desired_state()
+=======
+  const systems::InputPortDescriptor<double>& get_input_port_desired_state()
+>>>>>>> intial
       const final {
     return systems::Diagram<double>::get_input_port(
         input_port_index_desired_state_);
@@ -93,7 +101,11 @@ class ManipulatorJointSpaceController
   /**
    * Returns the input port for desired acceleration.
    */
+<<<<<<< HEAD
   const systems::InputPort<double>&
+=======
+  const systems::InputPortDescriptor<double>&
+>>>>>>> intial
   get_input_port_desired_acceleration() const {
     return systems::Diagram<double>::get_input_port(
         input_port_index_desired_acceleration_);

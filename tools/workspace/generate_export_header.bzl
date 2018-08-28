@@ -108,5 +108,9 @@ def generate_export_header(
         no_export_macro_name = no_export_macro_name,
         no_export_deprecated_macro_name = no_export_deprecated_macro_name,
         static_define = static_define,
+<<<<<<< HEAD
         **kwargs
     )
+=======
+        **kwargs)
+>>>>>>> intial

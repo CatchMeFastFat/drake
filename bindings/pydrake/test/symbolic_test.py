@@ -163,12 +163,15 @@ class TestSymbolicVariable(SymbolicTestCase):
         self.assertEqual(str(sym.if_then_else(x > y, x, y)),
                          "(if (x > y) then x else y)")
 
+<<<<<<< HEAD
     def test_array_str(self):
         # Addresses #8729.
         value = str(np.array([x, y]))
         self.assertIn("Variable('x')", value)
         self.assertIn("Variable('y')", value)
 
+=======
+>>>>>>> intial
 
 class TestSymbolicVariables(SymbolicTestCase):
     def test_default_constructor(self):
@@ -433,9 +436,15 @@ class TestSymbolicExpression(SymbolicTestCase):
             VectorizedAlgebra(
                 self._check_array,
                 scalar_to_float=lambda x: x.Evaluate()))
+<<<<<<< HEAD
         self.assertEqual(xv.shape, (2,))
         self.assertIsInstance(xv[0], sym.Variable)
         self.assertEqual(e_xv.shape, (2,))
+=======
+        self.assertEquals(xv.shape, (2,))
+        self.assertIsInstance(xv[0], sym.Variable)
+        self.assertEquals(e_xv.shape, (2,))
+>>>>>>> intial
         self.assertIsInstance(e_xv[0], sym.Expression)
 
     def test_equalto(self):

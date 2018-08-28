@@ -12,7 +12,10 @@
 #include "drake/common/extract_double.h"
 #include "drake/math/quaternion.h"
 #include "drake/math/roll_pitch_yaw.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace maliput {
@@ -70,7 +73,11 @@ class Rotation {
   /// expressing a roll around X, followed by pitch around Y,
   /// followed by yaw around Z (with all angles in radians).
   static Rotation FromRpy(const Vector3<double>& rpy) {
+<<<<<<< HEAD
     return Rotation(math::RollPitchYaw<double>(rpy).ToQuaternion());
+=======
+    return Rotation(math::RollPitchYawToQuaternion(rpy));
+>>>>>>> intial
   }
 
   /// Constructs a Rotation expressing a @p roll around X, followed by
@@ -93,8 +100,13 @@ class Rotation {
 
   /// Provides a representation of rotation as a vector of angles
   /// `[roll, pitch, yaw]` (in radians).
+<<<<<<< HEAD
   math::RollPitchYaw<double> rpy() const {
     return math::RollPitchYaw<double>(quaternion_);
+=======
+  Vector3<double> rpy() const {
+    return math::QuaternionToSpaceXYZ(quaternion_);
+>>>>>>> intial
   }
 
   // TODO(maddog@tri.global)  Deprecate and/or remove roll()/pitch()/yaw(),
@@ -102,6 +114,7 @@ class Rotation {
   //                          most call-sites should probably be using something
   //                          else (e.g., quaternion) anyway.
   /// Returns the roll component of the Rotation (in radians).
+<<<<<<< HEAD
   double roll() const { return rpy().roll_angle(); }
 
   /// Returns the pitch component of the Rotation (in radians).
@@ -109,6 +122,15 @@ class Rotation {
 
   /// Returns the yaw component of the Rotation (in radians).
   double yaw() const { return rpy().yaw_angle(); }
+=======
+  double roll() const { return rpy().x(); }
+
+  /// Returns the pitch component of the Rotation (in radians).
+  double pitch() const { return rpy().y(); }
+
+  /// Returns the yaw component of the Rotation (in radians).
+  double yaw() const { return rpy().z(); }
+>>>>>>> intial
 
  private:
   explicit Rotation(const Quaternion<double>& quat) : quaternion_(quat) {}

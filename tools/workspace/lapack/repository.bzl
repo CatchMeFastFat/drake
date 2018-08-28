@@ -1,6 +1,7 @@
 # -*- mode: python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/workspace:os.bzl",
     "determine_os",
 )
@@ -35,3 +36,19 @@ lapack_repository = repository_rule(
     local = True,
     implementation = _impl,
 )
+=======
+    "@drake//tools/workspace:pkg_config.bzl",
+    "pkg_config_repository",
+)
+
+def lapack_repository(
+        name,
+        licenses = ["notice"],  # BSD-3-Clause
+        modname = "lapack",
+        **kwargs):
+    pkg_config_repository(
+        name = name,
+        licenses = licenses,
+        modname = modname,
+        **kwargs)
+>>>>>>> intial

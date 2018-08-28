@@ -1,15 +1,22 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_googletest",
+    "drake_cc_library",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "query_results",
     deps = [
@@ -18,6 +25,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "penetration_as_point_pair",
     srcs = [],
@@ -28,6 +37,7 @@ drake_cc_library(
     ],
 )
 
+<<<<<<< HEAD
 drake_cc_library(
     name = "signed_distance_pair",
     srcs = [],
@@ -38,4 +48,6 @@ drake_cc_library(
     ],
 )
 
+=======
+>>>>>>> intial
 add_lint_tests()

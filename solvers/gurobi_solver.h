@@ -1,7 +1,10 @@
 #pragma once
 
 #include <functional>
+<<<<<<< HEAD
 #include <memory>
+=======
+>>>>>>> intial
 #include <string>
 
 #include "drake/common/autodiff.h"
@@ -111,6 +114,7 @@ class GurobiSolver : public MathematicalProgramSolverInterface {
   /// @return same as MathematicalProgramSolverInterface::solver_id()
   static SolverId id();
 
+<<<<<<< HEAD
   /**
    * This type contains a valid Gurobi license environment, and is only to be
    * used from AcquireLicense().
@@ -138,6 +142,9 @@ class GurobiSolver : public MathematicalProgramSolverInterface {
   // during the first call of Solve() (which avoids grabbing a Gurobi license
   // before we know that we actually want one).
   mutable std::shared_ptr<License> license_;
+=======
+ private:
+>>>>>>> intial
   // Callbacks and generic user data to pass through,
   // or NULL if no callback has been supplied.
   MipNodeCallbackFunction mip_node_callback_;

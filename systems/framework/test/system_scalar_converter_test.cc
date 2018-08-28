@@ -146,6 +146,7 @@ void TestConversionFail() {
   EXPECT_TRUE(converted == nullptr);
 }
 
+<<<<<<< HEAD
 GTEST_TEST(SystemScalarConverterTest, Empty) {
   const SystemScalarConverter dut1;
   const SystemScalarConverter dut2(SystemTypeTag<AnyToAnySystem>{});
@@ -153,6 +154,8 @@ GTEST_TEST(SystemScalarConverterTest, Empty) {
   EXPECT_FALSE(dut2.empty());
 }
 
+=======
+>>>>>>> intial
 GTEST_TEST(SystemScalarConverterTest, DefaualtConstructor) {
   // With the default ctor, nothing is convertible ...
   const SystemScalarConverter dut;

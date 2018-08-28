@@ -84,18 +84,30 @@ class IiwaAndWsgPlantWithStateEstimator : public systems::Diagram<T> {
     return plant_->get_rigid_body_tree();
   }
 
+<<<<<<< HEAD
   const systems::InputPort<T>& get_input_port_iiwa_state_command(
+=======
+  const systems::InputPortDescriptor<T>& get_input_port_iiwa_state_command(
+>>>>>>> intial
       int index = 0) const {
     return this->get_input_port(input_port_iiwa_state_command_.at(index));
   }
 
+<<<<<<< HEAD
   const systems::InputPort<T>&
+=======
+  const systems::InputPortDescriptor<T>&
+>>>>>>> intial
   get_input_port_iiwa_acceleration_command(int index = 0) const {
     return this->get_input_port(
         input_port_iiwa_acceleration_command_.at(index));
   }
 
+<<<<<<< HEAD
   const systems::InputPort<T>& get_input_port_wsg_command(
+=======
+  const systems::InputPortDescriptor<T>& get_input_port_wsg_command(
+>>>>>>> intial
       int index = 0) const {
     return this->get_input_port(input_port_wsg_command_.at(index));
   }

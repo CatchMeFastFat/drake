@@ -1,5 +1,6 @@
 #include "drake/common/scoped_singleton.h"
 
+<<<<<<< HEAD
 #include <chrono>
 #include <memory>
 #include <string>
@@ -10,6 +11,13 @@
 #include "drake/common/drake_assert.h"
 #include "drake/common/never_destroyed.h"
 
+=======
+#include <memory>
+#include <string>
+
+#include <gtest/gtest.h>
+
+>>>>>>> intial
 namespace drake {
 
 namespace {
@@ -24,6 +32,7 @@ using std::weak_ptr;
 class InstanceCountedDummy {
  public:
   InstanceCountedDummy() {
+<<<<<<< HEAD
     const int momentary_total = ++mutable_instance_count();
     DRAKE_DEMAND(momentary_total <= max_instance_count());
   }
@@ -51,6 +60,18 @@ class InstanceCountedDummy {
     return global_counter.access();
   }
 };
+=======
+    instance_count_++;
+  }
+  ~InstanceCountedDummy() {
+    instance_count_--;
+  }
+  static int instance_count() { return instance_count_; }
+ private:
+  static int instance_count_;
+};
+int InstanceCountedDummy::instance_count_ = 0;
+>>>>>>> intial
 
 // Trivial type for specializing.
 struct Specialized {};
@@ -59,7 +80,10 @@ struct Specialized {};
  * Test neatly nested locks.
  */
 GTEST_TEST(ScopedSingletonTest, NestedAndSpecializedTest) {
+<<<<<<< HEAD
   InstanceCountedDummy::mutable_max_instance_count() = 2;
+=======
+>>>>>>> intial
   weak_ptr<InstanceCountedDummy> wref;
   EXPECT_EQ(0, wref.use_count());
   EXPECT_EQ(0, InstanceCountedDummy::instance_count());
@@ -87,6 +111,7 @@ GTEST_TEST(ScopedSingletonTest, NestedAndSpecializedTest) {
   EXPECT_EQ(0, InstanceCountedDummy::instance_count());
 }
 
+<<<<<<< HEAD
 GTEST_TEST(ScopedSingletonTest, ThreadedTest) {
   // Abort if a violation of the singleton requirement is detected.
   InstanceCountedDummy::mutable_max_instance_count() = 1;
@@ -111,5 +136,7 @@ GTEST_TEST(ScopedSingletonTest, ThreadedTest) {
   EXPECT_EQ(InstanceCountedDummy::instance_count(), 0);
 }
 
+=======
+>>>>>>> intial
 }  // anonymous namespace
 }  // namespace drake

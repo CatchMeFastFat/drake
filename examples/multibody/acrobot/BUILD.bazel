@@ -3,9 +3,15 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -26,7 +32,13 @@ drake_cc_binary(
         "//systems/analysis:semi_explicit_euler_integrator",
         "//systems/analysis:simulator",
         "//systems/framework:diagram",
+<<<<<<< HEAD
         "//systems/primitives:constant_vector_source",
+=======
+        "//systems/lcm",
+        "//systems/primitives:constant_vector_source",
+        "//systems/rendering:pose_bundle_to_draw_message",
+>>>>>>> intial
         "@gflags",
     ],
 )
@@ -35,12 +47,16 @@ drake_cc_binary(
     name = "run_lqr",
     srcs = ["run_lqr.cc"],
     add_test_rule = 1,
+<<<<<<< HEAD
     data = ["//multibody/benchmarks/acrobot:models"],
+=======
+>>>>>>> intial
     test_rule_args = [
         "--simulation_time=0.1",
         "--target_realtime_rate=0.0",
     ],
     deps = [
+<<<<<<< HEAD
         "//common:find_resource",
         "//common:text_logging_gflags",
         "//geometry:geometry_visualization",
@@ -50,6 +66,17 @@ drake_cc_binary(
         "//systems/controllers:linear_quadratic_regulator",
         "//systems/framework:diagram",
         "//systems/primitives:affine_system",
+=======
+        "//common:text_logging_gflags",
+        "//geometry:geometry_visualization",
+        "//multibody/benchmarks/acrobot:make_acrobot_plant",
+        "//systems/analysis:simulator",
+        "//systems/controllers:linear_quadratic_regulator",
+        "//systems/framework:diagram",
+        "//systems/lcm",
+        "//systems/primitives:affine_system",
+        "//systems/rendering:pose_bundle_to_draw_message",
+>>>>>>> intial
         "@gflags",
     ],
 )

@@ -3,8 +3,13 @@
 load(
     "//tools:drake.bzl",
     "drake_cc_binary",
+<<<<<<< HEAD
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_library",
+    "drake_cc_googletest",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -64,6 +69,10 @@ drake_cc_binary(
 
 drake_cc_googletest(
     name = "monolithic_pick_and_place_system_test",
+<<<<<<< HEAD
+=======
+    size = "medium",
+>>>>>>> intial
     # TODO(avalenzu) The gtest_filter argument below is required because the
     # test currently times out when compiled in debug mode. We should try to
     # split this test up such that this exclusion is no longer necessary.
@@ -87,12 +96,19 @@ drake_cc_googletest(
     tags = [
         "no_kcov",
         "no_lsan",
+<<<<<<< HEAD
         "no_tsan",
         "no_ubsan",
         "snopt",
         # TODO(9039) This test should be re-enabled in CI; it was disabled
         # because it was timing out frequenutly.
         "manual",
+=======
+        "no_memcheck",
+        "no_tsan",
+        "no_ubsan",
+        "snopt",
+>>>>>>> intial
     ],
     deps = [
         ":kuka_pick_and_place_monolithic",

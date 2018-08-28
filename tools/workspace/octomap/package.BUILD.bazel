@@ -57,5 +57,8 @@ cc_library(
 install(
     name = "install",
     docs = ["octomap/LICENSE.txt"],
+<<<<<<< HEAD
     doc_strip_prefix = ["octomap"],
+=======
+>>>>>>> intial
 )

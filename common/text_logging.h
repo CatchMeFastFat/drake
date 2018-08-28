@@ -51,6 +51,7 @@ printed without any special handling.
 #define SPDLOG_DEBUG_ON 1
 #define SPDLOG_TRACE_ON 1
 
+<<<<<<< HEAD
 #define DRAKE_SPDLOG_TRACE(logger, ...)            \
   do {                                             \
     if (logger->level() <= spdlog::level::trace) { \
@@ -64,6 +65,15 @@ printed without any special handling.
       SPDLOG_DEBUG(logger, __VA_ARGS__);           \
     }                                              \
   } while (0)
+=======
+#define DRAKE_SPDLOG_TRACE(logger, ...) \
+  if (logger->level() <= spdlog::level::trace) \
+    SPDLOG_TRACE(logger, __VA_ARGS__)
+
+#define DRAKE_SPDLOG_DEBUG(logger, ...) \
+  if (logger->level() <= spdlog::level::debug) \
+    SPDLOG_DEBUG(logger, __VA_ARGS__)
+>>>>>>> intial
 #else
 #define DRAKE_SPDLOG_TRACE(logger, ...)
 #define DRAKE_SPDLOG_DEBUG(logger, ...)
@@ -73,6 +83,7 @@ printed without any special handling.
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 /* clang-format on */
+<<<<<<< HEAD
 
 #else  /* HAVE_SPDLOG */
 
@@ -85,6 +96,9 @@ printed without any special handling.
 /* clang-format on */
 
 #endif  /* HAVE_SPDLOG */
+=======
+#endif
+>>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 

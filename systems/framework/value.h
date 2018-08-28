@@ -61,7 +61,11 @@ struct ValueTraitsImpl<T, false> {
   //   template <class Foo> DoBar(const Foo& foo) { DoBar(Value<Foo>{foo}); }
   // and accidentally called DoBar<AbstractValue>, or similar mistakes.
   static_assert(!std::is_same<T, std::remove_cv<AbstractValue>::type>::value,
+<<<<<<< HEAD
                 "T in Value<T> cannot be AbstractValue.");
+=======
+                "T in Value<T> cannnot be AbstractValue.");
+>>>>>>> intial
 
   using UseCopy = std::false_type;
   using Storage = typename drake::copyable_unique_ptr<T>;
@@ -118,6 +122,7 @@ class AbstractValue {
   /// Release builds.
   virtual void SetFromOrThrow(const AbstractValue& other) = 0;
 
+<<<<<<< HEAD
   /// Returns typeid of the contained object of type T. If T is polymorphic,
   /// this returns the typeid of the most-derived type of the contained object.
   virtual const std::type_info& type_info() const = 0;
@@ -129,6 +134,11 @@ class AbstractValue {
     return NiceTypeName::Canonicalize(
         NiceTypeName::Demangle(type_info().name()));
   }
+=======
+  /// Returns a human-readable name for the underlying type T. This may be
+  /// slow but is useful for error messages.
+  virtual std::string GetNiceTypeName() const = 0;
+>>>>>>> intial
 
   /// Returns the value wrapped in this AbstractValue, which must be of
   /// exactly type T.  T cannot be a superclass, abstract or otherwise.
@@ -258,8 +268,13 @@ class Value : public AbstractValue {
 #if !defined(DRAKE_DOXYGEN_CXX)
   // T1 is template boilerplate; do not specify it at call sites.
   template <typename T1 = T,
+<<<<<<< HEAD
             typename = typename std::enable_if_t<
                 std::is_default_constructible<T1>::value>>
+=======
+            typename = typename std::enable_if<
+                std::is_default_constructible<T1>::value>::type>
+>>>>>>> intial
 #endif
   Value() : value_{} { Traits::reinitialize_if_necessary(&value_); }
 
@@ -276,7 +291,11 @@ class Value : public AbstractValue {
   // This overload is for copyable T; we construct value_ in-place as Storage.
   template <typename Arg1,
             typename... Args,
+<<<<<<< HEAD
             typename = typename std::enable_if_t<
+=======
+            typename = typename std::enable_if<
+>>>>>>> intial
                 // There must be such a constructor.
                 std::is_constructible<T, Arg1, Args...>::value &&
                 // Disable this ctor when given T directly; in that case, we
@@ -288,14 +307,22 @@ class Value : public AbstractValue {
                 !std::is_fundamental<T>::value &&
                 // Use this only for copyable T's.
                 value_detail::ValueTraits<T>::UseCopy::value
+<<<<<<< HEAD
               >>
+=======
+              >::type>
+>>>>>>> intial
   explicit Value(Arg1&& arg1, Args&&... args)
       : value_{std::forward<Arg1>(arg1), std::forward<Args>(args)...} {}
 
   // This overload is for cloneable T; we move a unique_ptr into our Storage.
   template <typename Arg1,
             typename... Args,
+<<<<<<< HEAD
             typename = typename std::enable_if_t<
+=======
+            typename = typename std::enable_if<
+>>>>>>> intial
                 // These predicates are the same as above ...
                 std::is_constructible<T, Arg1, Args...>::value &&
                 !std::is_same<T, Arg1>::value &&
@@ -303,7 +330,11 @@ class Value : public AbstractValue {
                 !std::is_fundamental<T>::value &&
                 // ... except only for cloneable T.
                 !value_detail::ValueTraits<T>::UseCopy::value
+<<<<<<< HEAD
               >,
+=======
+              >::type,
+>>>>>>> intial
             // Dummy to disambiguate this method from the above overload.
             typename = void>
   explicit Value(Arg1&& arg1, Args&&... args)
@@ -350,8 +381,13 @@ class Value : public AbstractValue {
     value_ = Traits::to_storage(other.GetValueOrThrow<T>());
   }
 
+<<<<<<< HEAD
   const std::type_info& type_info() const override {
     return typeid(get_value());
+=======
+  std::string GetNiceTypeName() const override {
+    return NiceTypeName::Get<T>();
+>>>>>>> intial
   }
 
   /// Returns a const reference to the stored value.

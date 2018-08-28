@@ -15,7 +15,11 @@
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -56,7 +60,11 @@ GTEST_TEST(InverseDynamicsControllerTest, TestTorque) {
   auto dut = std::make_unique<InverseDynamicsController<double>>(
       std::move(robot_ptr), kp, ki, kd, true);
   auto context = dut->CreateDefaultContext();
+<<<<<<< HEAD
   auto output = dut->AllocateOutput();
+=======
+  auto output = dut->AllocateOutput(*context);
+>>>>>>> intial
   const RigidBodyTree<double>& robot = dut->get_robot_for_control();
 
   // Sets current state and reference state and acceleration values.

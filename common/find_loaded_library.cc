@@ -1,19 +1,28 @@
 #include "drake/common/find_loaded_library.h"
 
+<<<<<<< HEAD
 #include "drake/common/drake_throw.h"
 
+=======
+>>>>>>> intial
 #ifdef __APPLE__
 #include <dlfcn.h>
 
 #include <mach-o/dyld.h>
 #include <mach-o/dyld_images.h>
 #else  // Not __APPLE__
+<<<<<<< HEAD
 #include <libgen.h>  // dirname
 #include <string.h>
 #include <unistd.h>
 
 #include <link.h>
 #include <linux/limits.h>  // PATH_MAX
+=======
+#include <string.h>
+
+#include <link.h>
+>>>>>>> intial
 #endif
 
 using std::string;
@@ -40,7 +49,12 @@ unsigned char * ReadProcessMemory(mach_vm_address_t addr,
 }
 }  // namespace
 // Gets the list of all the dynamic libraries that have been loaded. Finds
+<<<<<<< HEAD
 // `library_name` in the list, and returns its absolute directory path.
+=======
+// `library_name` in the list, and returns its directory path appended
+// with relative directory to find resource files in drake install tree.
+>>>>>>> intial
 // This function is specific to MacOS
 optional<string> LoadedLibraryPath(const string& library_name) {
   task_dyld_info dyld_info;
@@ -73,7 +87,10 @@ optional<string> LoadedLibraryPath(const string& library_name) {
     for (uint32_t i=0; i < infos->infoArrayCount; i++) {
       const char * pos_slash = strrchr(info[i].imageFilePath, '/');
       if (!strcmp(pos_slash + 1, library_name.c_str())) {
+<<<<<<< HEAD
         // Path is always absolute on MacOS.
+=======
+>>>>>>> intial
         return string(info[i].imageFilePath,
           pos_slash - info[i].imageFilePath);
       }
@@ -84,7 +101,12 @@ optional<string> LoadedLibraryPath(const string& library_name) {
 #else  // Not __APPLE__
 
 // Gets the list of all the shared objects that have been loaded. Finds
+<<<<<<< HEAD
 // `library_name` in the list, and returns its absolute directory path.
+=======
+// `library_name` in the list, and returns its directory path appended
+// with relative directory to find resource files in drake install tree.
+>>>>>>> intial
 // This function is specific to Linux.
 optional<string> LoadedLibraryPath(const std::string& library_name) {
   void* handle = dlopen(NULL, RTLD_NOW);
@@ -99,6 +121,7 @@ optional<string> LoadedLibraryPath(const std::string& library_name) {
     // [1] http://man7.org/linux/man-pages/man3/basename.3.html#DESCRIPTION
     const char* pos_slash = strrchr(map->l_name, '/');
     if (pos_slash && !strcmp(pos_slash + 1, library_name.c_str())) {
+<<<<<<< HEAD
       // Check if path is relative. If so, make it absolute.
       if (map->l_name[0] != '/') {
         char buf[PATH_MAX];
@@ -110,6 +133,9 @@ optional<string> LoadedLibraryPath(const std::string& library_name) {
       } else {
         return string(map->l_name, pos_slash - map->l_name);
       }
+=======
+      return string(map->l_name, pos_slash - map->l_name);
+>>>>>>> intial
     }
     map = map->l_next;
   }

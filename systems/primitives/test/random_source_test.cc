@@ -33,6 +33,11 @@ void CheckStatistics(
   auto logger = LogOutput(source->get_output_port(0), &builder);
   logger->set_name("logger");
 
+<<<<<<< HEAD
+=======
+  source->set_random_seed(42);
+
+>>>>>>> intial
   auto diagram = builder.Build();
 
   systems::Simulator<double> simulator(*diagram);
@@ -84,7 +89,11 @@ GTEST_TEST(RandomSourceTest, UniformWhiteNoise) {
   const double min_value = 0.0;
   const double max_value = 1.0;
   const double h = 0.1;
+<<<<<<< HEAD
   const double fudge_factor = 1.5;
+=======
+  const double fudge_factor = 1.0;
+>>>>>>> intial
   CheckStatistics(Phi, min_value, max_value, h, fudge_factor,
                   std::move(random_source));
 }
@@ -125,6 +134,10 @@ class TestSystem : public LeafSystem<double> {
   using LeafSystem::EvalVectorInput;
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> intial
 //      +-------------------------+
 //      |                         |
 //      | +--------+              |
@@ -230,6 +243,7 @@ GTEST_TEST(RandomSourceTest, CorrelationTest) {
   }
 }
 
+<<<<<<< HEAD
 // Make sure that calling SetRandomContext changes the output, and
 // SetDefaultContext returns it to the original (default) output.
 GTEST_TEST(RandomSourceTest, SetRandomContextTest) {
@@ -255,6 +269,8 @@ GTEST_TEST(RandomSourceTest, SetRandomContextTest) {
   EXPECT_EQ(default_values[1], output_values.GetAtIndex(1));
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace systems
 }  // namespace drake

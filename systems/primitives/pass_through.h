@@ -26,7 +26,11 @@ namespace systems {
 /// @tparam T The vector element type, which must be a valid Eigen scalar.
 ///
 /// This class uses Drake's `-inl.h` pattern. When seeing linker errors from
+<<<<<<< HEAD
 /// this class, please refer to https://drake.mit.edu/cxx_inl.html.
+=======
+/// this class, please refer to http://drake.mit.edu/cxx_inl.html.
+>>>>>>> intial
 ///
 /// Instantiated templates for the following kinds of T's are provided:
 /// - double
@@ -61,7 +65,11 @@ class PassThrough final : public LeafSystem<T> {
   // ZeroOrderHold (#6490).
 
   /// Returns the sole input port.
+<<<<<<< HEAD
   const InputPort<T>& get_input_port() const {
+=======
+  const InputPortDescriptor<T>& get_input_port() const {
+>>>>>>> intial
     return LeafSystem<T>::get_input_port(0);
   }
 

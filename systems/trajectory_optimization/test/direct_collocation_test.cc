@@ -31,6 +31,7 @@ std::unique_ptr<LinearSystem<double>> MakeSimpleLinearSystem() {
   return std::make_unique<LinearSystem<double>>(A, B, C, D);
 }
 
+<<<<<<< HEAD
 GTEST_TEST(DirectCollocationTest, TestAddRunningCost) {
   const std::unique_ptr<LinearSystem<double>> system = MakeSimpleLinearSystem();
   const std::unique_ptr<Context<double>> context =
@@ -70,6 +71,8 @@ GTEST_TEST(DirectCollocationTest, TestAddRunningCost) {
   EXPECT_NEAR(total_cost, total_cost_expected, 1E-12);
 }
 
+=======
+>>>>>>> intial
 // Reconstructs the collocation constraint value (called the "defect") from a
 // completely separate code path (using the PiecewisePolynomial methods).
 GTEST_TEST(DirectCollocationTest, TestCollocationConstraint) {
@@ -274,9 +277,12 @@ GTEST_TEST(DirectCollocationTest, NoInputs) {
   const double duration = (kNumSampleTimes - 1) * kFixedTimeStep;
   EXPECT_NEAR(prog.GetSolution(prog.final_state())(0), x0 * std::exp(-duration),
               1e-6);
+<<<<<<< HEAD
 
   const auto state_trajectory = prog.ReconstructStateTrajectory();
   EXPECT_EQ(state_trajectory.get_number_of_segments(), kNumSampleTimes-1);
+=======
+>>>>>>> intial
 }
 
 GTEST_TEST(DirectCollocationTest, AddDirectCollocationConstraint) {

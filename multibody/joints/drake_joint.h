@@ -54,10 +54,13 @@
                                                                              \
   virtual Eigen::Matrix<Scalar, Eigen::Dynamic, 1> frictionTorque(           \
       const Eigen::Ref<const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>>& v)   \
+<<<<<<< HEAD
       const = 0;                                                             \
                                                                              \
   virtual Eigen::Matrix<Scalar, Eigen::Dynamic, 1> SpringTorque(             \
       const Eigen::Ref<const Eigen::Matrix<Scalar, Eigen::Dynamic, 1>>& q)   \
+=======
+>>>>>>> intial
       const = 0;
 
 /**
@@ -117,24 +120,40 @@ class DrakeJoint {
    * p_PQ = X_PF * p_FQ
    * </pre>
    */
+<<<<<<< HEAD
   const Eigen::Isometry3d& get_transform_to_parent_body() const {
     return transform_to_parent_body_;
   }
+=======
+  const Eigen::Isometry3d& get_transform_to_parent_body() const;
+>>>>>>> intial
 
   /**
    * Returns the number of position states of this joint.
    */
+<<<<<<< HEAD
   int get_num_positions() const { return num_positions_; }
+=======
+  int get_num_positions() const;
+>>>>>>> intial
 
   /**
    * Returns the number of velocity states of this joint.
    */
+<<<<<<< HEAD
   int get_num_velocities() const { return num_velocities_; }
+=======
+  int get_num_velocities() const;
+>>>>>>> intial
 
   /**
    * Returns the name of this joint.
    */
+<<<<<<< HEAD
   const std::string& get_name() const { return name_; }
+=======
+  const std::string& get_name() const;
+>>>>>>> intial
 
   /**
    * Returns the name of a particular position degree of freedom of this joint.

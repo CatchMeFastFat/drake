@@ -111,15 +111,25 @@ BulletCollisionWorldWrapper::BulletCollisionWorldWrapper()
 
 std::unique_ptr<btCollisionShape> BulletModel::newBulletBoxShape(
     const DrakeShapes::Box& geometry, bool use_margins) {
+<<<<<<< HEAD
+=======
+  std::unique_ptr<btCollisionShape> bt_shape(new btConvexHullShape());
+  btBoxShape bt_box(btVector3(geometry.size(0) / 2, geometry.size(1) / 2,
+                              geometry.size(2) / 2));
+>>>>>>> intial
   /* Strange things happen to the collision-normals when we use the
    * convex interface to the btBoxShape. Instead, we'll explicitly create
    * a btConvexHullShape.
    */
+<<<<<<< HEAD
   auto bt_shape = std::make_unique<btConvexHullShape>();
+=======
+>>>>>>> intial
   if (use_margins)
     bt_shape->setMargin(kLargeMargin);
   else
     bt_shape->setMargin(kSmallMargin);
+<<<<<<< HEAD
 
   for (double z_sign : {1, -1}) {
     for (double y_sign : {1, -1}) {
@@ -129,6 +139,12 @@ std::unique_ptr<btCollisionShape> BulletModel::newBulletBoxShape(
                             z_sign * geometry.size(2) / 2});
       }
     }
+=======
+  for (int i = 0; i < 8; ++i) {
+    btVector3 vtx;
+    bt_box.getVertex(i, vtx);
+    dynamic_cast<btConvexHullShape*>(bt_shape.get())->addPoint(vtx);
+>>>>>>> intial
   }
 
   return bt_shape;
@@ -493,6 +509,7 @@ bool BulletModel::UpdateElementWorldTransform(
   return element_exists;
 }
 
+<<<<<<< HEAD
 void BulletModel::NotifyFilterCriteriaChanged(ElementId id) {
   for (BulletCollisionWorldWrapper* world :
       {&bullet_world_, &bullet_world_no_margin_}) {
@@ -506,6 +523,8 @@ void BulletModel::NotifyFilterCriteriaChanged(ElementId id) {
   }
 }
 
+=======
+>>>>>>> intial
 void BulletModel::UpdateModel() {
   bullet_world_.bt_collision_world->updateAabbs();
   bullet_world_no_margin_.bt_collision_world->updateAabbs();

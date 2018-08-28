@@ -14,7 +14,10 @@
 #include "drake/multibody/joints/floating_base_types.h"
 #include "drake/multibody/material_map.h"
 #include "drake/multibody/parsers/model_instance_id_table.h"
+<<<<<<< HEAD
 #include "drake/multibody/parsers/parser_path_utils.h"
+=======
+>>>>>>> intial
 #include "drake/multibody/parsers/xml_util.h"
 #include "drake/multibody/rigid_body_plant/compliant_material.h"
 

@@ -4,6 +4,7 @@ import math
 import numpy as np
 import unittest
 
+<<<<<<< HEAD
 from pydrake.common import FindResourceOrThrow
 from pydrake.examples.pendulum import PendulumPlant
 from pydrake.multibody.rigid_body_tree import (FloatingBaseType, RigidBodyTree)
@@ -12,6 +13,13 @@ from pydrake.systems.controllers import (
     DiscreteTimeLinearQuadraticRegulator, DynamicProgrammingOptions,
     FittedValueIteration, InverseDynamicsController, InverseDynamics,
     LinearQuadraticRegulator,
+=======
+from pydrake.examples.pendulum import PendulumPlant
+from pydrake.systems.analysis import Simulator
+from pydrake.systems.controllers import (
+    DiscreteTimeLinearQuadraticRegulator, DynamicProgrammingOptions,
+    FittedValueIteration, LinearQuadraticRegulator,
+>>>>>>> intial
     LinearProgrammingApproximateDynamicProgramming,
     PeriodicBoundaryCondition
 )
@@ -87,6 +95,7 @@ class TestControllers(unittest.TestCase):
 
         self.assertAlmostEqual(J[0], 1., delta=1e-6)
 
+<<<<<<< HEAD
     def test_inverse_dynamics(self):
         urdf_path = FindResourceOrThrow(
             "drake/manipulation/models/" +
@@ -199,6 +208,8 @@ class TestControllers(unittest.TestCase):
         self.assertTrue(np.allclose(output.get_vector_data(0).CopyToVector(),
                         expected_torque))
 
+=======
+>>>>>>> intial
     def test_linear_quadratic_regulator(self):
         A = np.array([[0, 1], [0, 0]])
         B = np.array([[0], [1]])

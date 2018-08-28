@@ -7,4 +7,7 @@ from .mathematicalprogram import *
 from .gurobi import *
 from .ipopt import *
 from .mosek import *
+<<<<<<< HEAD
 from .osqp import *
+=======
+>>>>>>> intial

@@ -4,7 +4,10 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 py_test(
     name = "bazel_wrapper_test",
+<<<<<<< HEAD
     size = "small",
+=======
+>>>>>>> intial
     srcs = [
         "test/bazel_wrapper_test.py",
     ],

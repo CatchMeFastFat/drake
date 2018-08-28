@@ -1,9 +1,13 @@
 #include "drake/solvers/mosek_solver.h"
 
 #include <gtest/gtest.h>
+<<<<<<< HEAD
 #include <spruce.hh>
 
 #include "drake/common/temp_directory.h"
+=======
+
+>>>>>>> intial
 #include "drake/solvers/mathematical_program.h"
 #include "drake/solvers/test/linear_program_examples.h"
 #include "drake/solvers/test/quadratic_program_examples.h"
@@ -13,6 +17,10 @@
 namespace drake {
 namespace solvers {
 namespace test {
+<<<<<<< HEAD
+=======
+
+>>>>>>> intial
 TEST_P(LinearProgramTest, TestLP) {
   MosekSolver solver;
   prob()->RunProblem(&solver);
@@ -118,6 +126,7 @@ GTEST_TEST(TestSemidefiniteProgram, EigenvalueProblem) {
     SolveEigenvalueProblem(mosek_solver, 1E-7);
   }
 }
+<<<<<<< HEAD
 
 GTEST_TEST(MosekTest, TestLogFile) {
   // Test if we can print the logging info to a log file.
@@ -140,6 +149,8 @@ GTEST_TEST(MosekTest, TestLogFile) {
   solver.Solve(prog);
   EXPECT_TRUE(spruce::path(log_file).exists());
 }
+=======
+>>>>>>> intial
 }  // namespace test
 }  // namespace solvers
 }  // namespace drake

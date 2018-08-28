@@ -1,9 +1,12 @@
 #include "drake/automotive/maliput/api/test_utilities/rules_right_of_way_compare.h"
 
+<<<<<<< HEAD
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
 
+=======
+>>>>>>> intial
 #include <gtest/gtest.h>
 
 #include "drake/automotive/maliput/api/test_utilities/rules_test_utilities.h"
@@ -16,6 +19,7 @@ namespace rules {
 namespace test {
 
 
+<<<<<<< HEAD
 ::testing::AssertionResult IsEqual(const char* a_expression,
                                    const char* b_expression,
                                    rules::RightOfWayRule::ZoneType a,
@@ -88,6 +92,19 @@ namespace test {
 }
 
 
+=======
+/// Predicate-formatter which tests equality of RightOfWayRule::Type.
+// TODO(maddog@tri.global)  This should be replaced by a generic predicate
+//                          which handles anything with operator==.
+::testing::AssertionResult IsEqual(const char* a_expression,
+                                   const char* b_expression,
+                                   rules::RightOfWayRule::Type a,
+                                   rules::RightOfWayRule::Type b) {
+  return ::testing::internal::CmpHelperEQ(a_expression, b_expression, a, b);
+}
+
+/// Predicate-formatter which tests equality of RightOfWayRule.
+>>>>>>> intial
 ::testing::AssertionResult IsEqual(const char* a_expression,
                                    const char* b_expression,
                                    const rules::RightOfWayRule& a,
@@ -95,6 +112,7 @@ namespace test {
   unused(a_expression, b_expression);
   AssertionResultCollector c;
   MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.id(), b.id()));
+<<<<<<< HEAD
   MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.zone(), b.zone()));
   MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.zone_type(), b.zone_type()));
   MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.states(), b.states()));
@@ -102,10 +120,16 @@ namespace test {
   if (a.is_static() && b.is_static()) {
     MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.static_state(), b.static_state()));
   }
+=======
+  MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.controlled_zone(),
+                                         b.controlled_zone()));
+  MALIPUT_ADD_RESULT(c, MALIPUT_IS_EQUAL(a.type(), b.type()));
+>>>>>>> intial
   return c.result();
 }
 
 
+<<<<<<< HEAD
 ::testing::AssertionResult IsEqual(
      const char* a_expression,
      const char* b_expression,
@@ -128,6 +152,8 @@ namespace test {
   }
   return c.result();
 }
+=======
+>>>>>>> intial
 
 
 }  // namespace test

@@ -4,7 +4,11 @@
 
 #include "drake/common/find_resource.h"
 #include "drake/examples/double_pendulum/test/rigid_body_types_compare.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 #include "drake/multibody/joints/drake_joint.h"
 #include "drake/multibody/rigid_body.h"
 

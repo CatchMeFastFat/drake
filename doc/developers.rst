@@ -8,8 +8,11 @@ For Developers
    :depth: 3
    :local:
 
+<<<<<<< HEAD
 .. _pull_request:
 
+=======
+>>>>>>> intial
 Introduction
 ============
 
@@ -80,11 +83,19 @@ supported for CMake builds using the "Unix Makefiles" generator.
 | Operating System            | Build System    | C/C++ Compiler     | Java       | MATLAB (Optional) | Python |
 +=============================+=================+====================+============+===================+========+
 +-----------------------------+-----------------+--------------------+------------+-------------------+--------+
+<<<<<<< HEAD
 | Ubuntu 16.04 LTS ("Xenial") | | Bazel 0.16.1  | | Clang 4.0        | OpenJDK 8  | R2017a            | 2.7.11 |
 |                             | | CMake 3.5.1   | | GCC 5.4          |            |                   |        |
 +-----------------------------+-----------------+--------------------+------------+                   +--------+
 | macOS 10.12 ("Sierra")      | | Bazel 0.16.1  | Apple Clang 9.0.0  | Oracle 10  |                   | 2.7.15 |
 +-----------------------------+ | CMake 3.12.1  |                    |            +-------------------+        |
+=======
+| Ubuntu 16.04 LTS ("Xenial") | | Bazel 0.10.1  | | Clang 4.0        | OpenJDK 8  | R2017a            | 2.7.11 |
+|                             | | CMake 3.5.1   | | GCC 5.4          |            |                   |        |
++-----------------------------+-----------------+--------------------+------------+                   +--------+
+| macOS 10.12 ("Sierra")      | | Bazel 0.12.0  | Apple Clang 9.0.0  | Oracle 1.8 |                   | 2.7.14 |
++-----------------------------+ | CMake 3.11.0  |                    |            +-------------------+        |
+>>>>>>> intial
 | macOS 10.13 ("High Sierra") |                 |                    |            | R2017b            |        |
 +-----------------------------+-----------------+--------------------+------------+-------------------+--------+
 
@@ -100,6 +111,7 @@ The binary releases of Drake are built with GCC 5.4 on Ubuntu 16.04 and Apple Cl
 
 The links for these packages are listed in :ref:`binary-installation`.
 
+<<<<<<< HEAD
 Issue Tracking
 ==============
 
@@ -108,6 +120,8 @@ Issue Tracking
 
     issues
 
+=======
+>>>>>>> intial
 Code Review
 ===========
 
@@ -195,6 +209,7 @@ Review Process Tooling
 
 .. _continuous_integration_notes:
 
+<<<<<<< HEAD
 User Assistance
 ===============
 
@@ -231,6 +246,8 @@ it:
   - Russ Tedrake
   - Eric Cousineau
 
+=======
+>>>>>>> intial
 Continuous Integration Notes
 ============================
 .. toctree::
@@ -259,7 +276,10 @@ IDE and Text Editor Notes
     Eclipse <https://github.com/tkoolen/drake/wiki/Eclipse-setup-(experimental)>
     sublime_text
     unicode_tips_tricks
+<<<<<<< HEAD
     vim
+=======
+>>>>>>> intial
 
 Operating System Notes
 ======================

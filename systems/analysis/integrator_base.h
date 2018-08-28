@@ -8,9 +8,12 @@
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
 #include "drake/common/text_logging.h"
+<<<<<<< HEAD
 #include "drake/systems/analysis/dense_output.h"
 #include "drake/systems/analysis/hermitian_dense_output.h"
 #include "drake/systems/analysis/stepwise_dense_output.h"
+=======
+>>>>>>> intial
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/vector_base.h"
@@ -50,6 +53,7 @@ solution, so must be avoided.
  * applications where variable stepping would be deleterious (e.g., direct
  * transcription).
  *
+<<<<<<< HEAD
  * For applications that require a more dense sampling of the system
  * continuous state than what would be available through either fixed or
  * error-controlled step integration (for a given accuracy), dense output
@@ -58,10 +62,13 @@ solution, so must be avoided.
  * outputs may vary with each integration scheme implementation. Unless
  * specified otherwise, an HermitianDenseOutput is provided by default.
  *
+=======
+>>>>>>> intial
  * A natural question for a user to ask of an integrator is: Which scheme
  * (method) should be applied to a particular problem? The answer is whichever
  * one most quickly computes the solution to the desired accuracy! Selecting
  * an integration scheme for a particular problem is presently an artform. As
+<<<<<<< HEAD
  * examples of some selection criteria: multistep methods (none of which are
  * currently implemented in Drake) generally work poorly when events (that
  * require state reinitializations) are common, symplectic methods generally
@@ -71,6 +78,16 @@ solution, so must be avoided.
  * with an explicit, Runge-Kutta type method. Statistics collected by the
  * integrator can help diagnose performance issues and possibly point to the
  * use of a different integration scheme.
+=======
+ * examples of some selection criteria: multistep methods generally work poorly
+ * when events (that require state reinitializations) are common, symplectic
+ * methods generally work well at maintaining stability for large integration
+ * steps, and stiff integrators are often best for computationally stiff
+ * systems. If ignorant as to the characteristics of a particular problem, it
+ * is often best to start with an explicit, Runge-Kutta type method. Statistics
+ * collected by the integrator can help diagnose performance issues and possibly
+ * point to the use of a different integration scheme.
+>>>>>>> intial
  *
  * Some systems are known to exhibit "computational stiffness", by which it is
  * meant that (excessively) small integration steps are necessary for purposes
@@ -173,8 +190,12 @@ class IntegratorBase {
    */
   explicit IntegratorBase(const System<T>& system,
                           Context<T>* context = nullptr)
+<<<<<<< HEAD
       : system_(system), context_(context),
         derivatives_(system.AllocateTimeDerivatives()) {
+=======
+      : system_(system), context_(context) {
+>>>>>>> intial
     initialization_done_ = false;
   }
 
@@ -419,9 +440,12 @@ class IntegratorBase {
     unweighted_substate_change_.setZero(0);
     weighted_q_change_.reset();
 
+<<<<<<< HEAD
     // Drops dense output, if any.
     dense_output_.reset();
 
+=======
+>>>>>>> intial
     // Integrator no longer operates in fixed step mode.
     fixed_step_mode_ = false;
 
@@ -793,6 +817,7 @@ class IntegratorBase {
     initialization_done_ = false;
   }
 
+<<<<<<< HEAD
 
   /**
    * @name               Methods for dense output computation
@@ -873,6 +898,8 @@ class IntegratorBase {
    * @}
    */
 
+=======
+>>>>>>> intial
   /**
    * Gets a constant reference to the system that is being integrated (and
    * was provided to the constructor of the integrator).
@@ -914,7 +941,11 @@ class IntegratorBase {
    * integration. This is an advanced topic and most users can simply specify
    * desired accuracy and accept the default state variable weights.
    *
+<<<<<<< HEAD
    * A collection of state variables is generally defined in heterogeneous units
+=======
+   * A collection of state variables is generally defined in heterogenous units
+>>>>>>> intial
    * (e.g. length, angles, velocities, energy). Some of the state
    * variables cannot even be expressed in meaningful units, like
    * quaternions. Certain integrators provide an estimate of the absolute error
@@ -977,7 +1008,10 @@ class IntegratorBase {
    * achieve the required accuracy but not much more. We'll be more precise
    * about this below.
    *
+<<<<<<< HEAD
    * @anchor quasi_coordinates
+=======
+>>>>>>> intial
    * <h4>Some subtleties for second-order dynamic systems</h4>
    *
    * Systems governed by 2nd-order differential equations are typically split
@@ -1315,6 +1349,7 @@ class IntegratorBase {
   virtual void DoReset() {}
 
   /**
+<<<<<<< HEAD
    * Derived classes can override this method to provide a continuous
    * extension of their own when StartDenseIntegration() is called.
    *
@@ -1339,6 +1374,8 @@ class IntegratorBase {
   }
 
   /**
+=======
+>>>>>>> intial
    * Derived classes must implement this method to (1) integrate the continuous
    * portion of this system forward by a single step of size @p dt and
    * (2) set the error estimate (via get_mutable_error_estimate()). This
@@ -1359,6 +1396,7 @@ class IntegratorBase {
   virtual bool DoStep(const T& dt) = 0;
 
   /**
+<<<<<<< HEAD
    * Derived classes may implement this method to (1) integrate the continuous
    * portion of this system forward by a single step of size @p dt, (2) set the
    * error estimate (via get_mutable_error_estimate()) and (3) update their own
@@ -1405,6 +1443,8 @@ class IntegratorBase {
   }
 
   /**
+=======
+>>>>>>> intial
    * Gets an error estimate of the state variables recorded by the last call
    * to StepOnceFixedSize(). If the integrator does not support error
    * estimation, this function will return nullptr.
@@ -1465,8 +1505,12 @@ class IntegratorBase {
     prev_step_size_ = dt;
   }
 
+<<<<<<< HEAD
   // Steps the system forward exactly by @p dt, if possible, by calling DoStep
   // or DoDenseStep depending on whether dense integration was started or not.
+=======
+  // Steps the system forward exactly by @p dt, if possible, by calling DoStep.
+>>>>>>> intial
   // Does necessary pre-initialization and post-cleanup. This method does not
   // update general integrator statistics (which are updated in the calling
   // methods), because error control might decide that it does not like the
@@ -1474,12 +1518,19 @@ class IntegratorBase {
   // @returns `true` if successful, `false` otherwise (due to, e.g., integrator
   //          convergence failure).
   // @sa DoStep()
+<<<<<<< HEAD
   // @sa DoDenseStep()
   bool Step(const T& dt) {
     if (get_dense_output()) {
       return DoDenseStep(dt);
     }
     return DoStep(dt);
+=======
+  bool Step(const T& dt) {
+    if (!DoStep(dt))
+      return false;
+    return true;
+>>>>>>> intial
   }
 
   // Reference to the system being simulated.
@@ -1488,9 +1539,12 @@ class IntegratorBase {
   // Pointer to the context.
   Context<T>* context_{nullptr};  // The trajectory Context.
 
+<<<<<<< HEAD
   // Current dense output.
   std::unique_ptr<StepwiseDenseOutput<T>> dense_output_{nullptr};
 
+=======
+>>>>>>> intial
   // Runtime variables.
   // For variable step integrators, this is set at the end of each step to guide
   // the next one.
@@ -1537,11 +1591,14 @@ class IntegratorBase {
   // State copy for reversion during error-controlled integration.
   VectorX<T> xc0_save_;
 
+<<<<<<< HEAD
   // A continuous state derivatives scratchpad for the default continuous
   // extension implementation.
   // TODO(hidmic): Remove when DoDenseStep() is made pure virtual.
   std::unique_ptr<ContinuousState<T>> derivatives_;
 
+=======
+>>>>>>> intial
   // The error estimate computed during integration with error control.
   std::unique_ptr<ContinuousState<T>> err_est_;
 
@@ -1610,7 +1667,11 @@ bool IntegratorBase<T>::StepOnceErrorControlledAtMost(const T& dt_max) {
     // Constants used to determine whether modifications to the step size are
     // close enough to the attempted step size to use the unadjusted originals,
     // or (1) whether the step size to be attempted is so small that we should
+<<<<<<< HEAD
     // consider it to be artificially limited or (2) whether the step size to
+=======
+    // consider it to be artifically limited or (2) whether the step size to
+>>>>>>> intial
     // be attempted is sufficiently close to that requested such that the step
     // size should be stretched slightly.
     const double near_enough_smaller = 0.95;
@@ -1689,6 +1750,7 @@ bool IntegratorBase<T>::StepOnceErrorControlledAtMost(const T& dt_max) {
       // Reset the time, state, and time derivative at t0.
       get_mutable_context()->set_time(current_time);
       xc.SetFromVector(xc0_save_);
+<<<<<<< HEAD
       if (get_dense_output()) {
         // Take dense output one step back to undo
         // the last integration step.
@@ -1696,6 +1758,11 @@ bool IntegratorBase<T>::StepOnceErrorControlledAtMost(const T& dt_max) {
       }
     }
   } while (!step_succeeded);
+=======
+    }
+  } while (!step_succeeded);
+
+>>>>>>> intial
   return (step_size_to_attempt == dt_max);
 }
 
@@ -1985,11 +2052,14 @@ typename IntegratorBase<T>::StepResult IntegratorBase<T>::IntegrateAtMost(
   } else {
     full_step = StepOnceErrorControlledAtMost(dt);
   }
+<<<<<<< HEAD
   if (get_dense_output()) {
     // Consolidates current dense output, merging the step
     // taken into its internal representation.
     get_mutable_dense_output()->Consolidate();
   }
+=======
+>>>>>>> intial
 
   // Update generic statistics.
   const T actual_dt = context_->get_time() - t0;

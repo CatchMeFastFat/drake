@@ -11,7 +11,10 @@ package(default_visibility = ["//visibility:public"])
 
 drake_cc_library(
     name = "maybe_godotengine",
+<<<<<<< HEAD
     tags = ["manual"],
+=======
+>>>>>>> intial
     deps = select({
         "//conditions:default": ["@godotengine"],
         "//tools/cc_toolchain:apple": [],
@@ -24,7 +27,10 @@ drake_cc_binary(
         "//conditions:default": ["dummy_ubuntu.cc"],
         "//tools/cc_toolchain:apple": ["dummy_macos.cc"],
     }),
+<<<<<<< HEAD
     tags = ["manual"],
+=======
+>>>>>>> intial
     deps = [
         ":maybe_godotengine",
     ],

@@ -3,10 +3,13 @@
 #include <Eigen/Core>
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 #include "drake/solvers/mathematical_program.h"
 #include "drake/solvers/test/generic_trivial_constraints.h"
 #include "drake/solvers/test/generic_trivial_costs.h"
 
+=======
+>>>>>>> intial
 namespace drake {
 namespace solvers {
 namespace {
@@ -16,6 +19,7 @@ using symbolic::Formula;
 using symbolic::Variable;
 using symbolic::Variables;
 
+<<<<<<< HEAD
 using std::logic_error;
 using std::make_shared;
 using std::shared_ptr;
@@ -24,6 +28,10 @@ class DrealSolverTest : public ::testing::Test {
  protected:
   void SetUp() override { xvec_ = prog_.NewContinuousVariables(4, "x"); }
 
+=======
+class DrealSolverTest : public ::testing::Test {
+ protected:
+>>>>>>> intial
   // Continuous variables.
   const Variable x_{"x", Variable::Type::CONTINUOUS};
   const Variable y_{"y", Variable::Type::CONTINUOUS};
@@ -43,6 +51,7 @@ class DrealSolverTest : public ::testing::Test {
   const Variable b3_{"b3", Variable::Type::BOOLEAN};
 
   const double delta_{0.001};
+<<<<<<< HEAD
   MathematicalProgram prog_;
   VectorXDecisionVariable xvec_;
   DrealSolver solver_;
@@ -54,6 +63,10 @@ TEST_F(DrealSolverTest, Available) {
   ASSERT_FALSE(result);
 }
 
+=======
+};
+
+>>>>>>> intial
 // 0.0 > 1.0 is trivially UNSAT.
 TEST_F(DrealSolverTest, CheckSatisfiabilityTrivialUnsat) {
   const auto result = DrealSolver::CheckSatisfiability(
@@ -206,7 +219,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityNonlinear) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityLog) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == log(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -217,7 +234,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityLog) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityExp) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == exp(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -228,7 +249,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityExp) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilitySin) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == sin(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -239,7 +264,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilitySin) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityCos) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == cos(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -250,7 +279,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityCos) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityTan) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == tan(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -261,7 +294,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityTan) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityAsin) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 0.5 && y_ == asin(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -272,7 +309,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityAsin) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityAcos) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 0.5 && y_ == acos(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -283,7 +324,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityAcos) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityAtan) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == atan(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -294,7 +339,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityAtan) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityAtan2) {
+<<<<<<< HEAD
   const auto result = DrealSolver::CheckSatisfiability(
+=======
+  auto result = DrealSolver::CheckSatisfiability(
+>>>>>>> intial
       x_ == 4 && y_ == 3 && z_ == atan2(x_, y_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -307,7 +356,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityAtan2) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilitySinh) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 0.5 && y_ == sinh(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -318,7 +371,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilitySinh) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityCosh) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 0.5 && y_ == cosh(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -329,7 +386,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityCosh) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityTanh) {
+<<<<<<< HEAD
   const auto result =
+=======
+  auto result =
+>>>>>>> intial
       DrealSolver::CheckSatisfiability(x_ == 4 && y_ == tanh(x_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -340,7 +401,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityTanh) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityMin) {
+<<<<<<< HEAD
   const auto result = DrealSolver::CheckSatisfiability(
+=======
+  auto result = DrealSolver::CheckSatisfiability(
+>>>>>>> intial
       x_ == 4 && y_ == 3 && z_ == min(x_, y_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -353,7 +418,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityMin) {
 }
 
 TEST_F(DrealSolverTest, CheckSatisfiabilityMax) {
+<<<<<<< HEAD
   const auto result = DrealSolver::CheckSatisfiability(
+=======
+  auto result = DrealSolver::CheckSatisfiability(
+>>>>>>> intial
       x_ == 4 && y_ == 3 && z_ == max(x_, y_), delta_);
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
@@ -372,7 +441,11 @@ TEST_F(DrealSolverTest, CheckSatisfiabilityForall) {
   //     min x² s.t. x ∈ [-3, 3].
   // ->  ∃x. (-3 ≤ x) ∧ (x ≤ 3) ∧ [∀y. ((-3 ≤ y) ∧ (y ≤ 3)) → (x² ≤ y²)]
   // ->  ∃x. (-3 ≤ x) ∧ (x ≤ 3) ∧ [∀y. ¬((-3 ≤ y) ∧ (y ≤ 3)) ∨ (x² ≤ y²)]
+<<<<<<< HEAD
   const auto result = DrealSolver::CheckSatisfiability(
+=======
+  auto result = DrealSolver::CheckSatisfiability(
+>>>>>>> intial
       (-3 <= x_) && (x_ <= 3) &&
           forall({y_}, !((-3 <= y_) && (y_ <= 3)) || (x_ * x_ <= y_ * y_)),
       delta_);
@@ -390,8 +463,12 @@ TEST_F(DrealSolverTest, Minimize1) {
   const double delta{0.01};
   const double known_minimum{0.5};
 
+<<<<<<< HEAD
   const auto result = DrealSolver::Minimize(
       objective, constraint, delta, DrealSolver::LocalOptimization::kUse);
+=======
+  const auto result = DrealSolver::Minimize(objective, constraint, delta);
+>>>>>>> intial
   ASSERT_TRUE(result);
   const DrealSolver::IntervalBox& solution{*result};
   const double x{solution.at(x_).mid()};
@@ -406,8 +483,13 @@ TEST_F(DrealSolverTest, Minimize2) {
   const Formula constraint{-3 <= x_ && x_ <= 3};
   const double delta{0.001};
   const double known_minimum{-2.77877};
+<<<<<<< HEAD
   const auto result = DrealSolver::Minimize(
       objective, constraint, delta, DrealSolver::LocalOptimization::kUse);
+=======
+
+  const auto result = DrealSolver::Minimize(objective, constraint, delta);
+>>>>>>> intial
   ASSERT_TRUE(result);
   const double x{result->at(x_).mid()};
   EXPECT_TRUE(-3 <= x && x <= 3);
@@ -419,8 +501,13 @@ TEST_F(DrealSolverTest, Minimize3) {
   // Note that the side constraints have no model.
   const Expression objective{sin(3 * x_)};
   const Formula constraint{-3 <= x_ && x_ <= 3 && (x_ * x_ - 16 == 0)};
+<<<<<<< HEAD
   const auto result = DrealSolver::Minimize(
       objective, constraint, delta_, DrealSolver::LocalOptimization::kUse);
+=======
+
+  const auto result = DrealSolver::Minimize(objective, constraint, delta_);
+>>>>>>> intial
   EXPECT_FALSE(result);
 }
 
@@ -470,6 +557,7 @@ TEST_F(DrealSolverTest, UnsupportedFormulaPositiveSemidefinite) {
       std::runtime_error);
 }
 
+<<<<<<< HEAD
 TEST_F(DrealSolverTest, SolveLinearProgramming) {
   // Linear Cost + BoundingBox constraints + Linear constraint
   const Variable& x0{xvec_(0)};
@@ -725,5 +813,8 @@ TEST_F(DrealSolverTest, SolveGenericCost) {
 
 }  // namespace
 
+=======
+}  // namespace
+>>>>>>> intial
 }  // namespace solvers
 }  // namespace drake

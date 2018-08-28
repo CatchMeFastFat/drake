@@ -10,9 +10,13 @@ namespace controllers {
 
 template <typename T>
 PidControlledSystem<T>::PidControlledSystem(std::unique_ptr<System<T>> plant,
+<<<<<<< HEAD
                                             double Kp, double Ki, double Kd,
                                             int state_output_port_index)
     : state_output_port_index_(state_output_port_index) {
+=======
+                                            double Kp, double Ki, double Kd) {
+>>>>>>> intial
   const int input_size = plant->get_input_port(0).size();
   const Eigen::VectorXd Kp_v = Eigen::VectorXd::Ones(input_size) * Kp;
   const Eigen::VectorXd Ki_v = Eigen::VectorXd::Ones(input_size) * Ki;
@@ -27,6 +31,7 @@ template <typename T>
 PidControlledSystem<T>::PidControlledSystem(std::unique_ptr<System<T>> plant,
                                             const Eigen::VectorXd& Kp,
                                             const Eigen::VectorXd& Ki,
+<<<<<<< HEAD
                                             const Eigen::VectorXd& Kd,
                                             int state_output_port_index)
     : PidControlledSystem(std::move(plant), MatrixX<double>::Identity(
@@ -38,6 +43,19 @@ PidControlledSystem<T>::PidControlledSystem(
     std::unique_ptr<System<T>> plant, const MatrixX<double>& feedback_selector,
     double Kp, double Ki, double Kd, int state_output_port_index)
     : state_output_port_index_(state_output_port_index) {
+=======
+                                            const Eigen::VectorXd& Kd)
+    : PidControlledSystem(
+          std::move(plant),
+          MatrixX<double>::Identity(2 * Kp.size(), 2 * Kp.size()), Kp, Ki, Kd) {
+}
+
+template <typename T>
+PidControlledSystem<T>::PidControlledSystem(
+    std::unique_ptr<System<T>> plant,
+    const MatrixX<double>& feedback_selector, double Kp, double Ki,
+    double Kd) {
+>>>>>>> intial
   const int input_size = plant->get_input_port(0).size();
   const Eigen::VectorXd Kp_v = Eigen::VectorXd::Ones(input_size) * Kp;
   const Eigen::VectorXd Ki_v = Eigen::VectorXd::Ones(input_size) * Ki;
@@ -47,44 +65,70 @@ PidControlledSystem<T>::PidControlledSystem(
 
 template <typename T>
 PidControlledSystem<T>::PidControlledSystem(
+<<<<<<< HEAD
     std::unique_ptr<System<T>> plant, const MatrixX<double>& feedback_selector,
     const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
     const Eigen::VectorXd& Kd, int state_output_port_index)
     : state_output_port_index_(state_output_port_index) {
+=======
+    std::unique_ptr<System<T>> plant,
+    const MatrixX<double>& feedback_selector, const Eigen::VectorXd& Kp,
+    const Eigen::VectorXd& Ki, const Eigen::VectorXd& Kd) {
+>>>>>>> intial
   Initialize(std::move(plant), feedback_selector, Kp, Ki, Kd);
 }
 
 template <typename T>
 void PidControlledSystem<T>::Initialize(
+<<<<<<< HEAD
     std::unique_ptr<System<T>> plant, const MatrixX<double>& feedback_selector,
     const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
     const Eigen::VectorXd& Kd) {
+=======
+    std::unique_ptr<System<T>> plant,
+    const MatrixX<double>& feedback_selector, const Eigen::VectorXd& Kp,
+    const Eigen::VectorXd& Ki, const Eigen::VectorXd& Kd) {
+>>>>>>> intial
   DRAKE_DEMAND(plant != nullptr);
 
   DiagramBuilder<T> builder;
   plant_ = builder.template AddSystem(std::move(plant));
   DRAKE_ASSERT(plant_->get_num_input_ports() >= 1);
   DRAKE_ASSERT(plant_->get_num_output_ports() >= 1);
+<<<<<<< HEAD
   // state_output_port_index_ will be checked by the get_output_port call below.
 
   auto input_ports =
       ConnectController(plant_->get_input_port(0),
                         plant_->get_output_port(state_output_port_index_),
+=======
+
+  auto input_ports =
+      ConnectController(plant_->get_input_port(0), plant_->get_output_port(0),
+>>>>>>> intial
                         feedback_selector, Kp, Ki, Kd, &builder);
 
   builder.ExportInput(input_ports.control_input_port);
   builder.ExportInput(input_ports.state_input_port);
+<<<<<<< HEAD
 
   for (int i=0; i < plant_->get_num_output_ports(); i++) {
     builder.ExportOutput(plant_->get_output_port(i));
   }
+=======
+  builder.ExportOutput(plant_->get_output_port(0));
+>>>>>>> intial
   builder.BuildInto(this);
 }
 
 template <typename T>
 typename PidControlledSystem<T>::ConnectResult
 PidControlledSystem<T>::ConnectController(
+<<<<<<< HEAD
     const InputPort<T>& plant_input,
+=======
+    const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
     const OutputPort<T>& plant_output,
     const MatrixX<double>& feedback_selector, const Eigen::VectorXd& Kp,
     const Eigen::VectorXd& Ki, const Eigen::VectorXd& Kd,
@@ -109,7 +153,11 @@ PidControlledSystem<T>::ConnectController(
 template <typename T>
 typename PidControlledSystem<T>::ConnectResult
 PidControlledSystem<T>::ConnectController(
+<<<<<<< HEAD
     const InputPort<T>& plant_input,
+=======
+    const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
     const OutputPort<T>& plant_output,
     const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
     const Eigen::VectorXd& Kd,
@@ -122,7 +170,11 @@ PidControlledSystem<T>::ConnectController(
 template <typename T>
 typename PidControlledSystem<T>::ConnectResult
 PidControlledSystem<T>::ConnectControllerWithInputSaturation(
+<<<<<<< HEAD
     const InputPort<T>& plant_input,
+=======
+    const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
     const OutputPort<T>& plant_output,
     const MatrixX<double>& feedback_selector, const Eigen::VectorXd& Kp,
     const Eigen::VectorXd& Ki, const Eigen::VectorXd& Kd,
@@ -140,7 +192,11 @@ PidControlledSystem<T>::ConnectControllerWithInputSaturation(
 template <typename T>
 typename PidControlledSystem<T>::ConnectResult
 PidControlledSystem<T>::ConnectControllerWithInputSaturation(
+<<<<<<< HEAD
     const InputPort<T>& plant_input,
+=======
+    const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
     const OutputPort<T>& plant_output,
     const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
     const Eigen::VectorXd& Kd, const VectorX<T>& min_plant_input,

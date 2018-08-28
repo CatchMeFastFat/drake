@@ -14,7 +14,11 @@
 #include "drake/automotive/maliput/dragway/road_geometry.h"
 #include "drake/automotive/maliput/monolane/builder.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw_not_using_quaternion.h"
+>>>>>>> intial
 #include "drake/multibody/multibody_tree/math/spatial_velocity.h"
 #include "drake/systems/framework/leaf_context.h"
 #include "drake/systems/framework/system.h"
@@ -179,7 +183,11 @@ class MaliputRailcarTest : public ::testing::Test {
     const maliput::api::Lane* lane = road_->junction(0)->segment(0)->lane(0);
     dut_.reset(new MaliputRailcar<double>(LaneDirection(lane, with_s)));
     context_ = dut_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
+=======
+    output_ = dut_->AllocateOutput(*context_);
+>>>>>>> intial
     derivatives_ = dut_->AllocateTimeDerivatives();
   }
 
@@ -379,8 +387,12 @@ TEST_F(MaliputRailcarTest, ZeroInitialOutput) {
   EXPECT_EQ(state->speed(), MaliputRailcar<double>::kDefaultInitialSpeed);
   auto pose = pose_output();
   EXPECT_TRUE(CompareMatrices(pose->get_isometry().matrix(),
+<<<<<<< HEAD
                               Eigen::Isometry3d::Identity().matrix(),
                               16 * std::numeric_limits<double>::epsilon()));
+=======
+                              Eigen::Isometry3d::Identity().matrix()));
+>>>>>>> intial
   Eigen::Translation<double, 3> translation = pose->get_translation();
   EXPECT_EQ(translation.x(), 0);
   EXPECT_EQ(translation.y(), 0);
@@ -410,8 +422,13 @@ TEST_F(MaliputRailcarTest, StateAppearsInOutputDragway) {
   // `h` are by default zero.
   expected_pose.translation() = Eigen::Vector3d(kS, 0, 0);
   EXPECT_TRUE(CompareMatrices(pose->get_isometry().matrix(),
+<<<<<<< HEAD
                               expected_pose.matrix(),
                               16 * std::numeric_limits<double>::epsilon()));
+=======
+                              expected_pose.matrix()));
+
+>>>>>>> intial
   auto velocity = velocity_output();
   const Vector6<double> expected_velocity =
       (Vector6<double>() << 0, 0, 0, kSpeed, 0, 0).finished();
@@ -436,9 +453,15 @@ TEST_F(MaliputRailcarTest, StateAppearsInOutputMonolane) {
   auto pose = pose_output();
   Eigen::Isometry3d expected_pose = Eigen::Isometry3d::Identity();
   {
+<<<<<<< HEAD
     const math::RollPitchYaw<double> rpy(0, 0, kCurvedRoadTheta);
     const Eigen::Vector3d xyz(kCurvedRoadRadius, kCurvedRoadRadius, 0);
     expected_pose.matrix() << rpy.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
+=======
+    const Eigen::Vector3d rpy(0, 0, kCurvedRoadTheta);
+    const Eigen::Vector3d xyz(kCurvedRoadRadius, kCurvedRoadRadius, 0);
+    expected_pose.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
   }
   // The following tolerance was determined emperically.
   EXPECT_TRUE(CompareMatrices(pose->get_isometry().matrix(),
@@ -463,9 +486,15 @@ TEST_F(MaliputRailcarTest, StateAppearsInOutputMonolane) {
     const double expected_x = kCurvedRoadRadius * std::sin(45. / 180. * M_PI);
     const double expected_y = kCurvedRoadRadius -
         kCurvedRoadRadius * std::cos(45. / 180. * M_PI);
+<<<<<<< HEAD
     const math::RollPitchYaw<double> rpy(0, 0, M_PI_4);
     const Eigen::Vector3d xyz(expected_x, expected_y, 0 /* expected z */);
     expected_pose.matrix() << rpy.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
+=======
+    const Eigen::Vector3d rpy(0, 0, M_PI_4);
+    const Eigen::Vector3d xyz(expected_x, expected_y, 0 /* expected z */);
+    expected_pose.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
   }
   EXPECT_TRUE(CompareMatrices(pose->get_isometry().matrix(),
                               expected_pose.matrix(), 1e-15 /* tolerance */));
@@ -513,9 +542,16 @@ TEST_F(MaliputRailcarTest, NonZeroParametersAppearInOutputMonolane) {
   auto start_pose = pose_output();
   Eigen::Isometry3d expected_start_pose = Eigen::Isometry3d::Identity();
   {
+<<<<<<< HEAD
     const drake::math::RotationMatrix<double> R_identity;
     const Eigen::Vector3d xyz(0, kR, kH);
     expected_start_pose.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
+=======
+    const Eigen::Vector3d rpy(0, 0, 0);
+    const Eigen::Vector3d xyz(0, kR, kH);
+    expected_start_pose.matrix()
+        << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
   }
   // The following tolerance was determined empirically.
   EXPECT_TRUE(CompareMatrices(start_pose->get_isometry().matrix(),
@@ -530,10 +566,16 @@ TEST_F(MaliputRailcarTest, NonZeroParametersAppearInOutputMonolane) {
   auto end_pose = pose_output();
   Eigen::Isometry3d expected_end_pose = Eigen::Isometry3d::Identity();
   {
+<<<<<<< HEAD
     const math::RollPitchYaw<double> rpy(0, 0, M_PI_2);
     const Eigen::Vector3d xyz(kCurvedRoadRadius - kR, kCurvedRoadRadius, kH);
     expected_end_pose.matrix() << rpy.ToMatrix3ViaRotationMatrix(), xyz,
                                   0, 0, 0, 1;
+=======
+    const Eigen::Vector3d rpy(0, 0, M_PI_2);
+    const Eigen::Vector3d xyz(kCurvedRoadRadius - kR, kCurvedRoadRadius, kH);
+    expected_end_pose.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
   }
   // The following tolerance was determined empirically.
   EXPECT_TRUE(CompareMatrices(end_pose->get_isometry().matrix(),

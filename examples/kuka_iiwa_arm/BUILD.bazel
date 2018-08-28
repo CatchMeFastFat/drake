@@ -2,9 +2,16 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_library",
+    "drake_cc_binary",
+    "drake_cc_googletest",
+    "drake_example_cc_binary",
+>>>>>>> intial
 )
 load(
     "//tools/skylark:drake_py.bzl",
@@ -33,6 +40,10 @@ drake_cc_library(
     deps = [
         "//common:find_resource",
         "//common/trajectories:piecewise_polynomial",
+<<<<<<< HEAD
+=======
+        "//multibody:inverse_kinematics",
+>>>>>>> intial
         "//multibody:rigid_body_tree",
         "//multibody/parsers",
         "@lcmtypes_bot2_core",
@@ -86,6 +97,7 @@ drake_cc_library(
     ],
 )
 
+<<<<<<< HEAD
 drake_cc_library(
     name = "kuka_torque_controller",
     srcs = ["kuka_torque_controller.cc"],
@@ -104,6 +116,9 @@ drake_cc_library(
 )
 
 drake_cc_binary(
+=======
+drake_example_cc_binary(
+>>>>>>> intial
     name = "iiwa_controller",
     srcs = ["iiwa_controller.cc"],
     data = [
@@ -113,6 +128,7 @@ drake_cc_binary(
     deps = [
         ":iiwa_common",
         ":lcm_plan_interpolator",
+<<<<<<< HEAD
         "//common:text_logging_gflags",
         "//lcm",
         "//systems/lcm:lcm_driven_loop",
@@ -120,6 +136,13 @@ drake_cc_binary(
 )
 
 drake_cc_binary(
+=======
+        "@gflags",
+    ],
+)
+
+drake_example_cc_binary(
+>>>>>>> intial
     name = "iiwa_wsg_simulation",
     srcs = ["iiwa_wsg_simulation.cc"],
     add_test_rule = 1,
@@ -138,6 +161,7 @@ drake_cc_binary(
         ":iiwa_common",
         ":iiwa_lcm",
         ":oracular_state_estimator",
+<<<<<<< HEAD
         "//common:text_logging_gflags",
         "//examples/kuka_iiwa_arm/iiwa_world:iiwa_wsg_diagram_factory",
         "//lcm",
@@ -147,6 +171,14 @@ drake_cc_binary(
 )
 
 drake_cc_binary(
+=======
+        "//examples/kuka_iiwa_arm/iiwa_world:iiwa_wsg_diagram_factory",
+        "@gflags",
+    ],
+)
+
+drake_example_cc_binary(
+>>>>>>> intial
     name = "kuka_simulation",
     srcs = ["kuka_simulation.cc"],
     add_test_rule = 1,
@@ -163,6 +195,7 @@ drake_cc_binary(
     deps = [
         ":iiwa_common",
         ":iiwa_lcm",
+<<<<<<< HEAD
         ":kuka_torque_controller",
         "//common:text_logging_gflags",
         "//lcm",
@@ -176,6 +209,13 @@ drake_cc_binary(
 )
 
 drake_cc_binary(
+=======
+        "@gflags",
+    ],
+)
+
+drake_example_cc_binary(
+>>>>>>> intial
     name = "kuka_plan_runner",
     srcs = ["kuka_plan_runner.cc"],
     data = [
@@ -238,6 +278,7 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "kuka_torque_controller_test",
     data = [
         "//manipulation/models/iiwa_description:models",
@@ -252,6 +293,8 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+=======
+>>>>>>> intial
     name = "optitrack_test",
     deps = [
         "@optitrack_driver//lcmtypes:optitrack_lcmtypes",

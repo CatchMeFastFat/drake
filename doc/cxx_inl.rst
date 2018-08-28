@@ -74,7 +74,11 @@ The header file declares and documents the class::
   /// @tparam T must be ... (document the requirements) ...
   ///
   /// This class uses Drake's `-inl.h` pattern.  When seeing linker errors from
+<<<<<<< HEAD
   /// this class, please refer to https://drake.mit.edu/cxx_inl.html.
+=======
+  /// this class, please refer to http://drake.mit.edu/cxx_inl.html.
+>>>>>>> intial
   ///
   /// Instantiated templates for the following kinds of T's are provided:
   /// - double
@@ -96,7 +100,11 @@ The inl file defines the templated methods::
   /// @file
   /// Template method implementations for my_class.h.
   /// Most users should only include that file, not this one.
+<<<<<<< HEAD
   /// For background, see https://drake.mit.edu/cxx_inl.html.
+=======
+  /// For background, see http://drake.mit.edu/cxx_inl.html.
+>>>>>>> intial
 
   #include "my_class.h"
 

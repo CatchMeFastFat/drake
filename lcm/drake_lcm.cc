@@ -21,11 +21,15 @@ void Callback(const ::lcm::ReceiveBuffer* buffer,
 
 }  // namespace
 
+<<<<<<< HEAD
 DrakeLcm::DrakeLcm() : DrakeLcm(std::string{}) {}
 
 DrakeLcm::DrakeLcm(std::string lcm_url)
     : requested_lcm_url_(std::move(lcm_url)),
       lcm_(requested_lcm_url_) {}
+=======
+DrakeLcm::DrakeLcm() {}
+>>>>>>> intial
 
 DrakeLcm::~DrakeLcm() { receive_thread_.reset(); }
 
@@ -43,10 +47,13 @@ void DrakeLcm::StopReceiveThread() {
 
 ::lcm::LCM* DrakeLcm::get_lcm_instance() { return &lcm_; }
 
+<<<<<<< HEAD
 std::string DrakeLcm::get_requested_lcm_url() const {
   return requested_lcm_url_;
 }
 
+=======
+>>>>>>> intial
 void DrakeLcm::Publish(const std::string& channel, const void* data,
                        int data_size, optional<double>) {
   DRAKE_THROW_UNLESS(!channel.empty());

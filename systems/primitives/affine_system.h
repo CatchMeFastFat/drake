@@ -34,7 +34,11 @@ class TimeVaryingAffineSystem : public LeafSystem<T> {
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(TimeVaryingAffineSystem)
 
   /// Returns the input port containing the externally applied input.
+<<<<<<< HEAD
   const InputPort<T>& get_input_port() const;
+=======
+  const InputPortDescriptor<T>& get_input_port() const;
+>>>>>>> intial
 
   /// Returns the output port containing the output state.
   const OutputPort<T>& get_output_port() const;

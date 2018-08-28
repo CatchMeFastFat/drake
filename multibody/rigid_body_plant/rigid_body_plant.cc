@@ -460,7 +460,11 @@ bool RigidBodyPlant<T>::model_instance_has_actuators(
 }
 
 template <typename T>
+<<<<<<< HEAD
 const InputPort<T>&
+=======
+const InputPortDescriptor<T>&
+>>>>>>> intial
 RigidBodyPlant<T>::model_instance_actuator_command_input_port(
     int model_instance_id) const {
   if (input_map_.at(model_instance_id) == kInvalidPortIdentifier) {
@@ -961,7 +965,11 @@ void RigidBodyPlant<T>::DoCalcTimeDerivatives(
          -(Jdotv + 2 * alpha * J * v + alpha * alpha * phi);
     // clang-format on
     const VectorX<T> vdot_f =
+<<<<<<< HEAD
         A.completeOrthogonalDecomposition().solve(b);
+=======
+        A.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(b);
+>>>>>>> intial
     vdot = vdot_f.head(get_num_velocities());
   } else {
     // Solve M*vdot = right_hand_side.

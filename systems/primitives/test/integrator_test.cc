@@ -8,7 +8,11 @@
 #include <gtest/gtest.h>
 
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 
 namespace drake {
@@ -23,7 +27,11 @@ class IntegratorTest : public ::testing::Test {
     integrator_.reset(new Integrator<double>(kLength));
     context_ = integrator_->CreateDefaultContext();
     derivatives_ = integrator_->AllocateTimeDerivatives();
+<<<<<<< HEAD
     output_ = integrator_->AllocateOutput();
+=======
+    output_ = integrator_->AllocateOutput(*context_);
+>>>>>>> intial
 
     // Set the state to zero initially.
     ContinuousState<double>& xc = continuous_state();
@@ -45,9 +53,15 @@ class IntegratorTest : public ::testing::Test {
 // Tests that the system exports the correct topology.
 TEST_F(IntegratorTest, Topology) {
   ASSERT_EQ(1, integrator_->get_num_input_ports());
+<<<<<<< HEAD
   const auto& input_port = integrator_->get_input_port(0);
   EXPECT_EQ(kVectorValued, input_port.get_data_type());
   EXPECT_EQ(kLength, input_port.size());
+=======
+  const auto& input_descriptor = integrator_->get_input_port(0);
+  EXPECT_EQ(kVectorValued, input_descriptor.get_data_type());
+  EXPECT_EQ(kLength, input_descriptor.size());
+>>>>>>> intial
 
   ASSERT_EQ(1, integrator_->get_num_output_ports());
   const auto& output_port = integrator_->get_output_port(0);
@@ -97,7 +111,11 @@ class SymbolicIntegratorTest : public IntegratorTest {
     symbolic_integrator_ = integrator_->ToSymbolic();
     symbolic_context_ = symbolic_integrator_->CreateDefaultContext();
     symbolic_derivatives_ = symbolic_integrator_->AllocateTimeDerivatives();
+<<<<<<< HEAD
     symbolic_output_ = symbolic_integrator_->AllocateOutput();
+=======
+    symbolic_output_ = symbolic_integrator_->AllocateOutput(*symbolic_context_);
+>>>>>>> intial
 
     ASSERT_EQ(1, symbolic_context_->get_num_input_ports());
     symbolic_context_->FixInputPort(

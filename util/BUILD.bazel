@@ -1,15 +1,20 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "util",
     deps = [
@@ -19,14 +24,23 @@ drake_cc_package_library(
 
 drake_cc_library(
     name = "everything",
+=======
+drake_cc_library(
+    name = "util",
+>>>>>>> intial
     srcs = [
         "drakeGeometryUtil.cpp",
     ],
     hdrs = [
         "drakeGeometryUtil.h",
         "drakeUtil.h",
+<<<<<<< HEAD
     ],
     visibility = ["//visibility:private"],
+=======
+        "lcmUtil.h",
+    ],
+>>>>>>> intial
     deps = [
         "//common:essential",
         "//math:geometric_transform",
@@ -34,6 +48,18 @@ drake_cc_library(
     ],
 )
 
+<<<<<<< HEAD
+=======
+# TODO(jwnimmer-tri) Remove this forwarding header sometime after 2018-05-01.
+drake_cc_library(
+    name = "lcm_util",
+    hdrs = ["lcmUtil.h"],
+    deps = [
+        "//manipulation/util:bot_core_lcm_encode_decode",
+    ],
+)
+
+>>>>>>> intial
 # === test/ ===
 
 drake_cc_googletest(

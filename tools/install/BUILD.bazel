@@ -34,7 +34,13 @@ exports_files(
 # Runs `install_test_helper` unit tests.
 drake_py_unittest(
     name = "install_test_helper_test",
+<<<<<<< HEAD
     deps = [":install_test_helper"],
 )
 
 add_lint_tests()
+=======
+    size = "small",
+    deps = [":install_test_helper"],
+)
+>>>>>>> intial

@@ -1,10 +1,14 @@
 #include "drake/geometry/geometry_visualization.h"
 
+<<<<<<< HEAD
 #include <memory>
+=======
+>>>>>>> intial
 #include <string>
 #include <vector>
 
 #include "drake/common/drake_copyable.h"
+<<<<<<< HEAD
 #include "drake/common/never_destroyed.h"
 #include "drake/geometry/geometry_state.h"
 #include "drake/geometry/internal_geometry.h"
@@ -17,6 +21,15 @@
 #include "drake/systems/lcm/lcm_publisher_system.h"
 #include "drake/systems/lcm/serializer.h"
 #include "drake/systems/rendering/pose_bundle_to_draw_message.h"
+=======
+#include "drake/geometry/geometry_state.h"
+#include "drake/geometry/geometry_system.h"
+#include "drake/geometry/internal_geometry.h"
+#include "drake/geometry/shape_specification.h"
+#include "drake/lcm/drake_lcm.h"
+#include "drake/lcmt_viewer_geometry_data.hpp"
+#include "drake/math/rotation_matrix.h"
+>>>>>>> intial
 
 namespace drake {
 namespace geometry {
@@ -93,6 +106,7 @@ class ShapeToLcm : public ShapeReifier {
     X_PG_ = X_PG_ * box_xform;
   }
 
+<<<<<<< HEAD
   void ImplementGeometry(const Box& box, void*) override {
     geometry_data_.type = geometry_data_.BOX;
     geometry_data_.num_float_data = 3;
@@ -102,6 +116,8 @@ class ShapeToLcm : public ShapeReifier {
     geometry_data_.float_data.push_back(static_cast<float>(box.height()));
   }
 
+=======
+>>>>>>> intial
   void ImplementGeometry(const Mesh& mesh, void*) override {
     geometry_data_.type = geometry_data_.MESH;
     geometry_data_.num_float_data = 3;
@@ -173,7 +189,11 @@ lcmt_viewer_load_robot GeometryVisualizationImpl::BuildLoadMessage(
     SourceId s_id = state.get_source_id(frame.get_id());
     const std::string& src_name = state.get_source_name(s_id);
     // TODO(SeanCurtis-TRI): The name in the load message *must* match the name
+<<<<<<< HEAD
     // in the update message. Make sure this code and the SceneGraph output
+=======
+    // in the update message. Make sure this code and the GeometrySystem output
+>>>>>>> intial
     // use a common code-base to translate (source_id, frame) -> name.
     message.link[link_index].name = src_name + "::" + frame.get_name();
     message.link[link_index].robot_num = frame.get_frame_group();
@@ -201,6 +221,7 @@ lcmt_viewer_load_robot GeometryVisualizationImpl::BuildLoadMessage(
 
 }  // namespace internal
 
+<<<<<<< HEAD
 
 void DispatchLoadMessage(const SceneGraph<double>& scene_graph,
                          lcm::DrakeLcmInterface* lcm) {
@@ -232,6 +253,21 @@ void ConnectVisualization(const SceneGraph<double>& scene_graph,
   builder->Connect(scene_graph.get_pose_bundle_output_port(),
                   converter->get_input_port(0));
   builder->Connect(*converter, *publisher);
+=======
+void DispatchLoadMessage(const GeometryState<double>& state) {
+  using lcm::DrakeLcm;
+
+  lcmt_viewer_load_robot message =
+      internal::GeometryVisualizationImpl::BuildLoadMessage(state);
+  // Send a load message.
+  DrakeLcm lcm;
+  Publish(&lcm, "DRAKE_VIEWER_LOAD_ROBOT", message);
+}
+
+void DispatchLoadMessage(const GeometrySystem<double>& system) {
+  system.ThrowIfContextAllocated("DisplatchLoadMessage");
+  DispatchLoadMessage(*system.initial_state_);
+>>>>>>> intial
 }
 
 }  // namespace geometry

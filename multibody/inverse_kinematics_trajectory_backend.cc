@@ -43,6 +43,7 @@ class IKTrajectoryCost : public drake::solvers::Cost {
         q_nom_(q_nom) {}
 
  protected:
+<<<<<<< HEAD
   void DoEval(const Eigen::Ref<const VectorX<symbolic::Variable>>&,
               VectorX<symbolic::Expression>*) const override {
     throw std::logic_error("Non-gradient version not implemented!");
@@ -55,6 +56,15 @@ class IKTrajectoryCost : public drake::solvers::Cost {
 
   void DoEval(const Eigen::Ref<const drake::AutoDiffVecXd>& x,
               drake::AutoDiffVecXd* y) const override {
+=======
+  void DoEval(const Eigen::Ref<const Eigen::VectorXd>&,
+              Eigen::VectorXd&) const override {
+    throw std::runtime_error("Non-gradient version not implemented!");
+  }
+
+  void DoEval(const Eigen::Ref<const drake::AutoDiffVecXd> &x,
+              drake::AutoDiffVecXd &y) const override {
+>>>>>>> intial
     const int nq = helper_.nq();
     const int nT = helper_.nT();
 
@@ -70,7 +80,11 @@ class IKTrajectoryCost : public drake::solvers::Cost {
     y_scalar(0) = J;
     drake::math::initializeAutoDiffGivenGradientMatrix(
         y_scalar, (dJ_vec * drake::math::autoDiffToGradientMatrix(x)).eval(),
+<<<<<<< HEAD
         *y);
+=======
+        y);
+>>>>>>> intial
   }
 
  private:
@@ -154,6 +168,7 @@ class IKInbetweenConstraint : public drake::solvers::Constraint {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>&,
+<<<<<<< HEAD
               Eigen::VectorXd*) const override {
     throw std::logic_error("Non-gradient version not implemented!");
   }
@@ -165,6 +180,14 @@ class IKInbetweenConstraint : public drake::solvers::Constraint {
 
   void DoEval(const Eigen::Ref<const drake::AutoDiffVecXd>& x,
               drake::AutoDiffVecXd* y) const override {
+=======
+              Eigen::VectorXd&) const override {
+    throw std::runtime_error("Non-gradient version not implemented!");
+  }
+
+  void DoEval(const Eigen::Ref<const drake::AutoDiffVecXd> &x,
+              drake::AutoDiffVecXd &y) const override {
+>>>>>>> intial
     const int nq = helper_.nq();
     const int nT = helper_.nT();
     const std::vector<Eigen::VectorXd>& t_inbetween = helper_.t_inbetween();
@@ -324,9 +347,15 @@ class IKInbetweenConstraint : public drake::solvers::Constraint {
       y_idx += nc;
     }
 
+<<<<<<< HEAD
     y->resize(y_idx);
     drake::math::initializeAutoDiffGivenGradientMatrix(
         y_scalar, (dy_scalar * drake::math::autoDiffToGradientMatrix(x)), *y);
+=======
+    y.resize(y_idx);
+    drake::math::initializeAutoDiffGivenGradientMatrix(
+        y_scalar, (dy_scalar * drake::math::autoDiffToGradientMatrix(x)), y);
+>>>>>>> intial
   }
 
  private:

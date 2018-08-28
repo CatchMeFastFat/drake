@@ -20,7 +20,11 @@ LcmDrivenLoop::LcmDrivenLoop(
   // Allocates extra context and output just for the driving subscriber, so
   // that this can explicitly query the message.
   sub_context_ = driving_sub_.CreateDefaultContext();
+<<<<<<< HEAD
   sub_output_ = driving_sub_.AllocateOutput();
+=======
+  sub_output_ = driving_sub_.AllocateOutput(*sub_context_);
+>>>>>>> intial
   sub_swap_state_ = sub_context_->CloneState();
   sub_events_ = driving_sub_.AllocateCompositeEventCollection();
 

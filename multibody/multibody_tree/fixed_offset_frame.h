@@ -25,7 +25,11 @@ template <class T> class RigidBody;
 /// with `X_WF=X_WP*X_PF`.
 ///
 /// For more information about spatial transforms, see
+<<<<<<< HEAD
 /// @ref multibody_spatial_pose. <!-- https://drake.mit.edu/doxygen_cxx/
+=======
+/// @ref multibody_spatial_pose. <!-- http://drake.mit.edu/doxygen_cxx/
+>>>>>>> intial
 ///                                   group__multibody__spatial__pose.html -->
 ///
 /// @tparam T The scalar type. Must be a valid Eigen scalar.
@@ -60,11 +64,14 @@ class FixedOffsetFrame final : public Frame<T> {
     return parent_frame_.CalcOffsetPoseInBody(context, X_PF_.cast<T>());
   }
 
+<<<<<<< HEAD
   Isometry3<T> GetFixedPoseInBodyFrame() const override {
     // X_BF = X_BP * X_PF
     return parent_frame_.GetFixedOffsetPoseInBody(X_PF_.cast<T>());
   }
 
+=======
+>>>>>>> intial
  protected:
   /// @name Methods to make a clone templated on different scalar types.
   ///

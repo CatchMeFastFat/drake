@@ -9,7 +9,11 @@
 #include "drake/common/test_utilities/eigen_geometry_compare.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/lcmt_viewer_draw.hpp"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 
 using std::pair;
 using std::string;
@@ -186,9 +190,15 @@ void GetObjectTestSetup(ObjectTestType type, ObjectTestSetup *setup) {
       setup->points_B = GenerateBoxPointCloud(spacing, box);
       // Define a generic pose in the world.
       const Vector3d xyz(0.1, 0.2, 0.3);
+<<<<<<< HEAD
       const math::RollPitchYaw<double> rpy(kPi / 3, kPi / 11, kPi / 12);
       setup->X_WB.setIdentity();
       setup->X_WB.linear() << rpy.ToMatrix3ViaRotationMatrix();
+=======
+      const Vector3d rpy(kPi / 3, kPi / 11, kPi / 12);
+      setup->X_WB.setIdentity();
+      setup->X_WB.linear() << drake::math::rpy2rotmat(rpy);
+>>>>>>> intial
       setup->X_WB.translation() << xyz;
       break;
     }

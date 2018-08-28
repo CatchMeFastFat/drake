@@ -159,14 +159,22 @@ class PidController : public StateFeedbackControllerInterface<T>,
   /**
    * Returns the input port for the estimated state.
    */
+<<<<<<< HEAD
   const InputPort<T>& get_input_port_estimated_state() const final {
+=======
+  const InputPortDescriptor<T>& get_input_port_estimated_state() const final {
+>>>>>>> intial
     return this->get_input_port(input_index_state_);
   }
 
   /**
    * Returns the input port for the desired state.
    */
+<<<<<<< HEAD
   const InputPort<T>& get_input_port_desired_state() const final {
+=======
+  const InputPortDescriptor<T>& get_input_port_desired_state() const final {
+>>>>>>> intial
     return this->get_input_port(input_index_desired_state_);
   }
 

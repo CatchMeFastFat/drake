@@ -56,8 +56,11 @@ class BulletModel : public Model {
 
   virtual ~BulletModel() {}
 
+<<<<<<< HEAD
   void NotifyFilterCriteriaChanged(ElementId id) override;
 
+=======
+>>>>>>> intial
   void UpdateModel() override;
 
   void DoAddElement(const Element& element) override;
@@ -138,9 +141,12 @@ class BulletModel : public Model {
       const std::vector<Eigen::Vector3d>& input_points,
       double collision_threshold) override;
 
+<<<<<<< HEAD
   static std::unique_ptr<btCollisionShape> newBulletBoxShape(
       const DrakeShapes::Box& geometry, bool use_margins);
 
+=======
+>>>>>>> intial
  private:
   enum DispatchMethod {
     kNotYetDecided,
@@ -162,6 +168,11 @@ class BulletModel : public Model {
       ElementId idA, ElementId idB, bool use_margins);
 
   BulletCollisionWorldWrapper& getBulletWorld(bool use_margins);
+<<<<<<< HEAD
+=======
+  static std::unique_ptr<btCollisionShape> newBulletBoxShape(
+      const DrakeShapes::Box& geometry, bool use_margins);
+>>>>>>> intial
   static std::unique_ptr<btCollisionShape> newBulletSphereShape(
       const DrakeShapes::Sphere& geometry, bool use_margins);
   static std::unique_ptr<btCollisionShape> newBulletCylinderShape(

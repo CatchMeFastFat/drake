@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .. _issues:
 
+=======
+>>>>>>> intial
 ***********************
 GitHub Issue Management
 ***********************
@@ -19,6 +22,7 @@ Please only assign labels if you are reasonably confident they are correct.
 The Drake development team will apply appropriate labels to issues during
 the weekly scrub.
 
+<<<<<<< HEAD
 Owner
 =====
 
@@ -27,6 +31,8 @@ per day that `all unassigned issues
 <https://github.com/RobotLocomotion/drake/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee>`_
 have an appropriate owner.
 
+=======
+>>>>>>> intial
 Team
 ====
 Every issue must have at least one ``team`` label. If no team agrees to own an

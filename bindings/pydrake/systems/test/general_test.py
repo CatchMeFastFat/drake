@@ -2,14 +2,19 @@
 
 from __future__ import print_function
 
+<<<<<<< HEAD
 import pydrake.systems.framework as mut
 
 import copy
 import warnings
+=======
+import copy
+>>>>>>> intial
 
 import unittest
 import numpy as np
 
+<<<<<<< HEAD
 from pydrake.autodiffutils import (
     AutoDiffXd,
     )
@@ -49,11 +54,26 @@ from pydrake.systems.primitives import (
     Adder, Adder_,
     AffineSystem,
     ConstantVectorSource, ConstantVectorSource_,
+=======
+from pydrake.systems.analysis import (
+    Simulator,
+    )
+from pydrake.systems.framework import (
+    BasicVector,
+    Diagram,
+    DiagramBuilder,
+    )
+from pydrake.systems.primitives import (
+    Adder,
+    AffineSystem,
+    ConstantVectorSource,
+>>>>>>> intial
     Integrator,
     LinearSystem,
     SignalLogger,
     )
 
+<<<<<<< HEAD
 # TODO(eric.cousineau): The scope of this test file and and `custom_test.py`
 # is poor. Move these tests into `framework_test` and `analysis_test`, and
 # ensure that the tests reflect this, even if there is some coupling.
@@ -207,6 +227,44 @@ class TestGeneral(unittest.TestCase):
             self.assertTrue(simulator.get_context() is context)
             check_output(context)
             simulator.StepTo(1)
+=======
+
+class TestGeneral(unittest.TestCase):
+    def test_simulator_ctor(self):
+        # Create simple system.
+        system = ConstantVectorSource([1])
+
+        def check_output(context):
+            # Check number of output ports and value for a given context.
+            output = system.AllocateOutput(context)
+            self.assertEquals(output.get_num_ports(), 1)
+            system.CalcOutput(context, output)
+            value = output.get_vector_data(0).get_value()
+            self.assertTrue(np.allclose([1], value))
+
+        # Create simulator with basic constructor.
+        simulator = Simulator(system)
+        simulator.Initialize()
+        simulator.set_target_realtime_rate(0)
+        simulator.set_publish_every_time_step(True)
+        self.assertTrue(simulator.get_context() is
+                        simulator.get_mutable_context())
+        check_output(simulator.get_context())
+        simulator.StepTo(1)
+
+        # Create simulator specifying context.
+        context = system.CreateDefaultContext()
+        context.set_time(0.)
+
+        context.set_accuracy(1e-4)
+        self.assertEquals(context.get_accuracy(), 1e-4)
+
+        # @note `simulator` now owns `context`.
+        simulator = Simulator(system, context)
+        self.assertTrue(simulator.get_context() is context)
+        check_output(context)
+        simulator.StepTo(1)
+>>>>>>> intial
 
     def test_copy(self):
         # Copy a context using `deepcopy` or `clone`.
@@ -255,12 +313,21 @@ class TestGeneral(unittest.TestCase):
         # Create and attach inputs.
         # TODO(eric.cousineau): Not seeing any assertions being printed if no
         # inputs are connected. Need to check this behavior.
+<<<<<<< HEAD
         input0 = np.array([0.1, 0.2, 0.3])
         context.FixInputPort(0, input0)
         input1 = np.array([0.02, 0.03, 0.04])
         context.FixInputPort(1, input1)
         input2 = BasicVector([0.003, 0.004, 0.005])
         context.FixInputPort(2, input2)  # Test the BasicVector overload.
+=======
+        input0 = BasicVector([0.1, 0.2, 0.3])
+        context.FixInputPort(0, input0)
+        input1 = BasicVector([0.02, 0.03, 0.04])
+        context.FixInputPort(1, input1)
+        input2 = BasicVector([0.003, 0.004, 0.005])
+        context.FixInputPort(2, input2)
+>>>>>>> intial
 
         # Initialize integrator states.
         integrator_xc = (
@@ -323,6 +390,7 @@ class TestGeneral(unittest.TestCase):
 
         const_integrator = simulator.get_integrator()
         self.assertTrue(const_integrator is integrator)
+<<<<<<< HEAD
 
         # Test context-less constructors for
         # integrator types.
@@ -343,3 +411,5 @@ class TestGeneral(unittest.TestCase):
             RungeKutta3Integrator(
                 system=system,
                 context=simulator.get_mutable_context()))
+=======
+>>>>>>> intial

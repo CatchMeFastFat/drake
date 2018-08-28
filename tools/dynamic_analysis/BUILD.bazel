@@ -34,6 +34,7 @@ sh_binary(
     data = ["ubsan.supp"],
 )
 
+<<<<<<< HEAD
 filegroup(
     name = "sanitizer_blacklists",
     srcs = [
@@ -41,6 +42,8 @@ filegroup(
     ],
 )
 
+=======
+>>>>>>> intial
 sh_binary(
     name = "kcov",
     srcs = ["kcov.sh"],

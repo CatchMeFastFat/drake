@@ -7,7 +7,10 @@
 #include "drake/common/constants.h"
 #include "drake/common/eigen_types.h"
 #include "drake/math/quaternion.h"
+<<<<<<< HEAD
 #include "drake/math/roll_pitch_yaw.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace math {
@@ -60,8 +63,12 @@ template <class Generator>
 Eigen::Vector3d UniformlyRandomRPY(Generator* generator) {
   DRAKE_DEMAND(generator != nullptr);
   const Eigen::Quaterniond q = UniformlyRandomQuaternion(generator);
+<<<<<<< HEAD
   const RollPitchYaw<double> rpy(q);
   return rpy.vector();
+=======
+  return QuaternionToSpaceXYZ(q);
+>>>>>>> intial
 }
 
 }  // namespace math

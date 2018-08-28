@@ -45,7 +45,11 @@ class ConstAndEcho final : public LeafSystem<T> {
   template <typename U>
   explicit ConstAndEcho(const ConstAndEcho<U>&) : ConstAndEcho() {}
 
+<<<<<<< HEAD
   const systems::InputPort<T>& get_vec_input_port() {
+=======
+  const systems::InputPortDescriptor<T>& get_vec_input_port() {
+>>>>>>> intial
     return this->get_input_port(0);
   }
 

@@ -45,8 +45,11 @@ class MyDirectTrajOpt : public MultipleShooting {
 
   // Expose for unit testing.
   using MultipleShooting::h_vars;
+<<<<<<< HEAD
   using MultipleShooting::x_vars;
   using MultipleShooting::u_vars;
+=======
+>>>>>>> intial
   using MultipleShooting::timesteps_are_decision_variables;
   using MultipleShooting::fixed_timestep;
 
@@ -252,6 +255,7 @@ GTEST_TEST(MultipleShootingTest, FinalCostTest) {
                               kSolverTolerance));
 }
 
+<<<<<<< HEAD
 GTEST_TEST(MultipleShootingTest, TrajectoryCallbackTest) {
   const int kNumInputs{1};
   const int kNumStates{2};
@@ -319,6 +323,8 @@ GTEST_TEST(MultipleShootingTest, TrajectoryCallbackTest) {
   EXPECT_TRUE(state_callback_was_called);
 }
 
+=======
+>>>>>>> intial
 GTEST_TEST(MultipleShootingTest, InitialGuessTest) {
   const int kNumInputs{1};
   const int kNumStates{1};

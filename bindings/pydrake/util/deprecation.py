@@ -15,7 +15,10 @@ If you would like to disable all Drake-related warnings, you may use the
 
 import sys
 import traceback
+<<<<<<< HEAD
 from types import ModuleType
+=======
+>>>>>>> intial
 import warnings
 
 # TODO(eric.cousineau): Make autocomplete ignore `ModuleShim` attributes
@@ -34,8 +37,11 @@ class ModuleShim(object):
     def __init__(self, orig_module, handler):
         assert hasattr(orig_module, "__all__"), (
             "Please define `__all__` for this module.")
+<<<<<<< HEAD
         assert isinstance(orig_module, ModuleType), (
             "{} must be a module".format(orig_module))
+=======
+>>>>>>> intial
         # https://stackoverflow.com/a/16237698/7829525
         object.__setattr__(self, '_orig_module', orig_module)
         object.__setattr__(self, '_handler', handler)
@@ -69,6 +75,7 @@ class ModuleShim(object):
     def __repr__(self):
         return repr(self._orig_module)
 
+<<<<<<< HEAD
     def __dir__(self):
         # Implemented to provide a useful subset of completions to
         # `rlcompleter`.
@@ -78,14 +85,22 @@ class ModuleShim(object):
     def _install(cls, name, handler):
         """
         Hook into module's attribute accessors and mutators.
+=======
+    @classmethod
+    def install(cls, name, handler):
+        """ Hook into module's attribute accessors and mutators.
+>>>>>>> intial
         @param name
             Module name. Generally should be __name__.
         @param handler
             Function of the form `handler(var)`, where `var` is
             the variable name.
+<<<<<<< HEAD
         @note This is private such that `install` does not pollute completion
         candidations provided by `rlcompleter` when it iterates through
         `__bases__`.
+=======
+>>>>>>> intial
         """
         old_module = sys.modules[name]
         new_module = cls(old_module, handler)
@@ -103,6 +118,7 @@ class DrakeDeprecationWarning(DeprecationWarning):
         DeprecationWarning.__init__(self, extra_message, *args)
 
 
+<<<<<<< HEAD
 def _warn_deprecated(message, stacklevel=2):
     # Logs a deprecation warning message.  Also used by `deprecation_pybind.h`
     # in addition to this file.
@@ -110,6 +126,8 @@ def _warn_deprecated(message, stacklevel=2):
         message, category=DrakeDeprecationWarning, stacklevel=stacklevel)
 
 
+=======
+>>>>>>> intial
 class _DeprecatedDescriptor(object):
     """Wraps a descriptor to warn that it is deprecated any time it is
     acccessed."""
@@ -121,7 +139,12 @@ class _DeprecatedDescriptor(object):
         self._message = message
 
     def _warn(self):
+<<<<<<< HEAD
         _warn_deprecated(self._message, stacklevel=4)
+=======
+        warnings.warn(
+            self._message, category=DrakeDeprecationWarning, stacklevel=3)
+>>>>>>> intial
 
     def __get__(self, obj, objtype):
         self._warn()

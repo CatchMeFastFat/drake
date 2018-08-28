@@ -1,7 +1,10 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+=======
+>>>>>>> intial
 def github_archive(
         name,
         repository = None,
@@ -58,7 +61,11 @@ def github_archive(
         fail("The repository= must be formatted as 'organization/project'")
     _, project = repository_split
     strip_commit = commit
+<<<<<<< HEAD
     if commit[0] == "v":
+=======
+    if commit[0] == 'v':
+>>>>>>> intial
         # Github archives omit the "v" in version tags, for some reason.
         strip_commit = commit[1:]
     strip_prefix = project + "-" + strip_commit
@@ -67,12 +74,17 @@ def github_archive(
         if build_file == None:
             native.local_repository(
                 name = name,
+<<<<<<< HEAD
                 path = local_repository_override,
             )
+=======
+                path = local_repository_override)
+>>>>>>> intial
         else:
             native.new_local_repository(
                 name = name,
                 build_file = build_file,
+<<<<<<< HEAD
                 path = local_repository_override,
             )
         return
@@ -85,3 +97,23 @@ def github_archive(
         strip_prefix = strip_prefix,
         **kwargs
     )
+=======
+                path = local_repository_override)
+        return
+
+    if build_file == None:
+        native.http_archive(
+            name = name,
+            urls = urls,
+            sha256 = sha256,
+            strip_prefix = strip_prefix,
+            **kwargs)
+    else:
+        native.new_http_archive(
+            name = name,
+            urls = urls,
+            sha256 = sha256,
+            build_file = build_file,
+            strip_prefix = strip_prefix,
+            **kwargs)
+>>>>>>> intial

@@ -3,10 +3,16 @@ namespace: "drake::automotive"
 element {
     name: "position"
     doc: "The along-curve position of the vehicle."
+<<<<<<< HEAD
     default_value: "0.0"
+=======
+>>>>>>> intial
 }
 element {
     name: "speed"
     doc: "The along-curve speed of the vehicle."
+<<<<<<< HEAD
     default_value: "0.0"
+=======
+>>>>>>> intial
 }

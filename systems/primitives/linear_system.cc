@@ -114,7 +114,11 @@ std::unique_ptr<AffineSystem<double>> DoFirstOrderTaylorApproximation(
       autodiff_system->CreateDefaultContext();
   autodiff_context->SetTimeStateAndParametersFrom(context);
 
+<<<<<<< HEAD
   const InputPort<AutoDiffXd>* input_port = nullptr;
+=======
+  const InputPortDescriptor<AutoDiffXd>* input_port = nullptr;
+>>>>>>> intial
   // By default, use the first input / output ports (if they exist).
   if (input_port_index == kUseFirstInputIfItExists) {
     if (system.get_num_input_ports() > 0) {

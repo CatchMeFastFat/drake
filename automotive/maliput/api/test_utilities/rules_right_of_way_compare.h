@@ -12,11 +12,16 @@ namespace rules {
 namespace test {
 
 
+<<<<<<< HEAD
 /// Predicate-formatter which tests equality of RightOfWayRule::ZoneType.
+=======
+/// Predicate-formatter which tests equality of RightOfWayRule::Type.
+>>>>>>> intial
 // TODO(maddog@tri.global)  This should be replaced by a generic predicate
 //                          which handles anything with operator==.
 ::testing::AssertionResult IsEqual(const char* a_expression,
                                    const char* b_expression,
+<<<<<<< HEAD
                                    rules::RightOfWayRule::ZoneType a,
                                    rules::RightOfWayRule::ZoneType b);
 
@@ -35,6 +40,10 @@ namespace test {
                                    const char* b_expression,
                                    const rules::RightOfWayRule::State& a,
                                    const rules::RightOfWayRule::State& b);
+=======
+                                   rules::RightOfWayRule::Type a,
+                                   rules::RightOfWayRule::Type b);
+>>>>>>> intial
 
 
 /// Predicate-formatter which tests equality of RightOfWayRule.
@@ -44,6 +53,7 @@ namespace test {
                                    const rules::RightOfWayRule& b);
 
 
+<<<<<<< HEAD
 /// Predicate-formatter which tests equality of RightOfWayStateProvider::Result.
 ::testing::AssertionResult IsEqual(
      const char* a_expression,
@@ -52,6 +62,8 @@ namespace test {
      const rules::RightOfWayStateProvider::Result& b);
 
 
+=======
+>>>>>>> intial
 }  // namespace test
 }  // namespace rules
 }  // namespace api

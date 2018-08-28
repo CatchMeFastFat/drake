@@ -51,7 +51,10 @@ drake_pybind_library(
     cc_deps = [
         "//bindings/pydrake:autodiff_types_pybind",
         "//bindings/pydrake:symbolic_types_pybind",
+<<<<<<< HEAD
         "//bindings/pydrake/util:deprecation_pybind",
+=======
+>>>>>>> intial
         "//bindings/pydrake/util:drake_optional_pybind",
     ],
     cc_srcs = ["mathematicalprogram_py.cc"],
@@ -87,6 +90,7 @@ drake_pybind_library(
     py_deps = [":mathematicalprogram_py"],
 )
 
+<<<<<<< HEAD
 drake_pybind_library(
     name = "osqp_py",
     cc_so_name = "osqp",
@@ -95,13 +99,18 @@ drake_pybind_library(
     py_deps = [":mathematicalprogram_py"],
 )
 
+=======
+>>>>>>> intial
 PY_LIBRARIES_WITH_INSTALL = [
     ":gurobi_py",
     ":ik_py",
     ":ipopt_py",
     ":mathematicalprogram_py",
     ":mosek_py",
+<<<<<<< HEAD
     ":osqp_py",
+=======
+>>>>>>> intial
 ]
 
 PY_LIBRARIES = [
@@ -130,12 +139,20 @@ install(
 
 drake_py_unittest(
     name = "gurobi_solver_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     tags = gurobi_test_tags(),
     deps = [":gurobi_py"],
 )
 
 drake_py_unittest(
     name = "ipopt_solver_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     args = select({
         "//tools:no_ipopt": ["TestIpoptSolver.unavailable"],
         "//conditions:default": [],
@@ -145,11 +162,16 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "mosek_solver_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     tags = mosek_test_tags(),
     deps = [":mosek_py"],
 )
 
 drake_py_unittest(
+<<<<<<< HEAD
     name = "osqp_solver_test",
     args = select({
         "//tools:no_osqp": ["TestOsqpSolver.unavailable"],
@@ -160,12 +182,20 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "mathematicalprogram_test",
+=======
+    name = "mathematicalprogram_test",
+    size = "small",
+>>>>>>> intial
     tags = gurobi_test_tags(),
     deps = [":mathematicalprogram_py"],
 )
 
 drake_py_test(
     name = "pr2_ik_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     # TODO(jwnimmer-tri) Port this to drake_py_unittest.
     allow_import_unittest = True,
     data = ["//examples/pr2:models"],
@@ -175,6 +205,10 @@ drake_py_test(
 
 drake_py_unittest(
     name = "rbt_ik_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     data = ["//examples/pendulum:models"],
     tags = ["snopt"],
     deps = [":ik_py"],

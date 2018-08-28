@@ -12,8 +12,11 @@ namespace pydrake {
 /**
 @page python_bindings Python Bindings
 
+<<<<<<< HEAD
 # Overview
 
+=======
+>>>>>>> intial
 Drake uses [pybind11](http://pybind11.readthedocs.io/en/stable/) for binding
 its C++ API to Python.
 
@@ -21,6 +24,7 @@ At present, a fork of `pybind11` is used which permits bindings matrices with
 `dtype=object`, passing `unique_ptr` objects, and prevents aliasing for Python
 classes derived from `pybind11` classes.
 
+<<<<<<< HEAD
 ## Module Organization
 
 The structure of the bindings generally follow the *directory structure*, not
@@ -69,11 +73,17 @@ If you wish to convert a `py::handle` (or `PyObject*`) to `py::object` or a
 derived class, you should use
 [`py::reinterpret_borrow<>`](http://pybind11.readthedocs.io/en/stable/reference.html#_CPPv218reinterpret_borrow6handle).
 
+=======
+>>>>>>> intial
 # Conventions
 
 ## Target Conventions
 
+<<<<<<< HEAD
 ### Names
+=======
+Target names should be of the following form:
+>>>>>>> intial
 
 - `*_py`: A Python library (can be pure Python or pybind)
   - File Names: `*.py`, `*_py.cc`
@@ -84,6 +94,7 @@ derived class, you should use
 
 File names should follow form with their respective target.
 
+<<<<<<< HEAD
 ### Visibility
 
 - All Python libraries should generally be private, as `pydrake` will
@@ -93,6 +104,8 @@ File names should follow form with their respective target.
   downstream Bazel projects. If the API is unstable, consider making it private
   with a TODO to make public once it stabilizes.
 
+=======
+>>>>>>> intial
 ### Bazel
 
 Given that `libdrake.so` relies on static linking for components,
@@ -141,7 +154,11 @@ one of the other arguments (`self` is included in those arguments, for
 - "Keep alive, reference" implies a reference that is lifetime-sensitive
 (something that is not necessarily owned by the other arguments).
 - "Keep alive, transitive" implies a transfer of ownership of owned
+<<<<<<< HEAD
 objects from one container to another (e.g. transferring all `System`s
+=======
+objects from one container to another (e.g. transfering all `System`s
+>>>>>>> intial
 from `DiagramBuilder` to `Diagram` when calling
 `DiagramBuilder.Build()`).
 
@@ -156,6 +173,7 @@ This works about 80% of the time.
 - Lambdas, e.g. `[](Args... args) -> auto&& { return func(args...); }`
 (using perfect forwarding when appropriate).
 
+<<<<<<< HEAD
 ## Python Subclassing of C++ Classes
 
 In general, minimize the amount in which users may subclass C++ classes in
@@ -164,6 +182,8 @@ in `pybind`, and ensure that the trampoline class inherits from the
 `py::wrapper<>` class specific to our fork of `pybind`. This ensures that no
 slicing happens with the subclassed instances.
 
+=======
+>>>>>>> intial
 # Interactive Debugging with Bazel
 
 If you would like to interactively debug binding code (using IPython for
@@ -215,13 +235,22 @@ namespace py = pybind11;
 
 /// Used when returning `T& or `const T&`, as pybind's default behavior is to
 /// copy lvalue references.
+<<<<<<< HEAD
 const auto py_reference = py::return_value_policy::reference;
+=======
+const auto py_reference_internal =
+    py::return_value_policy::reference_internal;
+>>>>>>> intial
 
 /// Used when returning references to objects that are internally owned by
 /// `self`. Implies both `py_reference` and `py::keep_alive<0, 1>`, which
 /// implies "Keep alive, reference: `return` keeps` self` alive".
+<<<<<<< HEAD
 const auto py_reference_internal =
     py::return_value_policy::reference_internal;
+=======
+const auto py_reference = py::return_value_policy::reference;
+>>>>>>> intial
 
 /// @}
 
@@ -248,5 +277,12 @@ struct overload_cast_impl {
 template <typename Return, typename... Args>
 constexpr auto overload_cast_explicit = overload_cast_impl<Return, Args...>{};
 
+<<<<<<< HEAD
+=======
+// TODO(eric.cousineau): pybind11 defaults to C++-like copies when dealing
+// with rvalues. We should wrap this into a drake-level binding, so that we
+// can default this to `py_reference` or `py_reference_internal.`
+
+>>>>>>> intial
 }  // namespace pydrake
 }  // namespace drake

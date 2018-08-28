@@ -50,11 +50,14 @@ class Variable {
         type_{Type::CONTINUOUS},
         name_{std::make_shared<std::string>()} {}
 
+<<<<<<< HEAD
   /** Constructs a default value.  This overload is used by Eigen when
    * EIGEN_INITIALIZE_MATRICES_BY_ZERO is enabled.
    */
   explicit Variable(std::nullptr_t) : Variable() {}
 
+=======
+>>>>>>> intial
   /** Constructs a variable with a string. If not specified, it has CONTINUOUS
    * type by default.*/
   explicit Variable(std::string name, Type type = Type::CONTINUOUS);

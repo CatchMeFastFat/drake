@@ -1,10 +1,16 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_googletest",
+    "drake_cc_library",
+>>>>>>> intial
 )
 load(
     "@drake//tools/vector_gen:vector_gen.bzl",
@@ -16,6 +22,7 @@ package(
     default_visibility = ["//visibility:public"],
 )
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "schunk_wsg",
     deps = [
@@ -27,6 +34,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "schunk_wsg_constants",
     hdrs = ["schunk_wsg_constants.h"],
@@ -55,6 +64,7 @@ drake_cc_library(
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     name = "schunk_wsg_plain_controller",
     srcs = ["schunk_wsg_plain_controller.cc"],
     hdrs = ["schunk_wsg_plain_controller.h"],
@@ -70,16 +80,28 @@ drake_cc_library(
 )
 
 drake_cc_library(
+=======
+>>>>>>> intial
     name = "schunk_wsg_controller",
     srcs = ["schunk_wsg_controller.cc"],
     hdrs = ["schunk_wsg_controller.h"],
     deps = [
         ":schunk_wsg_constants",
         ":schunk_wsg_lcm",
+<<<<<<< HEAD
         ":schunk_wsg_plain_controller",
         "//common:essential",
         "//systems/framework:diagram",
         "//systems/framework:diagram_builder",
+=======
+        "//common:essential",
+        "//systems/controllers:pid_controller",
+        "//systems/framework:diagram",
+        "//systems/framework:diagram_builder",
+        "//systems/primitives:gain",
+        "//systems/primitives:pass_through",
+        "//systems/primitives:saturation",
+>>>>>>> intial
     ],
 )
 

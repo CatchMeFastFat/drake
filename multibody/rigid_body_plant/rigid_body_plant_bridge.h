@@ -5,7 +5,11 @@
 #include "drake/common/drake_copyable.h"
 #include "drake/geometry/frame_kinematics_vector.h"
 #include "drake/geometry/geometry_ids.h"
+<<<<<<< HEAD
 #include "drake/geometry/scene_graph.h"
+=======
+#include "drake/geometry/geometry_system.h"
+>>>>>>> intial
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/leaf_system.h"
@@ -14,10 +18,17 @@ namespace drake {
 namespace systems {
 
 /** This class provides backwards compatibility between the old
+<<<<<<< HEAD
  @ref systems::RigidBodyPlant "RigidBodyPlant" and the new SceneGraph. It
  consumes the plant's RigidBodyTree and, serving as a geometry source, registers
  the frames and geometries into SceneGraph. It is then responsible for
  updating the frame poses in SceneGraph by querying the RigidBodyPlant for
+=======
+ @ref systems::RigidBodyPlant "RigidBodyPlant" and the new GeometrySystem. It
+ consumes the plant's RigidBodyTree and, serving as a geometry source, registers
+ the frames and geometries into GeometrySystem. It is then responsible for
+ updating the frame poses in GeometrySystem by querying the RigidBodyPlant for
+>>>>>>> intial
  its state and using the stored RigidBodyTree to evaluate kinematics values.
 
  <H2>Current functionality is limited in several ways</H2>
@@ -25,14 +36,22 @@ namespace systems {
  <H3>What geometry types are read and what roles can they be used for?</H3>
 
  A RigidBody can have "visual" elements and "collision" elements. Which one is
+<<<<<<< HEAD
  read and used in SceneGraph is indicated by the cell value (in the table
+=======
+ read and used in GeometrySystem is indicated by the cell value (in the table
+>>>>>>> intial
  below):
 
     - C : Collision element's geometry is used
     - V : Visual element's geometry is used (but without material values)
     - . : No geometry is used, shapes of this type are *ignored*
 
+<<<<<<< HEAD
  The columns of the table indicate the SceneGraph roles.
+=======
+ The columns of the table indicate the GeometrySystem roles.
+>>>>>>> intial
    - Proximity: The shape is used in proximity queries (e.g., penetration,
                 distance, ray-casting, etc.)
    - Visual:    The shape is displayed in drake_visualizer.
@@ -50,11 +69,19 @@ namespace systems {
   %Sphere     | V         | V      | .
  <h4>Table: Level of Support. Indication of what types of shapes (rows) are read
  from the RigidBodyTree, the role they played in the RigidBodyTree, collision or
+<<<<<<< HEAD
  visual, (cell values "C", "V", or ".") and how they are used in SceneGraph
  roles (columns).</h4>
 
  The table maps a geometry instance in RigidBodyTree to the effect it has in
  SceneGraph. Things of particular note:
+=======
+ visual, (cell values "C", "V", or ".") and how they are used in GeometrySystem
+ roles (columns).</h4>
+
+ The table maps a geometry instance in RigidBodyTree to the effect it has in
+ GeometrySystem. Things of particular note:
+>>>>>>> intial
 
  1. %Box, %Capsule, and %MeshPoints are not supported at all. If found in the
     RigidBodyTree, as visual _or_ collision elements, they will be ignored.
@@ -91,7 +118,11 @@ namespace systems {
 
  Because a RigidBodyPlantBridge contains a pointer to a RigidBodyTree, it cannot
  be _converted_ from one scalar type to another. It must be re-created using the
+<<<<<<< HEAD
  SceneGraph and RigidBodyTree instantiated on the new scalar type. */
+=======
+ GeometrySystem and RigidBodyTree instantiated on the new scalar type. */
+>>>>>>> intial
 template <typename T>
 class RigidBodyPlantBridge : public systems::LeafSystem<T> {
  public:
@@ -107,30 +138,51 @@ class RigidBodyPlantBridge : public systems::LeafSystem<T> {
    `rigid_body_tree` is aliased internally; its life span must be longer than
    this. */
   RigidBodyPlantBridge(const RigidBodyTree<T>* rigid_body_tree,
+<<<<<<< HEAD
                        geometry::SceneGraph<T>* scene_graph);
+=======
+                       geometry::GeometrySystem<T>* geometry_system);
+>>>>>>> intial
 
   ~RigidBodyPlantBridge() override {}
 
   geometry::SourceId source_id() const { return source_id_; }
 
+<<<<<<< HEAD
   const systems::OutputPort<T>& geometry_pose_output_port() const;
   const systems::InputPort<T>& rigid_body_plant_state_input_port()
+=======
+  const systems::OutputPort<T>& geometry_id_output_port() const;
+  const systems::OutputPort<T>& geometry_pose_output_port() const;
+  const systems::InputPortDescriptor<T>& rigid_body_plant_state_input_port()
+>>>>>>> intial
       const;
 
  private:
   // Registers `this` system's tree's bodies and geometries to the given
   // geometry system.
+<<<<<<< HEAD
   void RegisterTree(geometry::SceneGraph<T>* scene_graph);
+=======
+  void RegisterTree(geometry::GeometrySystem<T>* geometry_system);
+>>>>>>> intial
 
   // This is nothing _but_ direct-feedthrough.
   optional<bool> DoHasDirectFeedthrough(int, int) const override {
     return true;
   }
 
+<<<<<<< HEAD
+=======
+  // Allocate the frame pose set output port value.
+  geometry::FramePoseVector<T> AllocateFramePoseOutput() const;
+
+>>>>>>> intial
   // Calculate the frame pose set output port value.
   void CalcFramePoseOutput(const MyContext& context,
                            geometry::FramePoseVector<T>* poses) const;
 
+<<<<<<< HEAD
   // The tree used to populate SceneGraph and evaluate body kinematics.
   const RigidBodyTree<T>* const tree_{nullptr};
 
@@ -145,6 +197,26 @@ class RigidBodyPlantBridge : public systems::LeafSystem<T> {
   // element i - 1. This is because *all* frames are currently being registered
   // (regardless of weldedness or whether it has geometry) and we skip the
   // world body (index 0).
+=======
+  // Allocate the id output.
+  geometry::FrameIdVector AllocateFrameIdOutput() const;
+  // Calculate the id output.
+  void CalcFrameIdOutput(const MyContext& context,
+                         geometry::FrameIdVector* id_set) const;
+
+  // The tree used to populate GeometrySystem and evaluate body kinematics.
+  const RigidBodyTree<T>* const tree_{nullptr};
+
+  // This system's source id with GeometrySystem.
+  geometry::SourceId source_id_;
+
+  // Port handles
+  int geometry_id_port_{-1};
+  int geometry_pose_port_{-1};
+  int plant_state_port_{-1};
+
+  // Registered data
+>>>>>>> intial
   std::vector<geometry::FrameId> body_ids_;
 };
 }  // namespace systems

@@ -35,8 +35,11 @@ RoadGeometry::RoadGeometry(const api::RoadGeometryId& id,
   DRAKE_DEMAND(maximum_height >= 0);
   DRAKE_DEMAND(linear_tolerance >= 0);
   DRAKE_DEMAND(angular_tolerance >= 0);
+<<<<<<< HEAD
 
   id_index_.WalkAndAddAll(this);
+=======
+>>>>>>> intial
 }
 
 const api::Junction* RoadGeometry::do_junction(int index) const {

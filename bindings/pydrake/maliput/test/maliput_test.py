@@ -6,17 +6,25 @@ import numpy as np
 
 import pydrake.systems.framework as framework
 from pydrake.maliput.api import (
+<<<<<<< HEAD
     LanePosition,
     GeoPosition,
     RoadGeometry,
     RoadGeometryId,
     RoadPosition,
+=======
+    RoadGeometryId,
+    LanePosition,
+    GeoPosition,
+    RoadGeometry,
+>>>>>>> intial
     )
 from pydrake.maliput.dragway import (
     create_dragway,
     )
 
 
+<<<<<<< HEAD
 # Instantiate and return a two-lane straight road.
 def make_test_dragway(kLaneWidth):
     kNumLanes = 2
@@ -33,6 +41,8 @@ def make_test_dragway(kLaneWidth):
         angular_tolerance=kTol)
 
 
+=======
+>>>>>>> intial
 # Tests the bindings for the API and backend implementations.
 class TestMaliput(unittest.TestCase):
     def test_api(self):
@@ -53,6 +63,7 @@ class TestMaliput(unittest.TestCase):
         geo_pos_alt = GeoPosition(x=1., y=2., z=3.)
         self.assertTrue(np.allclose(geo_pos_alt.xyz(), xyz))
 
+<<<<<<< HEAD
         RoadPosition()
         rg = make_test_dragway(kLaneWidth=4.)
         lane_0 = rg.junction(0).segment(0).lane(0)
@@ -66,6 +77,8 @@ class TestMaliput(unittest.TestCase):
         road_pos.pos = LanePosition(s=new_srh[0], r=new_srh[1], h=new_srh[2])
         self.assertTrue(np.allclose(road_pos.pos.srh(), new_srh))
 
+=======
+>>>>>>> intial
         # Check that the getters are read-only.
         with self.assertRaises(ValueError):
             lane_pos.srh()[0] = 0.
@@ -75,15 +88,42 @@ class TestMaliput(unittest.TestCase):
         # Test RoadGeometryId accessors.
         string = "foo"
         rg_id = RoadGeometryId(string)
+<<<<<<< HEAD
         self.assertEqual(rg_id.string(), string)
 
     def test_dragway(self):
         kLaneWidth = 4.
         rg = make_test_dragway(kLaneWidth=kLaneWidth)
+=======
+        self.assertTrue(rg_id.string() == string)
+
+    def test_dragway(self):
+        kNumLanes = 2
+        kLength = 100.
+        kLaneWidth = 4.
+        kShoulderWidth = 1.
+        kHeight = 5.
+        kTol = 1e-6
+
+        # Instantiate a two-lane straight road.
+        rg_id = RoadGeometryId("two_lane_road")
+        rg = create_dragway(rg_id, kNumLanes, kLength, kLaneWidth,
+                            kShoulderWidth, kHeight, kTol, kTol)
+>>>>>>> intial
         segment = rg.junction(0).segment(0)
         lane_0 = segment.lane(0)
         lane_1 = segment.lane(1)
 
+<<<<<<< HEAD
+=======
+        # Alternate constructor.
+        create_dragway(
+            road_id=rg_id, num_lanes=kNumLanes, length=kLength,
+            lane_width=kLaneWidth, shoulder_width=kShoulderWidth,
+            maximum_height=kHeight, linear_tolerance=kTol,
+            angular_tolerance=kTol)
+
+>>>>>>> intial
         # Test the Lane <-> Geo space coordinate conversion.
         lane_pos = LanePosition(0., 0., 0.)
         geo_pos_result = lane_0.ToGeoPosition(lane_pos)

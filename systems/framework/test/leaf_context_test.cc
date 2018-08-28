@@ -12,18 +12,28 @@
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/common/test_utilities/is_dynamic_castable.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
 #include "drake/systems/framework/test_utilities/pack_value.h"
 #include "drake/systems/framework/value.h"
 
 using Eigen::VectorXd;
 
+=======
+#include "drake/systems/framework/input_port_value.h"
+#include "drake/systems/framework/test_utilities/pack_value.h"
+#include "drake/systems/framework/value.h"
+
+>>>>>>> intial
 namespace drake {
 namespace systems {
 
 constexpr int kNumInputPorts = 2;
 constexpr int kInputSize[kNumInputPorts] = {1, 2};
+<<<<<<< HEAD
 constexpr int kNumOutputPorts = 3;
+=======
+>>>>>>> intial
 constexpr int kContinuousStateSize = 5;
 constexpr int kGeneralizedPositionSize = 2;
 constexpr int kGeneralizedVelocitySize = 2;
@@ -43,6 +53,7 @@ class LeafContextTest : public ::testing::Test {
   void SetUp() override {
     context_.set_time(kTime);
 
+<<<<<<< HEAD
     // Set up slots for input and output ports.
     AddInputPorts(kNumInputPorts, &context_);
     AddOutputPorts(kNumOutputPorts, &context_);
@@ -57,10 +68,22 @@ class LeafContextTest : public ::testing::Test {
 
     // Reserve a continuous state with five elements.
     context_.init_continuous_state(std::make_unique<ContinuousState<double>>(
+=======
+    // Input
+    context_.SetNumInputPorts(kNumInputPorts);
+    for (int i = 0; i < kNumInputPorts; ++i) {
+      context_.FixInputPort(
+          i, std::make_unique<BasicVector<double>>(kInputSize[i]));
+    }
+
+    // Reserve a continuous state with five elements.
+    context_.set_continuous_state(std::make_unique<ContinuousState<double>>(
+>>>>>>> intial
         BasicVector<double>::Make({1.0, 2.0, 3.0, 5.0, 8.0}),
         kGeneralizedPositionSize, kGeneralizedVelocitySize,
         kMiscContinuousStateSize));
 
+<<<<<<< HEAD
     // Reserve a discrete state with a single element of size 1, and verify
     // that we can change it using get_mutable_discrete_state_vector().
     std::vector<std::unique_ptr<BasicVector<double>>> xd_single;
@@ -70,10 +93,13 @@ class LeafContextTest : public ::testing::Test {
     context_.get_mutable_discrete_state_vector()[0] = 192.0;
     EXPECT_EQ(context_.get_discrete_state().get_vector()[0], 192.0);
 
+=======
+>>>>>>> intial
     // Reserve a discrete state with two elements, of size 1 and size 2.
     std::vector<std::unique_ptr<BasicVector<double>>> xd;
     xd.push_back(BasicVector<double>::Make({128.0}));
     xd.push_back(BasicVector<double>::Make({256.0, 512.0}));
+<<<<<<< HEAD
     context_.init_discrete_state(
         std::make_unique<DiscreteValues<double>>(std::move(xd)));
 
@@ -86,10 +112,16 @@ class LeafContextTest : public ::testing::Test {
     graph.get_mutable_tracker(DependencyTicket(internal::kXdTicket))
         .SubscribeToPrerequisite(&xd0_tracker);
 
+=======
+    context_.set_discrete_state(
+        std::make_unique<DiscreteValues<double>>(std::move(xd)));
+
+>>>>>>> intial
     // Reserve an abstract state with one element, which is not owned.
     abstract_state_ = PackValue(42);
     std::vector<AbstractValue*> xa;
     xa.push_back(abstract_state_.get());
+<<<<<<< HEAD
     context_.init_abstract_state(
         std::make_unique<AbstractValues>(std::move(xa)));
 
@@ -191,6 +223,54 @@ class LeafContextTest : public ::testing::Test {
 
 namespace {
 
+=======
+    context_.set_abstract_state(
+        std::make_unique<AbstractValues>(std::move(xa)));
+
+    // Reserve two numeric parameters of size 3 and size 4, and one abstract
+    // valued parameter of type TestAbstractType.
+    std::vector<std::unique_ptr<BasicVector<double>>> vector_params;
+    vector_params.push_back(BasicVector<double>::Make({1.0, 2.0, 4.0}));
+    vector_params.push_back(BasicVector<double>::Make({8.0, 16.0, 32.0, 64.0}));
+    std::vector<std::unique_ptr<AbstractValue>> abstract_params;
+    abstract_params.push_back(std::make_unique<Value<TestAbstractType>>());
+    context_.set_parameters(std::make_unique<Parameters<double>>(
+        std::move(vector_params),
+        std::move(abstract_params)));
+  }
+
+  // Mocks up a descriptor sufficient to read a FreestandingInputPortValue
+  // connected to @p context at @p index.
+  static const BasicVector<double>* ReadVectorInputPort(
+      const Context<double>& context, int index) {
+    InputPortDescriptor<double> descriptor(nullptr, InputPortIndex(index),
+                                           kVectorValued, 0, nullopt);
+    return context.EvalVectorInput(nullptr, descriptor);
+  }
+
+  // Mocks up a descriptor sufficient to read a FreestandingInputPortValue
+  // connected to @p context at @p index.
+  static const std::string* ReadStringInputPort(const Context<double>& context,
+                                                int index) {
+    InputPortDescriptor<double> descriptor(nullptr, InputPortIndex(index),
+                                           kAbstractValued, 0, nullopt);
+    return context.EvalInputValue<std::string>(nullptr, descriptor);
+  }
+
+  // Mocks up a descriptor sufficient to read a FreestandingInputPortValue
+  // connected to @p context at @p index.
+  static const AbstractValue* ReadAbstractInputPort(
+      const Context<double>& context, int index) {
+    InputPortDescriptor<double> descriptor(nullptr, InputPortIndex(index),
+                                           kAbstractValued, 0, nullopt);
+    return context.EvalAbstractInput(nullptr, descriptor);
+  }
+
+  LeafContext<double> context_;
+  std::unique_ptr<AbstractValue> abstract_state_;
+};
+
+>>>>>>> intial
 // Verifies that @p state is a clone of the state constructed in
 // LeafContextTest::SetUp.
 void VerifyClonedState(const State<double>& clone) {
@@ -248,6 +328,7 @@ void VerifyClonedState(const State<double>& clone) {
   EXPECT_EQ(8.0, xc.get_misc_continuous_state().GetAtIndex(0));
 }
 
+<<<<<<< HEAD
 TEST_F(LeafContextTest, CheckPorts) {
   ASSERT_EQ(kNumInputPorts, context_.get_num_input_ports());
   ASSERT_EQ(kNumOutputPorts, context_.get_num_output_ports());
@@ -282,6 +363,15 @@ TEST_F(LeafContextTest, CheckPorts) {
       EXPECT_TRUE(all_sources_tracker.HasSubscriber(tracker));
     }
   }
+=======
+TEST_F(LeafContextTest, GetNumInputPorts) {
+  ASSERT_EQ(kNumInputPorts, context_.get_num_input_ports());
+}
+
+TEST_F(LeafContextTest, ClearInputPorts) {
+  context_.ClearInputPorts();
+  EXPECT_EQ(0, context_.get_num_input_ports());
+>>>>>>> intial
 }
 
 TEST_F(LeafContextTest, GetNumDiscreteStateGroups) {
@@ -300,15 +390,25 @@ TEST_F(LeafContextTest, IsStateless) {
 
 TEST_F(LeafContextTest, HasOnlyContinuousState) {
   EXPECT_FALSE(context_.has_only_continuous_state());
+<<<<<<< HEAD
   context_.init_discrete_state(std::make_unique<DiscreteValues<double>>());
   context_.init_abstract_state(std::make_unique<AbstractValues>());
+=======
+  context_.set_discrete_state(std::make_unique<DiscreteValues<double>>());
+  context_.set_abstract_state(std::make_unique<AbstractValues>());
+>>>>>>> intial
   EXPECT_TRUE(context_.has_only_continuous_state());
 }
 
 TEST_F(LeafContextTest, HasOnlyDiscreteState) {
   EXPECT_FALSE(context_.has_only_discrete_state());
+<<<<<<< HEAD
   context_.init_continuous_state(std::make_unique<ContinuousState<double>>());
   context_.init_abstract_state(std::make_unique<AbstractValues>());
+=======
+  context_.set_continuous_state(std::make_unique<ContinuousState<double>>());
+  context_.set_abstract_state(std::make_unique<AbstractValues>());
+>>>>>>> intial
   EXPECT_TRUE(context_.has_only_discrete_state());
 }
 
@@ -317,7 +417,11 @@ TEST_F(LeafContextTest, GetNumStates) {
   EXPECT_EQ(context.get_num_total_states(), 0);
 
   // Reserve a continuous state with five elements.
+<<<<<<< HEAD
   context.init_continuous_state(std::make_unique<ContinuousState<double>>(
+=======
+  context.set_continuous_state(std::make_unique<ContinuousState<double>>(
+>>>>>>> intial
       BasicVector<double>::Make({1.0, 2.0, 3.0, 5.0, 8.0})));
   EXPECT_EQ(context.get_num_total_states(), 5);
 
@@ -325,7 +429,11 @@ TEST_F(LeafContextTest, GetNumStates) {
   std::vector<std::unique_ptr<BasicVector<double>>> xd;
   xd.push_back(BasicVector<double>::Make({128.0}));
   xd.push_back(BasicVector<double>::Make({256.0, 512.0}));
+<<<<<<< HEAD
   context.init_discrete_state(
+=======
+  context.set_discrete_state(
+>>>>>>> intial
       std::make_unique<DiscreteValues<double>>(std::move(xd)));
   EXPECT_EQ(context.get_num_total_states(), 8);
 
@@ -333,16 +441,27 @@ TEST_F(LeafContextTest, GetNumStates) {
   std::unique_ptr<AbstractValue> abstract_state = PackValue(42);
   std::vector<AbstractValue*> xa;
   xa.push_back(abstract_state.get());
+<<<<<<< HEAD
   context.init_abstract_state(std::make_unique<AbstractValues>(std::move(xa)));
+=======
+  context.set_abstract_state(std::make_unique<AbstractValues>(std::move(xa)));
+>>>>>>> intial
   EXPECT_THROW(context.get_num_total_states(), std::runtime_error);
 }
 
 TEST_F(LeafContextTest, GetVectorInput) {
   LeafContext<double> context;
+<<<<<<< HEAD
   AddInputPorts(2, &context);
 
   // Add input port 0 to the context, but leave input port 1 uninitialized.
   context.FixInputPort(0, {5.0, 6.0});
+=======
+  context.SetNumInputPorts(2);
+
+  // Add input port 0 to the context, but leave input port 1 uninitialized.
+  context.FixInputPort(0, BasicVector<double>::Make({5, 6}));
+>>>>>>> intial
 
   // Test that port 0 is retrievable.
   VectorX<double> expected(2);
@@ -355,10 +474,17 @@ TEST_F(LeafContextTest, GetVectorInput) {
 
 TEST_F(LeafContextTest, GetAbstractInput) {
   LeafContext<double> context;
+<<<<<<< HEAD
   AddInputPorts(2, &context);
 
   // Add input port 0 to the context, but leave input port 1 uninitialized.
   context.FixInputPort(0, Value<std::string>("foo"));
+=======
+  context.SetNumInputPorts(2);
+
+  // Add input port 0 to the context, but leave input port 1 uninitialized.
+  context.FixInputPort(0, AbstractValue::Make<std::string>("foo"));
+>>>>>>> intial
 
   // Test that port 0 is retrievable.
   EXPECT_EQ("foo", *ReadStringInputPort(context, 0));
@@ -367,6 +493,7 @@ TEST_F(LeafContextTest, GetAbstractInput) {
   EXPECT_EQ(nullptr, ReadAbstractInputPort(context, 1));
 }
 
+<<<<<<< HEAD
 // Tests that items can be stored and retrieved in the cache.
 TEST_F(LeafContextTest, SetAndGetCache) {
   CacheIndex index = context_.get_mutable_cache()
@@ -438,6 +565,8 @@ TEST_F(LeafContextTest, FixInputPort) {
   // overloads for AbstractValue.
 }
 
+=======
+>>>>>>> intial
 TEST_F(LeafContextTest, Clone) {
   std::unique_ptr<Context<double>> clone = context_.Clone();
   // Verify that the time was copied.
@@ -531,7 +660,11 @@ TEST_F(LeafContextTest, SetTimeStateAndParametersFrom) {
   // interesting values.
   // In actual applications, System<T>::CreateDefaultContext does this.
   LeafContext<AutoDiffXd> target;
+<<<<<<< HEAD
   target.init_continuous_state(std::make_unique<ContinuousState<AutoDiffXd>>(
+=======
+  target.set_continuous_state(std::make_unique<ContinuousState<AutoDiffXd>>(
+>>>>>>> intial
       std::make_unique<BasicVector<AutoDiffXd>>(5),
       kGeneralizedPositionSize, kGeneralizedVelocitySize,
       kMiscContinuousStateSize));
@@ -539,12 +672,20 @@ TEST_F(LeafContextTest, SetTimeStateAndParametersFrom) {
   std::vector<std::unique_ptr<BasicVector<AutoDiffXd>>> xd;
   xd.push_back(std::make_unique<BasicVector<AutoDiffXd>>(1));
   xd.push_back(std::make_unique<BasicVector<AutoDiffXd>>(2));
+<<<<<<< HEAD
   target.init_discrete_state(
+=======
+  target.set_discrete_state(
+>>>>>>> intial
       std::make_unique<DiscreteValues<AutoDiffXd>>(std::move(xd)));
 
   std::vector<std::unique_ptr<AbstractValue>> xa;
   xa.push_back(PackValue(76));
+<<<<<<< HEAD
   target.init_abstract_state(std::make_unique<AbstractValues>(std::move(xa)));
+=======
+  target.set_abstract_state(std::make_unique<AbstractValues>(std::move(xa)));
+>>>>>>> intial
 
   std::vector<std::unique_ptr<BasicVector<AutoDiffXd>>> params;
   params.push_back(std::make_unique<BasicVector<AutoDiffXd>>(3));
@@ -598,6 +739,7 @@ TEST_F(LeafContextTest, Accuracy) {
   EXPECT_EQ(clone->get_accuracy().value(), unity);
 }
 
+<<<<<<< HEAD
 void MarkAllCacheValuesUpToDate(Cache* cache) {
   for (CacheIndex i(0); i < cache->cache_size(); ++i) {
     if (cache->has_cache_entry_value(i))
@@ -769,5 +911,7 @@ TEST_F(LeafContextTest, Invalidation) {
 }
 
 }  // namespace
+=======
+>>>>>>> intial
 }  // namespace systems
 }  // namespace drake

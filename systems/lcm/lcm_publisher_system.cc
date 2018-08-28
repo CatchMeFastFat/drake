@@ -6,7 +6,11 @@
 
 #include "drake/common/text_logging.h"
 #include "drake/lcm/drake_lcm_interface.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 
 namespace drake {
 namespace systems {

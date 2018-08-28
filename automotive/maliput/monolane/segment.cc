@@ -29,7 +29,10 @@ LineLane* Segment::NewLineLane(api::LaneId id,
       elevation, superelevation);
   LineLane* result = lane.get();
   lane_ = std::move(lane);
+<<<<<<< HEAD
   register_lane_(result);
+=======
+>>>>>>> intial
   return result;
 }
 
@@ -49,7 +52,10 @@ ArcLane* Segment::NewArcLane(api::LaneId id,
       elevation, superelevation);
   ArcLane* result = lane.get();
   lane_ = std::move(lane);
+<<<<<<< HEAD
   register_lane_(result);
+=======
+>>>>>>> intial
   return result;
 }
 

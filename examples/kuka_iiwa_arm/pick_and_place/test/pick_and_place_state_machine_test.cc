@@ -124,11 +124,17 @@ GTEST_TEST(PickAndPlaceStateMachineTest, StateMachineTest) {
 
     dut.Update(world_state, iiwa_callback, wsg_callback);
     step_count++;
+<<<<<<< HEAD
     // Check an insanity bound to ensure that we don't run forever.
     ASSERT_LE(step_count, 100);
   }
   // Check that it didn't take take too many tries to find a plan.
   EXPECT_LE(step_count, 25);
+=======
+    // Check that it hasn't taken too many tries to find a plan.
+    ASSERT_LE(step_count, 10);
+  }
+>>>>>>> intial
 
   // Now check that we get the expected behavior for the rest of the states.
   std::vector<TestStep> steps;

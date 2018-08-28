@@ -13,7 +13,10 @@
 #include "pybind11/pybind11.h"
 
 #include "drake/common/nice_type_name.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 
 using std::string;
 using std::vector;
@@ -57,6 +60,7 @@ GTEST_TEST(CppTemplateTest, TemplateClass) {
   CheckValue("DefaultInst().GetNames()", expected_1);
   CheckValue("SimpleTemplate[int]().GetNames()", expected_1);
   CheckValue("SimpleTemplate[int, float]().GetNames()", expected_2);
+<<<<<<< HEAD
 
   m.def("simple_func", [](const SimpleTemplate<int>&) {});
 
@@ -66,6 +70,8 @@ GTEST_TEST(CppTemplateTest, TemplateClass) {
   DRAKE_EXPECT_THROWS_MESSAGE(
       py::eval("simple_func('incorrect value')"), std::runtime_error,
       R"([\s\S]*incompatible function arguments[\s\S]*\(arg0: __main__\.SimpleTemplate\[int\]\)[\s\S]*)");  // NOLINT
+=======
+>>>>>>> intial
 }
 
 template <typename ... Ts>

@@ -1,11 +1,18 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load(
     "@drake//tools/skylark:drake_py.bzl",
@@ -15,6 +22,7 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "utility",
     deps = [
@@ -28,16 +36,31 @@ drake_cc_library(
         "generate_obj.cc",
         "generate_urdf.cc",
         "segment_analysis.cc",
+=======
+drake_cc_library(
+    name = "utility",
+    srcs = [
+        "generate_obj.cc",
+        "generate_urdf.cc",
+>>>>>>> intial
     ],
     hdrs = [
         "generate_obj.h",
         "generate_urdf.h",
+<<<<<<< HEAD
         "segment_analysis.h",
     ],
     visibility = ["//visibility:private"],
     deps = [
         "//automotive/maliput/api",
         "//math:geometric_transform",
+=======
+    ],
+    deps = [
+        "//automotive/maliput/api",
+        "//math:geometric_transform",
+        "@fmt",
+>>>>>>> intial
     ],
 )
 
@@ -47,9 +70,13 @@ drake_cc_binary(
     deps = [
         ":utility",
         "//automotive/maliput/monolane",
+<<<<<<< HEAD
         "//automotive/maliput/multilane",
         "//common:text_logging_gflags",
         "@yaml_cpp",
+=======
+        "//common:text_logging_gflags",
+>>>>>>> intial
     ],
 )
 
@@ -71,6 +98,10 @@ drake_cc_binary(
     test_rule_data = [
         ":t_intersection.rndf",
     ],
+<<<<<<< HEAD
+=======
+    test_rule_size = "small",
+>>>>>>> intial
     deps = [
         ":utility",
         "//automotive/maliput/rndf",
@@ -108,6 +139,7 @@ drake_cc_googletest(
     ],
 )
 
+<<<<<<< HEAD
 drake_cc_googletest(
     name = "segment_analysis_test",
     deps = [
@@ -119,11 +151,19 @@ drake_cc_googletest(
 drake_py_unittest(
     name = "yaml_to_obj_test",
     timeout = "moderate",
+=======
+drake_py_unittest(
+    name = "yaml_to_obj_test",
+    size = "medium",
+>>>>>>> intial
     args = ["$(location :yaml_to_obj)"],
     data = [
         ":yaml_to_obj",
         "//automotive/maliput/monolane:yamls",
+<<<<<<< HEAD
         "//automotive/maliput/multilane:yamls",
+=======
+>>>>>>> intial
     ],
 )
 

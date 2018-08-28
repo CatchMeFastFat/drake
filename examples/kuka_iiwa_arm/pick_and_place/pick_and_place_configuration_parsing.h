@@ -28,7 +28,11 @@ ParsePlannerConfigurationsOrThrow(const std::string& filename);
 pick_and_place::SimulatedPlantConfiguration
 ParseSimulatedPlantConfigurationOrThrow(const std::string& filename);
 
+<<<<<<< HEAD
 /// Parse the pick and place configuration from @p configuration,
+=======
+/// Parse the pick and place configuration from @p configuation,
+>>>>>>> intial
 /// returning the simulated plant configuration.
 pick_and_place::SimulatedPlantConfiguration
 ParseSimulatedPlantConfigurationStringOrThrow(const std::string& configuration);

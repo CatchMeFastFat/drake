@@ -71,7 +71,11 @@ class SystemIdentification {
 
   /// Same as GetLumpedParametersFromPolynomial but for multiple Polynomials.
   /**
+<<<<<<< HEAD
    * It is preferable to use this if you have multiple Polynomials as it
+=======
+   * It is preferrable to use this if you have multiple Polynomials as it
+>>>>>>> intial
    * saves you from having to union the resulting LumpingMapType results
    * together.
    */

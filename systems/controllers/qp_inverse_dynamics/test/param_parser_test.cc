@@ -171,7 +171,11 @@ TEST_F(ParamParserTests, BodyMotionParams) {
   weights << 1, 1, 1, 1, 1, 2;
   TestDesiredBodyMotion(motion, body, weights, kTolerance);
 
+<<<<<<< HEAD
   // "NO_SUCH_BODY_GROUP" is not a valid group name, so this returns empty.
+=======
+  // "NO_SUCH_BODY_GROUP" is not a valid group name, so this returns emtpy.
+>>>>>>> intial
   EXPECT_TRUE(paramset_.MakeDesiredBodyMotion("NO_SUCH_BODY_GROUP", *rbt_alias_)
                   .empty());
 

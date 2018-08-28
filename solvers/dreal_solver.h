@@ -19,12 +19,15 @@ class DrealSolver : public MathematicalProgramSolverInterface {
   using Interval = dreal::Box::Interval;
   using IntervalBox = std::unordered_map<symbolic::Variable, Interval>;
 
+<<<<<<< HEAD
   /// Indicates whether to use dReal's --local-optimization option or not.
   enum class LocalOptimization {
     kUse,     ///< Use "--local-optimization" option.
     kNotUse,  ///< Do not use "--local-optimization" option.
   };
 
+=======
+>>>>>>> intial
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(DrealSolver)
 
   DrealSolver() = default;
@@ -51,18 +54,26 @@ class DrealSolver : public MathematicalProgramSolverInterface {
                                                    double delta);
 
   /// Finds a solution to minimize @p objective function while satisfying a
+<<<<<<< HEAD
   /// given @p constraint using @p delta. When @p local_optimization is
   /// Localoptimization::kUse, enable "--local-optimization" dReal option which
   /// uses NLopt's local-optimization algorithms to refine counterexamples in
   /// the process of global optimization.
+=======
+  /// given @p constraint using @p delta.
+>>>>>>> intial
   ///
   /// @returns a model, a mapping from a variable to an interval, if a solution
   /// exists.
   /// @returns nullopt, if there is no solution.
   static optional<IntervalBox> Minimize(const symbolic::Expression& objective,
                                         const symbolic::Formula& constraint,
+<<<<<<< HEAD
                                         double delta,
                                         LocalOptimization local_optimization);
+=======
+                                        double delta);
+>>>>>>> intial
 };
 
 }  // namespace solvers

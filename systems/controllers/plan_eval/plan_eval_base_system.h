@@ -52,7 +52,11 @@ class PlanEvalBaseSystem : public systems::LeafSystem<double> {
   /**
    * Returns input port for RobotKinematicState.
    */
+<<<<<<< HEAD
   inline const systems::InputPort<double>&
+=======
+  inline const systems::InputPortDescriptor<double>&
+>>>>>>> intial
   get_input_port_kinematic_state() const {
     return get_input_port(input_port_index_kinematic_state_);
   }

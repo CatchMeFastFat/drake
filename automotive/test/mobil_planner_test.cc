@@ -53,7 +53,11 @@ class MobilPlannerTest : public ::testing::TestWithParam<RoadPositionStrategy> {
     dut_.reset(new MobilPlanner<double>(
         *road_, initial_with_s, cache_or_search_, period_sec_));
     context_ = dut_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
+=======
+    output_ = dut_->AllocateOutput(*context_);
+>>>>>>> intial
 
     const auto mp = dynamic_cast<const MobilPlanner<double>*>(dut_.get());
     DRAKE_DEMAND(mp != nullptr);
@@ -158,6 +162,7 @@ TEST_P(MobilPlannerTest, Topology) {
   InitializeMobilPlanner(true /* initial_with_s */);
 
   ASSERT_EQ(4, dut_->get_num_input_ports());
+<<<<<<< HEAD
   const auto& ego_pose_input_port =
       dut_->get_input_port(ego_pose_input_index_);
   EXPECT_EQ(systems::kVectorValued, ego_pose_input_port.get_data_type());
@@ -176,6 +181,26 @@ TEST_P(MobilPlannerTest, Topology) {
   const auto& traffic_input_port =
       dut_->get_input_port(traffic_input_index_);
   EXPECT_EQ(systems::kAbstractValued, traffic_input_port.get_data_type());
+=======
+  const auto& ego_pose_input_descriptor =
+      dut_->get_input_port(ego_pose_input_index_);
+  EXPECT_EQ(systems::kVectorValued, ego_pose_input_descriptor.get_data_type());
+  EXPECT_EQ(7 /* PoseVector input */, ego_pose_input_descriptor.size());
+  const auto& ego_velocity_input_descriptor =
+      dut_->get_input_port(ego_velocity_input_index_);
+  EXPECT_EQ(systems::kVectorValued,
+            ego_velocity_input_descriptor.get_data_type());
+  EXPECT_EQ(6 /* FrameVelocity input */, ego_velocity_input_descriptor.size());
+  const auto& ego_acceleration_input_descriptor =
+      dut_->get_input_port(ego_acceleration_input_index_);
+  EXPECT_EQ(systems::kVectorValued,
+            ego_acceleration_input_descriptor.get_data_type());
+  EXPECT_EQ(1 /* acceleration input */,
+            ego_acceleration_input_descriptor.size());
+  const auto& traffic_input_descriptor =
+      dut_->get_input_port(traffic_input_index_);
+  EXPECT_EQ(systems::kAbstractValued, traffic_input_descriptor.get_data_type());
+>>>>>>> intial
 
   ASSERT_EQ(1, dut_->get_num_output_ports());
   const auto& lane_output_port = dut_->get_output_port(lane_output_index_);

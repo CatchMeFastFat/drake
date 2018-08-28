@@ -27,7 +27,11 @@ class LinearSystemTest : public AffineLinearSystemTest {
     dut_->set_name("test_linear_system");
     context_ = dut_->CreateDefaultContext();
     input_vector_ = make_unique<BasicVector<double>>(2 /* size */);
+<<<<<<< HEAD
     system_output_ = dut_->AllocateOutput();
+=======
+    system_output_ = dut_->AllocateOutput(*context_);
+>>>>>>> intial
     state_ = &context_->get_mutable_continuous_state();
     derivatives_ = dut_->AllocateTimeDerivatives();
   }

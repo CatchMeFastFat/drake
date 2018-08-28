@@ -3,6 +3,7 @@ from os.path import abspath
 from platform import python_version_tuple
 from sys import stderr
 
+<<<<<<< HEAD
 # When importing `pydrake` as an external under Bazel, Bazel will use a shared
 # library whose relative RPATHs are incorrect for `libdrake.so`, and thus will
 # fail to load; this issue is captured in bazelbuild/bazel#4594. As a
@@ -20,6 +21,8 @@ try:
 except ImportError:
     pass
 
+=======
+>>>>>>> intial
 # We specifically load `common` prior to loading any other pydrake modules,
 # in order to get assertion configuration done as early as possible.
 from . import common
@@ -46,4 +49,8 @@ def _getattr_handler(name):
         raise AttributeError()
 
 
+<<<<<<< HEAD
 ModuleShim._install(__name__, _getattr_handler)
+=======
+ModuleShim.install(__name__, _getattr_handler)
+>>>>>>> intial

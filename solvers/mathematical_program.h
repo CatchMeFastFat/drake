@@ -767,10 +767,17 @@ class MathematicalProgram {
    * optimization.
    *
    * Note: Just like other costs/constraints, not all solvers support callbacks.
+<<<<<<< HEAD
    * Adding a callback here will force MathematicalProgram::Solve to select a
    * solver that support callbacks.  For instance, adding a visualization
    * callback to a quadratic programming problem may result in using a nonlinear
    * programming solver as the default solver.
+=======
+   * Adding a callback here may change will force MathematicalProgram::Solve to
+   * select a solver that support callbacks.  For instance, adding a
+   * visualization callback to a quadratic programming problem may result in
+   * using a nonlinear programming solver as the default solver.
+>>>>>>> intial
    *
    * @param callback a std::function that accepts an Eigen::Vector of doubles
    * representing the bound decision variables.
@@ -785,10 +792,17 @@ class MathematicalProgram {
    * optimization.
    *
    * Note: Just like other costs/constraints, not all solvers support callbacks.
+<<<<<<< HEAD
    * Adding a callback here will force MathematicalProgram::Solve to select a
    * solver that support callbacks.  For instance, adding a visualization
    * callback to a quadratic programming problem may result in using a nonlinear
    * programming solver as the default solver.
+=======
+   * Adding a callback here may change will force MathematicalProgram::Solve to
+   * select a solver that support callbacks.  For instance, adding a
+   * visualization callback to a quadratic programming problem may result in
+   * using a nonlinear programming solver as the default solver.
+>>>>>>> intial
    *
    * @param callback a std::function that accepts an Eigen::Vector of doubles
    * representing the for the bound decision variables.
@@ -2156,7 +2170,11 @@ class MathematicalProgram {
   }
 
   /**
+<<<<<<< HEAD
    * Set the initial guess for ALL decision variables.
+=======
+   * Set the intial guess for ALL decision variables.
+>>>>>>> intial
    * Note that variables begin with a default initial guess of NaN to indicate
    * that no guess is available.
    * @param x0 A vector of appropriate size (num_vars() x 1).
@@ -2199,11 +2217,19 @@ class MathematicalProgram {
    *
    * Supported solver names/options:
    *
+<<<<<<< HEAD
    * "SNOPT" -- Parameter names and values as specified in SNOPT
    * User's Guide section 7.7 "Description of the optional parameters",
    * used as described in section 7.5 for snSet().
    *
    * "IPOPT" -- Parameter names and values as specified in IPOPT users
+=======
+   * "SNOPT" -- Paramater names and values as specified in SNOPT
+   * User's Guide section 7.7 "Description of the optional parameters",
+   * used as described in section 7.5 for snSet().
+   *
+   * "IPOPT" -- Paramater names and values as specified in IPOPT users
+>>>>>>> intial
    * guide section "Options Reference"
    * http://www.coin-or.org/Ipopt/documentation/node40.html
    *
@@ -2228,6 +2254,7 @@ class MathematicalProgram {
   }
 
   const std::map<std::string, double>& GetSolverOptionsDouble(
+<<<<<<< HEAD
       const SolverId& solver_id) const {
     // Aliases for brevity.
     const auto& options = solver_options_double_;
@@ -2252,6 +2279,20 @@ class MathematicalProgram {
     const auto& empty = solver_options_str_empty_;
     const auto iter = options.find(solver_id);
     return (iter != options.end()) ? iter->second : empty;
+=======
+      const SolverId& solver_id) {
+    return solver_options_double_[solver_id];
+  }
+
+  const std::map<std::string, int>& GetSolverOptionsInt(
+      const SolverId& solver_id) {
+    return solver_options_int_[solver_id];
+  }
+
+  const std::map<std::string, std::string>& GetSolverOptionsStr(
+      const SolverId& solver_id) {
+    return solver_options_str_[solver_id];
+>>>>>>> intial
   }
 
   /**
@@ -2413,7 +2454,11 @@ class MathematicalProgram {
   const Eigen::VectorXd& initial_guess() const { return x_initial_guess_; }
 
   /** Returns the index of the decision variable. Internally the solvers thinks
+<<<<<<< HEAD
    * all variables are stored in an array, and it accesses each individual
+=======
+   * all variables are stored in an array, and it acceses each individual
+>>>>>>> intial
    * variable using its index. This index is used when adding constraints
    * and costs for each solver.
    * @pre{@p var is a decision variable in the mathematical program, otherwise
@@ -2423,7 +2468,11 @@ class MathematicalProgram {
 
   /**
    * Returns the indices of the decision variables. Internally the solvers
+<<<<<<< HEAD
    * thinks all variables are stored in an array, and it accesses each individual
+=======
+   * thinks all variables are stored in an array, and it acceses each individual
+>>>>>>> intial
    * variable using its index. This index is used when adding constraints
    * and costs for each solver.
    * @pre{@p vars are decision variables in the mathematical program, otherwise
@@ -2436,7 +2485,11 @@ class MathematicalProgram {
   int num_indeterminates() const { return indeterminates_.rows(); }
 
   /** Returns the index of the indeterminate. Internally a solver
+<<<<<<< HEAD
    * thinks all indeterminates are stored in an array, and it accesses each
+=======
+   * thinks all indeterminates are stored in an array, and it acceses each
+>>>>>>> intial
    * individual indeterminate using its index. This index is used when adding
    * constraints and costs for each solver.
    * @pre @p var is a indeterminate in the mathematical program,
@@ -2523,7 +2576,11 @@ class MathematicalProgram {
       binding_x(i) =
           prog_var_vals(FindDecisionVariableIndex(binding.variables()(i)));
     }
+<<<<<<< HEAD
     binding.evaluator()->Eval(binding_x, &binding_y);
+=======
+    binding.evaluator()->Eval(binding_x, binding_y);
+>>>>>>> intial
     return binding_y;
   }
 
@@ -2655,6 +2712,7 @@ class MathematicalProgram {
   // The lower bound of the objective found by the solver, during the
   // optimization process.
   double lower_bound_cost_{};
+<<<<<<< HEAD
 
   // The actual per-solver customization options.
   std::map<SolverId, std::map<std::string, double>> solver_options_double_;
@@ -2664,6 +2722,11 @@ class MathematicalProgram {
   const std::map<std::string, double> solver_options_double_empty_;
   const std::map<std::string, int> solver_options_int_empty_;
   const std::map<std::string, std::string> solver_options_str_empty_;
+=======
+  std::map<SolverId, std::map<std::string, double>> solver_options_double_;
+  std::map<SolverId, std::map<std::string, int>> solver_options_int_;
+  std::map<SolverId, std::map<std::string, std::string>> solver_options_str_;
+>>>>>>> intial
 
   AttributesSet required_capabilities_{0};
 

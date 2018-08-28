@@ -1,14 +1,19 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "test_utilities",
     testonly = 1,
@@ -29,6 +34,14 @@ drake_cc_library(
         "//automotive/maliput/api",
         "//common:essential",
         "@gtest//:without_main",
+=======
+# This should encompass every cc_library in this package.
+drake_cc_library(
+    name = "test_utilities",
+    testonly = 1,
+    deps = [
+        ":maliput_types_compare",
+>>>>>>> intial
     ],
 )
 

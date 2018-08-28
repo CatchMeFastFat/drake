@@ -66,17 +66,28 @@ void DirectCollocationConstraint::dynamics(const AutoDiffVecXd& state,
 
 void DirectCollocationConstraint::DoEval(
     const Eigen::Ref<const Eigen::VectorXd>& x,
+<<<<<<< HEAD
     Eigen::VectorXd* y) const {
   AutoDiffVecXd y_t;
   Eval(math::initializeAutoDiff(x), &y_t);
   *y = math::autoDiffToValueMatrix(y_t);
+=======
+    Eigen::VectorXd& y) const {
+  AutoDiffVecXd y_t;
+  Eval(math::initializeAutoDiff(x), y_t);
+  y = math::autoDiffToValueMatrix(y_t);
+>>>>>>> intial
 }
 
 // The format of the input to the eval() function is the
 // tuple { timestep, state 0, state 1, input 0, input 1 },
 // which has a total length of 1 + 2*num_states + 2*num_inputs.
 void DirectCollocationConstraint::DoEval(
+<<<<<<< HEAD
     const Eigen::Ref<const AutoDiffVecXd>& x, AutoDiffVecXd* y) const {
+=======
+    const Eigen::Ref<const AutoDiffVecXd>& x, AutoDiffVecXd& y) const {
+>>>>>>> intial
   DRAKE_ASSERT(x.size() == 1 + (2 * num_states_) + (2 * num_inputs_));
 
   // Extract our input variables:
@@ -106,6 +117,7 @@ void DirectCollocationConstraint::DoEval(
 
   AutoDiffVecXd g;
   dynamics(xcol, 0.5 * (u0 + u1), &g);
+<<<<<<< HEAD
   *y = xdotcol - g;
 }
 
@@ -114,6 +126,9 @@ void DirectCollocationConstraint::DoEval(
     VectorX<symbolic::Expression>*) const {
   throw std::logic_error(
       "DirectCollocationConstraint does not support symbolic evaluation.");
+=======
+  y = xdotcol - g;
+>>>>>>> intial
 }
 
 Binding<Constraint> AddDirectCollocationConstraint(
@@ -177,18 +192,31 @@ void DirectCollocation::DoAddRunningCost(const symbolic::Expression& g) {
   // g_0*h_0/2.0 + [sum_{i=1...N-2} g_i*(h_{i-1} + h_i)/2.0] +
   // g_{N-1}*h_{N-2}/2.0.
 
+<<<<<<< HEAD
   AddCost(SubstitutePlaceholderVariables(g * h_vars()(0) / 2, 0));
   for (int i = 1; i <= N() - 2; i++) {
     AddCost(SubstitutePlaceholderVariables(
         g * (h_vars()(i - 1) + h_vars()(i)) / 2, i));
   }
   AddCost(SubstitutePlaceholderVariables(g * h_vars()(N() - 2) / 2, N() - 1));
+=======
+  AddCost(0.5 * SubstitutePlaceholderVariables(g * h_vars()(0) / 2, 0));
+  for (int i = 1; i < N() - 2; i++) {
+    AddCost(SubstitutePlaceholderVariables(
+        g * (h_vars()(i - 1) + h_vars()(i)) / 2, i));
+  }
+  AddCost(0.5 *
+          SubstitutePlaceholderVariables(g * h_vars()(N() - 2) / 2, N() - 1));
+>>>>>>> intial
 }
 
 PiecewisePolynomial<double>
 DirectCollocation::ReconstructInputTrajectory()
     const {
+<<<<<<< HEAD
   DRAKE_DEMAND(context_->get_num_input_ports() > 0);
+=======
+>>>>>>> intial
   Eigen::VectorXd times = GetSampleTimes();
   std::vector<double> times_vec(N());
   std::vector<Eigen::MatrixXd> inputs(N());
@@ -211,10 +239,15 @@ DirectCollocation::ReconstructStateTrajectory()
   for (int i = 0; i < N(); i++) {
     times_vec[i] = times(i);
     states[i] = GetSolution(state(i));
+<<<<<<< HEAD
     if (context_->get_num_input_ports() > 0) {
       input_port_value_->GetMutableVectorData<double>()->SetFromVector(
           GetSolution(input(i)));
     }
+=======
+    input_port_value_->GetMutableVectorData<double>()->SetFromVector(
+        GetSolution(input(i)));
+>>>>>>> intial
     context_->get_mutable_continuous_state().SetFromVector(states[i]);
     system_->CalcTimeDerivatives(*context_, continuous_state_.get());
     derivatives[i] = continuous_state_->CopyToVector();

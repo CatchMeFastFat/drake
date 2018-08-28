@@ -24,12 +24,17 @@ def _impl(repository_ctx):
     # Write out the path to a bzl constant.
     bzl_content = [
         'additional_transitive_quote_include_directory = "{}"'.format(
+<<<<<<< HEAD
             drake_workspace_parent,
         ),
+=======
+            drake_workspace_parent),
+>>>>>>> intial
     ]
     repository_ctx.file(
         "BUILD.bazel",
         content = "\n",
+<<<<<<< HEAD
         executable = False,
     )
     repository_ctx.file(
@@ -37,6 +42,13 @@ def _impl(repository_ctx):
         content = "".join(bzl_content),
         executable = False,
     )
+=======
+        executable = False)
+    repository_ctx.file(
+        "path.bzl",
+        content = "".join(bzl_content),
+        executable = False)
+>>>>>>> intial
 
 def drake_clion_environment():
     rule = repository_rule(

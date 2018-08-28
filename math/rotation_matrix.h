@@ -5,6 +5,7 @@
 #include <string>
 
 #include <Eigen/Dense>
+<<<<<<< HEAD
 #include <fmt/format.h>
 
 #include "drake/common/drake_assert.h"
@@ -12,11 +13,19 @@
 #include "drake/common/drake_copyable.h"
 #include "drake/common/drake_deprecated.h"
 #include "drake/common/drake_throw.h"
+=======
+
+#include "drake/common/drake_assert.h"
+#include "drake/common/drake_copyable.h"
+>>>>>>> intial
 #include "drake/common/eigen_types.h"
 #include "drake/common/never_destroyed.h"
 #include "drake/common/number_traits.h"
 #include "drake/common/symbolic.h"
+<<<<<<< HEAD
 #include "drake/math/roll_pitch_yaw.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace math {
@@ -32,6 +41,7 @@ namespace math {
 /// @note This class does not store the frames associated with a rotation matrix
 /// nor does it enforce strict proper usage of this class with vectors.
 ///
+<<<<<<< HEAD
 /// @note When DRAKE_ASSERT_IS_ARMED is defined, several methods in this class
 /// do a validity check and throw an exception (std::logic_error) if the
 /// rotation matrix is invalid.  When DRAKE_ASSERT_IS_ARMED is not defined,
@@ -43,12 +53,19 @@ namespace math {
 /// @authors Paul Mitiguy (2018) Original author.
 /// @authors Drake team (see https://drake.mit.edu/credits).
 ///
+=======
+>>>>>>> intial
 /// @tparam T The underlying scalar type. Must be a valid Eigen scalar.
 ///
 /// Instantiated templates for the following kinds of T's are provided:
 /// - double
 /// - AutoDiffXd
+<<<<<<< HEAD
 /// - symbolic::Expression
+=======
+///
+// TODO(Mitiguy) Ensure this class handles RotationMatrix<symbolic::Expression>.
+>>>>>>> intial
 template <typename T>
 class RotationMatrix {
  public:
@@ -60,6 +77,7 @@ class RotationMatrix {
 
   /// Constructs a %RotationMatrix from a Matrix3.
   /// @param[in] R an allegedly valid rotation matrix.
+<<<<<<< HEAD
   /// @throws std::logic_error in debug builds if R fails IsValid(R).
   explicit RotationMatrix(const Matrix3<T>& R) : R_AB_() { set(R); }
 
@@ -67,6 +85,21 @@ class RotationMatrix {
   /// @param[in] quaternion a non-zero, finite quaternion which may or may not
   /// have unit length [i.e., `quaternion.norm()` does not have to be 1].
   /// @throws std::logic_error in debug builds if the rotation matrix
+=======
+  /// @throws exception std::logic_error in debug builds if R fails IsValid(R).
+  explicit RotationMatrix(const Matrix3<T>& R) : R_AB_() {
+#ifdef DRAKE_ASSERT_IS_ARMED
+    SetOrThrowIfNotValid(R);
+#else
+    SetUnchecked(R);
+#endif
+  }
+
+  /// Constructs a %RotationMatrix from an Eigen::Quaternion.
+  /// @param[in] quaternion a non-zero, finite quaternion which may or may not
+  /// have unit length [i.e., `quaterion.norm()` does not have to be 1].
+  /// @throws exception std::logic_error in debug builds if the rotation matrix
+>>>>>>> intial
   /// R that is built from `quaternion` fails IsValid(R).  For example, an
   /// exception is thrown if `quaternion` is zero or contains a NaN or infinity.
   /// @note This method has the effect of normalizing its `quaternion` argument,
@@ -89,7 +122,11 @@ class RotationMatrix {
   /// @param[in] theta_lambda an Eigen::AngleAxis whose associated axis (vector
   /// direction herein called `lambda`) is non-zero and finite, but which may or
   /// may not have unit length [i.e., `lambda.norm()` does not have to be 1].
+<<<<<<< HEAD
   /// @throws std::logic_error in debug builds if the rotation matrix
+=======
+  /// @throws exception std::logic_error in debug builds if the rotation matrix
+>>>>>>> intial
   /// R that is built from `theta_lambda` fails IsValid(R).  For example, an
   /// exception is thrown if `lambda` is zero or contains a NaN or infinity.
   // @internal In general, the %RotationMatrix constructed by passing a non-unit
@@ -106,6 +143,7 @@ class RotationMatrix {
     DRAKE_ASSERT_VOID(ThrowIfNotValid(R_AB_));
   }
 
+<<<<<<< HEAD
   /// Constructs a %RotationMatrix from an %RollPitchYaw.  In other words,
   /// makes the %RotationMatrix for a Space-fixed (extrinsic) X-Y-Z rotation by
   /// "roll-pitch-yaw" angles `[r, p, y]`, which is equivalent to a Body-fixed
@@ -163,6 +201,11 @@ class RotationMatrix {
   /// relative to a frame A by an angle `theta` about unit vector `Ax = Bx`.
   /// @param[in] theta radian measure of rotation angle about Ax.
   /// @note Orientation is same as Eigen::AngleAxis<T>(theta, Vector3d::UnitX().
+=======
+  /// Makes the %RotationMatrix `R_AB` associated with rotating a frame B
+  /// relative to a frame A by an angle `theta` about unit vector `Ax = Bx`.
+  /// @param[in] theta radian measure of rotation angle about Ax.
+>>>>>>> intial
   /// @note `R_AB` relates two frames A and B having unit vectors Ax, Ay, Az and
   /// Bx, By, Bz.  Initially, `Bx = Ax`, `By = Ay`, `Bz = Az`, then B undergoes
   /// a right-handed rotation relative to A by an angle `theta` about `Ax = Bx`.
@@ -187,7 +230,10 @@ class RotationMatrix {
   /// Makes the %RotationMatrix `R_AB` associated with rotating a frame B
   /// relative to a frame A by an angle `theta` about unit vector `Ay = By`.
   /// @param[in] theta radian measure of rotation angle about Ay.
+<<<<<<< HEAD
   /// @note Orientation is same as Eigen::AngleAxis<T>(theta, Vector3d::UnitY().
+=======
+>>>>>>> intial
   /// @note `R_AB` relates two frames A and B having unit vectors Ax, Ay, Az and
   /// Bx, By, Bz.  Initially, `Bx = Ax`, `By = Ay`, `Bz = Az`, then B undergoes
   /// a right-handed rotation relative to A by an angle `theta` about `Ay = By`.
@@ -212,7 +258,10 @@ class RotationMatrix {
   /// Makes the %RotationMatrix `R_AB` associated with rotating a frame B
   /// relative to a frame A by an angle `theta` about unit vector `Az = Bz`.
   /// @param[in] theta radian measure of rotation angle about Az.
+<<<<<<< HEAD
   /// @note Orientation is same as Eigen::AngleAxis<T>(theta, Vector3d::UnitZ().
+=======
+>>>>>>> intial
   /// @note `R_AB` relates two frames A and B having unit vectors Ax, Ay, Az and
   /// Bx, By, Bz.  Initially, `Bx = Ax`, `By = Ay`, `Bz = Az`, then B undergoes
   /// a right-handed rotation relative to A by an angle `theta` about `Az = Bz`.
@@ -234,6 +283,79 @@ class RotationMatrix {
     return RotationMatrix(R);
   }
 
+<<<<<<< HEAD
+=======
+  /// Makes the %RotationMatrix for a Body-fixed (intrinsic) Z-Y-X rotation by
+  /// "yaw-pitch-roll" angles `[y, p, r]`, which is equivalent to a Space-fixed
+  /// (extrinsic) X-Y-Z rotation by "roll-pitch-yaw angles" `[r, p, y]`.
+  /// @param[in] ypr radian measures of three angles [yaw, pitch, roll].
+  /// @note Denoting yaw `y`, pitch `p`, roll `r`, this method returns a
+  /// rotation matrix `R_AD` equal to the matrix multiplication shown below.
+  /// ```
+  ///        ⎡cos(y) -sin(y)  0⎤   ⎡ cos(p)  0  sin(p)⎤   ⎡1      0        0 ⎤
+  /// R_AD = ⎢sin(y)  cos(y)  0⎥ * ⎢     0   1      0 ⎥ * ⎢0  cos(r)  -sin(r)⎥
+  ///        ⎣    0       0   1⎦   ⎣-sin(p)  0  cos(p)⎦   ⎣0  sin(r)   cos(r)⎦
+  ///      =       R_AB          *        R_BC          *        R_CD
+  /// ```
+  /// Note: In this discussion, A is the Space frame and D is the Body frame.
+  /// One way to visualize this rotation sequence is by introducing intermediate
+  /// frames B and C (useful constructs to understand this rotation sequence).
+  /// Initially, the frames are aligned so `Di = Ci = Bi = Ai (i = x, y, z)`.
+  /// Then D is subjected to successive right-handed rotations relative to A.
+  /// @li 1st rotation R_AB: Frames B, C, D collectively (as if welded together)
+  /// rotate relative to frame A by a yaw angle `y` about `Az = Bz`.
+  /// @li 2nd rotation R_BC: Frames C, D collectively (as if welded together)
+  /// rotate relative to frame B by a pitch angle `p` about `By = Cy`.
+  /// @li 3rd rotation R_CD: %Frame D rotates relative to frame C by a roll
+  /// angle `r` about `Cx = Dx`.
+  /// TODO(@mitiguy) Add Sherm/Goldstein's way to visualize rotation sequences.
+  static RotationMatrix<T> MakeBodyZYXRotation(const Vector3<T>& ypr) {
+    const Vector3<T> roll_pitch_yaw(ypr(2), ypr(1), ypr(0));
+    return RotationMatrix<T>::MakeSpaceXYZRotation(roll_pitch_yaw);
+  }
+
+  /// Makes the %RotationMatrix for a Space-fixed (extrinsic) X-Y-Z rotation by
+  /// "roll-pitch-yaw" angles `[r, p, y]`, which is equivalent to a Body-fixed
+  /// (intrinsic) Z-Y-X rotation by "yaw-pitch-roll" angles `[y, p, r]`.
+  /// @param[in] rpy radian measures of three angles [roll, pitch, yaw].
+  /// @note Denoting roll `r`, pitch `p`, yaw `y`, this method returns a
+  /// rotation matrix `R_AD` equal to the matrix multiplication shown below.
+  /// ```
+  ///        ⎡cos(y) -sin(y)  0⎤   ⎡ cos(p)  0  sin(p)⎤   ⎡1      0        0 ⎤
+  /// R_AD = ⎢sin(y)  cos(y)  0⎥ * ⎢     0   1      0 ⎥ * ⎢0  cos(r)  -sin(r)⎥
+  ///        ⎣    0       0   1⎦   ⎣-sin(p)  0  cos(p)⎦   ⎣0  sin(r)   cos(r)⎦
+  ///      =       R_AB          *        R_BC          *        R_CD
+  /// ```
+  /// Note: In this discussion, A is the Space frame and D is the Body frame.
+  /// One way to visualize this rotation sequence is by introducing intermediate
+  /// frames B and C (useful constructs to understand this rotation sequence).
+  /// Initially, the frames are aligned so `Di = Ci = Bi = Ai (i = x, y, z)`.
+  /// Then D is subjected to successive right-handed rotations relative to A.
+  /// @li 1st rotation R_CD: %Frame D rotates relative to frames C, B, A by a
+  /// roll angle `r` about `Dx = Cx`.  Note: D and C are no longer aligned.
+  /// @li 2nd rotation R_BC: Frames D, C (collectively -- as if welded together)
+  /// rotate relative to frame B, A by a pitch angle `p` about `Cy = By`.
+  /// Note: C and B are no longer aligned.
+  /// @li 3rd rotation R_AB: Frames D, C, B (collectively -- as if welded)
+  /// rotate relative to frame A by a roll angle `y` about `Bz = Az`.
+  /// Note: B and A are no longer aligned.
+  /// TODO(@mitiguy) Add Sherm/Goldstein's way to visualize rotation sequences.
+  static RotationMatrix<T> MakeSpaceXYZRotation(const Vector3<T>& rpy) {
+    Matrix3<T> R;
+    using std::sin;
+    using std::cos;
+    const T c0 = cos(rpy(0)), s0 = sin(rpy(0));
+    const T c1 = cos(rpy(1)), s1 = sin(rpy(1));
+    const T c2 = cos(rpy(2)), s2 = sin(rpy(2));
+    // clang-format off
+    R << c2 * c1,  c2 * s1 * s0 - s2 * c0,  c2 * s1 * c0 + s2 * s0,
+         s2 * c1,  s2 * s1 * s0 + c2 * c0,  s2 * s1 * c0 - c2 * s0,
+        -s1,            c1 * s0,                 c1 * c0;
+    // clang-format on
+    return RotationMatrix(R);
+  }
+
+>>>>>>> intial
   /// Creates a %RotationMatrix templatized on a scalar type U from a
   /// %RotationMatrix templatized on scalar type T.  For example,
   /// ```
@@ -255,9 +377,15 @@ class RotationMatrix {
 
   /// Sets `this` %RotationMatrix from a Matrix3.
   /// @param[in] R an allegedly valid rotation matrix.
+<<<<<<< HEAD
   /// @throws std::logic_error in debug builds if R fails IsValid(R).
   void set(const Matrix3<T>& R) {
     DRAKE_ASSERT_VOID(ThrowIfNotValid(R));
+=======
+  /// @throws exception std::logic_error in debug builds if R fails IsValid(R).
+  void SetOrThrowIfNotValid(const Matrix3<T>& R) {
+    ThrowIfNotValid(R);
+>>>>>>> intial
     SetUnchecked(R);
   }
 
@@ -322,7 +450,11 @@ class RotationMatrix {
   /// @param[in] tolerance maximum allowable absolute difference between R * Rᵀ
   /// and the identity matrix I, i.e., checks if `‖R ⋅ Rᵀ - I‖∞ <= tolerance`.
   /// @returns `true` if R is an orthonormal matrix.
+<<<<<<< HEAD
   static Bool<T> IsOrthonormal(const Matrix3<T>& R, double tolerance) {
+=======
+  static bool IsOrthonormal(const Matrix3<T>& R, double tolerance) {
+>>>>>>> intial
     return GetMeasureOfOrthonormality(R) <= tolerance;
   }
 
@@ -332,7 +464,11 @@ class RotationMatrix {
   /// @param[in] tolerance maximum allowable absolute difference of `R * Rᵀ`
   /// and the identity matrix I (i.e., checks if `‖R ⋅ Rᵀ - I‖∞ <= tolerance`).
   /// @returns `true` if R is a valid rotation matrix.
+<<<<<<< HEAD
   static Bool<T> IsValid(const Matrix3<T>& R, double tolerance) {
+=======
+  static bool IsValid(const Matrix3<T>& R, double tolerance) {
+>>>>>>> intial
     return IsOrthonormal(R, tolerance) && R.determinant() > 0;
   }
 
@@ -340,13 +476,18 @@ class RotationMatrix {
   /// within the threshold of get_internal_tolerance_for_orthonormality().
   /// @param[in] R an allegedly valid rotation matrix.
   /// @returns `true` if R is a valid rotation matrix.
+<<<<<<< HEAD
   static Bool<T> IsValid(const Matrix3<T>& R) {
+=======
+  static bool IsValid(const Matrix3<T>& R) {
+>>>>>>> intial
     return IsValid(R, get_internal_tolerance_for_orthonormality());
   }
 
   /// Tests if `this` rotation matrix R is a proper orthonormal rotation matrix
   /// to within the threshold of get_internal_tolerance_for_orthonormality().
   /// @returns `true` if `this` is a valid rotation matrix.
+<<<<<<< HEAD
   Bool<T> IsValid() const { return IsValid(matrix()); }
 
   /// Returns `true` if `this` is exactly equal to the identity matrix.
@@ -357,6 +498,16 @@ class RotationMatrix {
   /// Returns true if `this` is equal to the identity matrix to within the
   /// threshold of get_internal_tolerance_for_orthonormality().
   Bool<T> IsIdentityToInternalTolerance() const {
+=======
+  bool IsValid() const { return IsValid(matrix()); }
+
+  /// Returns `true` if `this` is exactly equal to the identity matrix.
+  bool IsExactlyIdentity() const { return matrix() == Matrix3<T>::Identity(); }
+
+  /// Returns true if `this` is equal to the identity matrix to within the
+  /// threshold of get_internal_tolerance_for_orthonormality().
+  bool IsIdentityToInternalTolerance() const {
+>>>>>>> intial
     return IsNearlyEqualTo(matrix(), Matrix3<T>::Identity(),
                            get_internal_tolerance_for_orthonormality());
   }
@@ -367,8 +518,12 @@ class RotationMatrix {
   /// @param[in] tolerance maximum allowable absolute difference between the
   /// matrix elements in `this` and `other`.
   /// @returns `true` if `‖this - other‖∞ <= tolerance`.
+<<<<<<< HEAD
   Bool<T> IsNearlyEqualTo(
       const RotationMatrix<T>& other, double tolerance) const {
+=======
+  bool IsNearlyEqualTo(const RotationMatrix<T>& other, double tolerance) const {
+>>>>>>> intial
     return IsNearlyEqualTo(matrix(), other.matrix(), tolerance);
   }
 
@@ -377,7 +532,11 @@ class RotationMatrix {
   /// @param[in] other %RotationMatrix to compare to `this`.
   /// @returns true if each element of `this` is exactly equal to the
   /// corresponding element in `other`.
+<<<<<<< HEAD
   Bool<T> IsExactlyEqualTo(const RotationMatrix<T>& other) const {
+=======
+  bool IsExactlyEqualTo(const RotationMatrix<T>& other) const {
+>>>>>>> intial
     return matrix() == other.matrix();
   }
 
@@ -408,7 +567,11 @@ class RotationMatrix {
   /// bases related by matrix M does not span 3D space (when M multiples a unit
   /// vector, a vector of magnitude as small as 0 may result).
   /// @returns proper orthonormal matrix R that is closest to M.
+<<<<<<< HEAD
   /// @throws std::logic_error if R fails IsValid(R).
+=======
+  /// @throws exception std::logic_error if R fails IsValid(R).
+>>>>>>> intial
   /// @note William Kahan (UC Berkeley) and Hongkai Dai (Toyota Research
   /// Institute) proved that for this problem, the same R that minimizes the
   /// Frobenius norm also minimizes the matrix-2 norm (a.k.a an induced-2 norm),
@@ -421,9 +584,14 @@ class RotationMatrix {
   /// - [Dahleh] "Lectures on Dynamic Systems and Controls: Electrical
   /// Engineering and Computer Science, Massachusetts Institute of Technology"
   /// https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-241j-dynamic-systems-and-control-spring-2011/readings/MIT6_241JS11_chap04.pdf
+<<<<<<< HEAD
   /// @note Although this function exists for all scalar types, invocation on
   /// symbolic::Expression (non-numeric types) will throw an exception.
   //  @internal This function's name is referenced in Doxygen documentation.
+=======
+  // @internal This function is not generated for symbolic Expression.
+  // @internal This function's name is referenced in Doxygen documentation.
+>>>>>>> intial
   template <typename S = T>
   static typename std::enable_if<is_numeric<S>::value, RotationMatrix<S>>::type
   ProjectToRotationMatrix(const Matrix3<S>& M, T* quality_factor = NULL) {
@@ -433,6 +601,7 @@ class RotationMatrix {
     return RotationMatrix<S>(M_orthonormalized, true);
   }
 
+<<<<<<< HEAD
   template <typename S = T>
   static typename std::enable_if<!is_numeric<S>::value, RotationMatrix<S>>::type
   ProjectToRotationMatrix(const Matrix3<S>& M, T* quality_factor = NULL) {
@@ -440,6 +609,8 @@ class RotationMatrix {
                              "that are not drake::is_numeric<S>.");
   }
 
+=======
+>>>>>>> intial
   /// Returns an internal tolerance that checks rotation matrix orthonormality.
   /// @returns internal tolerance (small multiplier of double-precision epsilon)
   /// used to check whether or not a rotation matrix is orthonormal.
@@ -462,7 +633,11 @@ class RotationMatrix {
   /// returned by this method chooses the quaternion with q(0) >= 0.
   /// @param[in] M 3x3 matrix to be made into a quaternion.
   /// @returns a unit quaternion q.
+<<<<<<< HEAD
   /// @throws std::logic_error in debug builds if the quaternion `q`
+=======
+  /// @throws exception std::logic_error in debug builds if the quaternion `q`
+>>>>>>> intial
   /// returned by this method cannot construct a valid %RotationMatrix.
   /// For example, if `M` contains NaNs, `q` will not be a valid quaternion.
   // @internal This implementation is adapted from simbody at
@@ -518,13 +693,21 @@ class RotationMatrix {
     return q;
   }
 
+<<<<<<< HEAD
   /// Utility method to return the Vector4 associated with ToQuaternion().
+=======
+  /// Utility method to return the Vector4 associated with ToQuaterion().
+>>>>>>> intial
   /// @see ToQuaternion().
   Vector4<T> ToQuaternionAsVector4() const {
     return ToQuaternionAsVector4(R_AB_);
   }
 
+<<<<<<< HEAD
   /// Utility method to return the Vector4 associated with ToQuaternion(M).
+=======
+  /// Utility method to return the Vector4 associated with ToQuaterion(M).
+>>>>>>> intial
   /// @param[in] M 3x3 matrix to be made into a quaternion.
   /// @see ToQuaternion().
   static Vector4<T> ToQuaternionAsVector4(const Matrix3<T>& M)  {
@@ -586,14 +769,20 @@ class RotationMatrix {
   // @param[in] tolerance maximum allowable absolute difference between the
   // matrix elements in R and `other`.
   // @returns `true` if `‖R - `other`‖∞ <= tolerance`.
+<<<<<<< HEAD
   static Bool<T> IsNearlyEqualTo(const Matrix3<T>& R, const Matrix3<T>& other,
                                  double tolerance) {
+=======
+  static bool IsNearlyEqualTo(const Matrix3<T>& R, const Matrix3<T>& other,
+                              double tolerance) {
+>>>>>>> intial
     const T R_max_difference = GetMaximumAbsoluteDifference(R, other);
     return R_max_difference <= tolerance;
   }
 
   // Throws an exception if R is not a valid %RotationMatrix.
   // @param[in] R an allegedly valid rotation matrix.
+<<<<<<< HEAD
   // @note If the underlying scalar type T is non-numeric (symbolic), no
   // validity check is made and no assertion is thrown.
   template <typename S = T>
@@ -603,6 +792,9 @@ class RotationMatrix {
   template <typename S = T>
   static typename std::enable_if<!is_numeric<S>::value, void>::type
   ThrowIfNotValid(const Matrix3<S>&) {}
+=======
+  static void ThrowIfNotValid(const Matrix3<T>& R);
+>>>>>>> intial
 
   // Given an approximate rotation matrix M, finds the orthonormal matrix R
   // closest to M.  Closeness is measured with a matrix-2 norm (or equivalently
@@ -708,6 +900,7 @@ class RotationMatrix {
   Matrix3<T> R_AB_{Matrix3<T>::Identity()};
 };
 
+<<<<<<< HEAD
 /// Abbreviation (alias/typedef) for a RotationMatrix double scalar type.
 /// @relates RotationMatrix
 using RotationMatrixd = RotationMatrix<double>;
@@ -900,3 +1093,19 @@ Matrix3<T> ZRotation(const T& theta) {
 
 }  // namespace math
 }  // namespace drake
+=======
+}  // namespace math
+}  // namespace drake
+
+
+// TODO(mitiguy): Remove the following #include statement when the included file
+// has been deleted.  See the included file for file deletion conditions.
+// Note: This #include intentionally appears at the end of rotation_matrix.h as
+// a temporary stop-gap measure to support backward compatability.  It is
+// understood that including this file here is not style-guide compliant.
+// clang-format off
+#define DRAKE_MATH_ROTATION_MATRIX_DEPRECATED_HEADER_IS_ENABLED
+#include "drake/math/rotation_matrix_deprecated.h"
+#undef DRAKE_MATH_ROTATION_MATRIX_DEPRECATED_HEADER_IS_ENABLED
+// clang-format on
+>>>>>>> intial

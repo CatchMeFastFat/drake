@@ -2,9 +2,15 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load("//tools/install:install_data.bzl", "install_data")
 load(

@@ -1,3 +1,6 @@
 *.urdf -diff
+<<<<<<< HEAD
 
 iiwa14_spheres*.urdf diff
+=======
+>>>>>>> intial

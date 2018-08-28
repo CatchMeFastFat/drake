@@ -77,7 +77,11 @@ GTEST_TEST(testQPInverseDynamicsController, testForIiwa) {
                                      output.vd(), 1e-9,
                                      drake::MatrixCompareType::absolute));
 
+<<<<<<< HEAD
   // Without any external forces or hitting any constraints, torque = M * vd_d +
+=======
+  // Without any external forces or hitting any contraints, torque = M * vd_d +
+>>>>>>> intial
   // h.
   VectorX<double> expected_torque =
       robot_status.get_M() * input.desired_dof_motions().values() +

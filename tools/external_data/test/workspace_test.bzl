@@ -12,6 +12,7 @@ ARGS_DEFAULT = [
 
 def workspace_test(
         name,
+<<<<<<< HEAD
         size = None,
         timeout = None,
         args = ARGS_DEFAULT,
@@ -20,6 +21,13 @@ def workspace_test(
     """
     Copies all contents under `*.runfiles/${workspace}/**` to a temporary
     directory, then evaluates `args` in `bash` in the new temporary runfiles
+=======
+        args = ARGS_DEFAULT,
+        data = []):
+    """
+    Copies all contents under `*.runfiles/${workspace}/**` to a temporary
+    directory, then evalutates `args` in `bash` in the new temporary runfiles
+>>>>>>> intial
     workspace directory.
 
     @param args
@@ -28,6 +36,7 @@ def workspace_test(
     @param data
         Data required for the workspace test.
     """
+<<<<<<< HEAD
     if size == None:
         size = "small"
     native.sh_test(
@@ -38,4 +47,11 @@ def workspace_test(
         args = args,
         data = data,
         tags = tags,
+=======
+    native.sh_test(
+        name = name,
+        srcs = ["@drake//tools/external_data/test:workspace_test.sh"],
+        args = args,
+        data = data,
+>>>>>>> intial
     )

@@ -18,7 +18,11 @@ GTEST_TEST(QPtest, TestUnconstrainedQP) {
   if (solver.available()) {
     const SolutionResult result = solver.Solve(prog);
     EXPECT_EQ(result, SolutionResult::kSolutionFound);
+<<<<<<< HEAD
     const double tol = 1E-10;
+=======
+    const double tol = 1E-5;
+>>>>>>> intial
     EXPECT_NEAR(prog.GetSolution(x(0)), 0, tol);
     EXPECT_NEAR(prog.GetOptimalCost(), 0, tol);
   }
@@ -28,7 +32,11 @@ GTEST_TEST(QPtest, TestUnconstrainedQP) {
   if (solver.available()) {
     const SolutionResult result = solver.Solve(prog);
     EXPECT_EQ(result, SolutionResult::kSolutionFound);
+<<<<<<< HEAD
     const double tol = 1E-10;
+=======
+    const double tol = 1E-5;
+>>>>>>> intial
     EXPECT_NEAR(prog.GetSolution(x(0)), 0, tol);
     EXPECT_NEAR(prog.GetSolution(x(1)) + prog.GetSolution(x(2)), 2, tol);
     EXPECT_NEAR(prog.GetOptimalCost(), 0, tol);
@@ -40,7 +48,11 @@ GTEST_TEST(QPtest, TestUnconstrainedQP) {
   if (solver.available()) {
     const SolutionResult result = solver.Solve(prog);
     EXPECT_EQ(result, SolutionResult::kSolutionFound);
+<<<<<<< HEAD
     const double tol = 1E-10;
+=======
+    const double tol = 1E-5;
+>>>>>>> intial
     EXPECT_NEAR(prog.GetSolution(x(0)), -2, tol);
     EXPECT_NEAR(prog.GetSolution(x(1)) + prog.GetSolution(x(2)), 2, tol);
     EXPECT_NEAR(prog.GetOptimalCost(), 1, tol);

@@ -32,7 +32,11 @@ using api::rules::SRange;
 namespace {
 
 // [LANE_ID, S0, S1]
+<<<<<<< HEAD
 LaneSRange UnpackLaneSRange(const YAML::Node& node) {
+=======
+LaneSRange UnpackLaneSRange(YAML::Node node) {
+>>>>>>> intial
   DRAKE_THROW_UNLESS(node.IsSequence());
   DRAKE_THROW_UNLESS(node.size() == 3);
   const LaneId lane_id(node[0].as<std::string>());
@@ -46,17 +50,28 @@ LaneSRange UnpackLaneSRange(const YAML::Node& node) {
 // - [LANE_ID, S0, S1]
 // - [LANE_ID, S0, S1]
 // ...
+<<<<<<< HEAD
 LaneSRoute UnpackLaneSRoute(const YAML::Node& node) {
   DRAKE_THROW_UNLESS(node.IsSequence());
   std::vector<LaneSRange> ranges;
   for (const YAML::Node& element : node) {
+=======
+LaneSRoute UnpackLaneSRoute(YAML::Node node) {
+  DRAKE_THROW_UNLESS(node.IsSequence());
+  std::vector<LaneSRange> ranges;
+  for (const YAML::Node element : node) {
+>>>>>>> intial
     ranges.emplace_back(UnpackLaneSRange(element));
   }
   return LaneSRoute(ranges);
 }
 
 
+<<<<<<< HEAD
 SpeedLimitRule::Severity UnpackSeverity(const YAML::Node& node) {
+=======
+SpeedLimitRule::Severity UnpackSeverity(YAML::Node node) {
+>>>>>>> intial
   DRAKE_THROW_UNLESS(node.IsScalar());
   static const std::unordered_map<std::string, SpeedLimitRule::Severity> map{
     {"Strict",    SpeedLimitRule::Severity::kStrict},
@@ -72,7 +87,11 @@ SpeedLimitRule::Severity UnpackSeverity(const YAML::Node& node) {
 
 
 // MAX or [MIN, MAX]
+<<<<<<< HEAD
 std::tuple<double, double> UnpackSpeedLimitLimit(const YAML::Node& node) {
+=======
+std::tuple<double, double> UnpackSpeedLimitLimit(YAML::Node node) {
+>>>>>>> intial
   DRAKE_THROW_UNLESS(node.IsScalar() || node.IsSequence());
   if (node.IsScalar()) {
     return std::make_tuple(0., node.as<double>());
@@ -83,7 +102,11 @@ std::tuple<double, double> UnpackSpeedLimitLimit(const YAML::Node& node) {
 
 
 SpeedLimitRule UnpackSpeedLimitRule(
+<<<<<<< HEAD
     const YAML::Node& id_node, const YAML::Node& content_node) {
+=======
+    YAML::Node id_node, YAML::Node content_node) {
+>>>>>>> intial
   DRAKE_THROW_UNLESS(id_node.IsScalar());
   DRAKE_THROW_UNLESS(content_node.IsMap());
   const SpeedLimitRule::Id id(id_node.as<std::string>());
@@ -96,22 +119,37 @@ SpeedLimitRule UnpackSpeedLimitRule(
 }
 
 
+<<<<<<< HEAD
 RightOfWayRule::State::Type UnpackRightOfWayStateType(const YAML::Node& node) {
   DRAKE_THROW_UNLESS(node.IsScalar());
   static const std::unordered_map<std::string, RightOfWayRule::State::Type> map{
     {"Go",         RightOfWayRule::State::Type::kGo},
     {"Stop",       RightOfWayRule::State::Type::kStop},
     {"StopThenGo", RightOfWayRule::State::Type::kStopThenGo},
+=======
+RightOfWayRule::Type UnpackRightOfWayType(YAML::Node node) {
+  DRAKE_THROW_UNLESS(node.IsScalar());
+  static const std::unordered_map<std::string, RightOfWayRule::Type> map{
+    {"Proceed",    RightOfWayRule::Type::kProceed},
+    {"Yield",      RightOfWayRule::Type::kYield},
+    {"StopThenGo", RightOfWayRule::Type::kStopThenGo},
+    {"Dynamic",    RightOfWayRule::Type::kDynamic},
+>>>>>>> intial
         };
   const std::string s = node.as<std::string>();
   const auto it = map.find(s);
   if (it == map.end()) {
+<<<<<<< HEAD
     throw std::runtime_error("Unknown RightOfWayRule::State::Type: " + s);
+=======
+    throw std::runtime_error("Unknown RightOfWayRule::Type: " + s);
+>>>>>>> intial
   }
   return it->second;
 }
 
 
+<<<<<<< HEAD
 // TODO(maddog@tri.global)  Consider adding a structure-checking method to
 //     SimpleRulebook that checks validity of yield_to ID references.
 RightOfWayRule::State::YieldGroup UnpackRightOfWayStateYieldGroup(
@@ -172,6 +210,17 @@ RightOfWayRule UnpackRightOfWayRule(
       content_node["zone_type"]);
   const auto states = UnpackRightOfWayStates(content_node["states"]);
   return RightOfWayRule(id, zone, zone_type, states);
+=======
+RightOfWayRule UnpackRightOfWayRule(
+    YAML::Node id_node, YAML::Node content_node) {
+  DRAKE_THROW_UNLESS(id_node.IsScalar());
+  DRAKE_THROW_UNLESS(content_node.IsMap());
+  const RightOfWayRule::Id id(id_node.as<std::string>());
+  const auto controlled_zone =
+      UnpackLaneSRoute(content_node["controlled_zone"]);
+  const auto type = UnpackRightOfWayType(content_node["type"]);
+  return RightOfWayRule(id, controlled_zone, type);
+>>>>>>> intial
 }
 
 

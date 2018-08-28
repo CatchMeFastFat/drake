@@ -105,9 +105,15 @@ formula.
 \note Formula class has an explicit conversion operator to bool. It evaluates a
 symbolic formula under an empty environment. If a symbolic formula includes
 variables, the conversion operator throws an exception. This operator is only
+<<<<<<< HEAD
 intended for third-party code doing things like `(imag(SymbolicExpression(0))
 == SymbolicExpression(0)) { ... };` that we found in Eigen3 codebase. In
 general, a user of this class should explicitly call `Evaluate` from within
+=======
+intended for third-party code doing things like <tt>(imag(SymbolicExpression(0))
+== SymbolicExpression(0)) { ... };<tt> that we found in Eigen3 codebase. In
+general, a user of this class should explicitly call \c Evaluate from within
+>>>>>>> intial
 Drake for readability.
 
 */
@@ -115,6 +121,7 @@ class Formula {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(Formula)
 
+<<<<<<< HEAD
   /** Default constructor.  Sets the value to Formula::False, to be consistent
    * with value-initialized `bool`s.
    */
@@ -124,6 +131,10 @@ class Formula {
    * used by Eigen when EIGEN_INITIALIZE_MATRICES_BY_ZERO is enabled.
    */
   explicit Formula(std::nullptr_t) : Formula() {}
+=======
+  /** Default constructor. */
+  Formula() { *this = True(); }
+>>>>>>> intial
 
   explicit Formula(std::shared_ptr<FormulaCell> ptr);
 
@@ -165,6 +176,14 @@ class Formula {
    *
    * @throws runtime_error if a variable `v` is needed for an evaluation but not
    * provided by @p env.
+<<<<<<< HEAD
+=======
+   *
+   * Note that for an equality e₁ = e₂ and an inequality e₁ ≠ e₂, this method
+   * partially evaluates e₁ and e₂ and checks the structural equality of the two
+   * results if @p env does not provide complete information to call Evaluate on
+   * e₁ and e₂.
+>>>>>>> intial
    */
   bool Evaluate(const Environment& env = Environment{}) const;
 

@@ -94,7 +94,11 @@ bool determine_polynomial(
 // Determines if pow(base, exponent) is polynomial-convertible or not. This
 // function is used in constructor of ExpressionPow.
 bool determine_polynomial(const Expression& base, const Expression& exponent) {
+<<<<<<< HEAD
   // base ^ exponent is polynomial-convertible if the following hold:
+=======
+  // base ^ exponent is polynomial-convertible if the followings hold:
+>>>>>>> intial
   //    - base is polynomial-convertible.
   //    - exponent is a non-negative integer.
   if (!(base.is_polynomial() && is_constant(exponent))) {
@@ -598,7 +602,11 @@ ExpressionAddFactory::ExpressionAddFactory(
     : constant_{constant}, expr_to_coeff_map_{std::move(expr_to_coeff_map)} {}
 
 ExpressionAddFactory::ExpressionAddFactory(
+<<<<<<< HEAD
     const std::shared_ptr<const ExpressionAdd>& ptr)
+=======
+    const shared_ptr<const ExpressionAdd>& ptr)
+>>>>>>> intial
     : ExpressionAddFactory{ptr->get_constant(), ptr->get_expr_to_coeff_map()} {}
 
 void ExpressionAddFactory::AddExpression(const Expression& e) {
@@ -630,7 +638,11 @@ void ExpressionAddFactory::Add(const shared_ptr<const ExpressionAdd>& ptr) {
 }
 
 ExpressionAddFactory& ExpressionAddFactory::operator=(
+<<<<<<< HEAD
     const std::shared_ptr<ExpressionAdd>& ptr) {
+=======
+    const shared_ptr<ExpressionAdd>& ptr) {
+>>>>>>> intial
   constant_ = ptr->get_constant();
   expr_to_coeff_map_ = ptr->get_expr_to_coeff_map();
   return *this;
@@ -889,7 +901,11 @@ ExpressionMulFactory::ExpressionMulFactory(
       base_to_exponent_map_{std::move(base_to_exponent_map)} {}
 
 ExpressionMulFactory::ExpressionMulFactory(
+<<<<<<< HEAD
     const std::shared_ptr<const ExpressionMul>& ptr)
+=======
+    const shared_ptr<const ExpressionMul>& ptr)
+>>>>>>> intial
     : ExpressionMulFactory{ptr->get_constant(),
                            ptr->get_base_to_exponent_map()} {}
 
@@ -911,7 +927,11 @@ void ExpressionMulFactory::Add(const shared_ptr<const ExpressionMul>& ptr) {
 }
 
 ExpressionMulFactory& ExpressionMulFactory::operator=(
+<<<<<<< HEAD
     const std::shared_ptr<ExpressionMul>& ptr) {
+=======
+    const shared_ptr<ExpressionMul>& ptr) {
+>>>>>>> intial
   constant_ = ptr->get_constant();
   base_to_exponent_map_ = ptr->get_base_to_exponent_map();
   return *this;

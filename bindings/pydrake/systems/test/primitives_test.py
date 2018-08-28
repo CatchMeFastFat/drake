@@ -1,8 +1,11 @@
 import unittest
 import numpy as np
 
+<<<<<<< HEAD
 from pydrake.autodiffutils import AutoDiffXd
 from pydrake.symbolic import Expression
+=======
+>>>>>>> intial
 from pydrake.systems.analysis import Simulator
 from pydrake.systems.framework import (
     AbstractValue,
@@ -14,6 +17,7 @@ from pydrake.systems.test.test_util import (
     MyVector2,
 )
 from pydrake.systems.primitives import (
+<<<<<<< HEAD
     Adder, Adder_,
     AddRandomInputs,
     AffineSystem, AffineSystem_,
@@ -41,6 +45,25 @@ from pydrake.systems.primitives import (
     ZeroOrderHold_,
 )
 from pydrake.trajectories import PiecewisePolynomial
+=======
+    Adder,
+    AffineSystem,
+    ConstantVectorSource,
+    ControllabilityMatrix,
+    FirstOrderTaylorApproximation,
+    Integrator,
+    IsControllable,
+    IsObservable,
+    Linearize,
+    LinearSystem,
+    Multiplexer,
+    ObservabilityMatrix,
+    PassThrough,
+    Saturation,
+    SignalLogger,
+    WrapToSystem,
+)
+>>>>>>> intial
 
 
 def compare_value(test, a, b):
@@ -48,6 +71,7 @@ def compare_value(test, a, b):
     if isinstance(a, VectorBase):
         test.assertTrue(np.allclose(a.get_value(), b.get_value()))
     else:
+<<<<<<< HEAD
         test.assertEqual(type(a.get_value()), type(b.get_value()))
         test.assertEqual(a.get_value(), b.get_value())
 
@@ -78,6 +102,13 @@ class TestGeneral(unittest.TestCase):
         self._check_instantiations(WrapToSystem_)
         self._check_instantiations(ZeroOrderHold_)
 
+=======
+        test.assertEquals(type(a.get_value()), type(b.get_value()))
+        test.assertEquals(a.get_value(), b.get_value())
+
+
+class TestGeneral(unittest.TestCase):
+>>>>>>> intial
     def test_signal_logger(self):
         # Log the output of a simple diagram containing a constant
         # source and an integrator.
@@ -160,7 +191,11 @@ class TestGeneral(unittest.TestCase):
         system = PassThrough(model_value.size())
         context = system.CreateDefaultContext()
         context.FixInputPort(0, model_value)
+<<<<<<< HEAD
         output = system.AllocateOutput()
+=======
+        output = system.AllocateOutput(context)
+>>>>>>> intial
         input_eval = system.EvalVectorInput(context, 0)
         compare_value(self, input_eval, model_value)
         system.CalcOutput(context, output)
@@ -172,13 +207,18 @@ class TestGeneral(unittest.TestCase):
         system = PassThrough(model_value)
         context = system.CreateDefaultContext()
         context.FixInputPort(0, model_value)
+<<<<<<< HEAD
         output = system.AllocateOutput()
+=======
+        output = system.AllocateOutput(context)
+>>>>>>> intial
         input_eval = system.EvalAbstractInput(context, 0)
         compare_value(self, input_eval, model_value)
         system.CalcOutput(context, output)
         output_value = output.get_data(0)
         compare_value(self, output_value, model_value)
 
+<<<<<<< HEAD
     def test_gain(self):
         k = 42.
         input_size = 10
@@ -202,6 +242,12 @@ class TestGeneral(unittest.TestCase):
         system = Saturation((0., -1., 3.), (1., 2., 4.))
         context = system.CreateDefaultContext()
         output = system.AllocateOutput()
+=======
+    def test_saturation(self):
+        system = Saturation((0., -1., 3.), (1., 2., 4.))
+        context = system.CreateDefaultContext()
+        output = system.AllocateOutput(context)
+>>>>>>> intial
 
         def mytest(input, expected):
             context.FixInputPort(0, BasicVector(input))
@@ -212,6 +258,7 @@ class TestGeneral(unittest.TestCase):
         mytest((-5., 5., 4.), (0., 2., 4.))
         mytest((.4, 0., 3.5), (.4, 0., 3.5))
 
+<<<<<<< HEAD
     def test_trajectory_source(self):
         ppt = PiecewisePolynomial.FirstOrderHold(
             [0., 1.], [[2., 3.], [2., 1.]])
@@ -231,11 +278,17 @@ class TestGeneral(unittest.TestCase):
         mytest(0.5, (2.5, 1.5))
         mytest(1.0, (3.0, 1.0))
 
+=======
+>>>>>>> intial
     def test_wrap_to_system(self):
         system = WrapToSystem(2)
         system.set_interval(1, 1., 2.)
         context = system.CreateDefaultContext()
+<<<<<<< HEAD
         output = system.AllocateOutput()
+=======
+        output = system.AllocateOutput(context)
+>>>>>>> intial
 
         def mytest(input, expected):
             context.FixInputPort(0, BasicVector(input))
@@ -246,6 +299,7 @@ class TestGeneral(unittest.TestCase):
         mytest((-1.5, 0.5), (-1.5, 1.5))
         mytest((.2, .3), (.2, 1.3))
 
+<<<<<<< HEAD
     def test_demultiplexer(self):
         # Test demultiplexer with scalar outputs.
         demux = Demultiplexer(size=4)
@@ -278,6 +332,8 @@ class TestGeneral(unittest.TestCase):
                 np.allclose(output.get_vector_data(i).get_value(),
                             input_vec[2*i:2*i+2]))
 
+=======
+>>>>>>> intial
     def test_multiplexer(self):
         my_vector = MyVector2(data=[1., 2.])
         test_cases = [
@@ -293,7 +349,11 @@ class TestGeneral(unittest.TestCase):
             port_size = sum([len(vec) for vec in case['data']])
             self.assertEqual(mux.get_output_port(0).size(), port_size)
             context = mux.CreateDefaultContext()
+<<<<<<< HEAD
             output = mux.AllocateOutput()
+=======
+            output = mux.AllocateOutput(context)
+>>>>>>> intial
             num_ports = len(case['data'])
             self.assertEqual(context.get_num_input_ports(), num_ports)
             for j, vec in enumerate(case['data']):
@@ -306,6 +366,7 @@ class TestGeneral(unittest.TestCase):
                 # Check the type matches MyVector2.
                 value = output.get_vector_data(0)
                 self.assertTrue(isinstance(value, MyVector2))
+<<<<<<< HEAD
 
     def test_random_sources(self):
         uniform_source = UniformRandomSource(num_outputs=2,
@@ -324,3 +385,5 @@ class TestGeneral(unittest.TestCase):
         # Note: There are no random inputs to add to the empty diagram, but it
         # confirms the API works.
         AddRandomInputs(sampling_interval_sec=0.01, builder=builder)
+=======
+>>>>>>> intial

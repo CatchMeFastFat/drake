@@ -2,8 +2,11 @@ import unittest
 
 from pydrake.lcm import DrakeLcm, DrakeLcmInterface, DrakeMockLcm
 
+<<<<<<< HEAD
 from robotlocomotion import quaternion_t
 
+=======
+>>>>>>> intial
 
 class TestLcm(unittest.TestCase):
     def test_lcm(self):
@@ -12,12 +15,16 @@ class TestLcm(unittest.TestCase):
         # Quickly start and stop the receiving thread.
         dut.StartReceiveThread()
         dut.StopReceiveThread()
+<<<<<<< HEAD
         # Test virtual function names.
         dut.Publish
+=======
+>>>>>>> intial
 
     def test_mock_lcm(self):
         dut = DrakeMockLcm()
         self.assertIsInstance(dut, DrakeLcmInterface)
+<<<<<<< HEAD
 
         # Create a simple ground-truth message.
         msg = quaternion_t()
@@ -40,3 +47,5 @@ class TestLcm(unittest.TestCase):
         dut.InduceSubscriberCallback(
             channel="TEST_CHANNEL", buffer=msg.encode())
         self.assertTrue(called[0])
+=======
+>>>>>>> intial

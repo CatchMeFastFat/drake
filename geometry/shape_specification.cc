@@ -60,10 +60,13 @@ Isometry3<double> HalfSpace::MakePose(const Vector3<double>& Cz_F,
   return X_FC;
 }
 
+<<<<<<< HEAD
 Box::Box(double width, double depth, double height)
     : Shape(ShapeTag<Box>()),
       size_(width, depth, height) {}
 
+=======
+>>>>>>> intial
 Mesh::Mesh(const std::string& absolute_filename, double scale)
     : Shape(ShapeTag<Mesh>()), filename_(absolute_filename), scale_(scale) {
   // TODO(SeanCurtis-TRI): Remove this when meshes are properly supported.

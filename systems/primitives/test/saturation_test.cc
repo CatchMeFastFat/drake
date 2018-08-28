@@ -6,7 +6,11 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -21,7 +25,11 @@ void TestInputAndOutput(const Saturation<T>& saturation_system,
 
   // Verifies that Saturation allocates no state variables in the context.
   EXPECT_EQ(context->get_continuous_state().size(), 0);
+<<<<<<< HEAD
   auto output = saturation_system.AllocateOutput();
+=======
+  auto output = saturation_system.AllocateOutput(*context);
+>>>>>>> intial
   auto input = std::make_unique<BasicVector<T>>(port_size);
 
   input->get_mutable_value() << input_vector;

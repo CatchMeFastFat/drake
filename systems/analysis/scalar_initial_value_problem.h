@@ -1,15 +1,23 @@
 #pragma once
 
+<<<<<<< HEAD
 #include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
+=======
+#include <memory>
+#include <utility>
+>>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 #include "drake/common/drake_optional.h"
 #include "drake/common/eigen_types.h"
 #include "drake/systems/analysis/initial_value_problem.h"
+<<<<<<< HEAD
 #include "drake/systems/analysis/scalar_view_dense_output.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -29,10 +37,13 @@ namespace systems {
 /// Moreover, this scalar form facilitates single-dimensional quadrature
 /// using methods for solving initial value problems.
 ///
+<<<<<<< HEAD
 /// See InitialValueProblem class documentation for information on caching
 /// support and dense output usage for improved efficiency in scalar IVP
 /// solving.
 ///
+=======
+>>>>>>> intial
 /// For further insight into its use, consider the following examples of scalar
 /// IVPs:
 ///
@@ -63,8 +74,13 @@ class ScalarInitialValueProblem {
   /// @param x The dependent variable x ∈ ℝ .
   /// @param k The parameter vector 𝐤 ∈ ℝᵐ.
   /// @return The derivative dx/dt ∈ ℝ.
+<<<<<<< HEAD
   using ScalarODEFunction = std::function<T(const T& t, const T& x,
                                             const VectorX<T>& k)>;
+=======
+  typedef std::function<T(const T& t, const T& x,
+                          const VectorX<T>& k)> ScalarODEFunction;
+>>>>>>> intial
 
   /// A collection of values i.e. initial time t₀, initial state x₀
   /// and parameter vector 𝐤 to further specify the ODE system (in
@@ -100,7 +116,11 @@ class ScalarInitialValueProblem {
   /// @pre An initial time @p default_values.t0 is provided.
   /// @pre An initial state @p default_values.x0 is provided.
   /// @pre An parameter vector @p default_values.k is provided.
+<<<<<<< HEAD
   /// @throws std::logic_error if preconditions are not met.
+=======
+  /// @throw std::logic_error if preconditions are not met.
+>>>>>>> intial
   ScalarInitialValueProblem(const ScalarODEFunction& scalar_ode_function,
                             const SpecifiedValues& default_values) {
     // Wraps the given scalar ODE function as a vector ODE function.
@@ -118,19 +138,30 @@ class ScalarInitialValueProblem {
   /// x₀ and parameter vector 𝐤 present in @p values, falling back to the ones
   /// given on construction if not given.
   ///
+<<<<<<< HEAD
   /// @param tf The IVP will be solved for this time.
   /// @param values IVP initial conditions and parameters.
   /// @returns The IVP solution x(@p tf; 𝐤) for x(t₀; 𝐤) = x₀.
+=======
+  /// @param tf The time to solve the IVP for.
+  /// @param values The specified values for the IVP.
+  /// @return The IVP solution x(@p tf; 𝐤) for x(t₀; 𝐤) = x₀.
+>>>>>>> intial
   /// @pre Given @p tf must be larger than or equal to the specified initial
   ///      time t₀ (either given or default).
   /// @pre If given, the dimension of the parameter vector @p values.k
   ///      must match that of the parameter vector in the default specified
   ///      values given on construction.
+<<<<<<< HEAD
   /// @throws std::logic_error if any of the preconditions is not met.
+=======
+  /// @throw std::logic_error if preconditions are not met.
+>>>>>>> intial
   T Solve(const T& tf, const SpecifiedValues& values = {}) const {
     return this->vector_ivp_->Solve(tf, ToVectorIVPSpecifiedValues(values))[0];
   }
 
+<<<<<<< HEAD
   /// Solves and yields an approximation of the IVP solution x(t; 𝐤) for the
   /// closed time interval between the initial time t₀ and the given final
   /// time @p tf, using initial state x₀ and parameter vector 𝐤 present in
@@ -171,6 +202,8 @@ class ScalarInitialValueProblem {
         std::move(vector_dense_output), kDimension);
   }
 
+=======
+>>>>>>> intial
   /// Resets the internal integrator instance by in-place
   /// construction of the given integrator type.
   ///
@@ -180,7 +213,11 @@ class ScalarInitialValueProblem {
   /// @endcode
   ///
   /// @param args The integrator type-specific arguments.
+<<<<<<< HEAD
   /// @returns The new integrator instance.
+=======
+  /// @return The new integrator instance.
+>>>>>>> intial
   /// @tparam Integrator The integrator type, which must be an
   ///                    IntegratorBase subclass.
   /// @tparam Args The integrator specific argument types.
@@ -211,11 +248,16 @@ class ScalarInitialValueProblem {
     typename InitialValueProblem<T>::SpecifiedValues vector_ivp_values;
     vector_ivp_values.k = values.k;
     vector_ivp_values.t0 = values.t0;
+<<<<<<< HEAD
     if (values.x0.has_value()) {
       // Scalar initial state x₀ as a vector initial state 𝐱₀
       // of a single dimension.
       vector_ivp_values.x0 = VectorX<T>::Constant(
           1, values.x0.value()).eval();
+=======
+    if (values.x0) {
+      vector_ivp_values.x0 = VectorX<T>::Constant(1, values.x0.value()).eval();
+>>>>>>> intial
     }
     return vector_ivp_values;
   }

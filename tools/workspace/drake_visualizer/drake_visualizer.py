@@ -47,6 +47,7 @@ except KeyError:
 # TODO(eric.cousineau): Remove these shims if we can teach Bazel how to handle
 # these on its own.
 if sys.platform.startswith("linux"):
+<<<<<<< HEAD
     # Ensure that we handle LD_LIBRARY_PATH for @lcm and @vtk and PYTHONPATH
     # for @vtk.
     set_path("LD_LIBRARY_PATH", "external/lcm")
@@ -55,6 +56,11 @@ if sys.platform.startswith("linux"):
 elif sys.platform == "darwin":
     # Ensure that we handle DYLD_LIBRARY_PATH for @lcm.
     set_path("DYLD_LIBRARY_PATH", "external/lcm")
+=======
+    # Ensure that we handle LD_LIBRARY_PATH and PYTHONPATH for `@vtk`.
+    set_path("LD_LIBRARY_PATH", "external/vtk/lib")
+    prepend_path("PYTHONPATH", "external/vtk/lib/python2.7/site-packages")
+>>>>>>> intial
 
 # Execute binary.
 bin_path = resolve_path("external/drake_visualizer/bin/drake-visualizer")

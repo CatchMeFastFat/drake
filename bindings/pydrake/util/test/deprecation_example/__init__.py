@@ -11,7 +11,11 @@ def _handler(name):
 
 
 __all__ = ["value", "sub_module"]
+<<<<<<< HEAD
 ModuleShim._install(__name__, _handler)
+=======
+ModuleShim.install(__name__, _handler)
+>>>>>>> intial
 
 
 class ExampleClass(object):

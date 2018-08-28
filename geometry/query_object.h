@@ -6,12 +6,16 @@
 
 #include "drake/geometry/geometry_context.h"
 #include "drake/geometry/query_results/penetration_as_point_pair.h"
+<<<<<<< HEAD
 #include "drake/geometry/query_results/signed_distance_pair.h"
 #include "drake/geometry/scene_graph_inspector.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace geometry {
 
+<<<<<<< HEAD
 template <typename T>
 class SceneGraph;
 
@@ -22,6 +26,17 @@ class SceneGraph;
  To perform geometry queries on SceneGraph:
    - a LeafSystem must have a %QueryObject-valued input port and connect it to
      the corresponding query output port on SceneGraph,
+=======
+template <typename T> class GeometrySystem;
+
+/** The %QueryObject serves as a mechanism to perform geometry queries on the
+ world's geometry. The GeometrySystem has an abstract-valued port that contains
+ a  %QueryObject (i.e., a %QueryObject-valued output port).
+
+ To perform geometry queries on GeometrySystem:
+   - a LeafSystem must have a %QueryObject-valued input port and connect it to
+     the corresponding query output port on GeometrySystem,
+>>>>>>> intial
    - the querying LeafSystem can evaluate the input port, retrieving a `const
      QueryObject&` in return, and, finally,
    - invoke the appropriate method on the %QueryObject.
@@ -41,7 +56,11 @@ class SceneGraph;
  copy will throw an exception.
 
  A %QueryObject _cannot_ be converted to a different scalar type. A %QueryObject
+<<<<<<< HEAD
  of scalar type S can only be acquired from the output port of a SceneGraph
+=======
+ of scalar type S can only be acquired from the output port of a GeometrySystem
+>>>>>>> intial
  of type S evaluated on a corresponding GeometryContext, also of type S.
 
  @tparam T The scalar type. Must be a valid Eigen scalar.
@@ -59,7 +78,11 @@ class QueryObject {
   // The result will always be a "default" QueryObject (i.e., all pointers are
   // null). There is no public constructor, the assumption is that the only way
   // to acquire a reference/instance of QueryObject is through the
+<<<<<<< HEAD
   // SceneGraph output port. The SceneGraph is responsible for
+=======
+  // GeometrySystem output port. The GeometrySystem is responsible for
+>>>>>>> intial
   // guaranteeing the returned QueryObject is "live" (via CalcQueryObject()).
   QueryObject(const QueryObject& other);
   QueryObject& operator=(const QueryObject&);
@@ -72,11 +95,29 @@ class QueryObject {
   //  query_object_test.cc in the DefaultQueryThrows test to confirm that the
   //  query *is* calling ThrowIfDefault().
 
+<<<<<<< HEAD
   /** Provides an inspector for the topological structure of the underlying
    scene graph data (see SceneGraphInspector for details).  */
   const SceneGraphInspector<T>& inspector() const {
     return inspector_;
   }
+=======
+  //----------------------------------------------------------------------------
+  /** @name                State queries */
+  //@{
+
+  /** Reports the name for the given source id.
+   @throws  std::runtime_error if the %QueryObject is in default configuration.
+   @throws  std::logic_error if the identifier is invalid. */
+  const std::string& GetSourceName(SourceId id) const;
+
+  /** Reports the id of the frame to which the given geometry id is registered.
+   @throws  std::runtime_error if the %QueryObject is in default configuration.
+   @throws  std::logic_error if the geometry id is invalid. */
+  FrameId GetFrameId(GeometryId geometry_id) const;
+
+  //@}
+>>>>>>> intial
 
   //----------------------------------------------------------------------------
   /** @name                Collision Queries
@@ -94,6 +135,7 @@ class QueryObject {
    geometry are also not reported. The penetration between two geometries is
    characterized as a point pair (see PenetrationAsPointPair).
 
+<<<<<<< HEAD
    For two penetrating geometries g₁ and g₂, it is guaranteed that they will
    map to `id_A` and `id_B` in a fixed, repeatable manner.
 
@@ -102,6 +144,14 @@ class QueryObject {
    geometry is penetrating.
 
    <!--
+=======
+   <!--
+   This method is affected by collision filtering; element pairs that
+   have been filtered will not produce contacts, even if their collision
+   geometry is penetrating.
+   TODO(SeanCurtis-TRI): This isn't true yet.
+
+>>>>>>> intial
    NOTE: This is currently declared as double because we haven't exposed FCL's
    templated functionality yet. When that happens, double -> T.
    -->
@@ -113,6 +163,7 @@ class QueryObject {
 
   //@}
 
+<<<<<<< HEAD
   //---------------------------------------------------------------------------
   /**
    @anchor signed_distance_query
@@ -175,10 +226,20 @@ class QueryObject {
   const GeometryState<T>& geometry_state() const;
 
   // Only the SceneGraph<T> can instantiate this class - it gets
+=======
+ private:
+  // GeometrySystem is the only class that can instantiate QueryObjects.
+  friend class GeometrySystem<T>;
+  // Convenience class for testing.
+  friend class QueryObjectTester;
+
+  // Only the GeometrySystem<T> can instantiate this class - it gets
+>>>>>>> intial
   // instantiated into a *copyable* default instance (to facilitate allocation
   // in contexts).
   QueryObject() = default;
 
+<<<<<<< HEAD
   void set(const GeometryContext<T>* context,
            const SceneGraph<T>* scene_graph) {
     context_ = context;
@@ -188,6 +249,10 @@ class QueryObject {
 
   void ThrowIfDefault() const {
     if (!(context_ && scene_graph_)) {
+=======
+  void ThrowIfDefault() const {
+    if (!(context_ && system_)) {
+>>>>>>> intial
       throw std::runtime_error(
           "Attempting to perform query on invalid QueryObject. "
           "Did you copy the QueryObject?");
@@ -203,11 +268,19 @@ class QueryObject {
   // diagram. The context shares the same index in the parent diagram context.
   // Then the LeafSystem desiring to perform a query would pass itself and its
   // own context in (along with the query parameters). The QueryObject would
+<<<<<<< HEAD
   // use those and the index to get the SceneGraph and GeometryContext.
   //
   // Several issues:
   //  1. Leads to a clunky API (passing self and context into *every* query).
   //  2. The index value would be insufficient if the SceneGraph were buried
+=======
+  // use those and the index to get the GeometrySystem and GeometryContext.
+  //
+  // Several issues:
+  //  1. Leads to a clunky API (passing self and context into *every* query).
+  //  2. The index value would be insufficient if the GeometrySystem were buried
+>>>>>>> intial
   //     in a diagram with its query object port exported in the diagram.
   // This is documented for future consideration, and should not necessarily be
   // interpreted as a guaranteed task.
@@ -218,8 +291,12 @@ class QueryObject {
   // be null for "baked" contexts (e.g., the result of copying a "live"
   // context).
   const GeometryContext<T>* context_{nullptr};
+<<<<<<< HEAD
   const SceneGraph<T>* scene_graph_{nullptr};
   SceneGraphInspector<T> inspector_;
+=======
+  const GeometrySystem<T>* system_{nullptr};
+>>>>>>> intial
 };
 
 }  // namespace geometry

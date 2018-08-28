@@ -22,7 +22,10 @@
 
 #include <algorithm>
 #include <queue>
+<<<<<<< HEAD
 #include <set>
+=======
+>>>>>>> intial
 #include <string>
 #include <utility>
 #include <vector>
@@ -192,12 +195,15 @@ struct MobilizerTopology {
            (inboard_body == body2 && outboard_body == body1);
   }
 
+<<<<<<< HEAD
   /// Returns `true` if this mobilizer topology corresponds to that of a weld
   /// mobilizer.
   bool is_weld_mobilizer() const {
     return num_velocities == 0;
   }
 
+=======
+>>>>>>> intial
   /// Unique index in the set of mobilizers.
   MobilizerIndex index;
   /// Index to the inboard frame.
@@ -799,6 +805,7 @@ class MultibodyTreeTopology {
       BodyNodeTopology& node = body_nodes_[node_index];
       MobilizerTopology& mobilizer = mobilizers_[node.mobilizer];
 
+<<<<<<< HEAD
       if (mobilizer.num_velocities == 0) {  // A weld mobilizer.
         // For weld mobilizers start indexes are not important since the number
         // of dofs is zero. However, we do allow accessing Eigen segments with
@@ -815,6 +822,12 @@ class MultibodyTreeTopology {
         mobilizer.velocities_start_in_v = velocity_index - num_positions_;
         DRAKE_DEMAND(0 <= mobilizer.velocities_start_in_v);
       }
+=======
+      mobilizer.positions_start = position_index;
+      mobilizer.velocities_start = velocity_index;
+      mobilizer.velocities_start_in_v = velocity_index - num_positions_;
+      DRAKE_DEMAND(0 <= mobilizer.velocities_start_in_v);
+>>>>>>> intial
 
       position_index += mobilizer.num_positions;
       velocity_index += mobilizer.num_velocities;
@@ -826,6 +839,7 @@ class MultibodyTreeTopology {
 
       // Start index in a vector containing only generalized velocities.
       node.mobilizer_velocities_start_in_v = mobilizer.velocities_start_in_v;
+<<<<<<< HEAD
       // Demand indexes to be positive only for mobilizers with a non-zero
       // number of dofs.
       DRAKE_DEMAND(0 <= node.mobilizer_velocities_start_in_v ||
@@ -834,6 +848,10 @@ class MultibodyTreeTopology {
       // the check for num_velocities_ == 0.
       DRAKE_DEMAND(node.mobilizer_velocities_start_in_v < num_velocities_ ||
           num_velocities_ == 0);
+=======
+      DRAKE_DEMAND(0 <= node.mobilizer_velocities_start_in_v);
+      DRAKE_DEMAND(node.mobilizer_velocities_start_in_v < num_velocities_);
+>>>>>>> intial
     }
     DRAKE_DEMAND(position_index == num_positions_);
     DRAKE_DEMAND(velocity_index == num_states_);
@@ -894,6 +912,7 @@ class MultibodyTreeTopology {
     (*path_to_world)[0] = BodyNodeIndex(0);  // Add the world.
   }
 
+<<<<<<< HEAD
   /// This method partitions the tree topology into sub-graphs such that two
   /// bodies are in the same sub-graph if there is a path between them which
   /// includes only welded-mobilizer.
@@ -926,6 +945,8 @@ class MultibodyTreeTopology {
     return welded_bodies;
   }
 
+=======
+>>>>>>> intial
  private:
   // Returns `true` if there is _any_ mobilizer in the multibody tree
   // connecting the frames with indexes `frame` and `frame2`.
@@ -947,6 +968,7 @@ class MultibodyTreeTopology {
     return false;
   }
 
+<<<<<<< HEAD
   // Recursive helper method for CreateListOfWeldedBodies().
   // This method scans the children of body with parent_index. If a child is
   // welded to body with parent_index, it gets added to the parent's body welded
@@ -980,6 +1002,8 @@ class MultibodyTreeTopology {
     }
   }
 
+=======
+>>>>>>> intial
   // is_valid is set to `true` after a successful Finalize().
   bool is_valid_{false};
   // Number of levels (or generations) in the tree topology. After Finalize()

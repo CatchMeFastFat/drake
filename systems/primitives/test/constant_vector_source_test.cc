@@ -8,7 +8,10 @@
 
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/test_utilities/my_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
+=======
+>>>>>>> intial
 
 using Eigen::Matrix;
 using std::make_unique;
@@ -22,7 +25,11 @@ class ConstantVectorSourceTest : public ::testing::Test {
   void SetUpEigenModel() {
     source_ = make_unique<ConstantVectorSource<double>>(kConstantVectorSource);
     context_ = source_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = source_->get_output_port().Allocate();
+=======
+    output_ = source_->get_output_port(0).Allocate();
+>>>>>>> intial
   }
 
   void SetUpBasicVectorModel() {
@@ -31,11 +38,19 @@ class ConstantVectorSourceTest : public ::testing::Test {
 
     source_ = make_unique<ConstantVectorSource<double>>(vec);
     context_ = source_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = source_->get_output_port().Allocate();
   }
 
   const Matrix<double, 2, 1, Eigen::DontAlign> kConstantVectorSource{2.0, 1.5};
   std::unique_ptr<ConstantVectorSource<double>> source_;
+=======
+    output_ = source_->get_output_port(0).Allocate();
+  }
+
+  const Matrix<double, 2, 1, Eigen::DontAlign> kConstantVectorSource{2.0, 1.5};
+  std::unique_ptr<System<double>> source_;
+>>>>>>> intial
   std::unique_ptr<Context<double>> context_;
   std::unique_ptr<AbstractValue> output_;
 };
@@ -47,7 +62,11 @@ TEST_F(ConstantVectorSourceTest, EigenModel) {
   ASSERT_EQ(source_->get_num_input_ports(), 0);
   ASSERT_EQ(source_->get_num_output_ports(), 1);
 
+<<<<<<< HEAD
   source_->get_output_port().Calc(*context_, output_.get());
+=======
+  source_->get_output_port(0).Calc(*context_, output_.get());
+>>>>>>> intial
 
   const auto& output_basic = output_->GetValueOrThrow<BasicVector<double>>();
   EXPECT_TRUE(kConstantVectorSource.isApprox(
@@ -56,10 +75,18 @@ TEST_F(ConstantVectorSourceTest, EigenModel) {
   // Tests that the output reflects changes to the parameter value in the
   // context.
   BasicVector<double>& source_value =
+<<<<<<< HEAD
       source_->get_mutable_source_value(context_.get());
   source_value.SetFromVector(2.0 * source_value.get_value());
 
   source_->get_output_port().Calc(*context_, output_.get());
+=======
+      static_cast<ConstantVectorSource<double>*>(source_.get())
+          ->get_mutable_source_value(context_.get());
+  source_value.SetFromVector(2.0 * source_value.get_value());
+
+  source_->get_output_port(0).Calc(*context_, output_.get());
+>>>>>>> intial
 
   const auto& output_basic_2 = output_->GetValueOrThrow<BasicVector<double>>();
   EXPECT_TRUE(kConstantVectorSource.isApprox(
@@ -73,7 +100,11 @@ TEST_F(ConstantVectorSourceTest, BasicVectorModel) {
   ASSERT_EQ(source_->get_num_input_ports(), 0);
   ASSERT_EQ(source_->get_num_output_ports(), 1);
 
+<<<<<<< HEAD
   source_->get_output_port().Calc(*context_, output_.get());
+=======
+  source_->get_output_port(0).Calc(*context_, output_.get());
+>>>>>>> intial
   const auto& output_basic = output_->GetValueOrThrow<BasicVector<double>>();
 
   auto output_vector = dynamic_cast<const MyVector<3, double>*>(&output_basic);
@@ -87,7 +118,11 @@ TEST_F(ConstantVectorSourceTest, BasicVectorModel) {
           ->get_mutable_source_value(context_.get());
   source_value.SetFromVector(2.0 * source_value.get_value());
 
+<<<<<<< HEAD
   source_->get_output_port().Calc(*context_, output_.get());
+=======
+  source_->get_output_port(0).Calc(*context_, output_.get());
+>>>>>>> intial
 
   const auto& output_basic_2 = output_->GetValueOrThrow<BasicVector<double>>();
   auto output_vector_2 =
@@ -102,6 +137,7 @@ TEST_F(ConstantVectorSourceTest, ConstantVectorSourceIsStateless) {
   EXPECT_TRUE(context_->is_stateless());
 }
 
+<<<<<<< HEAD
 TEST_F(ConstantVectorSourceTest, ToAutoDiffPass) {
   SetUpEigenModel();
   EXPECT_TRUE(is_autodiffxd_convertible(*source_, [&](const auto& converted) {
@@ -138,6 +174,8 @@ TEST_F(ConstantVectorSourceTest, ToSymbolic) {
   }));
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace systems
 }  // namespace drake

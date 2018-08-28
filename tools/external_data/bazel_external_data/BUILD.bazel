@@ -8,7 +8,10 @@ exports_files(["stub_test.py"])
 # Stub file pending Python code.
 py_test(
     name = "stub_test",
+<<<<<<< HEAD
     size = "small",
+=======
+>>>>>>> intial
     srcs = ["stub_test.py"],
     visibility = ["//visibility:public"],
 )

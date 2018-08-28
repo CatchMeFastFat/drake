@@ -7,6 +7,10 @@
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/eigen_types.h"
+<<<<<<< HEAD
+=======
+#include "drake/common/number_traits.h"
+>>>>>>> intial
 
 namespace drake {
 namespace math {

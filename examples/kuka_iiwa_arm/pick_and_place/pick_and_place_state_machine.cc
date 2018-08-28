@@ -11,7 +11,10 @@
 #include "drake/common/text_logging.h"
 #include "drake/common/trajectories/piecewise_quaternion.h"
 #include "drake/manipulation/util/world_sim_tree_builder.h"
+<<<<<<< HEAD
 #include "drake/math/rigid_transform.h"
+=======
+>>>>>>> intial
 #include "drake/math/rotation_matrix.h"
 #include "drake/multibody/joints/fixed_joint.h"
 #include "drake/multibody/parsers/urdf_parser.h"
@@ -55,7 +58,11 @@ struct PostureInterpolationResult {
 };
 
 // Generates a joint-space trajectory for @p robot that interpolates between the
+<<<<<<< HEAD
 // initial and final configurations specified in @p request. If @p
+=======
+// inital and final configurations specified in @p request. If @p
+>>>>>>> intial
 // straight_line_motion is true, the end-effector position at all knot points of
 // the returned trajectory will lie on the line between the end-effector
 // positions at the initial and final configurations.
@@ -144,10 +151,17 @@ PostureInterpolationResult PlanInterpolatingMotion(
     Vector3<double> axis_E{aaxis.axis()};
     Vector3<double> dir_W{X_WG_initial.linear() * axis_E};
 
+<<<<<<< HEAD
     // If the initial and final end-effector orientations are close to each
     // other (to within the orientation tolerance), fix the orientation for all
     // via points. Otherwise, only allow the end-effector to rotate about the
     // axis defining the rotation between the initial and final orientations.
+=======
+    // If the intial and final end-effector orientations are close to each other
+    // (to within the orientation tolerance), fix the orientation for all via
+    // points. Otherwise, only allow the end-effector to rotate about the axis
+    // defining the rotation between the initial and final orientations.
+>>>>>>> intial
     if (std::abs(aaxis.angle()) < orientation_tolerance) {
       orientation_constraints.emplace_back(new WorldQuatConstraint(
           robot, grasp_frame_index,
@@ -295,8 +309,13 @@ std::unique_ptr<RigidBodyTree<double>> BuildTree(
     // grasp frame as a named frame.
     auto grasp_frame = std::make_unique<RigidBody<double>>();
     grasp_frame->set_name(kGraspFrameName);
+<<<<<<< HEAD
     // The gripper (and therefore the grasp frame) is rotated relative to the
     // end effector link.
+=======
+    // The gripper (and therfore the grasp frame) is rotated relative to the end
+    // effector link.
+>>>>>>> intial
     const double grasp_frame_angular_offset{-M_PI / 8};
     // The grasp frame is located between the fingertips of the gripper, which
     // puts it grasp_frame_translational_offset from the origin of the
@@ -863,6 +882,7 @@ void PickAndPlaceStateMachine::Update(const WorldState& env_state,
     case PickAndPlaceState::kOpenGripper: {
       if (!wsg_act_.ActionStarted()) {
         const Isometry3<double>& obj_pose = env_state.get_object_pose();
+<<<<<<< HEAD
         math::RigidTransform<double> X(obj_pose);
         math::RollPitchYaw<double> rpy(X.rotation());
         drake::log()->info("Object at: {} {}",
@@ -874,6 +894,15 @@ void PickAndPlaceStateMachine::Update(const WorldState& env_state,
                 drake::log()->info("Base at: {} {}",
                            X.translation().transpose(),
                            rpy.vector().transpose());
+=======
+        drake::log()->info("Object at: {} {}",
+                           obj_pose.translation().transpose(),
+                           math::rotmat2rpy(obj_pose.rotation()).transpose());
+        const Isometry3<double>& iiwa_pose = env_state.get_iiwa_base();
+        drake::log()->info("Base at: {} {}",
+                           iiwa_pose.translation().transpose(),
+                           math::rotmat2rpy(iiwa_pose.rotation()).transpose());
+>>>>>>> intial
       }
     }  // Intentionally fall through.
     case PickAndPlaceState::kGrasp:

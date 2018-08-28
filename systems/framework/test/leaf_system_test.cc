@@ -2,7 +2,10 @@
 
 #include <memory>
 #include <stdexcept>
+<<<<<<< HEAD
 #include <string>
+=======
+>>>>>>> intial
 
 #include <Eigen/Dense>
 #include <gmock/gmock.h>
@@ -10,13 +13,21 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/common/test_utilities/is_dynamic_castable.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/leaf_context.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/system_output.h"
+=======
+#include "drake/systems/framework/output_port_value.h"
+#include "drake/systems/framework/system.h"
+>>>>>>> intial
 #include "drake/systems/framework/test_utilities/my_vector.h"
 #include "drake/systems/framework/test_utilities/pack_value.h"
 
@@ -30,6 +41,7 @@ class TestSystem : public LeafSystem<T> {
  public:
   TestSystem() {
     this->set_name("TestSystem");
+<<<<<<< HEAD
     this->DeclareNumericParameter(BasicVector<T>{13.0, 7.0});
     this->DeclareAbstractParameter(Value<std::string>("parameter value"));
 
@@ -37,6 +49,10 @@ class TestSystem : public LeafSystem<T> {
     this->DeclareAbstractState(AbstractValue::Make<int>(5));
     this->DeclareAbstractState(
         AbstractValue::Make<std::string>("second abstract state"));
+=======
+    this->DeclareNumericParameter(BasicVector<T>(Vector2<T>(13.0, 7.0)));
+    this->DeclareAbstractParameter(Value<std::string>("parameter value"));
+>>>>>>> intial
   }
   ~TestSystem() override {}
 
@@ -132,6 +148,7 @@ class TestSystem : public LeafSystem<T> {
         &TestSystem<double>::UnrestrictedUpdateCallback);
   }
 
+<<<<<<< HEAD
   // Sixth testing type: lambda function with no event specified.
   std::unique_ptr<WitnessFunction<T>> DeclareLambdaWitnessWithoutEvent() const {
     return this->DeclareWitnessFunction(
@@ -148,6 +165,8 @@ class TestSystem : public LeafSystem<T> {
         UnrestrictedUpdateEvent<double>());
   }
 
+=======
+>>>>>>> intial
   // Indicates whether various callbacks have been called.
   bool publish_callback_called() const { return publish_callback_called_; }
   bool discrete_update_callback_called() const {
@@ -200,6 +219,7 @@ class LeafSystemTest : public ::testing::Test {
     event_info_ = system_.AllocateCompositeEventCollection();
     leaf_info_ = dynamic_cast<const LeafCompositeEventCollection<double>*>(
         event_info_.get());
+<<<<<<< HEAD
 
     // Make sure caching tests will work properly even if caching is off
     // by default.
@@ -209,6 +229,12 @@ class LeafSystemTest : public ::testing::Test {
   TestSystem<double> system_;
   std::unique_ptr<LeafContext<double>> context_ptr_ = system_.AllocateContext();
   LeafContext<double>& context_ = *context_ptr_;
+=======
+  }
+
+  TestSystem<double> system_;
+  LeafContext<double> context_;
+>>>>>>> intial
 
   std::unique_ptr<CompositeEventCollection<double>> event_info_;
   const LeafCompositeEventCollection<double>* leaf_info_;
@@ -271,6 +297,7 @@ TEST_F(LeafSystemTest, WitnessDeclarations) {
   ASSERT_TRUE(ue);
   ue->handle(context_, nullptr);
   EXPECT_TRUE(system_.unrestricted_update_callback_called());
+<<<<<<< HEAD
 
   auto witness6 = system_.DeclareLambdaWitnessWithoutEvent();
   ASSERT_TRUE(witness6);
@@ -289,6 +316,8 @@ TEST_F(LeafSystemTest, WitnessDeclarations) {
   ue = dynamic_cast<const UnrestrictedUpdateEvent<double>*>(
       witness7->get_event());
   ASSERT_TRUE(ue);
+=======
+>>>>>>> intial
 }
 
 // Tests that if no update events are configured, none are reported.
@@ -490,6 +519,7 @@ TEST_F(LeafSystemTest, FloatingPointRoundingZeroPointZeroZeroTwoFive) {
   EXPECT_NEAR(2.445, time, 1e-8);
 }
 
+<<<<<<< HEAD
 // Tests that discrete and abstract state dependency wiring is set up
 // correctly.
 TEST_F(LeafSystemTest, DiscreteAndAbstractStateTrackers) {
@@ -518,6 +548,10 @@ TEST_F(LeafSystemTest, DiscreteAndAbstractStateTrackers) {
 // Tests that the leaf system reserved the declared Parameters with default
 // values, that they are modifiable, and that dependency wiring is set up
 // correctly for them.
+=======
+// Tests that the leaf system reserved the declared Parameters with default
+// values, and that they are modifiable.
+>>>>>>> intial
 TEST_F(LeafSystemTest, NumericParameters) {
   std::unique_ptr<Context<double>> context = system_.CreateDefaultContext();
   const BasicVector<double>& vec =
@@ -528,6 +562,7 @@ TEST_F(LeafSystemTest, NumericParameters) {
       system_.GetVanillaMutableNumericParameters(context.get());
   mutable_vec.SetAtIndex(1, 42.0);
   EXPECT_EQ(42.0, vec[1]);
+<<<<<<< HEAD
 
   EXPECT_EQ(system_.num_numeric_parameters(), 1);
   const DependencyTracker& pn_tracker =
@@ -543,6 +578,12 @@ TEST_F(LeafSystemTest, NumericParameters) {
 // Tests that the leaf system reserved the declared abstract Parameters with
 // default values, that they are modifiable, and that dependency wiring is set
 // up correctly for them.
+=======
+}
+
+// Tests that the leaf system reserved the declared abstract Parameters with
+// default values, and that they are modifiable.
+>>>>>>> intial
 TEST_F(LeafSystemTest, AbstractParameters) {
   std::unique_ptr<Context<double>> context = system_.CreateDefaultContext();
   const std::string& param = context->get_abstract_parameter(0 /*index*/)
@@ -553,6 +594,7 @@ TEST_F(LeafSystemTest, AbstractParameters) {
           .GetMutableValueOrThrow<std::string>();
   mutable_param = "modified parameter value";
   EXPECT_EQ("modified parameter value", param);
+<<<<<<< HEAD
 
   EXPECT_EQ(system_.num_abstract_parameters(), 1);
   const DependencyTracker& pa_tracker =
@@ -564,6 +606,8 @@ TEST_F(LeafSystemTest, AbstractParameters) {
     EXPECT_TRUE(pa_tracker.HasPrerequisite(tracker));
     EXPECT_TRUE(tracker.HasSubscriber(pa_tracker));
   }
+=======
+>>>>>>> intial
 }
 
 // Tests that the leaf system reserved the declared misc continuous state.
@@ -691,7 +735,11 @@ class DeclaredModelPortsSystem : public LeafSystem<double> {
     this->DeclareNumericParameter(*MyVector2d::Make(1.1, 2.2));
   }
 
+<<<<<<< HEAD
   const BasicVector<double>& expected_basic() const { return expected_basic_; }
+=======
+  const BasicVector<double>& expected_basic() const { return *expected_basic_; }
+>>>>>>> intial
   const MyVector4d& expected_myvector() const { return *expected_myvector_; }
 
  private:
@@ -717,20 +765,30 @@ class DeclaredModelPortsSystem : public LeafSystem<double> {
     *out = "concrete string";
   }
 
+<<<<<<< HEAD
   const BasicVector<double> expected_basic_{1., .5, .25};
+=======
+  std::unique_ptr<BasicVector<double>> expected_basic_{
+      BasicVector<double>::Make(1., .5, .25)};
+>>>>>>> intial
   std::unique_ptr<MyVector4d> expected_myvector_{
       MyVector4d::Make(4., 3., 2., 1.)};
 };
 
 // Tests that Declare{Vector,Abstract}{Input,Output}Port end up with the
+<<<<<<< HEAD
 // correct topology, and that the all_input_ports dependency tracker is
 // properly subscribed to the input ports in an allocated context.
+=======
+// correct topology.
+>>>>>>> intial
 GTEST_TEST(ModelLeafSystemTest, ModelPortsTopology) {
   DeclaredModelPortsSystem dut;
 
   ASSERT_EQ(dut.get_num_input_ports(), 5);
   ASSERT_EQ(dut.get_num_output_ports(), 4);
 
+<<<<<<< HEAD
   // Check that SystemBase port APIs work properly.
   const InputPortBase& in3_base = dut.get_input_port_base(InputPortIndex(3));
   EXPECT_EQ(in3_base.get_index(), 3);
@@ -771,6 +829,13 @@ GTEST_TEST(ModelLeafSystemTest, ModelPortsTopology) {
   const InputPort<double>& in2 = dut.get_input_port(2);
   const InputPort<double>& in3 = dut.get_input_port(3);
   const InputPort<double>& in4 = dut.get_input_port(4);
+=======
+  const InputPortDescriptor<double>& in0 = dut.get_input_port(0);
+  const InputPortDescriptor<double>& in1 = dut.get_input_port(1);
+  const InputPortDescriptor<double>& in2 = dut.get_input_port(2);
+  const InputPortDescriptor<double>& in3 = dut.get_input_port(3);
+  const InputPortDescriptor<double>& in4 = dut.get_input_port(4);
+>>>>>>> intial
 
   const OutputPort<double>& out0 = dut.get_output_port(0);
   const OutputPort<double>& out1 = dut.get_output_port(1);
@@ -838,7 +903,12 @@ GTEST_TEST(ModelLeafSystemTest, ModelPortsInput) {
 // correct values.
 GTEST_TEST(ModelLeafSystemTest, ModelPortsAllocOutput) {
   DeclaredModelPortsSystem dut;
+<<<<<<< HEAD
   auto system_output = dut.AllocateOutput();
+=======
+  auto context = dut.CreateDefaultContext();
+  auto system_output = dut.AllocateOutput(*context);
+>>>>>>> intial
 
   // Check that BasicVector<double>(3) came out.
   auto output0 = system_output->get_vector_data(0);
@@ -871,17 +941,23 @@ GTEST_TEST(ModelLeafSystemTest, ModelPortsCalcOutput) {
   DeclaredModelPortsSystem dut;
   auto context = dut.CreateDefaultContext();
 
+<<<<<<< HEAD
   // Make sure caching is on locally, even if it is off by default.
   context->EnableCaching();
 
   // Calculate values for each output port and save copies of those values.
   std::vector<std::unique_ptr<AbstractValue>> values;
   for (OutputPortIndex i(0); i < 4; ++i) {
+=======
+  std::vector<std::unique_ptr<AbstractValue>> values;
+  for (int i = 0; i < 4; ++i) {
+>>>>>>> intial
     const OutputPort<double>& out = dut.get_output_port(i);
     values.emplace_back(out.Allocate());
     out.Calc(*context, values.back().get());
   }
 
+<<<<<<< HEAD
   const auto& port2 = dut.get_output_port(OutputPortIndex(2));
   const auto& cache2 =
       dynamic_cast<const LeafOutputPort<double>&>(port2).cache_entry();
@@ -919,6 +995,8 @@ GTEST_TEST(ModelLeafSystemTest, ModelPortsCalcOutput) {
   EXPECT_FALSE(cache2.is_out_of_date(*context));
   EXPECT_EQ(cacheval2.serial_number(), 4);
 
+=======
+>>>>>>> intial
   // Downcast to concrete types.
   const BasicVector<double>* vec0{};
   const MyVector4d* vec1{};
@@ -962,6 +1040,7 @@ GTEST_TEST(ModelLeafSystemTest, ModelAbstractState) {
   };
 
   DeclaredModelAbstractStateSystem dut;
+<<<<<<< HEAD
 
   // Allocate the resources that were created on system construction.
   auto context = dut.AllocateContext();
@@ -986,6 +1065,12 @@ GTEST_TEST(ModelLeafSystemTest, ModelAbstractState) {
   auto default_context = dut.CreateDefaultContext();
   EXPECT_EQ(default_context->get_abstract_state<int>(0), 1);
   EXPECT_EQ(default_context->get_abstract_state<std::string>(1), "wow");
+=======
+  auto context = dut.CreateDefaultContext();
+
+  EXPECT_EQ(context->get_abstract_state<int>(0), 1);
+  EXPECT_EQ(context->get_abstract_state<std::string>(1), "wow");
+>>>>>>> intial
 }
 
 
@@ -1006,7 +1091,10 @@ class DummyVec2 : public BasicVector<double> {
   }
   DummyVec2() : DummyVec2(100., 200.) {}
 
+<<<<<<< HEAD
  private:
+=======
+>>>>>>> intial
   // Note that the actual data is copied by the BasicVector base class.
   DummyVec2* DoClone() const override { return new DummyVec2; }
 };
@@ -1051,6 +1139,7 @@ class DeclaredNonModelOutputSystem : public LeafSystem<double> {
     this->DeclareAbstractOutputPort(&DeclaredNonModelOutputSystem::CalcPOD);
   }
 
+<<<<<<< HEAD
   int calc_dummy_vec2_calls() const { return count_calc_dummy_vec2_; }
   int calc_string_calls() const { return count_calc_string_; }
   int calc_POD_calls() const { return count_calc_POD_; }
@@ -1058,6 +1147,10 @@ class DeclaredNonModelOutputSystem : public LeafSystem<double> {
  private:
   void CalcDummyVec2(const Context<double>&, DummyVec2* out) const {
     ++count_calc_dummy_vec2_;
+=======
+ private:
+  void CalcDummyVec2(const Context<double>&, DummyVec2* out) const {
+>>>>>>> intial
     ASSERT_NE(out, nullptr);
     EXPECT_EQ(out->size(), 2);
     out->get_mutable_value() = Eigen::Vector2d(-100., -200);
@@ -1069,12 +1162,16 @@ class DeclaredNonModelOutputSystem : public LeafSystem<double> {
   }
 
   void CalcString(const Context<double>&, std::string* out) const {
+<<<<<<< HEAD
     ++count_calc_string_;
+=======
+>>>>>>> intial
     ASSERT_NE(out, nullptr);
     *out = "calc'ed string";
   }
 
   void CalcPOD(const Context<double>&, SomePOD* out) const {
+<<<<<<< HEAD
     ++count_calc_POD_;
     ASSERT_NE(out, nullptr);
     *out = {-10, 3.25};
@@ -1095,6 +1192,19 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
 
   // Make sure caching is on locally, even if it is off by default.
   context->EnableCaching();
+=======
+    ASSERT_NE(out, nullptr);
+    *out = {-10, 3.25};
+  }
+};
+
+// Tests that non-model based Declare{Vector,Abstract}OutputPort generate
+// the expected output port allocators, and that their calc functions work.
+GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
+  DeclaredNonModelOutputSystem dut;
+  auto context = dut.CreateDefaultContext();
+  auto system_output = dut.AllocateOutput(*context);  // Invokes all allocators.
+>>>>>>> intial
 
   // Check topology.
   EXPECT_EQ(dut.get_num_input_ports(), 0);
@@ -1111,6 +1221,7 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   EXPECT_EQ(out3.get_data_type(), kAbstractValued);
   EXPECT_EQ(out4.get_data_type(), kAbstractValued);
 
+<<<<<<< HEAD
   // Sanity check output port prerequisites. Leaf ports should not designate
   // a subsystem since they are resolved internally. We don't know the right
   // dependency ticket, but at least it should be valid.
@@ -1121,6 +1232,8 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
     EXPECT_TRUE(prereq.dependency.is_valid());
   }
 
+=======
+>>>>>>> intial
   // Check that DummyVec2 came out, default constructed to (100,200).
   auto output0 = system_output->GetMutableVectorData(0);
   ASSERT_NE(output0, nullptr);
@@ -1131,6 +1244,7 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   out0.Calc(*context, system_output->GetMutableData(0));
   EXPECT_EQ(out0_dummy->get_value(), Eigen::Vector2d(-100., -200.));
 
+<<<<<<< HEAD
   EXPECT_EQ(dut.calc_dummy_vec2_calls(), 1);
   EXPECT_EQ(out0.Eval<BasicVector<double>>(*context).get_value(),
             out0_dummy->get_value());
@@ -1138,6 +1252,8 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   out0.Eval<BasicVector<double>>(*context);
   EXPECT_EQ(dut.calc_dummy_vec2_calls(), 2);  // Should have been cached.
 
+=======
+>>>>>>> intial
   // Check that Value<string>() came out, default initialized to empty.
   auto output1 = system_output->GetMutableData(1);
   ASSERT_NE(output1, nullptr);
@@ -1147,12 +1263,15 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   out1.Calc(*context, output1);
   EXPECT_EQ(*downcast_output1, "calc'ed string");
 
+<<<<<<< HEAD
   EXPECT_EQ(dut.calc_string_calls(), 1);
   EXPECT_EQ(out1.Eval<std::string>(*context), *downcast_output1);
   EXPECT_EQ(dut.calc_string_calls(), 2);
   out1.Eval<std::string>(*context);
   EXPECT_EQ(dut.calc_string_calls(), 2);  // Should have been cached.
 
+=======
+>>>>>>> intial
   // Check that Value<int> came out, default initialized to -2.
   auto output2 = system_output->GetMutableData(2);
   ASSERT_NE(output2, nullptr);
@@ -1183,6 +1302,7 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   out4.Calc(*context, output4);
   EXPECT_EQ(downcast_output4->some_int, -10);
   EXPECT_EQ(downcast_output4->some_double, 3.25);
+<<<<<<< HEAD
 
   EXPECT_EQ(dut.calc_POD_calls(), 1);
   const auto& eval_out = out4.Eval<SomePOD>(*context);
@@ -1191,6 +1311,8 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
   EXPECT_EQ(dut.calc_POD_calls(), 2);
   out4.Eval<SomePOD>(*context);
   EXPECT_EQ(dut.calc_POD_calls(), 2);  // Should have been cached.
+=======
+>>>>>>> intial
 }
 
 // Tests both that an unrestricted update callback is called and that
@@ -1198,6 +1320,7 @@ GTEST_TEST(NonModelLeafSystemTest, NonModelPortsOutput) {
 TEST_F(LeafSystemTest, CallbackAndInvalidUpdates) {
   // Create 9, 1, and 3 dimensional continuous, discrete, and abstract state
   // vectors.
+<<<<<<< HEAD
 
   // This needs to be a LeafContext for access to init_ methods.
   auto context = dynamic_pointer_cast_or_throw<LeafContext<double>>(
@@ -1206,12 +1329,22 @@ TEST_F(LeafSystemTest, CallbackAndInvalidUpdates) {
   context->init_continuous_state(std::make_unique<ContinuousState<double>>(
       std::make_unique<BasicVector<double>>(9), 3, 3, 3));
   context->init_discrete_state(std::make_unique<DiscreteValues<double>>(
+=======
+  std::unique_ptr<Context<double>> context = system_.CreateDefaultContext();
+  context->set_continuous_state(std::make_unique<ContinuousState<double>>(
+      std::make_unique<BasicVector<double>>(9), 3, 3, 3));
+  context->set_discrete_state(std::make_unique<DiscreteValues<double>>(
+>>>>>>> intial
       std::make_unique<BasicVector<double>>(1)));
   std::vector<std::unique_ptr<AbstractValue>> abstract_data;
   abstract_data.push_back(PackValue(3));
   abstract_data.push_back(PackValue(5));
   abstract_data.push_back(PackValue(7));
+<<<<<<< HEAD
   context->init_abstract_state(
+=======
+  context->set_abstract_state(
+>>>>>>> intial
       std::make_unique<AbstractValues>(std::move(abstract_data)));
 
   // Copy the state.
@@ -1344,9 +1477,13 @@ class DefaultFeedthroughSystem : public LeafSystem<double> {
   void AddAbstractInputPort() { this->DeclareAbstractInputPort(); }
 
   void AddAbstractOutputPort() {
+<<<<<<< HEAD
     this->DeclareAbstractOutputPort(
         []() { return AbstractValue::Make<int>(0); },  // Dummies.
         [](const ContextBase&, AbstractValue*) {});
+=======
+    this->DeclareAbstractOutputPort(nullptr, nullptr);  // No alloc or calc.
+>>>>>>> intial
   }
 };
 
@@ -1465,6 +1602,7 @@ template <typename T>
 class SymbolicSparsitySystem : public LeafSystem<T> {
  public:
   SymbolicSparsitySystem()
+<<<<<<< HEAD
       : SymbolicSparsitySystem(
             SystemTypeTag<systems::SymbolicSparsitySystem>{}) {}
 
@@ -1476,6 +1614,9 @@ class SymbolicSparsitySystem : public LeafSystem<T> {
  protected:
   explicit SymbolicSparsitySystem(SystemScalarConverter converter)
       : LeafSystem<T>(std::move(converter)) {
+=======
+      : LeafSystem<T>(SystemTypeTag<systems::SymbolicSparsitySystem>{}) {
+>>>>>>> intial
     this->DeclareInputPort(kVectorValued, kSize);
     this->DeclareInputPort(kVectorValued, kSize);
 
@@ -1485,6 +1626,13 @@ class SymbolicSparsitySystem : public LeafSystem<T> {
                                   &SymbolicSparsitySystem::CalcY1);
   }
 
+<<<<<<< HEAD
+=======
+  template <typename U>
+  SymbolicSparsitySystem(const SymbolicSparsitySystem<U>&)
+      : SymbolicSparsitySystem<T>() {}
+
+>>>>>>> intial
  private:
   void CalcY0(const Context<T>& context,
                     BasicVector<T>* y0) const {
@@ -1501,6 +1649,7 @@ class SymbolicSparsitySystem : public LeafSystem<T> {
   const int kSize = 1;
 };
 
+<<<<<<< HEAD
 // The sparsity reporting should be the same no matter which scalar type the
 // original system has been instantiated with.
 using FeedthroughTestScalars = ::testing::Types<
@@ -1517,6 +1666,10 @@ TYPED_TEST(FeedthroughTypedTest, SymbolicSparsity) {
   using T = TypeParam;
   const SymbolicSparsitySystem<T> system;
 
+=======
+GTEST_TEST(FeedthroughTest, SymbolicSparsity) {
+  SymbolicSparsitySystem<double> system;
+>>>>>>> intial
   // Both the output ports have direct feedthrough from some input.
   EXPECT_TRUE(system.HasAnyDirectFeedthrough());
   EXPECT_TRUE(system.HasDirectFeedthrough(0));
@@ -1526,6 +1679,7 @@ TYPED_TEST(FeedthroughTypedTest, SymbolicSparsity) {
   EXPECT_TRUE(system.HasDirectFeedthrough(0, 1));
   EXPECT_TRUE(system.HasDirectFeedthrough(1, 0));
   EXPECT_FALSE(system.HasDirectFeedthrough(1, 1));
+<<<<<<< HEAD
   // Confirm the exact set of desired pairs are returned.
   std::multimap<int, int> expected;
   expected.emplace(1, 0);
@@ -1553,6 +1707,14 @@ GTEST_TEST(FeedthroughTest, SymbolicSparsityWithoutScalarConversion) {
   expected.emplace(1, 0);
   expected.emplace(0, 1);
   EXPECT_EQ(system.GetDirectFeedthroughs(), expected);
+=======
+  // Confirm all pairs are returned.
+  std::multimap<int, int> expected;
+  expected.emplace(1, 0);
+  expected.emplace(0, 1);
+  auto feedthrough_pairs = system.GetDirectFeedthroughs();
+  EXPECT_EQ(feedthrough_pairs, expected);
+>>>>>>> intial
 }
 
 // Sanity check the default implementation of ToAutoDiffXd, for cases that
@@ -1987,9 +2149,15 @@ GTEST_TEST(SystemConstraintTest, ModelVectorTest) {
   EXPECT_TRUE(CompareMatrices(value1, Vector1<double>::Constant(-20.0)));
 
   // `u0[0] >= 33.0` with `u0[0] == 3.0` produces `-30.0 >= 0.0`.
+<<<<<<< HEAD
   InputVector input;
   input.SetAtIndex(0, 3.0);
   context->FixInputPort(0, input);
+=======
+  auto input = std::make_unique<InputVector>();
+  input->SetAtIndex(0, 3.0);
+  context->FixInputPort(0, std::move(input));
+>>>>>>> intial
   Eigen::VectorXd value2;
   constraint2.Calc(*context, &value2);
   EXPECT_TRUE(CompareMatrices(value2, Vector1<double>::Constant(-30.0)));

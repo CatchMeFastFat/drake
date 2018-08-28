@@ -11,7 +11,11 @@ namespace systems {
 /// Makes a new AbstractValue containing the @p value.
 template <typename T>
 std::unique_ptr<AbstractValue> PackValue(T value) {
+<<<<<<< HEAD
   return std::make_unique<Value<T>>(value);
+=======
+  return std::unique_ptr<AbstractValue>(new Value<T>(value));
+>>>>>>> intial
 }
 
 /// Extracts data of type T from the given @p value, or aborts if the

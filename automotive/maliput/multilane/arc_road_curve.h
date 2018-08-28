@@ -32,6 +32,7 @@ class ArcRoadCurve : public RoadCurve {
   /// @param superelevation CubicPolynomial object that represents the
   /// superelevation polynomial. See RoadCurve class constructor for more
   /// details.
+<<<<<<< HEAD
   /// @param linear_tolerance The linear tolerance, in meters, for all
   /// computations. See RoadCurve class constructor for more details.
   /// @param scale_length The minimum spatial period of variation in the curve,
@@ -53,11 +54,34 @@ class ArcRoadCurve : public RoadCurve {
                   elevation, superelevation,
                   computation_policy),
         center_(center), radius_(radius), theta0_(theta0), d_theta_(d_theta) {
+=======
+  /// @throws std::runtime_error When `radius` is not positive.
+  explicit ArcRoadCurve(const Vector2<double>& center, double radius,
+                        double theta0, double d_theta,
+                        const CubicPolynomial& elevation,
+                        const CubicPolynomial& superelevation)
+      : RoadCurve(elevation, superelevation),
+        center_(center),
+        radius_(radius),
+        theta0_(theta0),
+        d_theta_(d_theta) {
+>>>>>>> intial
     DRAKE_THROW_UNLESS(radius > 0.0);
   }
 
   ~ArcRoadCurve() override = default;
 
+<<<<<<< HEAD
+=======
+  /// @throws std::runtime_error When `r` makes the effective radius to be
+  /// negative or zero.
+  double p_from_s(double s, double r) const override;
+
+  /// @throws std::runtime_error When `r` makes the effective radius to be
+  /// negative or zero.
+  double s_from_p(double p, double r) const override;
+
+>>>>>>> intial
   Vector2<double> xy_of_p(double p) const override {
     // The result will be computed with the following function:
     //      [x;y] = center + [radius * cos(θ); radius * sin(θ)]
@@ -114,6 +138,7 @@ class ArcRoadCurve : public RoadCurve {
                const api::HBounds& height_bounds) const override;
 
  private:
+<<<<<<< HEAD
   double FastCalcPFromS(double s, double r) const override;
 
   double FastCalcSFromP(double p, double r) const override;
@@ -124,6 +149,15 @@ class ArcRoadCurve : public RoadCurve {
 
   // Computes the radius of the reference arc offset at a distance @p r.
   // Uses d_theta_'s sign (see ArcRoadCurve() for more details) to add or
+=======
+  // Computes the absolute position along reference arc as an angle in
+  // range [theta0_, (theta0 + d_theta_)],
+  // as a function of parameter @p p (in domain [0, 1]).
+  double theta_of_p(double p) const { return theta0_ + (p * d_theta_); }
+
+  // Computes the radius of the reference arc offset at a distance @p r.
+  // Uses d_theta_'s sign (see ArcRoadCurve() for more details)  to add or
+>>>>>>> intial
   // or subtract @p r distance.
   // @param r Lateral offset of the reference curve over the z=0 plane.
   // @return The reference arc offset radius.
@@ -131,11 +165,14 @@ class ArcRoadCurve : public RoadCurve {
     return radius_ - std::copysign(1., d_theta_) * r;
   }
 
+<<<<<<< HEAD
   // Computes the absolute position along reference arc as an angle in
   // range [theta0_, (theta0 + d_theta_)],
   // as a function of parameter @p p (in domain [0, 1]).
   double theta_of_p(double p) const { return theta0_ + (p * d_theta_); }
 
+=======
+>>>>>>> intial
   // Center of rotation in z=0 plane, world coordinates, for the arc reference
   // curve.
   const Vector2<double> center_;

@@ -124,7 +124,12 @@ class DirectTranscription : public MultipleShooting {
   std::unique_ptr<const System<AutoDiffXd>> system_;
   std::unique_ptr<Context<AutoDiffXd>> context_;
   std::unique_ptr<DiscreteValues<AutoDiffXd>> discrete_state_;
+<<<<<<< HEAD
   FixedInputPortValue* input_port_value_{nullptr};  // Owned by the context.
+=======
+  FreestandingInputPortValue* input_port_value_{
+      nullptr};  // Owned by the context.
+>>>>>>> intial
 
   const bool discrete_time_system_{false};
 };

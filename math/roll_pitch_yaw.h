@@ -1,5 +1,6 @@
 #pragma once
 
+<<<<<<< HEAD
 #include <cmath>
 #include <limits>
 
@@ -672,3 +673,7 @@ Vector4<typename Derived::Scalar> rpy2quat(
 
 }  // namespace math
 }  // namespace drake
+=======
+#include "drake/math/roll_pitch_yaw_not_using_quaternion.h"
+#include "drake/math/roll_pitch_yaw_using_quaternion.h"
+>>>>>>> intial

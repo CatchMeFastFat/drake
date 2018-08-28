@@ -101,7 +101,11 @@ GTEST_TEST(testQpInverseDynamicsSystem, IiwaInverseDynamics) {
   // Uses the simulator to avoid various allocations by hand.
   Simulator<double> sim(*diagram);
   std::unique_ptr<SystemOutput<double>> output =
+<<<<<<< HEAD
       diagram->AllocateOutput();
+=======
+      diagram->AllocateOutput(sim.get_context());
+>>>>>>> intial
   sim.Initialize();
   sim.StepTo(controller->get_control_dt());
 
@@ -114,7 +118,11 @@ GTEST_TEST(testQpInverseDynamicsSystem, IiwaInverseDynamics) {
                                      qp_output.vd(), 1e-9,
                                      drake::MatrixCompareType::absolute));
 
+<<<<<<< HEAD
   // Without any external forces or hitting any constraints, torque = M * vd_d +
+=======
+  // Without any external forces or hitting any contraints, torque = M * vd_d +
+>>>>>>> intial
   // h.
   VectorX<double> expected_torque =
       robot_status.get_M() * input.desired_dof_motions().values() +

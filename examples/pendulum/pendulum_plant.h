@@ -36,7 +36,11 @@ class PendulumPlant : public systems::LeafSystem<T> {
   ~PendulumPlant() override;
 
   /// Returns the input port to the externally applied force.
+<<<<<<< HEAD
   const systems::InputPort<T>& get_input_port() const;
+=======
+  const systems::InputPortDescriptor<T>& get_input_port() const;
+>>>>>>> intial
 
   /// Returns the port to output state.
   const systems::OutputPort<T>& get_output_port() const;
@@ -74,12 +78,15 @@ class PendulumPlant : public systems::LeafSystem<T> {
     return this->template GetNumericParameter<PendulumParams>(context, 0);
   }
 
+<<<<<<< HEAD
   PendulumParams<T>& get_mutable_parameters(
       systems::Context<T>* context) const {
     return this->template GetMutableNumericParameter<PendulumParams>(
         context, 0);
   }
 
+=======
+>>>>>>> intial
  private:
   // This is the calculator method for the state output port.
   void CopyStateOut(const systems::Context<T>& context,

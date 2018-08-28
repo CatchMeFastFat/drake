@@ -2,10 +2,15 @@
 
 #include <functional>
 #include <memory>
+<<<<<<< HEAD
+=======
+#include <sstream>
+>>>>>>> intial
 #include <string>
 #include <utility>
 #include <vector>
 
+<<<<<<< HEAD
 #include <fmt/format.h>
 
 #include "drake/common/autodiff.h"
@@ -17,17 +22,34 @@
 #include "drake/systems/framework/framework_common.h"
 #include "drake/systems/framework/output_port_base.h"
 #include "drake/systems/framework/system_base.h"
+=======
+#include "drake/common/drake_assert.h"
+#include "drake/common/type_safe_index.h"
+#include "drake/systems/framework/basic_vector.h"
+#include "drake/systems/framework/framework_common.h"
+>>>>>>> intial
 #include "drake/systems/framework/value.h"
 
 namespace drake {
 namespace systems {
 
+<<<<<<< HEAD
 // Break the System <=> OutputPort physical dependency cycle.  OutputPorts are
 // decorated with a back-pointer to their owning System<T>, but that pointer is
 // forward-declared here and never dereferenced within this file.
 template <typename T>
 class System;
 
+=======
+template <typename T>
+class System;
+
+template <typename T>
+class Context;
+
+using OutputPortIndex = TypeSafeIndex<class OutputPortTag>;
+
+>>>>>>> intial
 /** An %OutputPort belongs to a System and represents the properties of one of
 that System's output ports. %OutputPort objects are assigned OutputPortIndex
 values in the order they are declared; these are unique within a single System.
@@ -68,6 +90,7 @@ No other values for T are currently supported. */
 // TODO(sherm1) Implement caching for output ports and update the above
 // documentation to explain in more detail.
 template <typename T>
+<<<<<<< HEAD
 class OutputPort : public OutputPortBase {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(OutputPort)
@@ -86,6 +109,13 @@ class OutputPort : public OutputPortBase {
     const AbstractValue& abstract_value = EvalAbstract(context);
     return ExtractValueOrThrow<ValueType>(__func__, abstract_value);
   }
+=======
+class OutputPort {
+ public:
+  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(OutputPort)
+
+  virtual ~OutputPort() = default;
+>>>>>>> intial
 
   /** Allocates a concrete object suitable for holding the value to be exposed
   by this output port, and returns that as an AbstractValue. The returned object
@@ -95,6 +125,7 @@ class OutputPort : public OutputPortBase {
   @note If this is a vector-valued port, the underlying type is
   `Value<BasicVector<T>>`; downcast to `BasicVector<T>` before downcasting to
   the specific `BasicVector` subclass. */
+<<<<<<< HEAD
   std::unique_ptr<AbstractValue> Allocate() const {
     std::unique_ptr<AbstractValue> value = DoAllocate();
     if (value == nullptr) {
@@ -105,6 +136,9 @@ class OutputPort : public OutputPortBase {
     DRAKE_ASSERT_VOID(CheckValidAllocation(*value));
     return value;
   }
+=======
+  std::unique_ptr<AbstractValue> Allocate() const;
+>>>>>>> intial
 
   /** Unconditionally computes the value of this output port with respect to the
   given context, into an already-allocated AbstractValue object whose concrete
@@ -112,6 +146,7 @@ class OutputPort : public OutputPortBase {
   If Drake assertions are enabled (typically only in Debug builds), validates
   that the given `value` has exactly the same concrete type as is returned by
   the Allocate() method. */
+<<<<<<< HEAD
   void Calc(const Context<T>& context, AbstractValue* value) const {
     DRAKE_DEMAND(value != nullptr);
     DRAKE_ASSERT_VOID(
@@ -120,16 +155,25 @@ class OutputPort : public OutputPortBase {
 
     DoCalc(context, value);
   }
+=======
+  void Calc(const Context<T>& context, AbstractValue* value) const;
+>>>>>>> intial
 
   /** Returns a reference to the value of this output port contained in the
   given Context. If that value is not up to date with respect to its
   prerequisites, the Calc() method above is used first to update the value
+<<<<<<< HEAD
   before the reference is returned. */
   const AbstractValue& EvalAbstract(const Context<T>& context) const {
     DRAKE_ASSERT_VOID(
         get_system_base().ThrowIfContextNotCompatible(context));
     return DoEval(context);
   }
+=======
+  before the reference is returned. (Not implemented yet.) */
+  // TODO(sherm1) Implement properly.
+  const AbstractValue& Eval(const Context<T>& context) const;
+>>>>>>> intial
 
   /** Returns a reference to the System that owns this output port. Note that
   for a diagram output port this will be the diagram, not the leaf system whose
@@ -138,6 +182,7 @@ class OutputPort : public OutputPortBase {
     return system_;
   }
 
+<<<<<<< HEAD
  protected:
   /** Provides derived classes the ability to set the base class members at
   construction. See OutputPortBase::OutputPortBase() for the meaning of these
@@ -154,6 +199,32 @@ class OutputPort : public OutputPortBase {
         system_{*system} {
     DRAKE_DEMAND(static_cast<const void*>(system) == system_base);
   }
+=======
+  /** Returns the index of this output port within the owning System. */
+  OutputPortIndex get_index() const {
+    return index_;
+  }
+
+  /** Gets the port data type specified at port construction. */
+  PortDataType get_data_type() const { return data_type_; }
+
+  /** Returns the fixed size expected for a vector-valued output port. Not
+  meaningful for abstract output ports. */
+  int size() const { return size_; }
+
+ protected:
+  /** Provides derived classes the ability to set the base class members at
+  construction.
+  @param system
+    The System that will own this new output port. This port will
+    be assigned the next available output port index in this system.
+  @param data_type
+    Whether the port described is vector or abstract valued.
+  @param size
+    If the port described is vector-valued, the number of elements expected,
+    otherwise ignored. */
+  OutputPort(const System<T>& system, PortDataType data_type, int size);
+>>>>>>> intial
 
   /** A concrete %OutputPort must provide a way to allocate a suitable object
   for holding the runtime value of this output port. The particulars may depend
@@ -181,6 +252,7 @@ class OutputPort : public OutputPortBase {
                  the System whose output port this is. */
   virtual const AbstractValue& DoEval(const Context<T>& context) const = 0;
 
+<<<<<<< HEAD
   /** This is useful for error messages and produces a human-readable
   identification of an offending output port. */
   std::string GetPortIdString() const {
@@ -195,12 +267,23 @@ class OutputPort : public OutputPortBase {
   // If this is a vector-valued port, we can check that the returned abstract
   // value actually holds a BasicVector-derived object, and for fixed-size ports
   // that the object has the right size.
+=======
+  /** This is useful for error messages and produces `"output port <#> of
+  GetSystemIdString()"` with whatever System identification string is produced
+  by that method. */
+  std::string GetPortIdString() const;
+
+ private:
+  // Check whether the allocator returned a value that is consistent with
+  // this port's specification.
+>>>>>>> intial
   void CheckValidAllocation(const AbstractValue&) const;
 
   // Check that an AbstractValue provided to Calc() is suitable for this port.
   // (Very expensive; use in Debug only.)
   void CheckValidOutputType(const AbstractValue&) const;
 
+<<<<<<< HEAD
   // User said output port would have a particular concrete type but it doesn't.
   template <typename ValueType>
   [[noreturn]] void ThrowBadValueType(const char* func,
@@ -277,5 +360,21 @@ const ValueType& OutputPort<T>::ExtractValueOrThrow(
   return *value;
 }
 
+=======
+  // Check that both type-erased arguments have the same underlying type.
+  void CheckValidAbstractValue(const AbstractValue& good,
+                               const AbstractValue& proposed) const;
+
+  // Check that both BasicVector arguments have the same underlying type.
+  void CheckValidBasicVector(const BasicVector<T>& good,
+                             const BasicVector<T>& proposed) const;
+
+  const System<T>& system_;
+  const OutputPortIndex index_;
+  const PortDataType data_type_;
+  const int size_;
+};
+
+>>>>>>> intial
 }  // namespace systems
 }  // namespace drake

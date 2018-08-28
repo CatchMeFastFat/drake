@@ -2,7 +2,10 @@ from __future__ import absolute_import, division, print_function
 
 import pydrake.math as mut
 from pydrake.math import (BarycentricMesh, wrap_to)
+<<<<<<< HEAD
 from pydrake.util.eigen_geometry import Isometry3, Quaternion
+=======
+>>>>>>> intial
 
 import unittest
 import numpy as np
@@ -14,6 +17,7 @@ class TestBarycentricMesh(unittest.TestCase):
     def test_spelling(self):
         mesh = BarycentricMesh([{0, 1}, {0, 1}])
         values = np.array([[0, 1, 2, 3]])
+<<<<<<< HEAD
         grid = mesh.get_input_grid()
         self.assertIsInstance(grid, list)
         self.assertEqual(len(grid), 2)
@@ -22,14 +26,28 @@ class TestBarycentricMesh(unittest.TestCase):
         self.assertEqual(mesh.get_input_size(), 2)
         self.assertEqual(mesh.get_num_mesh_points(), 4)
         self.assertEqual(mesh.get_num_interpolants(), 3)
+=======
+
+        mesh.get_input_grid()
+        self.assertEquals(mesh.get_input_size(), 2)
+        self.assertEquals(mesh.get_num_mesh_points(), 4)
+        self.assertEquals(mesh.get_num_interpolants(), 3)
+>>>>>>> intial
         self.assertTrue((mesh.get_mesh_point(0) == [0., 0.]).all())
         points = mesh.get_all_mesh_points()
         self.assertEqual(points.shape, (2, 4))
         self.assertTrue((points[:, 3] == [1., 1.]).all())
+<<<<<<< HEAD
         self.assertEqual(mesh.Eval(values, (0, 0))[0], 0)
         self.assertEqual(mesh.Eval(values, (1, 0))[0], 1)
         self.assertEqual(mesh.Eval(values, (0, 1))[0], 2)
         self.assertEqual(mesh.Eval(values, (1, 1))[0], 3)
+=======
+        self.assertEquals(mesh.Eval(values, (0, 0))[0], 0)
+        self.assertEquals(mesh.Eval(values, (1, 0))[0], 1)
+        self.assertEquals(mesh.Eval(values, (0, 1))[0], 2)
+        self.assertEquals(mesh.Eval(values, (1, 1))[0], 3)
+>>>>>>> intial
 
     def test_weight(self):
         mesh = BarycentricMesh([{0, 1}, {0, 1}])
@@ -45,6 +63,7 @@ class TestBarycentricMesh(unittest.TestCase):
             return [x.dot(x)]
 
         values = mesh.MeshValuesFrom(mynorm)
+<<<<<<< HEAD
         self.assertEqual(values.size, 4)
 
     def test_wrap_to(self):
@@ -52,6 +71,30 @@ class TestBarycentricMesh(unittest.TestCase):
 
 
 class TestMath(unittest.TestCase):
+=======
+        self.assertEquals(values.size, 4)
+
+    def test_surf(self):
+        mesh = BarycentricMesh([{0, 1}, {0, 1}])
+        values = np.array([[0, 1, 2, 3]])
+
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.mplot3d import Axes3D
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+
+        X, Y = np.meshgrid(list(mesh.get_input_grid()[0]),
+                           list(mesh.get_input_grid()[1]))
+        Z = np.reshape(values, X.shape)
+
+        ax.plot_surface(X, Y, Z)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+
+    def test_wrap_to(self):
+        self.assertEquals(wrap_to(1.5, 0., 1.), .5)
+
+>>>>>>> intial
     def test_math(self):
         # Compare against `math` functions.
         # TODO(eric.cousineau): Consider removing this and only rely on
@@ -83,6 +126,7 @@ class TestMath(unittest.TestCase):
         a = 0.1
         b = 0.2
         for f_core, f_cpp in unary:
+<<<<<<< HEAD
             self.assertEqual(f_core(a), f_cpp(a), (f_core, f_cpp))
         for f_core, f_cpp in binary:
             self.assertEqual(f_core(a, b), f_cpp(a, b))
@@ -159,3 +203,8 @@ class TestMath(unittest.TestCase):
         self.assertTrue(np.allclose(rpy.ToQuaternion().wxyz(), q_I.wxyz()))
         R = rpy.ToRotationMatrix().matrix()
         self.assertTrue(np.allclose(R, np.eye(3)))
+=======
+            self.assertEquals(f_core(a), f_cpp(a), (f_core, f_cpp))
+        for f_core, f_cpp in binary:
+            self.assertEquals(f_core(a, b), f_cpp(a, b))
+>>>>>>> intial

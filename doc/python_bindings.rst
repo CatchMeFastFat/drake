@@ -42,7 +42,11 @@ MOSEK, without building tests:
     cmake -DWITH_GUROBI=ON -DWITH_MOSEK=ON ../drake
 
 Using the Python Bindings
+<<<<<<< HEAD
 -------------------------
+=======
+=========================
+>>>>>>> intial
 
 To use the Drake Python bindings, follow the build steps above or ensure that
 you have installed Drake appropriately. You will also need to have your
@@ -82,11 +86,19 @@ To check this:
     ``${GUROBI_INCLUDE_DIR}`` via CMake.
 
 What's Available from Python
+<<<<<<< HEAD
 ----------------------------
 
 The most up-to-date demonstrations of what can be done using ``pydrake`` are
 the ``pydrake`` unit tests themselves. You can see all of them inside the
 ``drake/bindings/python/pydrake/**/test`` folders in the Drake source code.
+=======
+============================
+
+The most up-to-date demonstrations of what can be done using ``pydrake`` are
+the ``pydrake`` unit tests themselves. You can see all of them inside the
+``drake/bindings/python/pydrake/test`` folder in the Drake source code.
+>>>>>>> intial
 
 Here's an example snippet of code from ``pydrake``:
 
@@ -126,7 +138,11 @@ An example of importing symbols directly from ``pydrake.all``:
     simulator = Simulator(RigidBodyPlant(tree))
 
 An alternative is to use ``pydrake.all`` to import all modules, but then
+<<<<<<< HEAD
 explicitly refer to each symbol:
+=======
+explicity refer to each symbol:
+>>>>>>> intial
 
 .. code-block:: python
 
@@ -138,6 +154,7 @@ explicitly refer to each symbol:
     simulator = pydrake.systems.analysis.Simulator(
         pydrake.multibody.rigid_body_plant.RigidBodyPlant(tree))
 
+<<<<<<< HEAD
 Documentation
 =============
 
@@ -232,5 +249,12 @@ For Developers
 
 If you are developing Python bindings, please see the Doxygen page for
 `Python Bindings <https://drake.mit.edu/doxygen_cxx/python_bindings.html>`_.
+=======
+For Developers
+==============
+
+If you are developing Python bindings, please see the Doxygen page for
+`Python Bindings <http://drake.mit.edu/doxygen_cxx/python_bindings.html>`_.
+>>>>>>> intial
 This provides information on programming conventions as well as tips for
 debugging.

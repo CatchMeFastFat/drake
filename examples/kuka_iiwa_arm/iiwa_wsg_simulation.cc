@@ -57,7 +57,11 @@ using systems::Context;
 using systems::Diagram;
 using systems::DiagramBuilder;
 using systems::DrakeVisualizer;
+<<<<<<< HEAD
 using systems::InputPort;
+=======
+using systems::InputPortDescriptor;
+>>>>>>> intial
 using systems::OutputPort;
 using systems::RigidBodyPlant;
 using systems::RungeKutta2Integrator;

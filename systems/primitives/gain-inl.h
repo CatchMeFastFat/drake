@@ -3,7 +3,11 @@
 /// @file
 /// Template method implementations for gain.h.
 /// Most users should only include that file, not this one.
+<<<<<<< HEAD
 /// For background, see https://drake.mit.edu/cxx_inl.html.
+=======
+/// For background, see http://drake.mit.edu/cxx_inl.html.
+>>>>>>> intial
 
 /* clang-format off to disable clang-format-includes */
 #include "drake/systems/primitives/gain.h"

@@ -6,14 +6,21 @@
 
 import argparse
 import os
+<<<<<<< HEAD
 import shutil
+=======
+>>>>>>> intial
 import subprocess
 import sys
 
 from collections import OrderedDict
 from os.path import dirname
 
+<<<<<<< HEAD
 def _get_drake_workspace():
+=======
+def _get_drake_distro():
+>>>>>>> intial
     """Find and return the path to the drake workspace."""
 
     result = dirname(dirname(os.path.abspath(sys.argv[0])))
@@ -23,6 +30,7 @@ def _get_drake_workspace():
 
 def _run_doxygen(args):
     # Find our programs.
+<<<<<<< HEAD
     if sys.platform == "darwin":
         path = "/usr/local/bin:/usr/bin:/bin"
     else:
@@ -86,6 +94,18 @@ def _run_doxygen(args):
     # Populate the definitions dict needed by Doxygen_CXX.in.
     definitions = OrderedDict()
     definitions["INPUT_ROOT"] = input_root
+=======
+    doxygen = subprocess.check_output(["which", "doxygen"]).strip()
+    dot = subprocess.check_output(["which", "dot"]).strip()
+
+    # Compute the definitions dict needed by Doxygen_CXX.in.
+    drake_distro = _get_drake_distro()
+    binary_dir = os.path.join(drake_distro, "build/drake/doc")
+    if not os.path.exists(binary_dir):
+        os.makedirs(binary_dir)
+    definitions = OrderedDict()
+    definitions["DRAKE_WORKSPACE_ROOT"] = drake_distro
+>>>>>>> intial
     definitions["BINARY_DIR"] = binary_dir
     if args.quick:
         definitions["DOXYGEN_DOT_FOUND"] = "NO"
@@ -97,11 +117,19 @@ def _run_doxygen(args):
                        for key, value in definitions.iteritems()]
 
     # Create Doxyfile_CXX.
+<<<<<<< HEAD
     in_filename = os.path.join(drake_workspace, "doc/Doxyfile_CXX.in")
     doxyfile = os.path.join(binary_dir, "Doxyfile_CXX")
     subprocess.check_call(
         [os.path.join(
             drake_workspace, "tools/workspace/cmake_configure_file.py"),
+=======
+    in_filename = os.path.join(drake_distro, "doc/Doxyfile_CXX.in")
+    doxyfile = os.path.join(drake_distro, "build/drake/doc/Doxyfile_CXX")
+    subprocess.check_call(
+        [os.path.join(
+            _get_drake_distro(), "tools/workspace/cmake_configure_file.py"),
+>>>>>>> intial
          "--input", in_filename,
          "--output", doxyfile,
          ] + definition_args)
@@ -111,7 +139,10 @@ def _run_doxygen(args):
     print "Building C++ Doxygen documentation...",
     sys.stdout.flush()
     subprocess.check_call([doxygen, doxyfile], cwd=binary_dir)
+<<<<<<< HEAD
     shutil.rmtree(input_root)  # Don't let Bazel find the build/input copy.
+=======
+>>>>>>> intial
     print "done"
     print "See file://%s/doxygen_cxx/html/index.html" % binary_dir
 
@@ -122,11 +153,14 @@ def main():
     parser.add_argument(
         '--quick', action='store_true', default=False,
         help="Disable slow features (e.g., all graphs)")
+<<<<<<< HEAD
     parser.add_argument(
         'inputs', nargs='*',
         help="Process only these files and/or directories; "
         "most useful using shell globbing, e.g., "
         "doxygen.py --quick systems/framework/*leaf*.h")
+=======
+>>>>>>> intial
     args = parser.parse_args()
     _run_doxygen(args)
 

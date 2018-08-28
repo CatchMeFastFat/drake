@@ -15,21 +15,29 @@ std::ostream& operator<<(std::ostream& out, const EndpointXy& endpoint_xy) {
 
 std::ostream& operator<<(std::ostream& out, const EndpointZ& endpoint_z) {
   return out << "(z = " << endpoint_z.z() << ", z_dot = " << endpoint_z.z_dot()
+<<<<<<< HEAD
              << ", theta = " << endpoint_z.theta() << ", theta_dot = "
              << (endpoint_z.theta_dot().has_value()
                      ? std::to_string(*endpoint_z.theta_dot())
                      : std::string("nullopt"))
              << ")";
+=======
+             << ", theta = " << endpoint_z.theta()
+             << ", theta_dot = " << endpoint_z.theta_dot() << ")";
+>>>>>>> intial
 }
 
 std::ostream& operator<<(std::ostream& out, const Endpoint& endpoint) {
   return out << "(xy: " << endpoint.xy() << ", z: " << endpoint.z() << ")";
 }
 
+<<<<<<< HEAD
 std::ostream& operator<<(std::ostream& out, const LineOffset& line_offset) {
   return out << "(length: " << line_offset.length() << ")";
 }
 
+=======
+>>>>>>> intial
 std::ostream& operator<<(std::ostream& out, const ArcOffset& arc_offset) {
   return out << "(r: " << arc_offset.radius()
              << ", d_theta: " << arc_offset.d_theta() << ")";
@@ -38,9 +46,13 @@ std::ostream& operator<<(std::ostream& out, const ArcOffset& arc_offset) {
 Connection::Connection(const std::string& id, const Endpoint& start,
                        const EndpointZ& end_z, int num_lanes, double r0,
                        double lane_width, double left_shoulder,
+<<<<<<< HEAD
                        double right_shoulder, const LineOffset& line_offset,
                        double linear_tolerance, double scale_length,
                        ComputationPolicy computation_policy)
+=======
+                       double right_shoulder, double line_length)
+>>>>>>> intial
     : type_(kLine),
       id_(id),
       start_(start),
@@ -52,20 +64,28 @@ Connection::Connection(const std::string& id, const Endpoint& start,
       r_min_(r0 - lane_width / 2. - right_shoulder),
       r_max_(r0 + lane_width * (static_cast<double>(num_lanes - 1) + 0.5) +
              left_shoulder),
+<<<<<<< HEAD
       linear_tolerance_(linear_tolerance),
       scale_length_(scale_length),
       computation_policy_(computation_policy),
       line_length_(line_offset.length()) {
+=======
+      line_length_(line_length) {
+>>>>>>> intial
   DRAKE_DEMAND(num_lanes_ > 0);
   DRAKE_DEMAND(lane_width_ >= 0);
   DRAKE_DEMAND(left_shoulder_ >= 0);
   DRAKE_DEMAND(right_shoulder_ >= 0);
   DRAKE_DEMAND(r_max_ >= r_min_);
+<<<<<<< HEAD
   DRAKE_DEMAND(linear_tolerance_ > 0.);
   DRAKE_DEMAND(scale_length_ > 0.);
   DRAKE_DEMAND(line_length_ > 0.);
   DRAKE_DEMAND(start.z().theta_dot().has_value());
   DRAKE_DEMAND(end_z.theta_dot().has_value());
+=======
+  DRAKE_DEMAND(line_length_ > 0.);
+>>>>>>> intial
   // Computes end Endpoint and RoadCurve.
   end_ = Endpoint(
       {start_.xy().x() + line_length_ * std::cos(start_.xy().heading()),
@@ -82,9 +102,13 @@ Connection::Connection(const std::string& id, const Endpoint& start,
 Connection::Connection(const std::string& id, const Endpoint& start,
                        const EndpointZ& end_z, int num_lanes, double r0,
                        double lane_width, double left_shoulder,
+<<<<<<< HEAD
                        double right_shoulder, const ArcOffset& arc_offset,
                        double linear_tolerance, double scale_length,
                        ComputationPolicy computation_policy)
+=======
+                       double right_shoulder, const ArcOffset& arc_offset)
+>>>>>>> intial
     : type_(kArc),
       id_(id),
       start_(start),
@@ -96,9 +120,12 @@ Connection::Connection(const std::string& id, const Endpoint& start,
       r_min_(r0 - lane_width / 2. - right_shoulder),
       r_max_(r0 + lane_width * (static_cast<double>(num_lanes - 1) + 0.5) +
              left_shoulder),
+<<<<<<< HEAD
       linear_tolerance_(linear_tolerance),
       scale_length_(scale_length),
       computation_policy_(computation_policy),
+=======
+>>>>>>> intial
       radius_(arc_offset.radius()),
       d_theta_(arc_offset.d_theta()) {
   DRAKE_DEMAND(num_lanes_ > 0);
@@ -106,11 +133,15 @@ Connection::Connection(const std::string& id, const Endpoint& start,
   DRAKE_DEMAND(left_shoulder_ >= 0);
   DRAKE_DEMAND(right_shoulder_ >= 0);
   DRAKE_DEMAND(r_max_ >= r_min_);
+<<<<<<< HEAD
   DRAKE_DEMAND(linear_tolerance_ > 0.);
   DRAKE_DEMAND(scale_length_ > 0.);
   DRAKE_DEMAND(radius_ > 0);
   DRAKE_DEMAND(start.z().theta_dot().has_value());
   DRAKE_DEMAND(end_z.theta_dot().has_value());
+=======
+  DRAKE_DEMAND(radius_ > 0);
+>>>>>>> intial
   // Fills arc related parameters, computes end Endpoint and creates the
   // RoadCurve.
   theta0_ = start_.xy().heading() - std::copysign(M_PI / 2., d_theta_);
@@ -160,10 +191,16 @@ Endpoint Connection::LaneStart(int lane_index) const {
   // theta_dot is derivative with respect to t, but the reference curve t
   // coordinate. So, a ∂t_0/∂t_i is needed, being t_0 the reference curve
   // coordinate and t_i the arc-length xy projection for lane_index lane.
+<<<<<<< HEAD
   const double theta_dot = type_ == kLine ? *start_.z().theta_dot()
                                           : (*start_.z().theta_dot()) *
                                                 std::abs(d_theta_ * radius_) /
                                                 planar_length;
+=======
+  const double theta_dot = type_ == kLine ?
+      start_.z().theta_dot() :
+      start_.z().theta_dot() * std::abs(d_theta_ * radius_) / planar_length;
+>>>>>>> intial
   return Endpoint({position[0], position[1], rotation.yaw()},
                   {position[2], z_dot, start_.z().theta(), theta_dot});
 }
@@ -200,10 +237,16 @@ Endpoint Connection::LaneEnd(int lane_index) const {
   // theta_dot is derivative with respect to t, but the reference curve t
   // coordinate. So, a ∂t_0/∂t_i is needed, being t_0 the reference curve
   // coordinate and t_i the arc-length xy projection for lane_index lane.
+<<<<<<< HEAD
   const double theta_dot = type_ == kLine ? *end_.z().theta_dot()
                                           : (*end_.z().theta_dot()) *
                                                 std::abs(d_theta_ * radius_) /
                                                 planar_length;
+=======
+  const double theta_dot = type_ == kLine ?
+      end_.z().theta_dot() :
+      end_.z().theta_dot() * std::abs(d_theta_ * radius_) / planar_length;
+>>>>>>> intial
   return Endpoint({position[0], position[1], rotation.yaw()},
                   {position[2], z_dot, end_.z().theta(), theta_dot});
 }
@@ -239,12 +282,22 @@ std::unique_ptr<RoadCurve> Connection::CreateRoadCurve() const {
           start_.z().z_dot(),
           end_.z().z_dot()));
       const CubicPolynomial superelevation(MakeCubic(
+<<<<<<< HEAD
           dxy.norm(), start_.z().theta(), end_.z().theta() - start_.z().theta(),
           *start_.z().theta_dot(), *end_.z().theta_dot()));
       return std::make_unique<LineRoadCurve>(
           xy0, dxy, elevation, superelevation,
           linear_tolerance_, scale_length_,
           computation_policy_);
+=======
+          dxy.norm(),
+          start_.z().theta(),
+          end_.z().theta() - start_.z().theta(),
+          start_.z().theta_dot(),
+          end_.z().theta_dot()));
+      return
+        std::make_unique<LineRoadCurve>(xy0, dxy, elevation, superelevation);
+>>>>>>> intial
     };
     case Connection::kArc: {
       const Vector2<double> center(cx_, cy_);
@@ -256,11 +309,21 @@ std::unique_ptr<RoadCurve> Connection::CreateRoadCurve() const {
           start_.z().z_dot(),
           end_.z().z_dot()));
       const CubicPolynomial superelevation(MakeCubic(
+<<<<<<< HEAD
           arc_length, start_.z().theta(), end_.z().theta() - start_.z().theta(),
           *start_.z().theta_dot(), *end_.z().theta_dot()));
       return std::make_unique<ArcRoadCurve>(
           center, radius_, theta0_, d_theta_, elevation, superelevation,
           linear_tolerance_, scale_length_, computation_policy_);
+=======
+          arc_length,
+          start_.z().theta(),
+          end_.z().theta() - start_.z().theta(),
+          start_.z().theta_dot(),
+          end_.z().theta_dot()));
+      return std::make_unique<ArcRoadCurve>(
+          center, radius_, theta0_, d_theta_, elevation, superelevation);
+>>>>>>> intial
     };
     default: {
       DRAKE_ABORT();

@@ -11,21 +11,35 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/never_destroyed.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/diagram_builder.h"
 #include "drake/systems/framework/leaf_system.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/system_output.h"
 #include "drake/systems/framework/test_utilities/my_vector.h"
 #include "drake/systems/framework/value.h"
+=======
+#include "drake/systems/framework/output_port_value.h"
+#include "drake/systems/framework/system.h"
+#include "drake/systems/framework/test_utilities/my_vector.h"
+#include "drake/systems/framework/value.h"
+#include "drake/systems/primitives/constant_vector_source.h"
+>>>>>>> intial
 
 namespace drake {
 namespace systems {
 namespace {
 
+<<<<<<< HEAD
 using Eigen::Vector2d;
+=======
+>>>>>>> intial
 using Eigen::Vector3d;
 using std::string;
 using std::unique_ptr;
@@ -36,6 +50,7 @@ class DummySystem : public LeafSystem<double> {
  public:
   DummySystem() {}
   ~DummySystem() override {}
+<<<<<<< HEAD
   using SystemBase::assign_next_dependency_ticket;
 };
 
@@ -156,6 +171,10 @@ GTEST_TEST(TestBaseClass, BadOutputType) {
 #endif
 }
 
+=======
+};
+
+>>>>>>> intial
 // These functions match the signatures required by LeafOutputPort.
 
 // AllocCallback that returns a string in an AbstractValue.
@@ -170,24 +189,50 @@ unique_ptr<AbstractValue> alloc_myvector3() {
 }
 
 // CalcCallback that expects to have a string to write on.
+<<<<<<< HEAD
 void calc_string(const ContextBase&, AbstractValue* value) {
+=======
+void calc_string(const Context<double>& context, AbstractValue* value) {
+>>>>>>> intial
   ASSERT_NE(value, nullptr);
   string& str_value = value->GetMutableValueOrThrow<string>();
   str_value = "from calc_string";
 }
 
 // CalcVectorCallback sets the 3-element output vector to 99,100,101.
+<<<<<<< HEAD
 void calc_vector3(const ContextBase&, AbstractValue* value) {
   ASSERT_NE(value, nullptr);
   auto& vec = value->template GetMutableValueOrThrow<BasicVector<double>>();
   EXPECT_EQ(vec.size(), 3);
   vec.set_value(Vector3d(99., 100., 101.));
+=======
+void calc_vector3(const Context<double>& context, BasicVector<double>* value) {
+  ASSERT_NE(value, nullptr);
+  EXPECT_EQ(value->size(), 3);
+  value->set_value(Vector3d(99., 100., 101.));
+}
+
+// EvalCallback returning a string.
+const AbstractValue& eval_string(const Context<double>& context) {
+  static const never_destroyed<Value<string>> fake_cache(
+      string("from eval_string"));
+  return fake_cache.access();
+}
+
+// EvalCallback returning a MyVector3d(3,1,4).
+const AbstractValue& eval_vector3(const Context<double>& context) {
+  static const never_destroyed<Value<BasicVector<double>>> fake_cache(
+      *MyVector3d::Make(3., 1., 4.));
+  return fake_cache.access();
+>>>>>>> intial
 }
 
 // This class creates some isolated ports we can play with. They are not
 // actually part of a System. There are lots of tests of Systems that have
 // output ports elsewhere; that's not what we're trying to test here.
 class LeafOutputPortTest : public ::testing::Test {
+<<<<<<< HEAD
  protected:
   // Create abstract- and vector-valued ports.
   DummySystem dummy_;
@@ -207,6 +252,25 @@ class LeafOutputPortTest : public ::testing::Test {
       &dummy_.DeclareCacheEntry(
           "vecport", alloc_myvector3, calc_vector3)};
   unique_ptr<Context<double>> context_{dummy_.CreateDefaultContext()};
+=======
+ public:
+  void SetUp() override {
+    // TODO(sherm1) Eval methods should be generated automatically if not set.
+    // This is just testing the basic wiring.
+    absport_general_.set_evaluation_function(eval_string);
+    vecport_general_.set_evaluation_function(eval_vector3);
+  }
+
+ protected:
+  systems::ConstantVectorSource<double> source_{Vector3d(3., -3., 0.)};
+  unique_ptr<Context<double>> context_{source_.CreateDefaultContext()};
+
+  // Create abstract- and vector-valued ports.
+  DummySystem dummy_;
+  LeafOutputPort<double> absport_general_{dummy_, alloc_string, calc_string};
+  LeafOutputPort<double> vecport_general_{dummy_, 3, alloc_myvector3,
+                                          calc_vector3};
+>>>>>>> intial
 };
 
 // Helper function for testing an abstract-valued port.
@@ -217,12 +281,17 @@ void AbstractPortCheck(const Context<double>& context,
   EXPECT_EQ(val->GetValueOrThrow<string>(), alloc_string);
   port.Calc(context, val.get());
   EXPECT_EQ(val->GetValueOrThrow<string>(), string("from calc_string"));
+<<<<<<< HEAD
   EXPECT_EQ(port.Eval<string>(context), string("from calc_string"));
 
   // Can't Eval into the wrong type.
   DRAKE_EXPECT_THROWS_MESSAGE(
       port.Eval<int>(context), std::logic_error,
       "OutputPort::Eval().*wrong value type int.*actual type.*std::string.*");
+=======
+  const AbstractValue& val_cached = port.Eval(context);
+  EXPECT_EQ(val_cached.GetValueOrThrow<string>(), string("from eval_string"));
+>>>>>>> intial
 }
 
 // Check for proper construction and functioning of abstract LeafOutputPorts.
@@ -262,6 +331,7 @@ unique_ptr<AbstractValue> alloc_null() {
 // The null check is done in all builds.
 TEST_F(LeafOutputPortTest, ThrowIfNullAlloc) {
   // Create an abstract port with an allocator that returns null.
+<<<<<<< HEAD
   // TODO(sherm1) Use implicit_cast when available (from abseil).
   LeafOutputPort<double> null_port{
       &dummy_,  // implicit_cast<const System<T>*>(&dummy_)
@@ -274,6 +344,10 @@ TEST_F(LeafOutputPortTest, ThrowIfNullAlloc) {
   // Creating a context for this system should fail when it tries to allocate
   // a cache entry for null_port.
   EXPECT_THROW(dummy_.CreateDefaultContext(), std::logic_error);
+=======
+  LeafOutputPort<double> null_port{dummy_, alloc_null, calc_string};
+  EXPECT_THROW(null_port.Allocate(), std::logic_error);
+>>>>>>> intial
 }
 
 // Check that Debug builds catch bad output types. We can't run these tests
@@ -285,6 +359,7 @@ TEST_F(LeafOutputPortTest, ThrowIfBadCalcOutput) {
   auto good_out = absport_general_.Allocate();
   auto bad_out = AbstractValue::Make<int>(5);
   EXPECT_NO_THROW(absport_general_.Calc(*context_, good_out.get()));
+<<<<<<< HEAD
   DRAKE_EXPECT_THROWS_MESSAGE(
       absport_general_.Calc(*context_, bad_out.get()), std::logic_error,
       "OutputPort::Calc().*expected.*std::string.*got.*int.*");
@@ -296,6 +371,17 @@ TEST_F(LeafOutputPortTest, ThrowIfBadCalcOutput) {
   DRAKE_EXPECT_THROWS_MESSAGE(
       vecport_general_.Calc(*context_, bad_vec.get()), std::logic_error,
       "OutputPort::Calc().*expected.*MyVector.*got.*BasicVector.*");
+=======
+  EXPECT_THROW(absport_general_.Calc(*context_, bad_out.get()),
+               std::logic_error);
+
+  // The vector port is a MyVector<3,double>, we'll give it a shorter one.
+  auto good_vec = vecport_general_.Allocate();
+  auto bad_vec = AbstractValue::Make(BasicVector<double>(2));
+  EXPECT_NO_THROW(vecport_general_.Calc(*context_, good_vec.get()));
+  EXPECT_THROW(vecport_general_.Calc(*context_, bad_vec.get()),
+               std::logic_error);
+>>>>>>> intial
 }
 #endif
 

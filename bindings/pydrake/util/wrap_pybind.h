@@ -8,9 +8,12 @@
 
 #include "pybind11/pybind11.h"
 
+<<<<<<< HEAD
 #include "drake/bindings/pydrake/util/wrap_function.h"
 #include "drake/common/drake_copyable.h"
 
+=======
+>>>>>>> intial
 namespace drake {
 namespace pydrake {
 
@@ -39,6 +42,7 @@ class MirrorDef {
   B* const b_{};
 };
 
+<<<<<<< HEAD
 namespace detail {
 
 template <typename T, typename = void>
@@ -101,5 +105,7 @@ void DefReadWriteKeepAlive(PyClass* cls, const char* name, T Class::*member) {
                      py::keep_alive<1, 2>()));
 }
 
+=======
+>>>>>>> intial
 }  // namespace pydrake
 }  // namespace drake

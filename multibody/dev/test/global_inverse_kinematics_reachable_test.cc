@@ -31,7 +31,11 @@ TEST_F(KukaTest, ReachableTest) {
 
     EXPECT_EQ(sol_result, SolutionResult::kSolutionFound);
 
+<<<<<<< HEAD
     double pos_tol = 0.061;
+=======
+    double pos_tol = 0.06;
+>>>>>>> intial
     double orient_tol = 0.24;
     CheckGlobalIKSolution(pos_tol, orient_tol);
     // Now call nonlinear IK with the solution from global IK as the initial

@@ -15,6 +15,7 @@ namespace api {
 namespace rules {
 namespace {
 
+<<<<<<< HEAD
 // Tests for RightOfWayRule::State
 
 const LaneSRoute kZone({LaneSRange(LaneId("a"), {0., 9.}),
@@ -103,10 +104,22 @@ GTEST_TEST(RightOfWayRuleTest, Construction) {
       kZone, RightOfWayRule::ZoneType::kStopExcluded,
       {kNoYieldState, kDupIdState}),
       std::exception);
+=======
+const LaneSRoute kZone({LaneSRange(LaneId("a"), {0., 9.}),
+                        LaneSRange(LaneId("b"), {17., 12.})});
+
+
+GTEST_TEST(RightOfWayRuleTest, Construction) {
+  EXPECT_NO_THROW(RightOfWayRule(RightOfWayRule::Id("some_id"), kZone,
+                                 RightOfWayRule::Type::kStopThenGo));
+  EXPECT_NO_THROW(RightOfWayRule(RightOfWayRule::Id("some_id"), kZone,
+                                 RightOfWayRule::Type::kDynamic));
+>>>>>>> intial
 }
 
 
 GTEST_TEST(RightOfWayRuleTest, Accessors) {
+<<<<<<< HEAD
   const RightOfWayRule dut(
       RightOfWayRule::Id("dut_id"),
       kZone,
@@ -135,14 +148,26 @@ GTEST_TEST(RightOfWayRuleTest, StaticRuleOnlyAccessors) {
   EXPECT_TRUE(dut.is_static());
   EXPECT_NO_THROW(dut.static_state());
   EXPECT_TRUE(MALIPUT_IS_EQUAL(dut.static_state(), kYieldingState));
+=======
+  const RightOfWayRule dut(RightOfWayRule::Id("dut_id"), kZone,
+                           RightOfWayRule::Type::kStopThenGo);
+  EXPECT_EQ(dut.id(), RightOfWayRule::Id("dut_id"));
+  EXPECT_TRUE(MALIPUT_IS_EQUAL(dut.controlled_zone(), kZone));
+  EXPECT_TRUE(MALIPUT_IS_EQUAL(dut.type(), RightOfWayRule::Type::kStopThenGo));
+>>>>>>> intial
 }
 
 
 GTEST_TEST(RightOfWayRuleTest, Copying) {
+<<<<<<< HEAD
   const RightOfWayRule source(
       RightOfWayRule::Id("source_id"),
       kZone, RightOfWayRule::ZoneType::kStopExcluded,
       {kNoYieldState, kYieldingState});
+=======
+  const RightOfWayRule source(RightOfWayRule::Id("dut_id"), kZone,
+                              RightOfWayRule::Type::kStopThenGo);
+>>>>>>> intial
 
   const RightOfWayRule dut(source);
   EXPECT_TRUE(MALIPUT_IS_EQUAL(dut, source));
@@ -150,6 +175,7 @@ GTEST_TEST(RightOfWayRuleTest, Copying) {
 
 
 GTEST_TEST(RightOfWayRuleTest, Assignment) {
+<<<<<<< HEAD
   const RightOfWayRule source(
       RightOfWayRule::Id("source_id"),
       kZone, RightOfWayRule::ZoneType::kStopExcluded,
@@ -159,11 +185,19 @@ GTEST_TEST(RightOfWayRuleTest, Assignment) {
                      kZone, RightOfWayRule::ZoneType::kStopAllowed,
                      {kNoYieldState});
 
+=======
+  const RightOfWayRule source(RightOfWayRule::Id("dut_id"), kZone,
+                              RightOfWayRule::Type::kStopThenGo);
+  RightOfWayRule dut(RightOfWayRule::Id("other_id"),
+                     LaneSRoute({{LaneId("z"), {3., 4.}}}),
+                     RightOfWayRule::Type::kYield);
+>>>>>>> intial
   dut = source;
   EXPECT_TRUE(MALIPUT_IS_EQUAL(dut, source));
 }
 
 
+<<<<<<< HEAD
 class RightOfWayStateProviderTest : public ::testing::Test {
  protected:
   const RightOfWayRule::Id kExistingId{"aye"};
@@ -208,6 +242,8 @@ TEST_F(RightOfWayStateProviderTest, ExerciseInterface) {
 }
 
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace rules
 }  // namespace api

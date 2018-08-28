@@ -1,14 +1,23 @@
 /** @file
  Provides a set of functions to facilitate visualization operations based on
+<<<<<<< HEAD
  SceneGraph system state. */
+=======
+ geometry world state. */
+>>>>>>> intial
 
 #pragma once
 
 #include "drake/geometry/geometry_state.h"
+<<<<<<< HEAD
 #include "drake/geometry/scene_graph.h"
 #include "drake/lcm/drake_lcm_interface.h"
 #include "drake/lcmt_viewer_load_robot.hpp"
 #include "drake/systems/framework/diagram_builder.h"
+=======
+#include "drake/geometry/geometry_system.h"
+#include "drake/lcmt_viewer_load_robot.hpp"
+>>>>>>> intial
 
 namespace drake {
 namespace geometry {
@@ -29,6 +38,7 @@ class GeometryVisualizationImpl {
 }  // namespace internal
 #endif  // DRAKE_DOXYGEN_CXX
 
+<<<<<<< HEAD
 /** Extends the diagram with the required components to interface with
  drake_visualizer. This must be called _during_ Diagram building and uses the
  given `builder` to add relevant subsystems and connections. You must also
@@ -61,6 +71,14 @@ void ConnectVisualization(const SceneGraph<double>& scene_graph,
  @see geometry::ConnectVisualization() */
 void DispatchLoadMessage(const SceneGraph<double>& scene_graph,
                          lcm::DrakeLcmInterface* lcm);
+=======
+/** Dispatches an LCM load message based on the registered geometry. It should
+ be invoked _after_ registration is complete, but before context allocation.
+ @param system      The system whose geometry will be sent in an LCM message.
+ @throws std::logic_error if the system has already had its context allocated.
+ */
+void DispatchLoadMessage(const GeometrySystem<double>& system);
+>>>>>>> intial
 
 }  // namespace geometry
 }  // namespace drake

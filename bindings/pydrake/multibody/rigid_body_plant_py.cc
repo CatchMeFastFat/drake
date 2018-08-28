@@ -2,7 +2,10 @@
 #include "pybind11/pybind11.h"
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
+<<<<<<< HEAD
 #include "drake/bindings/pydrake/systems/systems_pybind.h"
+=======
+>>>>>>> intial
 #include "drake/multibody/rigid_body_plant/drake_visualizer.h"
 #include "drake/multibody/rigid_body_plant/rigid_body_plant.h"
 
@@ -48,6 +51,7 @@ PYBIND11_MODULE(rigid_body_plant, m) {
   }
 
   {
+<<<<<<< HEAD
     using Class = ContactInfo<T>;
     py::class_<Class> cls(m, "ContactInfo");
     cls
@@ -101,6 +105,8 @@ PYBIND11_MODULE(rigid_body_plant, m) {
   }
 
   {
+=======
+>>>>>>> intial
     using Class = CompliantMaterial;
     py::class_<Class> cls(m, "CompliantMaterial");
     cls
@@ -198,8 +204,11 @@ PYBIND11_MODULE(rigid_body_plant, m) {
              py_reference_internal)
         .def("state_output_port",
              &Class::state_output_port, py_reference_internal)
+<<<<<<< HEAD
         .def("state_derivative_output_port",
              &Class::state_derivative_output_port, py_reference_internal)
+=======
+>>>>>>> intial
         .def("model_instance_state_output_port",
              &Class::model_instance_state_output_port, py_reference_internal)
         .def("torque_output_port", &Class::torque_output_port,

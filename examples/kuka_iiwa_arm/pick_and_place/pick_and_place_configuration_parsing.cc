@@ -12,7 +12,11 @@
 #include "drake/common/proto/protobuf.h"
 #include "drake/examples/kuka_iiwa_arm/pick_and_place/pick_and_place_configuration.pb.h"
 #include "drake/manipulation/util/world_sim_tree_builder.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 
 namespace drake {
 namespace examples {
@@ -20,6 +24,10 @@ namespace kuka_iiwa_arm {
 namespace pick_and_place {
 
 using manipulation::util::WorldSimTreeBuilder;
+<<<<<<< HEAD
+=======
+using math::rpy2rotmat;
+>>>>>>> intial
 using pick_and_place::RobotBaseIndex;
 using pick_and_place::TargetIndex;
 
@@ -46,9 +54,14 @@ Isometry3<double> ParsePose(const proto::Pose& pose) {
   }
   if (!pose.rpy().empty()) {
     DRAKE_THROW_UNLESS(pose.rpy_size() == 3);
+<<<<<<< HEAD
     const math::RollPitchYaw<double> rpy(pose.rpy(0), pose.rpy(1), pose.rpy(2));
     const math::RotationMatrix<double> R(rpy);
     X.linear() = R.matrix();
+=======
+    X.linear() =
+        rpy2rotmat(Vector3<double>(pose.rpy(0), pose.rpy(1), pose.rpy(2)));
+>>>>>>> intial
   }
   return X;
 }

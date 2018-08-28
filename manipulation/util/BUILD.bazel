@@ -1,6 +1,7 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
@@ -11,11 +12,18 @@ load(
     "@drake//tools/skylark:drake_py.bzl",
     "drake_py_binary",
     "drake_py_unittest",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_binary",
+    "drake_cc_googletest",
+    "drake_cc_library",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "util",
     deps = [
@@ -30,6 +38,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "world_sim_tree_builder",
     srcs = ["world_sim_tree_builder.cc"],
@@ -140,11 +150,15 @@ drake_cc_library(
     srcs = ["frame_pose_tracker.cc"],
     hdrs = ["frame_pose_tracker.h"],
     deps = [
+<<<<<<< HEAD
         "//geometry:frame_kinematics",
+=======
+>>>>>>> intial
         "//multibody:rigid_body_tree",
         "//multibody/multibody_tree/math:spatial_velocity",
         "//multibody/rigid_body_plant",
         "//systems/framework:leaf_system",
+<<<<<<< HEAD
     ],
 )
 
@@ -153,6 +167,10 @@ drake_py_binary(
     srcs = ["show_model.py"],
     deps = [
         "//bindings/pydrake",
+=======
+        "//systems/rendering:frame_velocity",
+        "//systems/rendering:pose_bundle",
+>>>>>>> intial
     ],
 )
 
@@ -238,6 +256,7 @@ drake_cc_googletest(
     ],
 )
 
+<<<<<<< HEAD
 drake_py_unittest(
     name = "show_model_test",
     data = [
@@ -252,3 +271,6 @@ add_lint_tests(
         "convert_to_visualize_collisions.py",
     ],
 )
+=======
+add_lint_tests()
+>>>>>>> intial

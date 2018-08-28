@@ -2,7 +2,10 @@
 
 #include <algorithm>
 #include <cmath>
+<<<<<<< HEAD
 #include <cstdlib>
+=======
+>>>>>>> intial
 #include <limits>
 #include <stdexcept>
 #include <vector>
@@ -15,10 +18,16 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
 // NOLINTNEXTLINE(build/include) False positive due to weird include style.
+<<<<<<< HEAD
 #include "gurobi_c.h"
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/scoped_singleton.h"
+=======
+#include "gurobi_c++.h"
+
+#include "drake/common/drake_assert.h"
+>>>>>>> intial
 #include "drake/common/text_logging.h"
 #include "drake/math/eigen_sparse_triplet.h"
 #include "drake/solvers/mathematical_program.h"
@@ -606,6 +615,7 @@ void AddSecondOrderConeVariables(
 
 bool GurobiSolver::available() const { return true; }
 
+<<<<<<< HEAD
 /*
  * Implements RAII for a Gurobi license / environment.
  */
@@ -649,14 +659,21 @@ std::shared_ptr<GurobiSolver::License> GurobiSolver::AcquireLicense() {
   return GetScopedSingleton<GurobiSolver::License>();
 }
 
+=======
+>>>>>>> intial
 SolutionResult GurobiSolver::Solve(MathematicalProgram& prog) const {
   // We only process quadratic costs and linear / bounding box
   // constraints.
 
+<<<<<<< HEAD
   if (!license_) {
     license_ = AcquireLicense();
   }
   GRBenv* env = license_->GurobiEnv();
+=======
+  GRBenv* env = nullptr;
+  GRBloadenv(&env, nullptr);
+>>>>>>> intial
 
   DRAKE_ASSERT(prog.generic_costs().empty());
   DRAKE_ASSERT(prog.generic_constraints().empty());
@@ -697,7 +714,10 @@ SolutionResult GurobiSolver::Solve(MathematicalProgram& prog) const {
       case MathematicalProgram::VarType::INTEGER:
         gurobi_var_type[i] = GRB_INTEGER;
         is_mip = true;
+<<<<<<< HEAD
         break;
+=======
+>>>>>>> intial
       case MathematicalProgram::VarType::BOOLEAN:
         throw std::runtime_error(
             "Boolean variables should not be used with Gurobi solver.");
@@ -892,6 +912,10 @@ SolutionResult GurobiSolver::Solve(MathematicalProgram& prog) const {
   prog.SetSolverResult(solver_result);
 
   GRBfreemodel(model);
+<<<<<<< HEAD
+=======
+  GRBfreeenv(env);
+>>>>>>> intial
 
   return solution_result;
 }

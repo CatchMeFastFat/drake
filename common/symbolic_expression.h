@@ -8,7 +8,10 @@
 #include <algorithm>  // for cpplint only
 #include <cstddef>
 #include <functional>
+<<<<<<< HEAD
 #include <limits>
+=======
+>>>>>>> intial
 #include <map>
 #include <memory>
 #include <ostream>
@@ -300,8 +303,13 @@ class Expression {
 
   /** Implements the @ref hash_append concept. */
   template <class HashAlgorithm>
+<<<<<<< HEAD
   friend void hash_append(HashAlgorithm& hasher,
                           const Expression& item) noexcept {
+=======
+  friend void hash_append(
+      HashAlgorithm& hasher, const Expression& item) noexcept {
+>>>>>>> intial
     DelegatingHasher delegating_hasher(
         [&hasher](const void* data, const size_t length) {
           return hasher(data, length);
@@ -582,10 +590,13 @@ bool is_tanh(const Expression& e);
 bool is_min(const Expression& e);
 /** Checks if @p e is a max expression. */
 bool is_max(const Expression& e);
+<<<<<<< HEAD
 /** Checks if @p e is a ceil expression. */
 bool is_ceil(const Expression& e);
 /** Checks if @p e is a floor expression. */
 bool is_floor(const Expression& e);
+=======
+>>>>>>> intial
 /** Checks if @p e is an if-then-else expression. */
 bool is_if_then_else(const Expression& e);
 /** Checks if @p e is an uninterpreted-function expression. */
@@ -751,6 +762,7 @@ auto operator*(
     const Eigen::Transform<Expression, Dim, RhsMode, RhsOptions>& t2) {
   return t1.template cast<Expression>() * t2;
 }
+<<<<<<< HEAD
 
 /// Evaluates a symbolic matrix `m` using the `env` by evaluating each element.
 /// @returns a matrix of double whose size is the size of `m`.
@@ -771,6 +783,8 @@ auto Evaluate(const Eigen::MatrixBase<Derived>& m, const Environment& env) {
       .eval();
 }
 
+=======
+>>>>>>> intial
 }  // namespace symbolic
 
 /** Provides specialization of @c cond function defined in drake/common/cond.h
@@ -807,10 +821,18 @@ double ExtractDoubleOrThrow(const symbolic::Expression& e);
 namespace std {
 /* Provides std::hash<drake::symbolic::Expression>. */
 template <>
+<<<<<<< HEAD
 struct hash<drake::symbolic::Expression> : public drake::DefaultHash {};
 #if defined(__GLIBCXX__)
 // https://gcc.gnu.org/onlinedocs/libstdc++/manual/unordered_associative.html
 template <>
+=======
+struct hash<drake::symbolic::Expression>
+    : public drake::DefaultHash {};
+#if defined(__GLIBCXX__)
+// https://gcc.gnu.org/onlinedocs/libstdc++/manual/unordered_associative.html
+template<>
+>>>>>>> intial
 struct __is_fast_hash<hash<drake::symbolic::Expression>> : std::false_type {};
 #endif
 
@@ -832,11 +854,14 @@ struct equal_to<drake::symbolic::Expression> {
   }
 };
 
+<<<<<<< HEAD
 /* Provides std::numeric_limits<drake::symbolic::Expression>. */
 template <>
 struct numeric_limits<drake::symbolic::Expression>
     : public numeric_limits<double> {};
 
+=======
+>>>>>>> intial
 }  // namespace std
 
 #if !defined(DRAKE_DOXYGEN_CXX)
@@ -906,6 +931,7 @@ struct ScalarBinaryOpTraits<double, drake::symbolic::Expression, BinaryOp> {
 
 namespace drake {
 namespace symbolic {
+<<<<<<< HEAD
 
 /// Constructs a vector of variables from the vector of variable expressions.
 /// @throw std::logic_error if there is an expression in @p vec which is not a
@@ -913,6 +939,8 @@ namespace symbolic {
 VectorX<Variable> GetVariableVector(
     const Eigen::Ref<const VectorX<Expression>>& evec);
 
+=======
+>>>>>>> intial
 /// Computes the Jacobian matrix J of the vector function @p f with respect to
 /// @p vars. J(i,j) contains ∂f(i)/∂vars(j).
 ///
@@ -935,6 +963,7 @@ MatrixX<Expression> Jacobian(const Eigen::Ref<const VectorX<Expression>>& f,
 MatrixX<Expression> Jacobian(const Eigen::Ref<const VectorX<Expression>>& f,
                              const Eigen::Ref<const VectorX<Variable>>& vars);
 
+<<<<<<< HEAD
 /// Returns the Taylor series expansion of `f` around `a` of order `order`.
 ///
 /// @param[in] f     Symbolic expression to approximate using Taylor series
@@ -947,6 +976,8 @@ MatrixX<Expression> Jacobian(const Eigen::Ref<const VectorX<Expression>>& f,
 ///                  resulting polynomial approximating `f` around `a`.
 Expression TaylorExpand(const Expression& f, const Environment& a, int order);
 
+=======
+>>>>>>> intial
 /// Returns the distinct variables in the matrix of expressions.
 Variables GetDistinctVariables(const Eigen::Ref<const MatrixX<Expression>>& v);
 

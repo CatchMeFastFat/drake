@@ -53,7 +53,11 @@ class SimplePowertrain final : public systems::LinearSystem<T> {
 
   ~SimplePowertrain() override = default;
 
+<<<<<<< HEAD
   const systems::InputPort<T>& get_throttle_input_port() const {
+=======
+  const systems::InputPortDescriptor<T>& get_throttle_input_port() const {
+>>>>>>> intial
     return systems::System<T>::get_input_port(0);
   }
 

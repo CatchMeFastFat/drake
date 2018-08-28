@@ -5,9 +5,13 @@
 
 #include <string>
 
+<<<<<<< HEAD
 #include "drake/bindings/pydrake/autodiff_types_pybind.h"
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/bindings/pydrake/symbolic_types_pybind.h"
+=======
+#include "drake/bindings/pydrake/pydrake_pybind.h"
+>>>>>>> intial
 #include "drake/bindings/pydrake/util/cpp_param_pybind.h"
 #include "drake/bindings/pydrake/util/cpp_template_pybind.h"
 #include "drake/common/drake_throw.h"
@@ -88,6 +92,7 @@ be destroyed when it is replaced, since it is stored using `unique_ptr<>`.
   return py_class;
 }
 
+<<<<<<< HEAD
 /// Type pack defining common scalar types.
 // N.B. This should be kept in sync with the `*_DEFAULT_SCALARS` macro in
 // `default_scalars.h`.
@@ -105,6 +110,8 @@ using NonSymbolicScalarPack = type_pack<
     AutoDiffXd
     >;
 
+=======
+>>>>>>> intial
 }  // namespace pysystems
 }  // namespace pydrake
 }  // namespace drake

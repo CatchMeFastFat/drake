@@ -8,7 +8,10 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/common/find_resource.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/multibody/joints/drake_joints.h"
 #include "drake/multibody/parsers/sdf_parser.h"
 #include "drake/multibody/parsers/urdf_parser.h"
@@ -39,11 +42,17 @@ using drake::FindResourceOrThrow;
 using drake::parsers::sdf::AddModelInstancesFromSdfFileToWorld;
 using drake::parsers::urdf::AddModelInstanceFromUrdfFileToWorld;
 using Eigen::Isometry3d;
+<<<<<<< HEAD
 using Eigen::Vector3d;
 using Eigen::VectorXd;
 using std::make_unique;
 using std::move;
 using std::unique_ptr;
+=======
+using Eigen::VectorXd;
+using std::unique_ptr;
+using std::move;
+>>>>>>> intial
 
 // Confirms that adding two groups with the same name causes a *meaningful*
 // message to be thrown.
@@ -51,9 +60,22 @@ GTEST_TEST(CollisionFilterGroupDefinition, DuplicateGroupNames) {
   CollisionFilterGroupManager<double> manager;
   const std::string group_name = "group1";
   manager.DefineCollisionFilterGroup(group_name);
+<<<<<<< HEAD
   DRAKE_EXPECT_THROWS_MESSAGE(
       manager.DefineCollisionFilterGroup(group_name), std::logic_error,
       "Attempting to create duplicate collision filter group: .+");
+=======
+  try {
+    manager.DefineCollisionFilterGroup(group_name);
+    GTEST_FAIL();
+  } catch (std::runtime_error& e) {
+    std::string expected_msg =
+        "Attempting to create duplicate collision "
+        "filter group: " +
+        group_name + ".";
+    EXPECT_EQ(e.what(), expected_msg);
+  }
+>>>>>>> intial
 }
 
 // Confirms that the group ids assigned to the group start at 0 and increase
@@ -126,12 +148,24 @@ GTEST_TEST(CollisionFilterGroupDefinition, RepeatAddBody) {
 GTEST_TEST(CollisionFilterGroupDefinition, AddIgnoreGroupToUndefinedGroup) {
   CollisionFilterGroupManager<double> manager;
   std::string group_name = "group1";
+<<<<<<< HEAD
   DRAKE_EXPECT_THROWS_MESSAGE(
       manager.AddCollisionFilterIgnoreTarget(group_name, group_name),
       std::logic_error,
       "Attempting to add an ignored collision filter group to an undefined "
           "collision filter group: Ignoring " +
           group_name + " by " + group_name + ".");
+=======
+  try {
+    manager.AddCollisionFilterIgnoreTarget(group_name, group_name);
+  } catch (std::runtime_error& e) {
+    std::string expected_msg =
+        "Attempting to add an ignored collision filter group to an undefined "
+        "collision filter group: Ignoring " +
+        group_name + " by " + group_name + ".";
+    EXPECT_EQ(e.what(), expected_msg);
+  }
+>>>>>>> intial
 }
 
 // Confirms that adding a RigidBody to a non-existent group reports failure.
@@ -360,6 +394,7 @@ GTEST_TEST(CollisionFilterGroupElement, ElementCanCollideWithTest) {
 //---------------------------------------------------------------------------
 
 // Tests RBT
+<<<<<<< HEAD
 
 // Helper function to create dummy rigid bodies. The body is joined to a parent
 // body. The joint can either be fixed or not. If the body is fixed, the child
@@ -400,12 +435,19 @@ std::vector<PointPair<double>> CollideAtZero(RigidBodyTree<double>* tree_ptr) {
   auto kinematics_cache = tree.doKinematics(q, v);
   return tree.ComputeMaximumDepthCollisionPoints(kinematics_cache, false);
 }
+=======
+//  - Adding a body with registered collision elements throws an exception.
+// TODO(SeanCurtis-TRI): Still to determine if I allow post-hoc editing. In
+// order to do so, I need to support modifications of the underlying model
+// (a la RBT::updateCollisionTransform.)
+>>>>>>> intial
 
 // This test confirms that when a body is being added to an non-existent
 // group through the RigidBodyTree interface, that a meaningful exception is
 // thrown.
 GTEST_TEST(CollisionFilterGroupRBT, AddBodyToUndefinedGroup) {
   RigidBodyTree<double> tree;
+<<<<<<< HEAD
   RigidBody<double>& body = MakeDummyBody("body", true /*is_fixed*/, &tree);
   std::string group_name = "no-such-group";
   DRAKE_EXPECT_THROWS_MESSAGE(
@@ -413,6 +455,25 @@ GTEST_TEST(CollisionFilterGroupRBT, AddBodyToUndefinedGroup) {
                                          body.get_model_instance_id()),
       std::logic_error,
       "Attempting to add a link to an undefined collision filter group.*");
+=======
+  RigidBody<double>* body_ref;
+  unique_ptr<RigidBody<double>> body(body_ref = new RigidBody<double>());
+  body->set_name("body");
+  body->set_model_instance_id(27);
+  tree.add_rigid_body(move(body));
+  std::string group_name = "no-such-group";
+  try {
+    tree.AddCollisionFilterGroupMember(group_name, body_ref->get_name(),
+                                       body_ref->get_model_instance_id());
+    GTEST_FAIL();
+  } catch (std::runtime_error& e) {
+    std::string expected_msg =
+        "Attempting to add a link to an undefined collision filter group: "
+        "Adding " +
+        body_ref->get_name() + " to " + group_name + ".";
+    EXPECT_EQ(e.what(), expected_msg);
+  }
+>>>>>>> intial
 }
 
 // This test confirms that the collision filter groups are set correctly
@@ -420,6 +481,7 @@ GTEST_TEST(CollisionFilterGroupRBT, AddBodyToUndefinedGroup) {
 GTEST_TEST(CollisionFilterGroupRBT, CollisionElementSetFilters) {
   // Builds the tree.
   RigidBodyTree<double> tree;
+<<<<<<< HEAD
   const bool is_fixed = false;
   // Collision element description -- copied into every body.
   Element element(DrakeShapes::Sphere(1.0));
@@ -431,11 +493,41 @@ GTEST_TEST(CollisionFilterGroupRBT, CollisionElementSetFilters) {
   std::string collision_group = "";
   tree.addCollisionElement(element, body1, collision_group);
   tree.addCollisionElement(element, body2, collision_group);
+=======
+
+  RigidBody<double>* body1;
+  unique_ptr<RigidBody<double>> body(body1 = new RigidBody<double>());
+  body->set_name("body1");
+  body->set_model_instance_id(27);
+  unique_ptr<DrakeJoint> unique_joint(
+      new FixedJoint("joint1", Isometry3d::Identity()));
+  body->setJoint(move(unique_joint));
+  body->set_parent(&tree.world());
+  tree.add_rigid_body(move(body));
+
+  RigidBody<double>* body2;
+  body.reset(body2 = new RigidBody<double>());
+  body->set_name("body2");
+  body->set_model_instance_id(27);
+  unique_joint.reset(new FixedJoint("joint2", Isometry3d::Identity()));
+  body->setJoint(move(unique_joint));
+  body->set_parent(&tree.world());
+  tree.add_rigid_body(move(body));
+
+  // Adds collision elements.
+  Element element(DrakeShapes::Sphere(1.0));
+  // This is not a *filter* group.  This is a designation used to select
+  // so-called "terrain points".  See RigidBodyTree::getTerrainContactPoints().
+  std::string collision_group = "";
+  tree.addCollisionElement(element, *body1, collision_group);
+  tree.addCollisionElement(element, *body2, collision_group);
+>>>>>>> intial
 
   // Sets up collision filter groups.
   std::string group_name1 = "test-group1";
   std::string group_name2 = "test-group2";
   tree.DefineCollisionFilterGroup(group_name1);
+<<<<<<< HEAD
   tree.AddCollisionFilterGroupMember(group_name1, body1.get_name(),
                                      body1.get_model_instance_id());
   tree.AddCollisionFilterIgnoreTarget(group_name1, group_name2);
@@ -450,18 +542,39 @@ GTEST_TEST(CollisionFilterGroupRBT, CollisionElementSetFilters) {
   bitmask expected_group1(0b11), expected_ignore1(0b100);
   for (auto itr = body1.collision_elements_begin();
        itr != body1.collision_elements_end(); ++itr) {
+=======
+  tree.AddCollisionFilterGroupMember(group_name1, body1->get_name(),
+                                     body1->get_model_instance_id());
+  tree.AddCollisionFilterIgnoreTarget(group_name1, group_name2);
+  tree.DefineCollisionFilterGroup(group_name2);
+  tree.AddCollisionFilterGroupMember(group_name2, body2->get_name(),
+                                     body2->get_model_instance_id());
+
+  tree.compile();
+  // Tests the state of the collision filters.
+  // See file documentation for explanation of binary value.
+  bitmask expected_group1(0b11), expected_ignore1(0b100);
+  for (auto itr = body1->collision_elements_begin();
+       itr != body1->collision_elements_end(); ++itr) {
+>>>>>>> intial
     EXPECT_EQ((*itr)->get_collision_filter_group(), expected_group1);
     EXPECT_EQ((*itr)->get_collision_filter_ignores(), expected_ignore1);
   }
 
   bitmask expected_group2(0b101);
+<<<<<<< HEAD
   for (auto itr = body2.collision_elements_begin();
        itr != body2.collision_elements_end(); ++itr) {
+=======
+  for (auto itr = body2->collision_elements_begin();
+       itr != body2->collision_elements_end(); ++itr) {
+>>>>>>> intial
     EXPECT_EQ((*itr)->get_collision_filter_group(), expected_group2);
     EXPECT_EQ((*itr)->get_collision_filter_ignores(), kNoneMask);
   }
 }
 
+<<<<<<< HEAD
 // This confirms that a collision element can be added after compilation.
 // The number of collisions goes from 0 -> 1 -> 2 as colliding elements are
 // added.
@@ -938,6 +1051,8 @@ GTEST_TEST(CollisionFilterGroupRBT, AddedElementInheritsCliques) {
   expect_pair(pairs[1]);
   expect_pair(pairs[2]);
 }
+=======
+>>>>>>> intial
 //---------------------------------------------------------------------------
 
 // Utility function for loading an sdf|urdf file, performing *optional*
@@ -972,7 +1087,18 @@ void ExpectNCollisions(
     tree.compile();
   }
 
+<<<<<<< HEAD
   std::vector<PointPair<double>> pairs = CollideAtZero(&tree);
+=======
+  // Simply initialize everything to the "zero" position.
+  const int q_size = tree.get_num_positions();
+  const int v_size = tree.get_num_velocities();
+  VectorXd q = VectorXd::Zero(q_size);
+  VectorXd v = VectorXd::Zero(v_size);
+  auto kinematics_cache = tree.doKinematics(q, v);
+  std::vector<PointPair<double>> pairs =
+      tree.ComputeMaximumDepthCollisionPoints(kinematics_cache, false);
+>>>>>>> intial
   EXPECT_EQ(pairs.size(), collision_count)
             << "Failure for " << file_name << extension;
 }

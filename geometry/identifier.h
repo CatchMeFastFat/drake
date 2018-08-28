@@ -100,14 +100,22 @@ namespace geometry {
 
  In principle, the *identifier* is related to the TypeSafeIndex. In
  some sense, both are "type-safe" `int`s. They differ in their semantics. We can
+<<<<<<< HEAD
  consider `ints`, indices, and identifiers as a list of `int` types with
+=======
+ consider `ints`, indexes, and identifiers as a list of `int` types with
+>>>>>>> intial
  _decreasing_ functionality.
 
    - The int, obviously, has the full range of C++ ints.
    - The TypeSafeIndex can be implicitly cast *to* an int, but there are a
      limited number of operations _on_ the index that produce other instances
      of the index (e.g., increment, in-place addition, etc.) They can be
+<<<<<<< HEAD
      compared with `int` and other indices of the same type. This behavior
+=======
+     compared with `int` and other indexes of the same type. This behavior
+>>>>>>> intial
      arises from the intention of having them serve as an _index_ in an
      ordered set (e.g., `std::vector`).
    - The Identifier is the most restricted. They exist solely to serve as a
@@ -116,7 +124,11 @@ namespace geometry {
      type, hashing, writing to output stream). These *cannot* be used as
      indices.
 
+<<<<<<< HEAD
  Ultimately, indices _can_ serve as identifiers (within the scope of the object
+=======
+ Ultimately, indexes _can_ serve as identifiers (within the scope of the object
+>>>>>>> intial
  they index into). Although, their mutability could make this a dangerous
  practice for a public API. Identifiers are more general in that they don't
  reflect an object's position in memory (hence the inability to transform to or
@@ -164,6 +176,7 @@ class Identifier {
     return value_ != other.value_ && is_valid() && other.is_valid();
   }
 
+<<<<<<< HEAD
   /** Compare two identifiers in order to define a total ordering among
    identifiers. This makes identifiers compatible with data structures which
    require total ordering (e.g., std::set).  */
@@ -172,6 +185,8 @@ class Identifier {
     return value_ < other.value_;
   }
 
+=======
+>>>>>>> intial
   /** Generates a new identifier for this id type. This new identifier will be
    different from all previous identifiers created. This method does _not_
    make any guarantees about the values of ids from successive invocations.

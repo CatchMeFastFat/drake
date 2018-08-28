@@ -30,6 +30,7 @@ Arguments:
     to be found.
 """
 
+<<<<<<< HEAD
 load("@drake//tools/workspace:execute.bzl", "which")
 load("@drake//tools/workspace:os.bzl", "determine_os")
 
@@ -42,6 +43,17 @@ def _impl(repository_ctx):
         fail("Could NOT find python{}-config".format(
             repository_ctx.attr.version,
         ))
+=======
+load("@drake//tools/workspace:os.bzl", "determine_os")
+
+def _impl(repository_ctx):
+    python_config = repository_ctx.which("python{}-config".format(
+        repository_ctx.attr.version))
+
+    if not python_config:
+        fail("Could NOT find python{}-config".format(
+            repository_ctx.attr.version))
+>>>>>>> intial
 
     result = repository_ctx.execute([python_config, "--includes"])
 
@@ -88,8 +100,12 @@ def _impl(repository_ctx):
     if os_result.is_macos:
         for i in reversed(range(len(linkopts))):
             if linkopts[i].find("python{}".format(
+<<<<<<< HEAD
                 repository_ctx.attr.version,
             )) != -1:
+=======
+                    repository_ctx.attr.version)) != -1:
+>>>>>>> intial
                 linkopts.pop(i)
         linkopts = ["-undefined dynamic_lookup"] + linkopts
 
@@ -99,6 +115,7 @@ def _impl(repository_ctx):
 
 licenses(["notice"])  # Python-2.0
 
+<<<<<<< HEAD
 # Only include first level of headers included from `python_repository`
 # (`include/<destination>/*`). This should exclude third party C headers which
 # may be nested within `/usr/include/python2.7`, such as `numpy` when installed
@@ -111,6 +128,11 @@ headers = glob(
 cc_library(
     name = "python_headers",
     hdrs = headers,
+=======
+cc_library(
+    name = "python_headers",
+    hdrs = glob(["include/**"]),
+>>>>>>> intial
     includes = {},
     visibility = ["//visibility:private"],
 )
@@ -130,11 +152,16 @@ cc_library(
 )
     """.format(includes, linkopts, linkopts_direct_link)
 
+<<<<<<< HEAD
     repository_ctx.file(
         "BUILD.bazel",
         content = file_content,
         executable = False,
     )
+=======
+    repository_ctx.file("BUILD.bazel", content = file_content,
+                        executable = False)
+>>>>>>> intial
 
 python_repository = repository_rule(
     _impl,

@@ -29,7 +29,11 @@ T MaxStlVector(const std::vector<T>& v) {
   return *result;
 }
 
+<<<<<<< HEAD
 /* returns the indices of positions/velocities of the bodies in idx_body. The
+=======
+/* returns the indicies of positions/velocities of the bodies in idx_body. The
+>>>>>>> intial
  * indices are into the rigidbodytree containing these bodies.
  */
 std::vector<int> GetPositionOrVelocityIndicesOfBodiesFromRBT(
@@ -756,7 +760,11 @@ void QuasistaticSystem<Scalar>::StepForward(
     const Eigen::Ref<const Eigen::VectorXd>& f,
     const Eigen::Ref<const Eigen::VectorXd>& qa_dot_d) const {
   // upper bounds on delta_q
+<<<<<<< HEAD
   const Scalar max_delta_q = period_sec_;  // The multiplier is arbitrary.
+=======
+  const Scalar max_delta_q = 10 * period_sec_;  // The multiplier is arbitrary.
+>>>>>>> intial
   const Scalar max_gamma = max_delta_q;
 
   // uppder bounds on impulses (force * delta_t)
@@ -766,7 +774,11 @@ void QuasistaticSystem<Scalar>::StepForward(
       max_impulse = period_sec_ * std::abs(f(i));
     }
   }
+<<<<<<< HEAD
   max_impulse *= 3;  // This upper bound is arbitrary.
+=======
+  max_impulse *= 5;  // This upper bound is arbitrary.
+>>>>>>> intial
 
   // calcluate big M
   const Scalar kBigM =

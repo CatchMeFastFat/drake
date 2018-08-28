@@ -3,9 +3,15 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -16,13 +22,23 @@ drake_cc_binary(
     test_rule_args = ["--target_realtime_rate=0.0"],
     deps = [
         "//geometry:geometry_visualization",
+<<<<<<< HEAD
         "//multibody/benchmarks/pendulum",
+=======
+        "//multibody/benchmarks/pendulum:make_pendulum_plant",
+>>>>>>> intial
         "//systems/analysis:implicit_euler_integrator",
         "//systems/analysis:runge_kutta3_integrator",
         "//systems/analysis:semi_explicit_euler_integrator",
         "//systems/analysis:simulator",
         "//systems/framework:diagram",
+<<<<<<< HEAD
         "//systems/primitives:constant_vector_source",
+=======
+        "//systems/lcm",
+        "//systems/primitives:constant_vector_source",
+        "//systems/rendering:pose_bundle_to_draw_message",
+>>>>>>> intial
         "@gflags",
     ],
 )

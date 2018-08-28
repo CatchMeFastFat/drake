@@ -5,12 +5,18 @@
 i.e., rules used by WORKSPACE files, not BUILD files.
 """
 
+<<<<<<< HEAD
 load("@drake//tools/workspace:execute.bzl", "which")
 
 def exec_using_which(repository_ctx, command):
     """Run the given command (a list), using the which() function in
     execute.bzl to locate the executable named by the zeroth index of
     `command`.
+=======
+def exec_using_which(repository_ctx, command):
+    """Run the given command (a list), using which to locate the executable named
+    by the zeroth index of `command`.
+>>>>>>> intial
 
     Return struct with attributes:
     - error (None when success, or else str message)
@@ -18,12 +24,20 @@ def exec_using_which(repository_ctx, command):
     """
 
     # Find the executable.
+<<<<<<< HEAD
     fullpath = which(repository_ctx, command[0])
     if fullpath == None:
         return struct(
             stdout = "",
             error = "could not find which '%s'" % command[0],
         )
+=======
+    fullpath = repository_ctx.which(command[0])
+    if fullpath == None:
+        return struct(
+            stdout = "",
+            error = "could not find which '%s'" % command[0])
+>>>>>>> intial
 
     # Run the executable.
     result = repository_ctx.execute([fullpath] + command[1:])
@@ -33,13 +47,18 @@ def exec_using_which(repository_ctx, command):
             command[0],
             command,
             result.stdout,
+<<<<<<< HEAD
             result.stderr,
         )
+=======
+            result.stderr)
+>>>>>>> intial
         return struct(stdout = result.stdout, error = error)
 
     # Success.
     return struct(stdout = result.stdout, error = None)
 
+<<<<<<< HEAD
 def _make_result(
         error = None,
         ubuntu_release = None,
@@ -59,6 +78,22 @@ def _make_result(
         ubuntu_release = ubuntu_release,
         macos_release = macos_release,
     )
+=======
+def _make_result(error = None,
+                 ubuntu_release = None,
+                 macos_release = None):
+    """Return a fully-populated struct result for determine_os, below."""
+    return struct(
+        error = error,
+        distribution = (
+            "ubuntu" if (ubuntu_release != None) else
+            "macos" if (macos_release != None) else
+            None),
+        is_macos = (macos_release != None),
+        is_ubuntu = (ubuntu_release != None),
+        ubuntu_release = ubuntu_release,
+        macos_release = macos_release)
+>>>>>>> intial
 
 def _determine_linux(repository_ctx):
     """Handle determine_os on Linux."""
@@ -71,8 +106,12 @@ def _determine_linux(repository_ctx):
         "sed",
         "-n",
         "/^\(NAME\|VERSION_ID\)=/{s/[^=]*=//;s/\"//g;p}",
+<<<<<<< HEAD
         "/etc/os-release",
     ])
+=======
+        "/etc/os-release"])
+>>>>>>> intial
     if sed.error != None:
         return _make_result(error = error_prologue + sed.error)
 
@@ -81,14 +120,22 @@ def _determine_linux(repository_ctx):
     distro = " ".join([x for x in lines if len(x) > 0])
 
     # Match supported Ubuntu release(s).
+<<<<<<< HEAD
     for ubuntu_release in ["16.04", "18.04"]:
+=======
+    for ubuntu_release in ["16.04"]:
+>>>>>>> intial
         if distro == "Ubuntu " + ubuntu_release:
             return _make_result(ubuntu_release = ubuntu_release)
 
     # Nothing matched.
     return _make_result(
+<<<<<<< HEAD
         error = error_prologue + "unsupported distribution '%s'" % distro,
     )
+=======
+        error = error_prologue + "unsupported distribution '%s'" % distro)
+>>>>>>> intial
 
 def _determine_macos(repository_ctx):
     """Handle determine_os on macOS."""
@@ -99,8 +146,12 @@ def _determine_macos(repository_ctx):
     # Run sw_vers to determine macOS version.
     sw_vers = exec_using_which(repository_ctx, [
         "sw_vers",
+<<<<<<< HEAD
         "-productVersion",
     ])
+=======
+        "-productVersion"])
+>>>>>>> intial
     if sw_vers.error != None:
         return _make_result(error = error_prologue + sw_vers.error)
 
@@ -113,8 +164,12 @@ def _determine_macos(repository_ctx):
 
     # Nothing matched.
     return _make_result(
+<<<<<<< HEAD
         error = error_prologue + "unsupported macOS '%s'" % macos_release,
     )
+=======
+        error = error_prologue + "unsupported macOS '%s'" % macos_release)
+>>>>>>> intial
 
 def determine_os(repository_ctx):
     """
@@ -195,6 +250,7 @@ package(default_visibility = ["//visibility:public"])
     for item in found_items:
         name, actual = item.split("=")
         file_content += 'alias(name = "{}", actual = "{}")\n'.format(
+<<<<<<< HEAD
             name,
             actual,
         )
@@ -203,6 +259,11 @@ package(default_visibility = ["//visibility:public"])
         content = file_content,
         executable = False,
     )
+=======
+            name, actual)
+    repository_ctx.file("BUILD.bazel", content = file_content,
+                        executable = False)
+>>>>>>> intial
 
 def _os_specific_alias_impl(repository_ctx):
     os_specific_alias(repository_ctx, repository_ctx.attr.mapping)

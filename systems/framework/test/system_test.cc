@@ -8,14 +8,21 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/common/unused.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/leaf_context.h"
 #include "drake/systems/framework/leaf_output_port.h"
 #include "drake/systems/framework/output_port.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/system_output.h"
+=======
+#include "drake/systems/framework/output_port_value.h"
+>>>>>>> intial
 #include "drake/systems/framework/test_utilities/my_vector.h"
 
 namespace drake {
@@ -24,11 +31,14 @@ namespace {
 
 const int kSize = 3;
 
+<<<<<<< HEAD
 // Note that Systems in this file are derived directly from drake::System for
 // testing purposes. User Systems should be derived only from LeafSystem which
 // handles much of the bookkeeping you'll see here, and won't need to call
 // methods that are intended only for internal use.
 
+=======
+>>>>>>> intial
 // A shell System to test the default implementations.
 class TestSystem : public System<double> {
  public:
@@ -61,11 +71,21 @@ class TestSystem : public System<double> {
   void SetDefaultParameters(const Context<double>& context,
                             Parameters<double>* params) const override {}
 
+<<<<<<< HEAD
   const InputPort<double>& AddAbstractInputPort() {
+=======
+  std::unique_ptr<SystemOutput<double>> AllocateOutput(
+      const Context<double>& context) const override {
+    return nullptr;
+  }
+
+  const InputPortDescriptor<double>& AddAbstractInputPort() {
+>>>>>>> intial
     return this->DeclareAbstractInputPort();
   }
 
   const LeafOutputPort<double>& AddAbstractOutputPort() {
+<<<<<<< HEAD
     // Create an abstract output port with dummy alloc and calc.
     const CacheEntry& cache_entry = this->DeclareCacheEntry(
         "null output port",
@@ -81,6 +101,14 @@ class TestSystem : public System<double> {
         kAbstractValued, 0, &cache_entry);
     LeafOutputPort<double>* const port_ptr = port.get();
     this->AddOutputPort(std::move(port));
+=======
+    // Create an abstract output port with no allocator or calculator.
+    auto port = std::make_unique<LeafOutputPort<double>>(*this,
+        typename LeafOutputPort<double>::AllocCallback(nullptr),
+        typename LeafOutputPort<double>::CalcCallback(nullptr));
+    LeafOutputPort<double>* const port_ptr = port.get();
+    this->CreateOutputPort(std::move(port));
+>>>>>>> intial
     return *port_ptr;
   }
 
@@ -125,12 +153,20 @@ class TestSystem : public System<double> {
 
  protected:
   BasicVector<double>* DoAllocateInputVector(
+<<<<<<< HEAD
       const InputPort<double>& input_port) const override {
+=======
+      const InputPortDescriptor<double>& descriptor) const override {
+>>>>>>> intial
     return nullptr;
   }
 
   AbstractValue* DoAllocateInputAbstract(
+<<<<<<< HEAD
       const InputPort<double>& input_port) const override {
+=======
+      const InputPortDescriptor<double>& descriptor) const override {
+>>>>>>> intial
     return nullptr;
   }
 
@@ -218,12 +254,21 @@ class TestSystem : public System<double> {
   }
 
  private:
+<<<<<<< HEAD
   std::unique_ptr<ContextBase> DoAllocateContext() const final {
     auto context = std::make_unique<LeafContext<double>>();
     InitializeContextBase(&*context);
     return context;
   }
 
+=======
+  std::unique_ptr<ContextBase> DoMakeContext() const final {
+    return std::make_unique<LeafContext<double>>();
+  }
+
+  void DoValidateAllocatedContext(const ContextBase&) const final {}
+
+>>>>>>> intial
   mutable int publish_count_ = 0;
   mutable int update_count_ = 0;
   mutable std::vector<int> published_numbers_;
@@ -317,9 +362,15 @@ TEST_F(SystemTest, DiscreteUpdate) {
   EXPECT_EQ(1, system_.get_update_count());
 }
 
+<<<<<<< HEAD
 // Tests that port references remain valid even if lots of other ports are added
 // to the system, forcing a vector resize.
 TEST_F(SystemTest, PortReferencesAreStable) {
+=======
+// Tests that descriptor references remain valid even if lots of other
+// descriptors are added to the system, forcing a vector resize.
+TEST_F(SystemTest, PortDescriptorsAreStable) {
+>>>>>>> intial
   const auto& first_input = system_.AddAbstractInputPort();
   const auto& first_output = system_.AddAbstractOutputPort();
   for (int i = 0; i < 1000; i++) {
@@ -407,11 +458,18 @@ using TestTypedVector = MyVector<1, T>;
 template <typename T>
 class ValueIOTestSystem : public System<T> {
  public:
+<<<<<<< HEAD
   // Has 4 input and 2 output ports.
   // The first input / output pair are abstract type, but assumed to be
   // std::string.
   // The second input / output pair are vector type with length 1.
   // There are two other vector-valued random input ports.
+=======
+  // Has 2 input and 2 output ports.
+  // The first input / output pair are abstract type, but assumed to be
+  // std::string.
+  // The second input / output pair are vector type with length 1.
+>>>>>>> intial
   ValueIOTestSystem() : System<T>(SystemScalarConverter{}) {
     this->set_forced_publish_events(
         this->AllocateForcedPublishEventCollection());
@@ -421,6 +479,7 @@ class ValueIOTestSystem : public System<T> {
         this->AllocateForcedUnrestrictedUpdateEventCollection());
 
     this->DeclareAbstractInputPort();
+<<<<<<< HEAD
     this->AddOutputPort(std::make_unique<LeafOutputPort<T>>(
         this,  // implicit_cast<const System<T>*>(this)
         this,  // implicit_cast<const SystemBase*>(this)
@@ -448,6 +507,28 @@ class ValueIOTestSystem : public System<T> {
             [this](const ContextBase& context, AbstractValue* output) {
               this->CalcVectorOutput(context, output);
             })));
+=======
+    this->CreateOutputPort(std::make_unique<LeafOutputPort<T>>(*this,
+        []() { return AbstractValue::Make(std::string()); },
+        [this](const Context<T>& context, AbstractValue* output) {
+          this->CalcStringOutput(context, output);
+        }));
+
+    this->DeclareInputPort(kVectorValued, 1);
+    this->DeclareInputPort(kVectorValued, 1,
+                           RandomDistribution::kUniform);
+    this->DeclareInputPort(kVectorValued, 1,
+                           RandomDistribution::kGaussian);
+    this->CreateOutputPort(std::make_unique<LeafOutputPort<T>>(
+        *this,
+        1,  // Vector size.
+        []() {
+          return std::make_unique<Value<BasicVector<T>>>(1);
+        },
+        [this](const Context<T>& context, BasicVector<T>* output) {
+          this->CalcVectorOutput(context, output);
+        }));
+>>>>>>> intial
 
     this->set_name("ValueIOTestSystem");
   }
@@ -468,20 +549,33 @@ class ValueIOTestSystem : public System<T> {
   }
 
   AbstractValue* DoAllocateInputAbstract(
+<<<<<<< HEAD
       const InputPort<T>& input_port) const override {
     // Should only get called for the first input.
     EXPECT_EQ(input_port.get_index(), 0);
+=======
+      const InputPortDescriptor<T>& descriptor) const override {
+    // Should only get called for the first input.
+    EXPECT_EQ(descriptor.get_index(), 0);
+>>>>>>> intial
     return AbstractValue::Make<std::string>("").release();
   }
 
   BasicVector<T>* DoAllocateInputVector(
+<<<<<<< HEAD
       const InputPort<T>& input_port) const override {
     // Should not get called for the first (abstract) input.
     EXPECT_GE(input_port.get_index(), 1);
+=======
+      const InputPortDescriptor<T>& descriptor) const override {
+    // Should not get called for the first (abstract) input.
+    EXPECT_GE(descriptor.get_index(), 1);
+>>>>>>> intial
     return new TestTypedVector<T>();
   }
 
   std::unique_ptr<ContinuousState<T>> AllocateTimeDerivatives() const override {
+<<<<<<< HEAD
     return std::make_unique<ContinuousState<T>>();
   }
 
@@ -491,6 +585,19 @@ class ValueIOTestSystem : public System<T> {
     return context;
   }
 
+=======
+    return nullptr;
+  }
+
+  std::unique_ptr<ContextBase> DoMakeContext() const final {
+    std::unique_ptr<LeafContext<T>> context(new LeafContext<T>);
+    context->SetNumInputPorts(this->get_num_input_ports());
+    return std::move(context);
+  }
+
+  void DoValidateAllocatedContext(const ContextBase& context) const final {}
+
+>>>>>>> intial
   std::unique_ptr<CompositeEventCollection<T>>
   AllocateCompositeEventCollection() const override {
     return std::make_unique<LeafCompositeEventCollection<T>>();
@@ -514,7 +621,11 @@ class ValueIOTestSystem : public System<T> {
   }
 
   // Appends "output" to input(0) for output(0).
+<<<<<<< HEAD
   void CalcStringOutput(const ContextBase& context,
+=======
+  void CalcStringOutput(const Context<T>& context,
+>>>>>>> intial
                         AbstractValue* output) const {
     const std::string* str_in =
         this->template EvalInputValue<std::string>(context, 0);
@@ -524,12 +635,28 @@ class ValueIOTestSystem : public System<T> {
   }
 
   // Sets output(1) = 2 * input(1).
+<<<<<<< HEAD
   void CalcVectorOutput(const ContextBase& context_base,
                         AbstractValue* output) const {
     const Context<T>& context = dynamic_cast<const Context<T>&>(context_base);
     const BasicVector<T>* vec_in = this->EvalVectorInput(context, 1);
     auto& vec_out = output->template GetMutableValue<BasicVector<T>>();
     vec_out.get_mutable_value() = 2 * vec_in->get_value();
+=======
+  void CalcVectorOutput(const Context<T>& context,
+                        BasicVector<T>* vec_out) const {
+    const BasicVector<T>* vec_in = this->EvalVectorInput(context, 1);
+    vec_out->get_mutable_value() = 2 * vec_in->get_value();
+  }
+
+  std::unique_ptr<SystemOutput<T>> AllocateOutput(
+      const Context<T>& context) const override {
+    std::unique_ptr<LeafSystemOutput<T>> output(
+        new LeafSystemOutput<T>);
+    output->add_port(this->get_output_port(0).Allocate());
+    output->add_port(this->get_output_port(1).Allocate());
+    return std::move(output);
+>>>>>>> intial
   }
 
   void DispatchPublishHandler(
@@ -570,12 +697,17 @@ class ValueIOTestSystem : public System<T> {
   }
 
   std::map<PeriodicEventData, std::vector<const Event<T>*>,
+<<<<<<< HEAD
            PeriodicEventDataComparator>
   DoGetPeriodicEvents() const override {
+=======
+      PeriodicEventDataComparator> DoGetPeriodicEvents() const override {
+>>>>>>> intial
     return {};
   }
 };
 
+<<<<<<< HEAD
 // Just creates System and Context without providing values for inputs, to
 // allow for lots of error conditions.
 class SystemInputErrorTest : public ::testing::Test {
@@ -682,10 +814,13 @@ TEST_F(SystemInputErrorTest, CheckMessages) {
 }
 
 // Provides values for some of the inputs and sets up for outputs.
+=======
+>>>>>>> intial
 class SystemIOTest : public ::testing::Test {
  protected:
   void SetUp() override {
     context_ = test_sys_.CreateDefaultContext();
+<<<<<<< HEAD
     output_ = test_sys_.AllocateOutput();
 
     // make string input
@@ -693,6 +828,20 @@ class SystemIOTest : public ::testing::Test {
 
     // make vector input
     context_->FixInputPort(1, {2.0});
+=======
+    output_ = test_sys_.AllocateOutput(*context_);
+
+    // make string input
+    std::unique_ptr<Value<std::string>> str_input =
+        std::make_unique<Value<std::string>>("input");
+    context_->FixInputPort(0, std::move(str_input));
+
+    // make vector input
+    std::unique_ptr<BasicVector<double>> vec_input =
+        std::make_unique<BasicVector<double>>(1);
+    vec_input->SetAtIndex(0, 2);
+    context_->FixInputPort(1, std::move(vec_input));
+>>>>>>> intial
   }
 
   ValueIOTestSystem<double> test_sys_;
@@ -726,7 +875,11 @@ TEST_F(SystemIOTest, SystemValueIOTest) {
                 test_sys_.EvalVectorInput(*context_, 1)),
             nullptr);
   // Now allocate.
+<<<<<<< HEAD
   test_sys_.AllocateFixedInputs(context_.get());
+=======
+  test_sys_.AllocateFreestandingInputs(context_.get());
+>>>>>>> intial
   // First input should have been re-allocated to the empty string.
   EXPECT_EQ(test_sys_.EvalAbstractInput(*context_, 0)->GetValue<std::string>(),
             "");
@@ -770,6 +923,7 @@ TEST_F(SystemIOTest, TransmogrifyAndFix) {
   EXPECT_EQ(0, fixed_vec->GetAtIndex(0).derivatives().size());
 }
 
+<<<<<<< HEAD
 // This class implements various computational methods so we can check that
 // they get invoked properly. The particular results don't mean anything.
 // As above, lots of painful bookkeeping here that is normally buried by
@@ -983,6 +1137,8 @@ TEST_F(ComputationTest, Eval) {
   test_sys_.ExpectCount(4, 3, 3, 3, 4);
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace systems
 }  // namespace drake

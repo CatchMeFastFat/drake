@@ -6,8 +6,11 @@
 
 #include "drake/common/drake_assert.h"
 #include "drake/manipulation/util/bot_core_lcm_encode_decode.h"
+<<<<<<< HEAD
 #include "drake/math/rigid_transform.h"
 #include "drake/math/rotation_matrix.h"
+=======
+>>>>>>> intial
 #include "drake/util/drakeGeometryUtil.h"
 
 namespace drake {
@@ -108,6 +111,7 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
     const DrakeJoint& root_joint = root_body_.getJoint();
 
     // Pose of floating base in the world frame.
+<<<<<<< HEAD
     const math::RigidTransform<double> X_WB(DecodePose(msg.pose));
     // Spatial velocity of base in the world frame.
     const Vector6<double> V_WB_W = DecodeTwist(msg.twist);
@@ -126,6 +130,21 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
     const DrakeJoint& floating_joint = root_body_.getJoint();
     const int position_start = root_body_.get_position_start_index();
     const int velocity_start = root_body_.get_velocity_start_index();
+=======
+    Isometry3<double> X_WB = DecodePose(msg.pose);
+    // Spatial velocity of base in the world frame.
+    Vector6<double> V_WB = DecodeTwist(msg.twist);
+    // J is the root_joint frame.
+    Isometry3<double> X_WJ = root_joint.get_transform_to_parent_body();
+    Isometry3<double> X_JB = X_WJ.inverse() * X_WB;
+    Vector6<double> V_JB;
+    V_JB.head<3>() = X_WJ.linear().transpose() * V_WB.head<3>();
+    V_JB.tail<3>() = X_WJ.linear().transpose() * V_WB.tail<3>();
+
+    const DrakeJoint& floating_joint = root_body_.getJoint();
+    int position_start = root_body_.get_position_start_index();
+    int velocity_start = root_body_.get_velocity_start_index();
+>>>>>>> intial
 
     if (floating_joint.get_num_positions() == 6) {
       // RPY-parameterized floating joint.
@@ -133,11 +152,19 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
       q.segment<3>(position_start) = X_JB.translation();
 
       // Orientation.
+<<<<<<< HEAD
       const math::RollPitchYaw<double> rpy(R_JB);
       q.segment<3>(position_start + 3) = rpy.vector();
 
       // Translational velocity.
       auto translationdot = V_WB_J.tail<3>();
+=======
+      auto rpy = math::rotmat2rpy(X_JB.linear());
+      q.segment<3>(position_start + 3) = rpy;
+
+      // Translational velocity.
+      auto translationdot = V_JB.tail<3>();
+>>>>>>> intial
       v.segment<3>(velocity_start) = translationdot;
 
       // Rotational velocity.
@@ -146,8 +173,13 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
           nullptr;
       typename math::Gradient<decltype(phi), Eigen::Dynamic, 2>::type* ddphi =
           nullptr;
+<<<<<<< HEAD
       angularvel2rpydotMatrix(rpy.vector(), phi, dphi, ddphi);
       auto angular_velocity_world = V_WB_J.head<3>();
+=======
+      angularvel2rpydotMatrix(rpy, phi, dphi, ddphi);
+      auto angular_velocity_world = V_JB.head<3>();
+>>>>>>> intial
       auto rpydot = (phi * angular_velocity_world).eval();
       v.segment<3>(velocity_start + 3) = rpydot;
     } else if (floating_joint.get_num_positions() == 7) {
@@ -156,6 +188,7 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
       q.segment<3>(position_start) = X_JB.translation();
 
       // Orientation.
+<<<<<<< HEAD
       const Eigen::Vector4d quat = R_JB.ToQuaternionAsVector4();
       q.segment<4>(position_start + 3) = quat;
 
@@ -163,6 +196,20 @@ void RobotStateLcmMessageTranslator::DecodeMessageKinematics(
       const math::RotationMatrix<double> R_BJ = R_JB.inverse();
       v.segment<3>(velocity_start) =  R_BJ * V_WB_J.head<3>();     // Rotate.
       v.segment<3>(velocity_start + 3) = R_BJ * V_WB_J.tail<3>();  // Translate.
+=======
+      const Eigen::Vector4d quat =
+          drake::math::RotationMatrix<double>::ToQuaternionAsVector4(
+              X_JB.linear());
+      q.segment<4>(position_start + 3) = quat;
+
+      // Transform V_WB to the floating base's body frame (V_WB_B).
+      // Translational velocity.
+      v.segment<3>(velocity_start + 3) =
+          X_JB.linear().transpose() * V_JB.tail<3>();
+      // Rotational velocity.
+      v.segment<3>(velocity_start) =
+          X_JB.linear().transpose() * V_JB.head<3>();
+>>>>>>> intial
     } else {
       DRAKE_ABORT_MSG("Floating joint is neither a RPY or a Quaternion joint.");
     }
@@ -247,6 +294,7 @@ void RobotStateLcmMessageTranslator::EncodeMessageKinematics(
 
     if (root_joint.get_num_positions() == 6) {
       // RPY
+<<<<<<< HEAD
       const math::RollPitchYaw<double> rpy(q.segment<3>(position_start + 3));
       Vector3<double> rpydot = v.segment<3>(velocity_start + 3);
 
@@ -257,6 +305,17 @@ void RobotStateLcmMessageTranslator::EncodeMessageKinematics(
       Matrix3<double> phi = Matrix3<double>::Zero();
       angularvel2rpydotMatrix(rpy.vector(), phi,
                               static_cast<Matrix3<double>*>(nullptr),
+=======
+      Vector3<double> rpy = q.segment<3>(position_start + 3);
+      Vector3<double> rpydot = v.segment<3>(velocity_start + 3);
+
+      X_JB.translation() = q.segment<3>(position_start);
+      X_JB.linear() = math::rpy2rotmat(rpy);
+      X_JB.makeAffine();
+
+      Matrix3<double> phi = Matrix3<double>::Zero();
+      angularvel2rpydotMatrix(rpy, phi, static_cast<Matrix3<double>*>(nullptr),
+>>>>>>> intial
                               static_cast<Matrix3<double>*>(nullptr));
 
       auto decomp = Eigen::ColPivHouseholderQR<Matrix3<double>>(phi);

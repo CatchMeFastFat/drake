@@ -9,7 +9,11 @@
 
 #include "drake/common/autodiff.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 
 using Eigen::AutoDiffScalar;
 using Eigen::Vector3d;
@@ -30,7 +34,11 @@ GTEST_TEST(PassThroughScalarTypeTest, AutoDiff) {
   // Set a PassThrough system with input and output of size 3.
   auto buffer = make_unique<PassThrough<T>>(3 /* size */);
   auto context = buffer->CreateDefaultContext();
+<<<<<<< HEAD
   auto output = buffer->AllocateOutput();
+=======
+  auto output = buffer->AllocateOutput(*context);
+>>>>>>> intial
   auto input = make_unique<BasicVector<T>>(3 /* size */);
 
   // Sets the input values.

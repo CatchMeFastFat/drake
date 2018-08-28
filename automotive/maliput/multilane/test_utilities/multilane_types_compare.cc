@@ -3,9 +3,12 @@
 #include <cmath>
 #include <ostream>
 #include <string>
+<<<<<<< HEAD
 #include <vector>
 
 #include <fmt/format.h>
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace maliput {
@@ -20,35 +23,70 @@ namespace test {
   double delta = std::abs(xy1.x() - xy2.x());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointXys are different at x coordinate. "
         "xy1.x(): {} vs.xy2.x(): {}, diff = {}, tolerance = {}.\n",
         xy1.x(), xy2.x(), delta, tolerance);
+=======
+    error_message = error_message +
+                    "EndpointXys are different at x coordinate. " +
+                    "xy1.x(): " + std::to_string(xy1.x()) +
+                    " vs. xy2.x(): " + std::to_string(xy2.x()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " + std::to_string(tolerance) + "\n";
+>>>>>>> intial
   }
   delta = std::abs(xy1.y() - xy2.y());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointXys are different at y coordinate. "
         "xy1.y(): {} vs.xy2.y(): {}, diff = {}, tolerance = {}.\n",
         xy1.y(), xy2.y(), delta, tolerance);
+=======
+    error_message = error_message +
+                    "EndpointXys are different at y coordinate. " +
+                    "xy1.y(): " + std::to_string(xy1.y()) +
+                    " vs. xy2.y(): " + std::to_string(xy2.y()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " + std::to_string(tolerance) + "\n";
+>>>>>>> intial
   }
   delta = std::abs(xy1.heading() - xy2.heading());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointXys are different at heading angle. "
         "xy1.heading(): {} vs.xy2.heading(): {}, diff = {}, "
         "tolerance = {}.\n",
         xy1.heading(), xy2.heading(), delta, tolerance);
+=======
+    error_message = error_message +
+                    "EndpointXys are different at heading angle. " +
+                    "xy1.heading(): " + std::to_string(xy1.heading()) +
+                    " vs.  xy2.heading(): " + std::to_string(xy2.heading()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " +
+                    std::to_string(tolerance) + "\n";
+>>>>>>> intial
   }
   if (fails) {
     return ::testing::AssertionFailure() << error_message;
   }
+<<<<<<< HEAD
   return ::testing::AssertionSuccess() << fmt::format(
              "xy1 =\n{}\nis approximately equal to xy2 =\n{}\n"
              "tolerance = {}",
              xy1, xy2, tolerance);
+=======
+  return ::testing::AssertionSuccess()
+         << "xy1 =\n"
+         << xy1 << "\nis approximately equal to xy2 =\n"
+         << xy2 << "\ntolerance = " << tolerance;
+>>>>>>> intial
 }
 
 ::testing::AssertionResult IsEndpointZClose(const EndpointZ& z1,
@@ -59,22 +97,41 @@ namespace test {
   double delta = std::abs(z1.z() - z2.z());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointZ are different at z coordinate. z1.z(): {} vs z2.z(): {}"
         ", diff = {}, tolerance = {}\n",
         z1.z(), z2.z(), delta, tolerance);
+=======
+    error_message = error_message +
+                    "EndpointZ are different at z coordinate. " +
+                    "z1.z(): " + std::to_string(z1.z()) +
+                    " vs. z2.z(): " + std::to_string(z2.z()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " + std::to_string(tolerance) + "\n";
+>>>>>>> intial
   }
   delta = std::abs(z1.z_dot() - z2.z_dot());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointZ are different at z_dot coordinate. z1.z_dot(): {} vs "
         "z2.z_dot(): {}, diff = {}, tolerance = {}\n",
         z1.z_dot(), z2.z_dot(), delta, tolerance);
+=======
+    error_message = error_message +
+                   "EndpointZ are different at z_dot. " +
+                    "z1.z_dot(): " + std::to_string(z1.z_dot()) +
+                    " vs.  z2.z_dot(): " + std::to_string(z2.z_dot()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " + std::to_string(tolerance) + "\n";
+>>>>>>> intial
   }
   delta = std::abs(z1.theta() - z2.theta());
   if (delta > tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "EndpointZ are different at theta angle. z1.theta(): {} vs "
         "z2.theta(): {}, diff = {}, tolerance = {}\n",
@@ -109,6 +166,33 @@ namespace test {
              "z1 =\n{}\nis approximately equal to z2 =\n{}\n"
              "tolerance = {}",
              z1, z2, tolerance);
+=======
+    error_message = error_message +
+                    "EndpointZ are different at theta angle. " +
+                    "z1.theta(): " + std::to_string(z1.theta()) +
+                    " vs.  z2.theta(): " + std::to_string(z2.theta()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " +
+                    std::to_string(tolerance) + "\n";
+  }
+  delta = std::abs(z1.theta_dot() - z2.theta_dot());
+  if (delta > tolerance) {
+    fails = true;
+    error_message = error_message +
+                    "EndpointZ are different at theta_dot. " +
+                    "z1.theta_dot(): " + std::to_string(z1.theta_dot()) +
+                    " vs. z2.theta_dot(): " + std::to_string(z2.theta_dot()) +
+                    ", diff = " + std::to_string(delta) +
+                    ", tolerance = " + std::to_string(tolerance) + "\n";
+  }
+  if (fails) {
+    return ::testing::AssertionFailure() << error_message;
+  }
+  return ::testing::AssertionSuccess()
+         << "z1 =\n"
+         << z1 << "\nis approximately equal to z2 =\n"
+         << z2 << "\ntolerance = " << tolerance;
+>>>>>>> intial
 }
 
 ::testing::AssertionResult IsEndpointClose(const Endpoint& p1,
@@ -121,25 +205,44 @@ namespace test {
       IsEndpointXyClose(p1.xy(), p2.xy(), tolerance);
   if (!endpoint_xy_comparison) {
     fails = true;
+<<<<<<< HEAD
     error_message +=
         fmt::format("Endpoint p1 is different from p2 at EndpointXy. [{}]\n",
                     endpoint_xy_comparison.message());
+=======
+    error_message =
+        std::string("Endpoint p1 is different from p2 at EndpointXy. [") +
+        std::string(endpoint_xy_comparison.message()) + "]\n";
+>>>>>>> intial
   }
   const ::testing::AssertionResult endpoint_z_comparison =
       IsEndpointZClose(p1.z(), p2.z(), tolerance);
   if (!endpoint_z_comparison) {
     fails = true;
+<<<<<<< HEAD
     error_message +=
         fmt::format("Endpoint p1 is different from p2 at EndpointZ. [{}]\n",
                     endpoint_z_comparison.message());
+=======
+    error_message = error_message +
+                    "Endpoint p1 is different from p2 at EndpointZ. [" +
+                    endpoint_z_comparison.message() + "]\n";
+>>>>>>> intial
   }
   if (fails) {
     return ::testing::AssertionFailure() << error_message;
   }
+<<<<<<< HEAD
   return ::testing::AssertionSuccess() << fmt::format(
              "p1 =\n{}\nis approximately equal to p2 =\n{}\n"
              "tolerance = {}",
              p1, p2, tolerance);
+=======
+  return ::testing::AssertionSuccess()
+         << "p1 =\n"
+         << p1 << "\nis approximately equal to p2 =\n"
+         << p2 << "\ntolerance = " << tolerance;
+>>>>>>> intial
 }
 
 ::testing::AssertionResult IsArcOffsetClose(const ArcOffset& arc_offset1,
@@ -151,22 +254,42 @@ namespace test {
   double delta = std::abs(arc_offset1.radius() - arc_offset2.radius());
   if (delta > linear_tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "ArcOffset are different at radius. arc_offset1.radius(): {} vs. "
         "arc_offset2.radius(): {}, diff = {}, tolerance = {}\n",
         arc_offset1.radius(), arc_offset2.radius(), delta, linear_tolerance);
+=======
+    error_message =
+        error_message + "ArcOffset are different at radius. " +
+        "arc_offset1.radius(): " + std::to_string(arc_offset1.radius()) +
+        " vs. arc_offset2.radius(): " + std::to_string(arc_offset2.radius()) +
+        ", diff = " + std::to_string(delta) +
+        ", tolerance = " + std::to_string(linear_tolerance) + "\n";
+>>>>>>> intial
   }
   delta = std::abs(arc_offset1.d_theta() - arc_offset2.d_theta());
   if (delta > angular_tolerance) {
     fails = true;
+<<<<<<< HEAD
     error_message += fmt::format(
         "ArcOffset are different at d_theta. arc_offset1.d_theta(): {} vs. "
         "arc_offset2.d_theta(): {}, diff = {}, tolerance = {}\n",
         arc_offset1.d_theta(), arc_offset2.d_theta(), delta, angular_tolerance);
+=======
+    error_message =
+        error_message + "EndpointZ are different at d_theta. " +
+        "arc_offset1.d_theta(): " + std::to_string(arc_offset1.d_theta()) +
+        " vs.  arc_offset2.d_theta(): " +
+        std::to_string(arc_offset2.d_theta()) +
+        ", diff = " + std::to_string(delta) +
+        ", tolerance = " + std::to_string(angular_tolerance) + "\n";
+>>>>>>> intial
   }
   if (fails) {
     return ::testing::AssertionFailure() << error_message;
   }
+<<<<<<< HEAD
   return ::testing::AssertionSuccess() << fmt::format(
              "arc_offset1 =\n{}\nis approximately equal to "
              "arc_offset2 =\n{}\nwith linear tolerance = {}\n"
@@ -246,6 +369,14 @@ Matcher<const EndReference::Spec&> Matches(
 Matcher<const EndLane::Spec&> Matches(
     const EndLane::Spec& end_lane, double tolerance) {
   return MakeMatcher(new EndLaneSpecMatcher(end_lane, tolerance));
+=======
+  return ::testing::AssertionSuccess()
+         << "arc_offset1 =\n"
+         << arc_offset1 << "\nis approximately equal to arc_offset2 =\n"
+         << arc_offset2 << "\nwith linear tolerance = " << linear_tolerance
+         << "\nand angular tolerance =\n"
+         << angular_tolerance;
+>>>>>>> intial
 }
 
 }  // namespace test

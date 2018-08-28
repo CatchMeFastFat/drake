@@ -28,7 +28,11 @@ class SpringMassSystemTest : public ::testing::Test {
             kTargetPosition);
 
     model_context_ = model_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = model_->AllocateOutput();
+=======
+    output_ = model_->AllocateOutput(*model_context_);
+>>>>>>> intial
 
     // Gets the plant subcontext.
     plant_context_ =

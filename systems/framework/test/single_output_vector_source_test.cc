@@ -6,7 +6,10 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/drake_copyable.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -34,7 +37,11 @@ class SingleOutputVectorSourceTest : public ::testing::Test {
   void SetUp() override {
     source_ = std::make_unique<TestSource>();
     context_ = source_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = source_->AllocateOutput();
+=======
+    output_ = source_->AllocateOutput(*context_);
+>>>>>>> intial
   }
 
   std::unique_ptr<System<double>> source_;
@@ -60,6 +67,7 @@ TEST_F(SingleOutputVectorSourceTest, IsStateless) {
   EXPECT_EQ(context_->get_continuous_state().size(), 0);
 }
 
+<<<<<<< HEAD
 // Some tag types used to select which constructor gets called.
 struct UseTransmogrify {};
 struct UseVector {};
@@ -112,6 +120,8 @@ GTEST_TEST(SingleOutputVectorSourceConvertableTest, ScalarTypes) {
   EXPECT_TRUE(is_symbolic_convertible(true2));
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace systems
 }  // namespace drake

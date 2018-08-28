@@ -70,6 +70,7 @@ class BodyFrame final : public Frame<T> {
     return X_FQ;
   }
 
+<<<<<<< HEAD
   Isometry3<T> GetFixedPoseInBodyFrame() const override {
     return Isometry3<T>::Identity();
   }
@@ -79,6 +80,8 @@ class BodyFrame final : public Frame<T> {
     return X_FQ;
   }
 
+=======
+>>>>>>> intial
  protected:
   // Frame<T>::DoCloneToScalar() overrides.
   std::unique_ptr<Frame<double>> DoCloneToScalar(
@@ -156,6 +159,7 @@ class Body : public MultibodyTreeElement<Body<T>, BodyIndex> {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Body)
 
+<<<<<<< HEAD
   /// Creates a %Body named `name` in model instance `model_instance`
   /// with a given `default_mass` and a BodyFrame associated with it.
   Body(const std::string& name, ModelInstanceIndex model_instance,
@@ -163,6 +167,15 @@ class Body : public MultibodyTreeElement<Body<T>, BodyIndex> {
       : MultibodyTreeElement<Body<T>, BodyIndex>(model_instance),
         name_(name),
         body_frame_(*this), default_mass_(default_mass) {}
+=======
+  /// Creates a %Body with a BodyFrame associated with it.
+  Body() : body_frame_(*this) {}
+
+  /// Creates a %Body named `name` with a given `default_mass` and a BodyFrame
+  /// associated with it.
+  explicit Body(const std::string& name, double default_mass) :
+      name_(name), body_frame_(*this), default_mass_(default_mass) {}
+>>>>>>> intial
 
   /// Gets the `name` associated with `this` body.
   const std::string& name() const { return name_; }

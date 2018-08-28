@@ -2,20 +2,28 @@
 
 #include <utility>
 
+<<<<<<< HEAD
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 
 #include "drake/common/autodiff.h"
 #include "drake/common/symbolic.h"
+=======
+#include "drake/common/autodiff.h"
+>>>>>>> intial
 
 namespace drake {
 namespace geometry {
 
+<<<<<<< HEAD
 using std::make_pair;
+=======
+>>>>>>> intial
 using std::move;
 
 template <typename KinematicsValue>
 FrameKinematicsVector<KinematicsValue>::FrameKinematicsVector(
+<<<<<<< HEAD
     SourceId source_id, const std::vector<FrameId>& ids)
     : source_id_(source_id), values_(0) {
   for (FrameId id : ids) {
@@ -61,11 +69,28 @@ const KinematicsValue& FrameKinematicsVector<KinematicsValue>::value(
   }
   return values_.at(id).value;
 }
+=======
+    SourceId source_id)
+    : source_id_(source_id) {}
+
+template <typename KinematicsValue>
+FrameKinematicsVector<KinematicsValue>::FrameKinematicsVector(
+    SourceId source_id, const std::vector<KinematicsValue>& values)
+    : vector_(values), source_id_(source_id) {}
+
+template <typename KinematicsValue>
+FrameKinematicsVector<KinematicsValue>::FrameKinematicsVector(
+    SourceId source_id, std::vector<KinematicsValue>&& values)
+    : vector_(move(values)), source_id_(source_id) {}
+>>>>>>> intial
 
 // Explicitly instantiates on the most common scalar types.
 template class FrameKinematicsVector<Isometry3<double>>;
 template class FrameKinematicsVector<Isometry3<AutoDiffXd>>;
+<<<<<<< HEAD
 template class FrameKinematicsVector<Isometry3<symbolic::Expression>>;
+=======
+>>>>>>> intial
 
 }  // namespace geometry
 }  // namespace drake

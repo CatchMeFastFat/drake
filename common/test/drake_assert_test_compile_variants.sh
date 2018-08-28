@@ -9,7 +9,11 @@ drake_assert_test_compile_cc="$2"
 # Make sure we know what C++ compiler to use.
 source "$capture_cc_env"
 [[ ! -z "$BAZEL_CC" ]]
+<<<<<<< HEAD
 command -v "$BAZEL_CC"
+=======
+[[ -x "$BAZEL_CC" ]]
+>>>>>>> intial
 "$BAZEL_CC" --version
 
 # TODO(#6996) Do this unconditionally once #6996 is fully merged.
@@ -19,7 +23,11 @@ if [[ ! -e ./drake ]]; then
 fi
 
 # Confirm that it compiles successfully, whether or not assertions are enabled.
+<<<<<<< HEAD
 TESTING_CXXFLAGS="-std=c++14 -I . \
+=======
+TESTING_CXXFLAGS="-std=c++1y -I . \
+>>>>>>> intial
     -c $drake_assert_test_compile_cc \
     -o /dev/null"
 "$BAZEL_CC" $TESTING_CXXFLAGS

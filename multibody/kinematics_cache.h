@@ -17,7 +17,10 @@
 #include "drake/common/drake_deprecated.h"
 #include "drake/common/eigen_types.h"
 #include "drake/multibody/joints/drake_joint.h"
+<<<<<<< HEAD
 #include "drake/multibody/kinematic_path.h"
+=======
+>>>>>>> intial
 
 template <typename T>
 class KinematicsCacheElement {
@@ -86,6 +89,7 @@ class KinematicsCache {
   bool inertias_cached;
 
  public:
+<<<<<<< HEAD
   /// Preallocated scratch pad variables. These variables are used to prevent
   /// dynamic memory allocation during runtime.
 
@@ -112,6 +116,8 @@ class KinematicsCache {
   mutable DataInCalcFrameSpatialVelocityJacobianInWorldFrame
     spatial_velocity_jacobian_temp;
 
+=======
+>>>>>>> intial
   /// Constructor for a KinematicsCache given the number of positions and
   /// velocities per body in the vectors @p num_joint_positions and
   /// @p num_joint_velocities, respectively.
@@ -160,7 +166,11 @@ class KinematicsCache {
 
   void checkCachedKinematicsSettings(bool velocity_kinematics_required,
                                      bool jdot_times_v_required,
+<<<<<<< HEAD
                                      const char* method_name) const;
+=======
+                                     const std::string& method_name) const;
+>>>>>>> intial
 
   /// Returns `q`, the generalized position vector of the RigidBodyTree that was
   /// used to compute this KinematicsCache.

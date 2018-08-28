@@ -1,12 +1,16 @@
 # -*- python -*-
 
 load("//tools/lint:lint.bzl", "add_lint_tests")
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load(
     "@drake//tools/skylark:drake_proto.bzl",
     "drake_cc_proto_library",
@@ -23,6 +27,7 @@ exports_files(
     ["test/iiwa.id_controller_config"],
 )
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "qp_inverse_dynamics",
     deps = [
@@ -37,6 +42,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_proto_library(
     name = "id_controller_config",
     srcs = [
@@ -53,8 +60,13 @@ drake_cc_library(
         "param_parser.h",
     ],
     deps = [
+<<<<<<< HEAD
         ":control",
         ":id_controller_config",
+=======
+        ":id_controller_config",
+        ":qp_inverse_dynamics",
+>>>>>>> intial
         "//common/proto:protobuf",
         "//multibody:rigid_body_tree_alias_groups",
     ],
@@ -74,12 +86,16 @@ drake_cc_library(
 )
 
 drake_cc_library(
+<<<<<<< HEAD
     # We use the label name ":control" (even though the files are not named
     # that way) because the name ":qp_inverse_dynamics" is reserved for the
     # drake_cc_package_library that provides all of the code from this package
     # in a single library.  Since our package has more code than just this
     # controller, we need to use a name that implies a smaller scope.
     name = "control",
+=======
+    name = "qp_inverse_dynamics",
+>>>>>>> intial
     srcs = [
         "qp_inverse_dynamics.cc",
         "qp_inverse_dynamics_common.cc",
@@ -102,9 +118,15 @@ drake_cc_library(
     srcs = ["qp_inverse_dynamics_system.cc"],
     hdrs = ["qp_inverse_dynamics_system.h"],
     deps = [
+<<<<<<< HEAD
         ":control",
         "//lcmtypes:inverse_dynamics_debug_info",
         "//multibody:rigid_body_tree",
+=======
+        "//lcmtypes:inverse_dynamics_debug_info",
+        "//multibody:rigid_body_tree",
+        "//systems/controllers/qp_inverse_dynamics",
+>>>>>>> intial
         "//systems/framework:leaf_system",
     ],
 )
@@ -114,7 +136,11 @@ drake_cc_library(
     srcs = ["lcm_utils.cc"],
     hdrs = ["lcm_utils.h"],
     deps = [
+<<<<<<< HEAD
         ":control",
+=======
+        ":qp_inverse_dynamics",
+>>>>>>> intial
         "//lcmtypes:body_acceleration",
         "//lcmtypes:constrained_values",
         "//lcmtypes:contact_information",
@@ -132,8 +158,13 @@ drake_cc_library(
     srcs = ["qp_output_translator_system.cc"],
     hdrs = ["qp_output_translator_system.h"],
     deps = [
+<<<<<<< HEAD
         ":control",
         "//multibody:rigid_body_tree",
+=======
+        "//multibody:rigid_body_tree",
+        "//systems/controllers/qp_inverse_dynamics",
+>>>>>>> intial
         "//systems/framework:leaf_system",
         "@lcmtypes_bot2_core",
     ],
@@ -192,8 +223,13 @@ drake_cc_googletest(
     ],
     tags = gurobi_test_tags(),
     deps = [
+<<<<<<< HEAD
         ":control",
         ":param_parser",
+=======
+        ":param_parser",
+        ":qp_inverse_dynamics",
+>>>>>>> intial
         "//common:find_resource",
         "//common/test_utilities:eigen_matrix_compare",
         "//multibody/parsers",
@@ -240,7 +276,11 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "valkyrie_balancing_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+    size = "medium",
+>>>>>>> intial
     srcs = ["test/valkyrie_balancing_test.cc"],
     data = [
         "test/valkyrie.alias_groups",
@@ -249,13 +289,21 @@ drake_cc_googletest(
     ],
     tags = gurobi_test_tags(),
     deps = [
+<<<<<<< HEAD
         ":control",
         ":param_parser",
+=======
+>>>>>>> intial
         "//common:find_resource",
         "//common/test_utilities:eigen_matrix_compare",
         "//examples/valkyrie:valkyrie_constants",
         "//multibody/parsers",
         "//systems/controllers:setpoint",
+<<<<<<< HEAD
+=======
+        "//systems/controllers/qp_inverse_dynamics",
+        "//systems/controllers/qp_inverse_dynamics:param_parser",
+>>>>>>> intial
     ],
 )
 

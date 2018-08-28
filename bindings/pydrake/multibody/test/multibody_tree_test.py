@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+<<<<<<< HEAD
 from pydrake.multibody.multibody_tree import (
     Body,
     BodyFrame,
@@ -55,6 +56,18 @@ def get_index_class(cls):
 
 
 class TestMultibodyTreeMath(unittest.TestCase):
+=======
+from pydrake.multibody.multibody_tree.math import (
+    SpatialVelocity,
+)
+
+import copy
+import unittest
+import numpy as np
+
+
+class TestMath(unittest.TestCase):
+>>>>>>> intial
     def test_spatial_velocity(self):
         velocity = SpatialVelocity()
         # - Accessors.
@@ -68,6 +81,7 @@ class TestMultibodyTreeMath(unittest.TestCase):
         velocity1 = SpatialVelocity(w=w, v=v)
         self.assertTrue(np.allclose(velocity1.rotational(), w))
         self.assertTrue(np.allclose(velocity1.translational(), v))
+<<<<<<< HEAD
 
 
 class TestMultibodyTree(unittest.TestCase):
@@ -155,3 +169,5 @@ class TestMultibodyTree(unittest.TestCase):
         model_instance = AddModelFromSdfFile(
             file_name=file_name, model_name="acrobot", plant=plant,
             scene_graph=None)
+=======
+>>>>>>> intial

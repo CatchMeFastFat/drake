@@ -28,7 +28,11 @@ template <typename T>
 PendulumPlant<T>::~PendulumPlant() {}
 
 template <typename T>
+<<<<<<< HEAD
 const systems::InputPort<T>& PendulumPlant<T>::get_input_port()
+=======
+const systems::InputPortDescriptor<T>& PendulumPlant<T>::get_input_port()
+>>>>>>> intial
     const {
   return systems::System<T>::get_input_port(0);
 }

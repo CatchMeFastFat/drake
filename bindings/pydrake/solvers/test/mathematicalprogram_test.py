@@ -1,7 +1,10 @@
 from __future__ import print_function, absolute_import
 
 from pydrake.solvers import mathematicalprogram as mp
+<<<<<<< HEAD
 from pydrake.solvers.mathematicalprogram import SolverType
+=======
+>>>>>>> intial
 
 import numpy as np
 import unittest
@@ -40,8 +43,11 @@ class TestMathematicalProgram(unittest.TestCase):
         prog = mp.MathematicalProgram()
         vars = prog.NewContinuousVariables(5, "x")
         self.assertEqual(vars.dtype, sym.Variable)
+<<<<<<< HEAD
         vars_all = prog.decision_variables()
         self.assertEqual(vars_all.shape, (5,))
+=======
+>>>>>>> intial
 
     def test_mixed_integer_optimization(self):
         prog = mp.MathematicalProgram()
@@ -73,8 +79,11 @@ class TestMathematicalProgram(unittest.TestCase):
         # Redundant cost just to check the spelling.
         prog.AddQuadraticErrorCost(vars=x, Q=np.eye(2),
                                    x_desired=np.zeros(2))
+<<<<<<< HEAD
         prog.AddL2NormCost(A=np.eye(2), b=np.zeros(2), vars=x)
 
+=======
+>>>>>>> intial
         result = prog.Solve()
         self.assertEqual(result, mp.SolutionResult.kSolutionFound)
 
@@ -162,6 +171,7 @@ class TestMathematicalProgram(unittest.TestCase):
         # Test deprecated method.
         with warnings.catch_warnings(record=True) as w:
             c = binding.constraint()
+<<<<<<< HEAD
             self.assertEqual(len(w), 1)
 
     def test_constraint_api(self):
@@ -183,6 +193,9 @@ class TestMathematicalProgram(unittest.TestCase):
         check_bounds(c, [1.], [-10.], [10.])
         c.UpdateCoefficients([10.], [-20.], [-30.])
         check_bounds(c, [10.], [-20.], [-30.])
+=======
+            self.assertEquals(len(w), 1)
+>>>>>>> intial
 
     def test_eval_binding(self):
         qp = TestQP()
@@ -291,8 +304,12 @@ class TestMathematicalProgram(unittest.TestCase):
         self.assertIsInstance(binding.evaluator(),
                               mp.LinearComplementarityConstraint)
 
+<<<<<<< HEAD
     def test_linear_constraints(self):
         # TODO(eric.cousineau): Add more general tests
+=======
+    def test_bounding_box(self):
+>>>>>>> intial
         prog = mp.MathematicalProgram()
         x = prog.NewContinuousVariables(2, 'x')
         lb = [0., 0.]
@@ -300,11 +317,14 @@ class TestMathematicalProgram(unittest.TestCase):
         prog.AddBoundingBoxConstraint(lb, ub, x)
         prog.AddBoundingBoxConstraint(0., 1., x[0])
         prog.AddBoundingBoxConstraint(0., 1., x)
+<<<<<<< HEAD
         prog.AddLinearConstraint(np.eye(2), np.zeros(2), np.ones(2), x)
 
         prog.AddLinearEqualityConstraint(np.eye(2), np.zeros(2), x)
         prog.AddLinearEqualityConstraint(x[0] == 1)
         prog.AddLinearEqualityConstraint(x[0] + x[1], 1)
+=======
+>>>>>>> intial
 
     def test_pycost_and_pyconstraint(self):
         prog = mp.MathematicalProgram()
@@ -319,6 +339,7 @@ class TestMathematicalProgram(unittest.TestCase):
         prog.AddCost(cost, x)
         prog.AddConstraint(constraint, [0.], [2.], x)
         prog.Solve()
+<<<<<<< HEAD
         self.assertAlmostEqual(prog.GetSolution(x)[0], 1.)
 
     def test_addcost_symbolic(self):
@@ -394,3 +415,6 @@ class TestMathematicalProgram(unittest.TestCase):
         options = prog.GetSolverOptions(SolverType.kGurobi)
         self.assertDictEqual(
             options, {"double_key": 1.0, "int_key": 2, "string_key": "3"})
+=======
+        self.assertAlmostEquals(prog.GetSolution(x)[0], 1.)
+>>>>>>> intial

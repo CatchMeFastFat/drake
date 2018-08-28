@@ -1,7 +1,10 @@
 #pragma once
 
 #include <memory>
+<<<<<<< HEAD
 #include <string>
+=======
+>>>>>>> intial
 #include <utility>
 
 #include "drake/common/copyable_unique_ptr.h"
@@ -17,6 +20,7 @@ namespace geometry {
 /** A geometry instance combines a geometry definition (i.e., a shape of some
  sort), a pose (relative to a parent "frame" P), material information, and an
  opaque collection of metadata. The parent frame can be a registered frame or
+<<<<<<< HEAD
  another registered geometry.
 
  Every %GeometryInstance must be named. The naming convention mirrors that of
@@ -74,6 +78,9 @@ namespace geometry {
  unit test in `scene_graph_parser_detail_test.cc. See test
  VisualGeometryNameRequirements and keep those tests and this list in sync. -->
  */
+=======
+ another registered geometry. */
+>>>>>>> intial
 class GeometryInstance {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(GeometryInstance)
@@ -81,21 +88,31 @@ class GeometryInstance {
   /** Constructor with default visual material (see VisualMaterial default
    constructor for details on what that color is).
    @param X_PG   The pose of this geometry (`G`) in its parent's frame (`P`).
+<<<<<<< HEAD
    @param shape  The underlying shape for this geometry instance.
    @param name   The name of the geometry (must satisfy the name requirements).
    @throws std::logic_error if the canonicalized version of `name` is empty.
    */
   GeometryInstance(const Isometry3<double>& X_PG, std::unique_ptr<Shape> shape,
                    const std::string& name);
+=======
+   @param shape  The underlying shape for this geometry instance. */
+  GeometryInstance(const Isometry3<double>& X_PG, std::unique_ptr<Shape> shape);
+>>>>>>> intial
 
   /** Constructor.
    @param X_PG   The pose of this geometry (`G`) in its parent's frame (`P`).
    @param shape  The underlying shape for this geometry instance.
+<<<<<<< HEAD
    @param name   The name of the geometry (must satisfy the name requirements).
    @param vis_material The visual material to apply to this geometry.
    @throws std::logic_error if the canonicalized version of `name` is empty.  */
   GeometryInstance(const Isometry3<double>& X_PG, std::unique_ptr<Shape> shape,
                    const std::string& name,
+=======
+   @param vis_material The visual material to apply to this geometry. */
+  GeometryInstance(const Isometry3<double>& X_PG, std::unique_ptr<Shape> shape,
+>>>>>>> intial
                    const VisualMaterial& vis_material);
 
   /** Returns the globally unique id for this geometry specification. Every
@@ -118,9 +135,12 @@ class GeometryInstance {
 
   const VisualMaterial& visual_material() const { return visual_material_; }
 
+<<<<<<< HEAD
   /** Returns the *canonicalized* name for the instance. */
   const std::string& name() const { return name_; }
 
+=======
+>>>>>>> intial
  private:
   // The *globally* unique identifier for this instance. It is functionally
   // const (i.e. defined in construction) but not marked const to allow for
@@ -133,9 +153,12 @@ class GeometryInstance {
   // The shape associated with this instance.
   copyable_unique_ptr<Shape> shape_;
 
+<<<<<<< HEAD
   // The name of the geometry instance.
   std::string name_;
 
+=======
+>>>>>>> intial
   // The "rendering" material -- e.g., OpenGl contexts and the like.
   VisualMaterial visual_material_;
 };

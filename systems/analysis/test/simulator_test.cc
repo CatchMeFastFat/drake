@@ -669,7 +669,11 @@ GTEST_TEST(SimulatorTest, WitnessTestCountChallenging) {
 // in the case of multiple witness functions. See issue #6184.
 
 GTEST_TEST(SimulatorTest, SecondConstructor) {
+<<<<<<< HEAD
   // Create the spring-mass system and context.
+=======
+  // Create the spring-mass sytem and context.
+>>>>>>> intial
   analysis_test::MySpringMassSystem<double> spring_mass(1., 1., 0.);
   auto context = spring_mass.CreateDefaultContext();
 
@@ -800,11 +804,17 @@ GTEST_TEST(SimulatorTest, ResetIntegratorTest) {
   // Get the context.
   Context<double>& context = simulator.get_mutable_context();
 
+<<<<<<< HEAD
   // Create the integrator with the simple spelling.
   auto euler_integrator =
       std::make_unique<ExplicitEulerIntegrator<double>>(
           spring_mass, dt, &context);
   simulator.reset_integrator(std::move(euler_integrator));
+=======
+  // Create the integrator.
+  simulator.reset_integrator<ExplicitEulerIntegrator<double>>(spring_mass, dt,
+                                                              &context);
+>>>>>>> intial
 
   // set the integrator and initialize the simulator
   simulator.Initialize();

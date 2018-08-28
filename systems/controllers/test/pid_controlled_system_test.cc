@@ -105,6 +105,7 @@ class TestPlantWithMoreOutputs : public TestPlant {
   }
 };
 
+<<<<<<< HEAD
 class TestPlantWithMoreOutputPorts : public TestPlant {
  public:
   TestPlantWithMoreOutputPorts() {
@@ -139,6 +140,8 @@ class TestPlantWithMoreOutputPorts : public TestPlant {
   }
 };
 
+=======
+>>>>>>> intial
 class PidControlledSystemTest : public ::testing::Test {
  protected:
   // Instantiates a PidControlledSystem based on the supplied plant and
@@ -165,7 +168,11 @@ class PidControlledSystemTest : public ::testing::Test {
     builder.ExportOutput(controller->get_output_port(0));
     diagram_ = builder.Build();
     auto context = diagram_->CreateDefaultContext();
+<<<<<<< HEAD
     auto output = diagram_->AllocateOutput();
+=======
+    auto output = diagram_->AllocateOutput(*context);
+>>>>>>> intial
 
     const systems::Context<double>& plant_context =
         diagram_->GetSubsystemContext(*controller->plant(),
@@ -228,6 +235,7 @@ TEST_F(PidControlledSystemTest, PlantWithMoreOutputs) {
   DoPidControlledSystemTest(std::move(plant), feedback_selector_matrix);
 }
 
+<<<<<<< HEAD
 // Tests that additional output ports of the plant are exposed through the
 // new diagram.
 TEST_F(PidControlledSystemTest, PlantWithMoreOutputPorts) {
@@ -249,6 +257,8 @@ TEST_F(PidControlledSystemTest, PlantWithMoreOutputPorts) {
   EXPECT_EQ(output->get_vector_data(1)->GetAtIndex(1), 0.68);
 }
 
+=======
+>>>>>>> intial
 class ConnectControllerTest : public ::testing::Test {
  protected:
   void SetUp() override {
@@ -275,7 +285,11 @@ class ConnectControllerTest : public ::testing::Test {
   double ComputePidInput() {
     auto standard_diagram = builder_.Build();
     auto context = standard_diagram->CreateDefaultContext();
+<<<<<<< HEAD
     auto output = standard_diagram->AllocateOutput();
+=======
+    auto output = standard_diagram->AllocateOutput(*context);
+>>>>>>> intial
 
     auto& plant_context =
         standard_diagram->GetSubsystemContext(*plant_, *context);

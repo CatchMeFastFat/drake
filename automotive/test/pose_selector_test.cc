@@ -10,7 +10,11 @@
 #include "drake/automotive/monolane_onramp_merge.h"
 #include "drake/common/extract_double.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw_using_quaternion.h"
+>>>>>>> intial
 
 namespace drake {
 namespace automotive {
@@ -30,6 +34,10 @@ using maliput::monolane::Connection;
 using maliput::monolane::Endpoint;
 using maliput::monolane::EndpointXy;
 using maliput::monolane::EndpointZ;
+<<<<<<< HEAD
+=======
+using math::RollPitchYawToQuaternion;
+>>>>>>> intial
 using systems::rendering::FrameVelocity;
 using systems::rendering::PoseVector;
 using systems::rendering::PoseBundle;
@@ -166,8 +174,13 @@ static void SetPoses(const T& s_offset, const T& r_offset,
   // Create poses for one traffic car and one ego car.
   ego_pose->set_translation(Translation3<T>(
       T(kEgoSPosition) /* s */, T(kEgoRPosition) /* r */, T(0.) /* h */));
+<<<<<<< HEAD
   const math::RollPitchYaw<T> rpy(T(0.), T(0.), T(yaw));
   ego_pose->set_rotation(rpy.ToQuaternion());
+=======
+  ego_pose->set_rotation(
+      RollPitchYawToQuaternion(Vector3<T>{T(0.), T(0.), T(yaw)}));
+>>>>>>> intial
 
   const Translation3<T> translation(T(kEgoSPosition) + s_offset /* s */,
                                     T(kEgoRPosition) + r_offset /* r */,
@@ -464,8 +477,13 @@ TEST_F(PoseSelectorDragwayTest, EgoOrientation) {
 
   for (double yaw = -M_PI; yaw <= M_PI; yaw += 0.1) {
     // N.B. 0 corresponds to "aligned with the lane along the s-direction".
+<<<<<<< HEAD
     math::RollPitchYaw<double> rpy(0., 0., yaw);
     ego_pose.set_rotation(rpy.ToQuaternion());
+=======
+    ego_pose.set_rotation(
+        RollPitchYawToQuaternion(Vector3<double>{0., 0., yaw}));
+>>>>>>> intial
 
     const std::map<AheadOrBehind, const ClosestPose<double>> closest_poses =
         PoseSelector<double>::FindClosestPair(get_lane(ego_pose, *road_),
@@ -741,7 +759,11 @@ GTEST_TEST(PoseSelectorTest, MultiSegmentRoad) {
   }
 }
 
+<<<<<<< HEAD
 // Construct a monolane road with three confluent feeder lanes corresponding to
+=======
+// Construct a monolane road with three confluent feeder lanes correponding to
+>>>>>>> intial
 // three distinct branch points.
 //
 // TODO(jadecastro) Port this to multilane.
@@ -834,6 +856,7 @@ void AddToTrafficPosesAt(int index,
       traffic_xyz.x(), traffic_xyz.y(), traffic_xyz.z());
   isometry.translate(translation_ahead);
 
+<<<<<<< HEAD
   const Rotation traffic_rotation = traffic_lane->GetOrientation(srh);
   Vector3<double> rpy = traffic_rotation.rpy().vector();
   rpy.x() = (traffic_polarity == LanePolarity::kWithS) ? rpy.x() : -rpy.x();
@@ -841,14 +864,31 @@ void AddToTrafficPosesAt(int index,
   rpy.z() -= (traffic_polarity == LanePolarity::kWithS) ? 0. : M_PI;
   const math::RollPitchYaw<double> roll_pitch_yaw(rpy);
   isometry.rotate(roll_pitch_yaw.ToQuaternion());
+=======
+  const Rotation traffic_rotation =
+      traffic_lane->GetOrientation(srh);
+  Vector3<double> rpy = traffic_rotation.rpy();
+  rpy.x() = (traffic_polarity == LanePolarity::kWithS) ? rpy.x() : -rpy.x();
+  rpy.y() = (traffic_polarity == LanePolarity::kWithS) ? rpy.y() : -rpy.y();
+  rpy.z() -= (traffic_polarity == LanePolarity::kWithS) ? 0. : M_PI;
+  isometry.rotate(RollPitchYawToQuaternion(rpy));
+>>>>>>> intial
 
   traffic_poses->set_pose(index, isometry);
 
   FrameVelocity<double> velocity_ahead{};
+<<<<<<< HEAD
   velocity_ahead.get_mutable_value().head(3) = Vector3<double>::Zero();  // ω
   const math::RotationMatrix<double> traffic_rotmat(roll_pitch_yaw);
   velocity_ahead.get_mutable_value().tail(3) =
       traffic_speed * traffic_rotmat.matrix().leftCols(1);               // v
+=======
+  velocity_ahead.get_mutable_value().head(3) =
+      Vector3<double>::Zero();  /* ω */
+  const Eigen::Matrix3d traffic_rotmat = math::rpy2rotmat(rpy);
+  velocity_ahead.get_mutable_value().tail(3) =
+      traffic_speed * traffic_rotmat.leftCols(1);  /* v */
+>>>>>>> intial
   traffic_poses->set_velocity(index, velocity_ahead);
 }
 
@@ -874,6 +914,7 @@ void SetDefaultOnrampPoses(const Lane* ego_lane,
   const double ego_yaw =
       ego_rotation.yaw() - ((ego_polarity == LanePolarity::kWithS) ? 0. : M_PI);
   const Rotation new_rotation = Rotation::FromRpy(ego_roll, ego_pitch, ego_yaw);
+<<<<<<< HEAD
   const math::RollPitchYaw<double> new_rpy(new_rotation.rpy().vector());
   ego_pose->set_rotation(new_rpy.ToQuaternion());
 
@@ -881,6 +922,14 @@ void SetDefaultOnrampPoses(const Lane* ego_lane,
   drake::Vector6<double> velocity{};
   velocity.head(3) = Vector3<double>::Zero();                      // ω
   velocity.tail(3) = ego_speed * ego_rotmat.matrix().leftCols(1);  // v
+=======
+  ego_pose->set_rotation(RollPitchYawToQuaternion(new_rotation.rpy()));
+
+  const Eigen::Matrix3d ego_rotmat = math::rpy2rotmat(new_rotation.rpy());
+  drake::Vector6<double> velocity{};
+  velocity.head(3) = Vector3<double>::Zero();             /* ω */
+  velocity.tail(3) = ego_speed * ego_rotmat.leftCols(1);  /* v */
+>>>>>>> intial
   ego_velocity->set_velocity(multibody::SpatialVelocity<double>(velocity));
 
   // Set the traffic car at s = Lane::length() - 1 in the traffic_lane.

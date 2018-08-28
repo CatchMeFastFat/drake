@@ -182,6 +182,7 @@ class MultipleShooting : public solvers::MathematicalProgram {
     AddFinalCost(e(0, 0));
   }
 
+<<<<<<< HEAD
   typedef std::function<
       void(const Eigen::Ref<const Eigen::VectorXd>& sample_times,
            const Eigen::Ref<const Eigen::MatrixXd>& values)> TrajectoryCallback;
@@ -220,6 +221,8 @@ class MultipleShooting : public solvers::MathematicalProgram {
   solvers::Binding<solvers::VisualizationCallback>
   AddStateTrajectoryCallback(const TrajectoryCallback& callback);
 
+=======
+>>>>>>> intial
   /// Set the initial guess for the trajectory decision variables.
   ///
   /// @param traj_init_u Initial guess for trajectory for control
@@ -244,6 +247,7 @@ class MultipleShooting : public solvers::MathematicalProgram {
       const trajectories::PiecewisePolynomial<double>& traj_init_u,
       const trajectories::PiecewisePolynomial<double>& traj_init_x);
 
+<<<<<<< HEAD
   /// Returns a vector containing the elapsed time at each knot point.
   Eigen::VectorXd GetSampleTimes(
       const Eigen::Ref<const Eigen::VectorXd>& h_var_values) const;
@@ -253,6 +257,11 @@ class MultipleShooting : public solvers::MathematicalProgram {
   Eigen::VectorXd GetSampleTimes() const {
     return GetSampleTimes(this->GetSolution(h_vars_));
   }
+=======
+  /// Returns a vector containing the elapsed time at each knot point at the
+  /// solution.
+  Eigen::VectorXd GetSampleTimes() const;
+>>>>>>> intial
 
   /// Returns a matrix containing the input values (arranged in columns) at
   /// each knot point at the solution.
@@ -262,6 +271,7 @@ class MultipleShooting : public solvers::MathematicalProgram {
   /// each knot point at the solution.
   Eigen::MatrixXd GetStateSamples() const;
 
+<<<<<<< HEAD
   /// Get the input trajectory at the solution as a PiecewisePolynomial.  The
   /// order of the trajectory will be determined by the integrator used in
   /// the dynamic constraints.  Requires that the system has at least one input
@@ -272,6 +282,15 @@ class MultipleShooting : public solvers::MathematicalProgram {
   /// Get the state trajectory at the solution as a PiecewisePolynomial.  The
   /// order of the trajectory will be determined by the integrator used in
   /// the dynamic constraints.
+=======
+  /// Gets the input trajectory at the solution as a
+  /// %PiecewisePolynomialTrajectory%.
+  virtual trajectories::PiecewisePolynomial<double>
+  ReconstructInputTrajectory() const = 0;
+
+  /// Gets the state trajectory at the solution as a
+  /// %PiecewisePolynomialTrajectory%.
+>>>>>>> intial
   virtual trajectories::PiecewisePolynomial<double>
   ReconstructStateTrajectory() const = 0;
 
@@ -341,8 +360,14 @@ class MultipleShooting : public solvers::MathematicalProgram {
   const double fixed_timestep_{0.0};
 
   solvers::VectorXDecisionVariable h_vars_;  // Time deltas between each
+<<<<<<< HEAD
                                              // input/state sample or the empty
                                              // vector (if timesteps are fixed).
+=======
+  // input/state sample or the
+  // empty vector (if timesteps
+  // are fixed).
+>>>>>>> intial
   const solvers::VectorXDecisionVariable x_vars_;
   const solvers::VectorXDecisionVariable u_vars_;
 

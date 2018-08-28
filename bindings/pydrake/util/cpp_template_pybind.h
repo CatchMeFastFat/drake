@@ -71,6 +71,7 @@ inline py::object AddTemplateClass(
   return py_template;
 }
 
+<<<<<<< HEAD
 /// Provides a convenience wrapper for defining a template class instantiation
 /// and a default instantiation (if not already defined).
 /// The default instantiation is named `default_name`, while the template is
@@ -93,6 +94,8 @@ py::class_<Class, Options...> DefineTemplateClassWithDefault(
   return py_class;
 }
 
+=======
+>>>>>>> intial
 /// Declares a template function.
 /// @param scope Parent scope of the template.
 /// @param name Name of the template.

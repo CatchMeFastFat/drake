@@ -39,7 +39,11 @@ GTEST_TEST(PositionConstraintForceEvaluatorTest, TestEval) {
   // Test Eval
   const auto tx = math::initializeAutoDiff(x);
   AutoDiffVecXd ty;
+<<<<<<< HEAD
   evaluator.Eval(tx, &ty);
+=======
+  evaluator.Eval(tx, ty);
+>>>>>>> intial
   EXPECT_EQ(ty.rows(), tree->get_num_velocities());
   KinematicsCache<double> kinsol = tree->CreateKinematicsCache();
   kinsol.initialize(q);

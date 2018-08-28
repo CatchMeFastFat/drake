@@ -2,9 +2,15 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load("//tools/install:install_data.bzl", "install_data")
 load("//tools/lint:lint.bzl", "add_lint_tests")
@@ -130,6 +136,7 @@ drake_cc_binary(
     ],
 )
 
+<<<<<<< HEAD
 drake_cc_binary(
     name = "pendulum_parameters_derivatives",
     srcs = ["pendulum_parameters_derivatives.cc"],
@@ -140,6 +147,8 @@ drake_cc_binary(
     ],
 )
 
+=======
+>>>>>>> intial
 # === test/ ===
 
 drake_cc_googletest(

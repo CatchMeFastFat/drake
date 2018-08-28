@@ -61,3 +61,11 @@ xcode
 .cproject
 .project
 .settings
+<<<<<<< HEAD
+=======
+/build/
+/underactuated/
+/cling_2018-04-11_ubuntu16/
+/draft/
+/drake-shambhala-master/
+>>>>>>> intial

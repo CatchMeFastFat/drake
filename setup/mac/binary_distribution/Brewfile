@@ -1,13 +1,20 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+<<<<<<< HEAD
+=======
+tap 'caskroom/versions'
+>>>>>>> intial
 tap 'dreal/dreal'
 tap 'robotlocomotion/director'
 
 brew 'boost'
 brew 'cmake'
 brew 'dreal'
+<<<<<<< HEAD
 brew 'gcc'
+=======
+>>>>>>> intial
 brew 'gflags'
 brew 'glew'
 brew 'glib'
@@ -21,9 +28,16 @@ brew 'python@2'
 brew 'scipy'
 brew 'tinyxml'
 brew 'tinyxml2'
+<<<<<<< HEAD
 brew 'vtk@8.1'
 brew 'yaml-cpp'
 
 cask 'java' unless system '/usr/libexec/java_home --version 1.8+ --failfast &> /dev/null'
+=======
+brew 'vtk@8.0'
+brew 'yaml-cpp'
+
+cask 'java8' unless system '/usr/libexec/java_home --version 1.8 --failfast &> /dev/null'
+>>>>>>> intial
 
 mas 'Xcode', id: 497799835 unless File.exist? '/Applications/Xcode.app'

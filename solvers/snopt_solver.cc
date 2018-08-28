@@ -254,7 +254,11 @@ void EvaluateSingleNonlinearConstraint(const C& constraint,
                                        const Eigen::VectorXd& this_x,
                                        AutoDiffVecXd* ty) {
   ty->resize(SingleNonlinearConstraintSize(constraint));
+<<<<<<< HEAD
   constraint.Eval(math::initializeAutoDiff(this_x), ty);
+=======
+  constraint.Eval(math::initializeAutoDiff(this_x), *ty);
+>>>>>>> intial
 }
 
 template <>
@@ -352,7 +356,11 @@ void EvaluateAllCosts(const MathematicalProgram& prog,
       this_x(j) = xvec(prog.FindDecisionVariableIndex(binding.variables()(j)));
     }
 
+<<<<<<< HEAD
     obj->Eval(math::initializeAutoDiff(this_x), &ty);
+=======
+    obj->Eval(math::initializeAutoDiff(this_x), ty);
+>>>>>>> intial
 
     F[0] += static_cast<snopt::doublereal>(ty(0).value());
 

@@ -1,7 +1,10 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(":fortran.bzl", "fortran_library")
 
+=======
+>>>>>>> intial
 licenses(["by_exception_only"])  # SNOPT
 
 # In some versions of SNOPT, this header provides the function declarations to
@@ -158,6 +161,7 @@ cc_library(
     strip_include_prefix = _LIBF2C,
     visibility = ["//visibility:public"],
 )
+<<<<<<< HEAD
 
 # -----------------------------------------------------------------------------
 # What follows are build rules for the native Fortran version of SNOPT, not
@@ -216,3 +220,5 @@ cc_library(
     # Always link the entirety of SNOPT.
     alwayslink = 1,
 )
+=======
+>>>>>>> intial

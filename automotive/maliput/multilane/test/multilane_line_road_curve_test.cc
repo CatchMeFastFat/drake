@@ -20,24 +20,31 @@ class MultilaneLineRoadCurveTest : public ::testing::Test {
   const Vector2<double> kOrigin{10.0, 10.0};
   const Vector2<double> kDirection{10.0, 10.0};
   const CubicPolynomial zp;
+<<<<<<< HEAD
   const double kZeroTolerance{0.};
   const double kLinearTolerance{0.01};
   const double kZeroScaleLength{0.};
   const double kScaleLength{1.};
   const ComputationPolicy kComputationPolicy{
     ComputationPolicy::kPreferAccuracy};
+=======
+>>>>>>> intial
   const double kHeading{M_PI / 4.0};
   const double kHeadingDerivative{0.0};
   const double kVeryExact{1e-12};
   const double kRMin{-10.0};
   const double kRMax{10.0};
   const api::HBounds elevation_bounds{0.0, 10.0};
+<<<<<<< HEAD
   const double kR0Offset{0.0};
   const double kROffset{5.0};
+=======
+>>>>>>> intial
 };
 
 // Checks line reference curve interpolations, derivatives, and lengths.
 TEST_F(MultilaneLineRoadCurveTest, LineRoadCurve) {
+<<<<<<< HEAD
   const LineRoadCurve dut(kOrigin, kDirection, zp, zp, kLinearTolerance,
                           kScaleLength, kComputationPolicy);
   // Checks curve length computations.
@@ -64,6 +71,14 @@ TEST_F(MultilaneLineRoadCurveTest, LineRoadCurve) {
   EXPECT_THROW(s_from_p_at_r0(2.), std::runtime_error);
   EXPECT_THROW(p_from_s_at_r0(2. * offset_line_length), std::runtime_error);
 
+=======
+  const LineRoadCurve dut(kOrigin, kDirection, zp, zp);
+  // Checks the length.
+  EXPECT_NEAR(dut.p_scale(),
+              std::sqrt(kDirection.x() * kDirection.x() +
+                        kDirection.y() * kDirection.y()),
+              kVeryExact);
+>>>>>>> intial
   // Check the evaluation of xy at different p values.
   EXPECT_TRUE(
       CompareMatrices(dut.xy_of_p(0.0), kOrigin, kVeryExact));
@@ -88,6 +103,7 @@ TEST_F(MultilaneLineRoadCurveTest, LineRoadCurve) {
   EXPECT_NEAR(dut.heading_dot_of_p(1.0), kHeadingDerivative, kVeryExact);
 }
 
+<<<<<<< HEAD
 
 // Checks LineRoadCurve constructor constraints.
 TEST_F(MultilaneLineRoadCurveTest, ConstructorTest) {
@@ -115,14 +131,23 @@ TEST_F(MultilaneLineRoadCurveTest, ConstructorTest) {
 TEST_F(MultilaneLineRoadCurveTest, IsValidTest) {
   const LineRoadCurve dut(kOrigin, kDirection, zp, zp, kLinearTolerance,
                           kScaleLength, kComputationPolicy);
+=======
+// Checks that LineRoadCurve::IsValid() returns true.
+TEST_F(MultilaneLineRoadCurveTest, IsValidTest) {
+  const LineRoadCurve dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   EXPECT_TRUE(dut.IsValid(kRMin, kRMax, elevation_bounds));
 }
 
 // Checks the validity of the surface for different lateral bounds and
 // geometries.
 TEST_F(MultilaneLineRoadCurveTest, ToCurveFrameTest) {
+<<<<<<< HEAD
   const LineRoadCurve dut(kOrigin, kDirection, zp, zp, kLinearTolerance,
                           kScaleLength, kComputationPolicy);
+=======
+  const LineRoadCurve dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   // Checks over the base line.
   EXPECT_TRUE(CompareMatrices(
       dut.ToCurveFrame(Vector3<double>(10.0, 10.0, 0.0), kRMin, kRMax,
@@ -154,6 +179,7 @@ TEST_F(MultilaneLineRoadCurveTest, OffsetTest) {
   const std::vector<double> p_vector{0., 0.1, 0.2, 0.5, 0.7, 1.0};
 
   // Checks for flat LineRoadCurve.
+<<<<<<< HEAD
   const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp, kLinearTolerance,
                                kScaleLength, kComputationPolicy);
   EXPECT_DOUBLE_EQ(flat_dut.p_scale(), kDirection.norm());
@@ -163,27 +189,45 @@ TEST_F(MultilaneLineRoadCurveTest, OffsetTest) {
         flat_dut.OptimizeCalcPFromS(r);
     for (double p : p_vector) {
       EXPECT_DOUBLE_EQ(p_from_s_at_r(p * kDirection.norm()), p);
+=======
+  const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp);
+  EXPECT_DOUBLE_EQ(flat_dut.p_scale(), kDirection.norm());
+  // Evaluates inverse function for different path length and offset values.
+  for (double r : r_vector) {
+    for (double p : p_vector) {
+      EXPECT_DOUBLE_EQ(flat_dut.p_from_s(p * kDirection.norm(), r), p);
+>>>>>>> intial
     }
   }
   // Evaluates the path length integral for different offset values.
   for (double r : r_vector) {
+<<<<<<< HEAD
     std::function<double(double)> s_from_p_at_r =
         flat_dut.OptimizeCalcSFromP(r);
     for (double p : p_vector) {
       EXPECT_DOUBLE_EQ(s_from_p_at_r(p), p * kDirection.norm());
+=======
+    for (double p : p_vector) {
+      EXPECT_DOUBLE_EQ(flat_dut.s_from_p(p, r), p * kDirection.norm());
+>>>>>>> intial
     }
   }
 
   // Checks for linear elevation applied to the LineRoadCurve.
   const double slope = 10. / kDirection.norm();
   const CubicPolynomial linear_elevation(10., slope, 0., 0.);
+<<<<<<< HEAD
   const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp,
                                    kLinearTolerance, kScaleLength,
                                    kComputationPolicy);
+=======
+  const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp);
+>>>>>>> intial
   EXPECT_DOUBLE_EQ(elevated_dut.p_scale(), kDirection.norm());
   // Evaluates inverse function and path length integral for different values of
   // p and r lateral offsets.
   for (double r : r_vector) {
+<<<<<<< HEAD
     std::function<double(double)> s_from_p_at_r =
         elevated_dut.OptimizeCalcSFromP(r);
     std::function<double(double)> p_from_s_at_r =
@@ -192,6 +236,12 @@ TEST_F(MultilaneLineRoadCurveTest, OffsetTest) {
       const double s = p * kDirection.norm() * std::sqrt(1. + slope * slope);
       EXPECT_DOUBLE_EQ(p_from_s_at_r(s), p);
       EXPECT_DOUBLE_EQ(s_from_p_at_r(p), s);
+=======
+    for (double p : p_vector) {
+      const double s = p * kDirection.norm() * std::sqrt(1. + slope * slope);
+      EXPECT_DOUBLE_EQ(elevated_dut.p_from_s(s, r), p);
+      EXPECT_DOUBLE_EQ(elevated_dut.s_from_p(p, r), s);
+>>>>>>> intial
     }
   }
 }
@@ -203,9 +253,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunction) {
   const std::vector<double> h_vector{-5., 0., 5.};
 
   // Checks for a flat curve.
+<<<<<<< HEAD
   const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp,
                                kLinearTolerance, kScaleLength,
                                kComputationPolicy);
+=======
+  const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   const Vector3<double> p_versor =
       Vector3<double>(kDirection.x(), kDirection.y(), 0.).normalized();
   const Rot3 flat_rotation(0., 0., kHeading);
@@ -227,9 +281,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunction) {
   const double kElevationOffset = 10. / kDirection.norm();
   const CubicPolynomial linear_elevation(kElevationOffset, kElevationSlope, 0.,
                                          0.);
+<<<<<<< HEAD
   const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp,
                                    kLinearTolerance, kScaleLength,
                                    kComputationPolicy);
+=======
+  const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp);
+>>>>>>> intial
   // Computes the rotation along the RoadCurve.
   const Rot3 elevated_rotation(0., -std::atan(linear_elevation.f_dot_p(0.)),
                                kHeading);
@@ -252,9 +310,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunction) {
   const CubicPolynomial constant_offset_superelevation(
       kSuperelevationOffset / kDirection.norm(), 0., 0., 0.);
   const LineRoadCurve superelevated_dut(kOrigin, kDirection, zp,
+<<<<<<< HEAD
                                         constant_offset_superelevation,
                                         kLinearTolerance, kScaleLength,
                                         kComputationPolicy);
+=======
+                                        constant_offset_superelevation);
+>>>>>>> intial
   const Rot3 superelevated_rotation(kSuperelevationOffset, 0., kHeading);
   for (double p : p_vector) {
     for (double r : r_vector) {
@@ -296,9 +358,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunctionDerivative) {
   };
 
   // Checks for a flat curve.
+<<<<<<< HEAD
   const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp,
                                kLinearTolerance, kScaleLength,
                                kComputationPolicy);
+=======
+  const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   for (double p : p_vector) {
     for (double r : r_vector) {
       for (double h : h_vector) {
@@ -321,9 +387,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunctionDerivative) {
   const double kElevationOffset = 10. / kDirection.norm();
   const CubicPolynomial linear_elevation(kElevationOffset, kElevationSlope, 0.,
                                          0.);
+<<<<<<< HEAD
   const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp,
                                    kLinearTolerance, kScaleLength,
                                    kComputationPolicy);
+=======
+  const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp);
+>>>>>>> intial
   // Computes the rotation along the RoadCurve.
   for (double p : p_vector) {
     for (double r : r_vector) {
@@ -347,9 +417,13 @@ TEST_F(MultilaneLineRoadCurveTest, WorldFunctionDerivative) {
   const CubicPolynomial constant_offset_superelevation(
       kSuperelevationOffset / kDirection.norm(), 0., 0., 0.);
   const LineRoadCurve superelevated_dut(kOrigin, kDirection, zp,
+<<<<<<< HEAD
                                         constant_offset_superelevation,
                                         kLinearTolerance, kScaleLength,
                                         kComputationPolicy);
+=======
+                                        constant_offset_superelevation);
+>>>>>>> intial
   for (double p : p_vector) {
     for (double r : r_vector) {
       for (double h : h_vector) {
@@ -373,9 +447,13 @@ TEST_F(MultilaneLineRoadCurveTest, ReferenceCurveRotation) {
   const std::vector<double> p_vector{0., 0.1, 0.2, 0.5, 0.7, 1.0};
 
   // Checks for a flat curve.
+<<<<<<< HEAD
   const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp,
                                kLinearTolerance, kScaleLength,
                                kComputationPolicy);
+=======
+  const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   const double kZeroRoll{0.};
   const double kZeroPitch{0.};
   const Vector3<double> kFlatRDirection{-10., 10., 0.};
@@ -394,9 +472,13 @@ TEST_F(MultilaneLineRoadCurveTest, ReferenceCurveRotation) {
   const double kElevationOffset = 10. / kDirection.norm();
   const CubicPolynomial linear_elevation(kElevationOffset, kElevationSlope, 0.,
                                          0.);
+<<<<<<< HEAD
   const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp,
                                    kLinearTolerance, kScaleLength,
                                    kComputationPolicy);
+=======
+  const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp);
+>>>>>>> intial
   const double kLinearPitch{-std::atan(linear_elevation.f_dot_p(0.))};
   const Vector3<double> kElevatedRDirection{-10., 10., 0.};
   for (double p : p_vector) {
@@ -414,9 +496,13 @@ TEST_F(MultilaneLineRoadCurveTest, ReferenceCurveRotation) {
   const CubicPolynomial constant_offset_superelevation(
       kSuperelevationOffset / kDirection.norm(), 0., 0., 0.);
   const LineRoadCurve superelevated_dut(kOrigin, kDirection, zp,
+<<<<<<< HEAD
                                         constant_offset_superelevation,
                                         kLinearTolerance, kScaleLength,
                                         kComputationPolicy);
+=======
+                                        constant_offset_superelevation);
+>>>>>>> intial
   const Vector3<double> kSuperelevatedRDirection{
     -10., 10., 10. * std::sqrt(2.)};
   for (double p : p_vector) {
@@ -437,9 +523,13 @@ TEST_F(MultilaneLineRoadCurveTest, Orientation) {
   const std::vector<double> h_vector{-5., 0., 5.};
 
   // Checks for a flat curve.
+<<<<<<< HEAD
   const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp,
                                kLinearTolerance, kScaleLength,
                                kComputationPolicy);
+=======
+  const LineRoadCurve flat_dut(kOrigin, kDirection, zp, zp);
+>>>>>>> intial
   const double kZeroRoll{0.};
   const double kZeroPitch{0.};
   for (double p : p_vector) {
@@ -458,9 +548,13 @@ TEST_F(MultilaneLineRoadCurveTest, Orientation) {
   const double kElevationOffset = 10. / kDirection.norm();
   const CubicPolynomial linear_elevation(kElevationOffset, kElevationSlope, 0.,
                                          0.);
+<<<<<<< HEAD
   const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp,
                                    kLinearTolerance, kScaleLength,
                                    kComputationPolicy);
+=======
+  const LineRoadCurve elevated_dut(kOrigin, kDirection, linear_elevation, zp);
+>>>>>>> intial
   const double kLinearPitch{-std::atan(linear_elevation.f_dot_p(0.))};
   for (double p : p_vector) {
     for (double r : r_vector) {
@@ -478,9 +572,13 @@ TEST_F(MultilaneLineRoadCurveTest, Orientation) {
   const CubicPolynomial constant_offset_superelevation(
       kSuperelevationOffset / kDirection.norm(), 0., 0., 0.);
   const LineRoadCurve superelevated_dut(kOrigin, kDirection, zp,
+<<<<<<< HEAD
                                         constant_offset_superelevation,
                                         kLinearTolerance, kScaleLength,
                                         kComputationPolicy);
+=======
+                                        constant_offset_superelevation);
+>>>>>>> intial
   for (double p : p_vector) {
     for (double r : r_vector) {
       for (double h : h_vector) {

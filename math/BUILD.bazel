@@ -1,15 +1,20 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "math",
     deps = [
@@ -33,6 +38,8 @@ drake_cc_package_library(
     ],
 )
 
+=======
+>>>>>>> intial
 drake_cc_library(
     name = "autodiff",
     srcs = ["autodiff.cc"],
@@ -80,13 +87,20 @@ drake_cc_library(
     srcs = [
         "quaternion.cc",
         "random_rotation.cc",
+<<<<<<< HEAD
         "rigid_transform.cc",
         "roll_pitch_yaw.cc",
         "rotation_matrix.cc",
+=======
+        "roll_pitch_yaw.cc",
+        "rotation_matrix.cc",
+        "transform.cc",
+>>>>>>> intial
     ],
     hdrs = [
         "quaternion.h",
         "random_rotation.h",
+<<<<<<< HEAD
         "rigid_transform.h",
         "roll_pitch_yaw.h",
         "rotation_matrix.h",
@@ -97,6 +111,20 @@ drake_cc_library(
         "//common:drake_bool",
         "//common:essential",
         "//common:is_approx_equal_abstol",
+=======
+        "roll_pitch_yaw.h",
+        "roll_pitch_yaw_not_using_quaternion.h",
+        "roll_pitch_yaw_using_quaternion.h",
+        "rotation_matrix.h",
+        "rotation_matrix_deprecated.h",
+        "transform.h",
+    ],
+    deps = [
+        "//common:default_scalars",
+        "//common:essential",
+        "//common:is_approx_equal_abstol",
+        "@fmt",
+>>>>>>> intial
     ],
 )
 
@@ -149,6 +177,10 @@ drake_cc_library(
     hdrs = ["matrix_util.h"],
     deps = [
         "//common:essential",
+<<<<<<< HEAD
+=======
+        "//common:number_traits",
+>>>>>>> intial
     ],
 )
 
@@ -367,14 +399,24 @@ drake_cc_googletest(
 drake_cc_googletest(
     name = "quaternion_test",
     deps = [
+<<<<<<< HEAD
         ":autodiff",
         ":geometric_transform",
         "//common/test_utilities:eigen_matrix_compare",
+=======
+        ":geometric_transform",
+        "//common/test_utilities:eigen_matrix_compare",
+        "//math:autodiff",
+>>>>>>> intial
     ],
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "roll_pitch_yaw_test",
+=======
+    name = "rotation_matrix_test",
+>>>>>>> intial
     deps = [
         ":geometric_transform",
         "//common/test_utilities",
@@ -382,10 +424,17 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "rotation_matrix_test",
     deps = [
         ":geometric_transform",
         "//common/test_utilities",
+=======
+    name = "rotation_matrix_deprecated_test",
+    deps = [
+        ":geometric_transform",
+        "//common/test_utilities:eigen_matrix_compare",
+>>>>>>> intial
     ],
 )
 
@@ -408,7 +457,11 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
+<<<<<<< HEAD
     name = "rigid_transform_test",
+=======
+    name = "transform_test",
+>>>>>>> intial
     deps = [
         ":geometric_transform",
     ],

@@ -26,12 +26,18 @@ Arguments:
                     headers are to be found.
 """
 
+<<<<<<< HEAD
 load("@drake//tools/workspace:execute.bzl", "which")
 
 def _impl(repository_ctx):
     python = which(repository_ctx, "python{}".format(
         repository_ctx.attr.python_version,
     ))
+=======
+def _impl(repository_ctx):
+    python = repository_ctx.which("python{}".format(
+        repository_ctx.attr.python_version))
+>>>>>>> intial
 
     if not python:
         fail("Could NOT find python{}".format(repository_ctx.attr.version))
@@ -70,11 +76,16 @@ cc_library(
 )
     """
 
+<<<<<<< HEAD
     repository_ctx.file(
         "BUILD.bazel",
         content = file_content,
         executable = False,
     )
+=======
+    repository_ctx.file("BUILD.bazel", content = file_content,
+                        executable = False)
+>>>>>>> intial
 
 numpy_repository = repository_rule(
     _impl,

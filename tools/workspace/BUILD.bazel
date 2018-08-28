@@ -30,7 +30,10 @@ _DRAKE_EXTERNAL_PACKAGE_INSTALLS = ["@%s//:install" % p for p in [
     "octomap",
     "osqp",
     "pybind11",
+<<<<<<< HEAD
     "qdldl",
+=======
+>>>>>>> intial
     "scs",
     "sdformat",
     "spdlog",

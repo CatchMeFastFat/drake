@@ -6,7 +6,10 @@
 #include <vector>
 
 #include "drake/common/drake_copyable.h"
+<<<<<<< HEAD
 #include "drake/common/drake_optional.h"
+=======
+>>>>>>> intial
 #include "drake/lcm/drake_lcm_interface.h"
 #include "drake/lcm/drake_lcm_message_handler_interface.h"
 

@@ -4,7 +4,10 @@
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/common/trajectories/piecewise_polynomial.h"
+<<<<<<< HEAD
 #include "drake/common/trajectories/trajectory.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace pydrake {
@@ -15,9 +18,13 @@ PYBIND11_MODULE(trajectories, m) {
 
   using T = double;
 
+<<<<<<< HEAD
   py::class_<Trajectory<T>>(m, "Trajectory");
 
   py::class_<PiecewiseTrajectory<T>, Trajectory<T>>(m, "PiecewiseTrajectory")
+=======
+  py::class_<PiecewiseTrajectory<T>>(m, "PiecewiseTrajectory")
+>>>>>>> intial
       .def("get_number_of_segments",
            &PiecewiseTrajectory<T>::get_number_of_segments)
       .def("start_time", overload_cast_explicit<double, int>(
@@ -64,6 +71,7 @@ PYBIND11_MODULE(trajectories, m) {
                   py::arg("breaks"), py::arg("knots"), py::arg("knots_dot"))
       .def_static("Cubic",
                   py::overload_cast<const Eigen::Ref<const Eigen::VectorXd>&,
+<<<<<<< HEAD
                                     const Eigen::Ref<const MatrixX<T>>&,
                                     bool>(
                       &PiecewisePolynomial<T>::Cubic),
@@ -76,6 +84,14 @@ PYBIND11_MODULE(trajectories, m) {
            py::arg("start_segment_index"), py::arg("num_segments"))
       .def("shiftRight", &PiecewisePolynomial<T>::shiftRight,
            py::arg("offset"));
+=======
+                                    const Eigen::Ref<const MatrixX<T>>&>(
+                      &PiecewisePolynomial<T>::Cubic),
+                  py::arg("breaks"), py::arg("knots"))
+      .def("value", &PiecewisePolynomial<T>::value)
+      .def("rows", &PiecewisePolynomial<T>::rows)
+      .def("cols", &PiecewisePolynomial<T>::cols);
+>>>>>>> intial
 }
 
 }  // namespace pydrake

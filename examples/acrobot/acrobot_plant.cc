@@ -209,7 +209,11 @@ std::unique_ptr<systems::AffineSystem<double>> BalancingLQRController(
 }  // namespace examples
 }  // namespace drake
 
+<<<<<<< HEAD
 DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS(
+=======
+DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_NONSYMBOLIC_SCALARS(
+>>>>>>> intial
     class ::drake::examples::acrobot::AcrobotPlant)
 
 DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_NONSYMBOLIC_SCALARS(

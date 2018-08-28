@@ -41,7 +41,11 @@ struct LogarithmicSos2NewBinaryVariables<Eigen::Dynamic> {
  * <pre>
  *   λ(0) + ... + λ(n) = 1
  *   ∀i. λ(i) ≥ 0
+<<<<<<< HEAD
  *   ∃ j ∈ {0, 1, ..., n-1}, s.t λ(i) = 0 if i ≠ j and i ≠ j + 1 
+=======
+ *   ∃ j ∈ {0, 1, ..., n-1}, s.t λ(j) + λ(j + 1) = 1
+>>>>>>> intial
  * </pre>
  * Namely at most two entries in λ can be strictly positive, and these two
  * entries have to be adjacent. All other λ should be zero. Moreover, the
@@ -148,6 +152,7 @@ enum class IntervalBinning {
   kLinear
 };
 
+<<<<<<< HEAD
 std::string to_string(IntervalBinning interval_binning);
 
 std::ostream& operator<<(std::ostream& os, const IntervalBinning& binning);
@@ -172,6 +177,16 @@ std::ostream& operator<<(std::ostream& os, const IntervalBinning& binning);
  * the bilinear product x * y with w, such that (x, y, w) is in one of the
  * tetrahedrons.
  *
+=======
+/**
+ * Constrain `w` to approximate the bilinear product x * y. We know
+ * that x is in one of the intervals [φx(i), φx(i+1)], y is in one of the
+ * intervals [φy(j), φy(j+1)]. The variable `w` is constrained to be in the
+ * convex hull of x * y for x in [φx(i), φx(i+1)], y in [φy(j), φy(j+1)], namely
+ * (x, y, w) is in the tetrahedron, with vertices [φx(i), φy(j), φx(i)*φy(j)],
+ * [φx(i+1), φy(j), φx(i+1)*φy(j)], [φx(i), φy(j+1), φx(i)*φy(j+1)] and
+ * [φx(i+1), φy(j+1), φx(i+1)*φy(j+1)]
+>>>>>>> intial
  * We use two different encoding schemes on the binary variables, to determine
  * which interval is active. We can choose either linear or logarithmic binning.
  * When using linear binning, for a variable with N intervals, we
@@ -192,6 +207,7 @@ std::ostream& operator<<(std::ostream& os, const IntervalBinning& binning);
  * @param binning Determine whether to use linear binning or
  * logarithmic binning.
  * @return lambda The auxiliary continuous variables.
+<<<<<<< HEAD
  *
  * The constraints we impose are
  * ```
@@ -210,6 +226,15 @@ std::ostream& operator<<(std::ostream& os, const IntervalBinning& binning);
  * Bx(i) ∈ {0, 1}, By(j) ∈ {0, 1}
  * in this function. It is the user's responsibility to ensure that these
  * constraints are enforced.
+=======
+ * x = φxᵀ * (λ.rowwise().sum())
+ * y = φyᵀ * (λ.colwise().sum())
+ * w = sum_{i, j} φx(i) * φy(j) * λ(i, j)
+ * Both λ.rowwise().sum() and λ.colwise().sum() satisfy SOS2 constraint.
+ * If x ∈ [φx(M), φx(M+1)] and y ∈ [φy(N), φy(N+1)], then only λ(M, N),
+ * λ(M + 1, N), λ(M, N + 1) and λ(M+1, N+1) can be strictly positive, all other
+ * λ(i, j) are zero.
+>>>>>>> intial
  */
 template <typename DerivedPhiX, typename DerivedPhiY, typename DerivedBx,
     typename DerivedBy>
@@ -283,6 +308,7 @@ AddBilinearProductMcCormickEnvelopeSos2(
   return lambda;
 }
 
+<<<<<<< HEAD
 /**
  * Add constraints to the optimization program, such that the bilinear product
  * x * y is approximated by w, using Mixed Integer constraint with "Multiple
@@ -382,5 +408,7 @@ void AddBilinearProductMcCormickEnvelopeMultipleChoice(
     const Eigen::Ref<const VectorX<symbolic::Expression>>& Bx,
     const Eigen::Ref<const VectorX<symbolic::Expression>>& By);
 
+=======
+>>>>>>> intial
 }  // namespace solvers
 }  // namespace drake

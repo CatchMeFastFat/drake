@@ -16,6 +16,7 @@ namespace drake {
 namespace maliput {
 namespace multilane {
 
+<<<<<<< HEAD
 std::ostream& operator<<(std::ostream& out,
                          const StartReference::Spec& start_spec) {
   return out << "(endpoint: " << start_spec.endpoint() << ")";
@@ -53,11 +54,20 @@ Builder::Builder(double lane_width, const api::HBounds& elevation_bounds,
       angular_tolerance_(angular_tolerance),
       scale_length_(scale_length),
       computation_policy_(computation_policy) {
+=======
+Builder::Builder(double lane_width, const api::HBounds& elevation_bounds,
+                 double linear_tolerance, double angular_tolerance)
+    : lane_width_(lane_width),
+      elevation_bounds_(elevation_bounds),
+      linear_tolerance_(linear_tolerance),
+      angular_tolerance_(angular_tolerance) {
+>>>>>>> intial
   DRAKE_DEMAND(lane_width_ >= 0.);
   DRAKE_DEMAND(linear_tolerance_ >= 0.);
   DRAKE_DEMAND(angular_tolerance_ >= 0.);
 }
 
+<<<<<<< HEAD
 namespace {
 // Let theta_dot_A, z_dot_A, K_A be the rate of change in superelevation with
 // respect to arc length of the reference path, grade (rate of change of
@@ -272,6 +282,26 @@ const Connection* Builder::Connect(const std::string& id,
           static_cast<double>(lane_layout.ref_lane()) * lane_width_,
       lane_width_, lane_layout.left_shoulder(), lane_layout.right_shoulder(),
       arc_offset, linear_tolerance_, scale_length_, computation_policy_));
+=======
+const Connection* Builder::Connect(const std::string& id, int num_lanes,
+                                   double r0, double left_shoulder,
+                                   double right_shoulder, const Endpoint& start,
+                                   double length, const EndpointZ& z_end) {
+  connections_.push_back(
+      std::make_unique<Connection>(id, start, z_end, num_lanes, r0, lane_width_,
+                                   left_shoulder, right_shoulder, length));
+  return connections_.back().get();
+}
+
+const Connection* Builder::Connect(const std::string& id, int num_lanes,
+                                   double r0, double left_shoulder,
+                                   double right_shoulder, const Endpoint& start,
+                                   const ArcOffset& arc,
+                                   const EndpointZ& z_end) {
+  connections_.push_back(
+      std::make_unique<Connection>(id, start, z_end, num_lanes, r0, lane_width_,
+                                   left_shoulder, right_shoulder, arc));
+>>>>>>> intial
   return connections_.back().get();
 }
 

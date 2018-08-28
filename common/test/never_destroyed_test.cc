@@ -9,10 +9,18 @@
 namespace drake {
 namespace {
 
+<<<<<<< HEAD
+=======
+namespace {
+>>>>>>> intial
 class Boom : public std::exception { };
 struct DtorGoesBoom {
   ~DtorGoesBoom() noexcept(false) { throw Boom(); }
 };
+<<<<<<< HEAD
+=======
+}
+>>>>>>> intial
 
 // Confirm that we see booms by default.
 GTEST_TEST(NeverDestroyedTest, BoomTest) {

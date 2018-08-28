@@ -1,15 +1,20 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "joints",
     deps = [
@@ -19,6 +24,10 @@ drake_cc_package_library(
 
 drake_cc_library(
     name = "everything",
+=======
+drake_cc_library(
+    name = "joints",
+>>>>>>> intial
     srcs = [
         "drake_joint.cc",
         "fixed_joint.cc",
@@ -43,7 +52,10 @@ drake_cc_library(
         "revolute_joint.h",
         "roll_pitch_yaw_floating_joint.h",
     ],
+<<<<<<< HEAD
     visibility = ["//visibility:private"],
+=======
+>>>>>>> intial
     deps = [
         "//common:essential",
         "//common:unused",
@@ -71,7 +83,10 @@ drake_cc_googletest(
     name = "joint_test",
     deps = [
         ":joint_compare_to_clone",
+<<<<<<< HEAD
         "//common/test_utilities:eigen_matrix_compare",
+=======
+>>>>>>> intial
     ],
 )
 

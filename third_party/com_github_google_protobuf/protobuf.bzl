@@ -102,7 +102,11 @@ def _proto_gen_impl(ctx):
     inputs += [plugin]
 
   if args:
+<<<<<<< HEAD
     ctx.actions.run(
+=======
+    ctx.action(
+>>>>>>> intial
         inputs=inputs,
         outputs=ctx.outputs.outs,
         arguments=args + import_flags + [s.path for s in srcs],

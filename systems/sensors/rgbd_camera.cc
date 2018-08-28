@@ -5,7 +5,11 @@
 
 #include <Eigen/Dense>
 
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 #include "drake/systems/framework/diagram_builder.h"
 #include "drake/systems/primitives/zero_order_hold.h"
 #include "drake/systems/rendering/pose_vector.h"
@@ -17,8 +21,21 @@ namespace drake {
 namespace systems {
 namespace sensors {
 
+<<<<<<< HEAD
 // Note that if `depth_image` holds any pixels that have NaN, the converted
 // points will also become NaN.
+=======
+namespace {
+
+// TODO(kunimatsu-tri) Add support for the arbitrary image size
+constexpr int kImageWidth = 640;  // In pixels
+constexpr int kImageHeight = 480;  // In pixels
+
+}  // namespace
+
+// Note that if `depth_image` holds any pixels that have NaN, the converted
+// points will aslo become NaN.
+>>>>>>> intial
 void RgbdCamera::ConvertDepthImageToPointCloud(const ImageDepth32F& depth_image,
                                                const CameraInfo& camera_info,
                                                Eigen::Matrix3Xf* point_cloud) {
@@ -53,6 +70,7 @@ RgbdCamera::RgbdCamera(const std::string& name,
                        const RigidBodyTree<double>& tree,
                        const Eigen::Vector3d& position,
                        const Eigen::Vector3d& orientation, double z_near,
+<<<<<<< HEAD
                        double z_far, double fov_y, bool show_window,
                        int width, int height, bool flat_terrain)
     : tree_(tree),
@@ -72,11 +90,29 @@ RgbdCamera::RgbdCamera(const std::string& name,
                                 .ToMatrix3ViaRotationMatrix()) * X_BC_)) {
   InitPorts(name);
   InitRenderer();
+=======
+                       double z_far, double fov_y, bool show_window)
+    : tree_(tree),
+      frame_(RigidBodyFrame<double>()),
+      camera_fixed_(true),
+      color_camera_info_(kImageWidth, kImageHeight, fov_y),
+      depth_camera_info_(kImageWidth, kImageHeight, fov_y),
+      X_WB_initial_(
+          Eigen::Translation3d(position[0], position[1], position[2]) *
+          Eigen::Isometry3d(math::rpy2rotmat(orientation))),
+      renderer_(new RgbdRendererVTK(
+          RenderingConfig{kImageWidth, kImageHeight, fov_y, z_near, z_far,
+                          show_window},
+          Eigen::Translation3d(position[0], position[1], position[2]) *
+              Eigen::Isometry3d(math::rpy2rotmat(orientation)) * X_BC_)) {
+  Init(name);
+>>>>>>> intial
 }
 
 RgbdCamera::RgbdCamera(const std::string& name,
                        const RigidBodyTree<double>& tree,
                        const RigidBodyFrame<double>& frame, double z_near,
+<<<<<<< HEAD
                        double z_far, double fov_y, bool show_window,
                        int width, int height, bool flat_terrain)
     : tree_(tree),
@@ -135,12 +171,29 @@ RgbdCamera::RgbdCamera(const std::string& name,
 }
 
 void RgbdCamera::InitPorts(const std::string& name) {
+=======
+                       double z_far, double fov_y, bool show_window)
+    : tree_(tree),
+      frame_(frame),
+      camera_fixed_(false),
+      color_camera_info_(kImageWidth, kImageHeight, fov_y),
+      depth_camera_info_(kImageWidth, kImageHeight, fov_y),
+      renderer_(
+          new RgbdRendererVTK(RenderingConfig{kImageWidth, kImageHeight, fov_y,
+                                              z_near, z_far, show_window},
+                              Eigen::Isometry3d::Identity())) {
+  Init(name);
+}
+
+void RgbdCamera::Init(const std::string& name) {
+>>>>>>> intial
   set_name(name);
   const int kVecNum =
       tree_.get_num_positions() + tree_.get_num_velocities();
 
   state_input_port_ = &this->DeclareInputPort(systems::kVectorValued, kVecNum);
 
+<<<<<<< HEAD
   ImageRgba8U color_image(
     color_camera_info_.width(), color_camera_info_.height());
   color_image_port_ = &this->DeclareAbstractOutputPort(
@@ -153,14 +206,29 @@ void RgbdCamera::InitPorts(const std::string& name) {
 
   ImageLabel16I label_image(
       color_camera_info_.width(), color_camera_info_.height());
+=======
+  ImageRgba8U color_image(kImageWidth, kImageHeight);
+  color_image_port_ = &this->DeclareAbstractOutputPort(
+      sensors::ImageRgba8U(color_image), &RgbdCamera::OutputColorImage);
+
+  ImageDepth32F depth_image(kImageWidth, kImageHeight);
+  depth_image_port_ = &this->DeclareAbstractOutputPort(
+      sensors::ImageDepth32F(depth_image), &RgbdCamera::OutputDepthImage);
+
+  ImageLabel16I label_image(kImageWidth, kImageHeight);
+>>>>>>> intial
   label_image_port_ = &this->DeclareAbstractOutputPort(
       sensors::ImageLabel16I(label_image), &RgbdCamera::OutputLabelImage);
 
   camera_base_pose_port_ = &this->DeclareVectorOutputPort(
       rendering::PoseVector<double>(), &RgbdCamera::OutputPoseVector);
+<<<<<<< HEAD
 }
 
 void RgbdCamera::InitRenderer() {
+=======
+
+>>>>>>> intial
   // Creates rendering world.
   for (const auto& body : tree_.get_bodies()) {
     if (body->get_name() == std::string(RigidBodyTreeConstants::kWorldName)) {
@@ -168,6 +236,7 @@ void RgbdCamera::InitRenderer() {
     }
 
     const int body_id = body->get_body_index();
+<<<<<<< HEAD
     auto& body_visual_indices = body_visual_indices_map_[body_id];
     for (const auto& visual : body->get_visual_elements()) {
       optional<VisualIndex> visual_index =
@@ -183,6 +252,17 @@ void RgbdCamera::InitRenderer() {
 }
 
 const InputPort<double>& RgbdCamera::state_input_port() const {
+=======
+    for (const auto& visual : body->get_visual_elements()) {
+      renderer_->RegisterVisual(visual, body_id);
+    }
+  }
+
+  renderer_->AddFlatTerrain();
+}
+
+const InputPortDescriptor<double>& RgbdCamera::state_input_port() const {
+>>>>>>> intial
   return *state_input_port_;
 }
 
@@ -254,9 +334,13 @@ void RgbdCamera::UpdateModelPoses(
 
     const auto X_WBody = tree_.CalcBodyPoseInWorldFrame(cache, *body);
 
+<<<<<<< HEAD
     const auto& body_visual_indices =
         body_visual_indices_map_.at(body->get_body_index());
     for (VisualIndex i : body_visual_indices) {
+=======
+    for (size_t i = 0; i < body->get_visual_elements().size(); ++i) {
+>>>>>>> intial
       const auto& visual = body->get_visual_elements()[i];
       const auto X_WV = X_WBody * visual.getLocalTransform();
       renderer_->UpdateVisualPose(X_WV, body->get_body_index(),
@@ -295,16 +379,25 @@ void RgbdCamera::OutputLabelImage(const Context<double>& context,
 RgbdCameraDiscrete::RgbdCameraDiscrete(
     std::unique_ptr<RgbdCamera> camera, double period, bool render_label_image)
     : camera_(camera.get()), period_(period) {
+<<<<<<< HEAD
   const auto& color_camera_info = camera->color_camera_info();
   const auto& depth_camera_info = camera->depth_camera_info();
+=======
+  constexpr int width = kImageWidth;
+  constexpr int height = kImageHeight;
+>>>>>>> intial
 
   DiagramBuilder<double> builder;
   builder.AddSystem(std::move(camera));
   input_port_state_ = builder.ExportInput(camera_->state_input_port());
 
   // Color image.
+<<<<<<< HEAD
   const Value<ImageRgba8U> image_color(
       color_camera_info.width(), color_camera_info.height());
+=======
+  const Value<ImageRgba8U> image_color(width, height);
+>>>>>>> intial
   const auto* const zoh_color =
       builder.AddSystem<ZeroOrderHold>(period_, image_color);
   builder.Connect(camera_->color_image_output_port(),
@@ -312,8 +405,12 @@ RgbdCameraDiscrete::RgbdCameraDiscrete(
   output_port_color_image_ = builder.ExportOutput(zoh_color->get_output_port());
 
   // Depth image.
+<<<<<<< HEAD
   const Value<ImageDepth32F> image_depth(
       depth_camera_info.width(), depth_camera_info.height());
+=======
+  const Value<ImageDepth32F> image_depth(width, height);
+>>>>>>> intial
   const auto* const zoh_depth =
       builder.AddSystem<ZeroOrderHold>(period_, image_depth);
   builder.Connect(camera_->depth_image_output_port(),
@@ -322,8 +419,12 @@ RgbdCameraDiscrete::RgbdCameraDiscrete(
 
   // Label image.
   if (render_label_image) {
+<<<<<<< HEAD
     const Value<ImageLabel16I> image_label(
         color_camera_info.width(), color_camera_info.height());
+=======
+    const Value<ImageLabel16I> image_label(width, height);
+>>>>>>> intial
     const auto* const zoh_label =
         builder.AddSystem<ZeroOrderHold>(period_, image_label);
     builder.Connect(camera_->label_image_output_port(),

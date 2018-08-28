@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <cstring>
 
 #include "pybind11/functional.h"
@@ -6,6 +7,11 @@
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/bindings/pydrake/util/drake_optional_pybind.h"
+=======
+#include "pybind11/pybind11.h"
+
+#include "drake/bindings/pydrake/pydrake_pybind.h"
+>>>>>>> intial
 #include "drake/lcm/drake_lcm.h"
 #include "drake/lcm/drake_lcm_interface.h"
 #include "drake/lcm/drake_mock_lcm.h"
@@ -17,6 +23,7 @@ PYBIND11_MODULE(lcm, m) {
   // NOLINTNEXTLINE(build/namespaces): Emulate placement in namespace.
   using namespace drake::lcm;
 
+<<<<<<< HEAD
   // Use `py::bytes` as a mid-point between C++ LCM (`void* + int` /
   // `vector<uint8_t>`) and Python LCM (`str`).
   using PyHandlerFunction = std::function<void(py::bytes)>;
@@ -37,6 +44,13 @@ PYBIND11_MODULE(lcm, m) {
           },
           py::arg("channel"), py::arg("buffer"),
           py::arg("time_sec") = py::none());
+=======
+  {
+    using Class = DrakeLcmInterface;
+    py::class_<Class>(m, "DrakeLcmInterface");
+    // TODO(eric.cousineau): Add remaining methods.
+    // TODO(eric.cousineau): Allow virtual overrides in Python.
+>>>>>>> intial
   }
 
   {
@@ -51,6 +65,7 @@ PYBIND11_MODULE(lcm, m) {
   {
     using Class = DrakeMockLcm;
     py::class_<Class, DrakeLcmInterface>(m, "DrakeMockLcm")
+<<<<<<< HEAD
         .def(py::init<>())
         .def("Subscribe", [](
               Class* self, const std::string& channel,
@@ -73,6 +88,9 @@ PYBIND11_MODULE(lcm, m) {
             return py::bytes(
                 reinterpret_cast<const char*>(bytes.data()), bytes.size());
           }, py::arg("channel"));
+=======
+        .def(py::init<>());
+>>>>>>> intial
     // TODO(eric.cousineau): Add remaining methods.
   }
 }

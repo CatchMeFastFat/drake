@@ -65,6 +65,16 @@ GTEST_TEST(TypeSafeIndex, IndexAssignment) {
   EXPECT_EQ(index3, index2);
   EXPECT_FALSE(index1.is_valid());
 
+<<<<<<< HEAD
+=======
+  // Int assignment
+  AIndex index4;
+  index4 = 17;
+  EXPECT_EQ(index4, 17);
+  DRAKE_EXPECT_THROWS_MESSAGE_IF_ARMED(index4 = -3, std::runtime_error,
+                                      "Assigning an invalid int.+");
+
+>>>>>>> intial
   // Assignment involving invalid indices.
 
   // Copy assign *to* invalid.
@@ -321,14 +331,22 @@ GTEST_TEST(TypeSafeIndex, InPlaceSubtract) {
       "In-place subtraction with an int on an invalid index.+");
 
   // In-place with an index.
+<<<<<<< HEAD
   about_to_be_negative_index = AIndex(0);
+=======
+  about_to_be_negative_index = 0;
+>>>>>>> intial
   DRAKE_EXPECT_THROWS_MESSAGE_IF_ARMED(
       about_to_be_negative_index -= AIndex(1), std::runtime_error,
       "In-place subtraction with another index produced an invalid index.+");
   DRAKE_EXPECT_THROWS_MESSAGE_IF_ARMED(
       invalid -= AIndex(1), std::runtime_error,
       "In-place subtraction with another index invalid LHS.+");
+<<<<<<< HEAD
   about_to_be_negative_index = AIndex(0);
+=======
+  about_to_be_negative_index = 0;
+>>>>>>> intial
   DRAKE_EXPECT_THROWS_MESSAGE_IF_ARMED(
       about_to_be_negative_index -= invalid, std::runtime_error,
       "In-place subtraction with another index invalid RHS.+");
@@ -375,6 +393,10 @@ GTEST_TEST(TypeSafeIndex, UseInStl) {
   std::vector<AIndex> indices;
   EXPECT_NO_THROW(indices.resize(3));
   EXPECT_FALSE(indices[0].is_valid());
+<<<<<<< HEAD
+=======
+  EXPECT_NO_THROW(indices[0] = 0);
+>>>>>>> intial
   EXPECT_NO_THROW(indices[1] = AIndex(1));
   EXPECT_NO_THROW(indices[2] = AIndex());  // Valid for *move* assignment.
   AIndex invalid;
@@ -387,6 +409,7 @@ GTEST_TEST(TypeSafeIndex, UseInStl) {
 
 //-------------------------------------------------------------------
 
+<<<<<<< HEAD
 // Helper functions for testing TypeSafeIndex interoperability with certain
 // integer types.
 template <typename Scalar>
@@ -501,6 +524,80 @@ GTEST_TEST(IntegralComparisons, CompareSizeT) {
       "Explicitly constructing an invalid index. Type .* has an invalid "
           "value; it must lie in the range .*");
 }
+=======
+// This code allows us to turn compile-time errors in to run-time errors that
+// we can incorporate in a unit test.  We can use it to confirm the
+// non-existence of a particular operator.  Specifically, we are using it to
+// confirm that an index with one tag type cannot be compared or combined with
+// index instances of another type. We are also confirming that those same
+// operations work with atomic data types that can be converted to int types.
+//
+// To simplify the test boilerplate, the infrastructure has been placed in a
+// macro, allowing for the test of a wide range of *binary* operations.  The
+// use is:
+//    BINARY_TEST( op, op_name )
+// It produces the templated method: has_op_name<T, U>(), which returns true
+// if `t op u` is a valid operation for `T t` and `U u`.
+//
+// Examples of invocations:
+//    op    |   op_name
+// ---------+-------------
+//   ==     |   equals
+//    <     |   less_than
+//    +     |   add
+
+#define BINARY_TEST(OP, OP_NAME) \
+template <typename T, typename U, \
+    typename = decltype(std::declval<T>() OP std::declval<U>())> \
+bool has_ ## OP_NAME ## _helper(int) { return true; } \
+template <typename T, typename U> \
+bool has_ ## OP_NAME ## _helper(...) { return false; } \
+template <typename T, typename U> \
+bool has_ ## OP_NAME() { return has_ ## OP_NAME ## _helper<T, U>(1); } \
+GTEST_TEST(TypeSafeIndex, OP_NAME ## OperatorAvailiblity) { \
+  EXPECT_FALSE((has_ ## OP_NAME<AIndex, BIndex>())); \
+  EXPECT_TRUE((has_ ## OP_NAME<AIndex, AIndex>())); \
+  EXPECT_TRUE((has_ ## OP_NAME<AIndex, int>())); \
+  EXPECT_TRUE((has_ ## OP_NAME<AIndex, size_t>())); \
+  EXPECT_TRUE((has_ ## OP_NAME<AIndex, int64_t>())); \
+}
+
+//-------------------------------------------------------------------
+
+// Confirms that indices of different tag types cannot be compared for equality.
+BINARY_TEST(==, Equals)
+
+// Confirms that indices of different tag types cannot be compared for
+// inequality.
+BINARY_TEST(!=, NotEquals)
+
+// Confirms that indices of different tag types cannot be compared as one less
+// than the other.
+BINARY_TEST(<, LessThan)
+
+// Confirms that indices of different tag types cannot be compared as one less
+// than or equal to the other.
+BINARY_TEST(<=, LessThanOrEquals)
+
+// Confirms that indices of different tag types cannot be compared as one
+// greater than the other.
+BINARY_TEST(>, GreaterThan)
+
+// Confirms that indices of different tag types cannot be compared as one
+// greater than or equal to the other.
+BINARY_TEST(>=, GreaterThanOrEqual)
+
+// Confirms that indices of different tag types cannot be added to each other.
+BINARY_TEST(+=, InPlaceAdd)
+
+// Confirms that indices of different tag types cannot be added to each other.
+BINARY_TEST(-=, InPlaceSubtract)
+
+// Confirms that one index cannot be assigned to by another index type (but int
+// types and same index types can). This is partially redundant to the
+// assignment test above, but the redundancy doesn't hurt.
+BINARY_TEST(=, Assignment)
+>>>>>>> intial
 
 // This tests that one index cannot be *constructed* from another index type,
 // but can be constructed from int types.

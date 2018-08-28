@@ -43,7 +43,11 @@ x = np.zeros(tree.get_num_positions() + tree.get_num_velocities())
 # Allocate context and render.
 context = camera.CreateDefaultContext()
 context.FixInputPort(0, BasicVector(x))
+<<<<<<< HEAD
 output = camera.AllocateOutput()
+=======
+output = camera.AllocateOutput(context)
+>>>>>>> intial
 camera.CalcOutput(context, output)
 
 # Get images from computed output.

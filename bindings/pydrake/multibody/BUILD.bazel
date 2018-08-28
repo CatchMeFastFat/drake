@@ -32,6 +32,7 @@ drake_py_library(
 )
 
 drake_pybind_library(
+<<<<<<< HEAD
     name = "benchmarks_py",
     cc_so_name = "benchmarks",
     cc_srcs = ["benchmarks_py.cc"],
@@ -48,14 +49,22 @@ drake_pybind_library(
         "//bindings/pydrake/util:drake_optional_pybind",
         "//bindings/pydrake/util:eigen_geometry_pybind",
         "//bindings/pydrake/util:type_safe_index_pybind",
+=======
+    name = "multibody_tree_py",
+    cc_deps = [
+        "//bindings/pydrake/util:eigen_geometry_pybind",
+>>>>>>> intial
     ],
     cc_so_name = "multibody_tree",
     cc_srcs = ["multibody_tree_py.cc"],
     package_info = PACKAGE_INFO,
     py_deps = [
         ":module_py",
+<<<<<<< HEAD
         "//bindings/pydrake:geometry_py",
         "//bindings/pydrake/systems:framework_py",
+=======
+>>>>>>> intial
         "//bindings/pydrake/util:eigen_geometry_py",
     ],
 )
@@ -73,7 +82,10 @@ drake_pybind_library(
 drake_pybind_library(
     name = "rigid_body_plant_py",
     cc_deps = [
+<<<<<<< HEAD
         "//bindings/pydrake/systems:systems_pybind",
+=======
+>>>>>>> intial
         "//lcmtypes:viewer",
     ],
     cc_so_name = "rigid_body_plant",
@@ -91,17 +103,25 @@ drake_pybind_library(
     name = "rigid_body_tree_py",
     cc_deps = [
         "//bindings/pydrake:autodiff_types_pybind",
+<<<<<<< HEAD
         "//bindings/pydrake/util:type_pack",
+=======
+>>>>>>> intial
     ],
     cc_so_name = "rigid_body_tree",
     cc_srcs = ["rigid_body_tree_py.cc"],
     package_info = PACKAGE_INFO,
     py_deps = [
+<<<<<<< HEAD
         ":collision_py",
         ":joints_py",
         ":module_py",
         ":parsers_py",
         ":rigid_body_py",
+=======
+        ":module_py",
+        ":parsers_py",
+>>>>>>> intial
         ":shapes_py",
         "//bindings/pydrake:autodiffutils_py",
         "//bindings/pydrake/util:eigen_geometry_py",
@@ -109,6 +129,7 @@ drake_pybind_library(
 )
 
 drake_pybind_library(
+<<<<<<< HEAD
     name = "collision_py",
     cc_so_name = "collision",
     cc_srcs = ["collision_py.cc"],
@@ -146,23 +167,33 @@ drake_pybind_library(
 )
 
 drake_pybind_library(
+=======
+>>>>>>> intial
     name = "shapes_py",
     cc_so_name = "shapes",
     cc_srcs = ["shapes_py.cc"],
     package_info = PACKAGE_INFO,
     py_deps = [
         ":module_py",
+<<<<<<< HEAD
         "//bindings/pydrake/util:eigen_geometry_py",
+=======
+>>>>>>> intial
     ],
 )
 
 PY_LIBRARIES_WITH_INSTALL = [
+<<<<<<< HEAD
     ":benchmarks_py",
     ":collision_py",
     ":joints_py",
     ":multibody_tree_py",
     ":parsers_py",
     ":rigid_body_py",
+=======
+    ":multibody_tree_py",
+    ":parsers_py",
+>>>>>>> intial
     ":rigid_body_plant_py",
     ":rigid_body_tree_py",
     ":shapes_py",
@@ -194,6 +225,10 @@ install(
 
 drake_py_unittest(
     name = "rigid_body_plant_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     data = ["//examples/pendulum:models"],
     deps = [
         ":rigid_body_plant_py",
@@ -202,6 +237,10 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "shapes_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     data = ["//examples/quadrotor:models"],
     deps = [
         ":shapes_py",
@@ -210,16 +249,27 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "rigid_body_tree_test",
+<<<<<<< HEAD
     data = [
         "//examples/atlas:models",
         "//examples/pendulum:models",
         "//examples/simple_four_bar:models",
+=======
+    size = "small",
+    data = [
+        "//examples/atlas:models",
+        "//examples/pendulum:models",
+>>>>>>> intial
     ],
     deps = [":rigid_body_tree_py"],
 )
 
 drake_py_unittest(
     name = "parsers_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     data = [
         "//examples/acrobot:models",
         "//examples/atlas:models",
@@ -233,11 +283,16 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "multibody_tree_test",
+<<<<<<< HEAD
     data = [
         "//multibody/benchmarks/acrobot:models",
     ],
     deps = [
         ":benchmarks_py",
+=======
+    size = "small",
+    deps = [
+>>>>>>> intial
         ":multibody_tree_py",
     ],
 )

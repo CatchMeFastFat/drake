@@ -5,7 +5,10 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/copyable_unique_ptr.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/geometry/shape_specification.h"
 
 namespace drake {
@@ -21,13 +24,18 @@ GTEST_TEST(GeometryInstanceTest, IsCopyable) {
   // have a runtime check available but this will fail to compile if the class
   // is not copyable.
   copyable_unique_ptr<GeometryInstance> geo(make_unique<GeometryInstance>
+<<<<<<< HEAD
       (Isometry3<double>(), make_unique<Sphere>(1), "sphere"));
+=======
+      (Isometry3<double>(), make_unique<Sphere>(1)));
+>>>>>>> intial
   EXPECT_TRUE(geo->id().is_valid());
 }
 
 GTEST_TEST(GeometryInstanceTest, IdCopies) {
   Isometry3<double> pose = Isometry3<double>::Identity();
   auto shape = make_unique<Sphere>(1.0);
+<<<<<<< HEAD
   GeometryInstance geometry_a{pose, move(shape), "geometry_a"};
   GeometryInstance geometry_b(geometry_a);
   EXPECT_EQ(geometry_a.id(), geometry_b.id());
@@ -67,6 +75,17 @@ GTEST_TEST(GeometryInstanceTest, CanonicalName) {
   DRAKE_EXPECT_THROWS_MESSAGE(make_instance(" "), std::logic_error,
                               "GeometryInstance given the name '.*' which is "
                               "an empty canonical string");
+=======
+  GeometryInstance geometry_a{pose, move(shape)};
+  GeometryInstance geometry_b(geometry_a);
+  EXPECT_EQ(geometry_a.id(), geometry_b.id());
+
+  shape = make_unique<Sphere>(2.0);
+  GeometryInstance geometry_c{pose, move(shape)};
+  EXPECT_NE(geometry_a.id(), geometry_c.id());
+  geometry_c = geometry_a;
+  EXPECT_EQ(geometry_a.id(), geometry_c.id());
+>>>>>>> intial
 }
 
 }  // namespace

@@ -20,5 +20,9 @@ def yaml_cpp_repository(
         atleast_version = atleast_version,
         extra_deps = extra_deps,
         pkg_config_paths = pkg_config_paths,
+<<<<<<< HEAD
         **kwargs
     )
+=======
+        **kwargs)
+>>>>>>> intial

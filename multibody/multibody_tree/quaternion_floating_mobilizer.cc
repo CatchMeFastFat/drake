@@ -52,10 +52,17 @@ QuaternionFloatingMobilizer<T>::set_quaternion(
 template <typename T>
 const QuaternionFloatingMobilizer<T>&
 QuaternionFloatingMobilizer<T>::set_quaternion(
+<<<<<<< HEAD
     const systems::Context<T>& context, const Quaternion<T>& q_FM,
     systems::State<T>* state) const {
   DRAKE_DEMAND(state != nullptr);
   auto q = this->get_mutable_positions(context, state);
+=======
+    const systems::Context<T>&, const Quaternion<T>& q_FM,
+    systems::State<T>* state) const {
+  DRAKE_DEMAND(state != nullptr);
+  auto q = this->get_mutable_positions(state);
+>>>>>>> intial
   DRAKE_ASSERT(q.size() == kNq);
   // Note: see storage order notes in get_quaternion().
   q[0] = q_FM.w();
@@ -75,10 +82,17 @@ QuaternionFloatingMobilizer<T>::set_position(
 template <typename T>
 const QuaternionFloatingMobilizer<T>&
 QuaternionFloatingMobilizer<T>::set_position(
+<<<<<<< HEAD
     const systems::Context<T>& context, const Vector3<T>& p_FM,
     systems::State<T>* state) const {
   DRAKE_DEMAND(state != nullptr);
   auto q = this->get_mutable_positions(context, state);
+=======
+    const systems::Context<T>&, const Vector3<T>& p_FM,
+    systems::State<T>* state) const {
+  DRAKE_DEMAND(state != nullptr);
+  auto q = this->get_mutable_positions(state);
+>>>>>>> intial
   DRAKE_ASSERT(q.size() == kNq);
   // Note: see storage order notes in get_position().
   q.template tail<3>() = p_FM;
@@ -120,10 +134,17 @@ QuaternionFloatingMobilizer<T>::set_angular_velocity(
 template <typename T>
 const QuaternionFloatingMobilizer<T>&
 QuaternionFloatingMobilizer<T>::set_angular_velocity(
+<<<<<<< HEAD
     const systems::Context<T>& context, const Vector3<T>& w_FM,
     systems::State<T>* state) const {
   // Note: See storage order notes in get_angular_velocity().
   auto v = this->get_mutable_velocities(context, state);
+=======
+    const systems::Context<T>&, const Vector3<T>& w_FM,
+    systems::State<T>* state) const {
+  // Note: See storage order notes in get_angular_velocity().
+  auto v = this->get_mutable_velocities(state);
+>>>>>>> intial
   DRAKE_ASSERT(v.size() == kNv);
   v.template head<3>() = w_FM;
   return *this;
@@ -150,9 +171,15 @@ QuaternionFloatingMobilizer<T>::set_translational_velocity(
 template <typename T>
 const QuaternionFloatingMobilizer<T>&
 QuaternionFloatingMobilizer<T>::set_translational_velocity(
+<<<<<<< HEAD
     const systems::Context<T>& context, const Vector3<T>& v_FM,
     systems::State<T>* state) const {
   auto v = this->get_mutable_velocities(context, state);
+=======
+    const systems::Context<T>&, const Vector3<T>& v_FM,
+    systems::State<T>* state) const {
+  auto v = this->get_mutable_velocities(state);
+>>>>>>> intial
   DRAKE_ASSERT(v.size() == kNv);
   // Note: See storage order notes in get_translational_velocity().
   v.template tail<3>() = v_FM;
@@ -221,7 +248,11 @@ Eigen::Matrix<T, 4, 3> QuaternionFloatingMobilizer<T>::CalcLMatrix(
   // component of the quaternion (Euler parameters). Notice however here we use
   // qs and qv for the "scalar" and "vector" components of the quaternion q_FM,
   // respectively, while Mitiguy uses ε₀ and ε (in bold), respectively.
+<<<<<<< HEAD
   // This mobilizer is parameterized by the angular velocity w_FM, i.e. time
+=======
+  // This mobilizer is parametrized by the angular velocity w_FM, i.e. time
+>>>>>>> intial
   // derivatives of the vector component of the quaternion are taken in the F
   // frame. If you are confused by this, notice that the vector component of a
   // quaternion IS a vector, and therefore you must specify in what frame time
@@ -231,7 +262,11 @@ Eigen::Matrix<T, 4, 3> QuaternionFloatingMobilizer<T>::CalcLMatrix(
   // Dt_F(q) = 1/2 * w_FM⋅q_FM, where ⋅ denotes the "quaternion product" and
   // both the vector component qv_FM of q_FM and w_FM are expressed in frame F.
   // Dt_F(q) is short for [Dt_F(q)]_F.
+<<<<<<< HEAD
   // The expression above can be written as:
+=======
+  // The expression above can be writen as:
+>>>>>>> intial
   // Dt_F(q) = 1/2 * (-w_FM.dot(qv_F); qs * w_FM + w_FM.cross(qv_F))
   //         = 1/2 * (-w_FM.dot(qv_F); qs * w_FM - qv_F.cross(w_FM))
   //         = 1/2 * (-w_FM.dot(qv_F); (qs * Id - [qv_F]x) * w_FM)

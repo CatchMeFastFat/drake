@@ -17,16 +17,27 @@ class TestEigenGeometry(unittest.TestCase):
         self.assertTrue(np.allclose(q_identity.wxyz(), [1, 0, 0, 0]))
         self.assertTrue(np.allclose(
             q_identity.wxyz(), mut.Quaternion.Identity().wxyz()))
+<<<<<<< HEAD
         self.assertEqual(
+=======
+        self.assertEquals(
+>>>>>>> intial
             str(q_identity), "Quaternion(w=1.0, x=0.0, y=0.0, z=0.0)")
         # Test ordering.
         q_wxyz = normalize([0.1, 0.3, 0.7, 0.9])
         q = mut.Quaternion(w=q_wxyz[0], x=q_wxyz[1], y=q_wxyz[2], z=q_wxyz[3])
         # - Accessors.
+<<<<<<< HEAD
         self.assertEqual(q.w(), q_wxyz[0])
         self.assertEqual(q.x(), q_wxyz[1])
         self.assertEqual(q.y(), q_wxyz[2])
         self.assertEqual(q.z(), q_wxyz[3])
+=======
+        self.assertEquals(q.w(), q_wxyz[0])
+        self.assertEquals(q.x(), q_wxyz[1])
+        self.assertEquals(q.y(), q_wxyz[2])
+        self.assertEquals(q.z(), q_wxyz[3])
+>>>>>>> intial
         self.assertTrue(np.allclose(q.xyz(), q_wxyz[1:]))
         self.assertTrue(np.allclose(q.wxyz(), q_wxyz))
         # - Mutators.
@@ -50,9 +61,12 @@ class TestEigenGeometry(unittest.TestCase):
         R_I = np.eye(3, 3)
         q_other.set_rotation(R_I)
         self.assertTrue(np.allclose(q_other.wxyz(), q_identity.wxyz()))
+<<<<<<< HEAD
         # - Copy constructor.
         cp = mut.Quaternion(other=q)
         self.assertTrue(np.allclose(q.wxyz(), cp.wxyz()))
+=======
+>>>>>>> intial
         # Bad values.
         q = mut.Quaternion.Identity()
         # - wxyz
@@ -67,6 +81,7 @@ class TestEigenGeometry(unittest.TestCase):
             q_other.set_rotation(R_bad)
         self.assertTrue(np.allclose(q_other.rotation(), R_I))
 
+<<<<<<< HEAD
         # Operations.
         q = mut.Quaternion(wxyz=[0.5, 0.5, 0.5, 0.5])
         self.assertTrue(
@@ -76,6 +91,8 @@ class TestEigenGeometry(unittest.TestCase):
         q_conj = q.conjugate()
         self.assertTrue(np.allclose(q_conj.wxyz(), [0.5, -0.5, -0.5, -0.5]))
 
+=======
+>>>>>>> intial
         # Test `type_caster`s.
         value = test_util.create_quaternion()
         self.assertTrue(isinstance(value, mut.Quaternion))
@@ -86,6 +103,7 @@ class TestEigenGeometry(unittest.TestCase):
         transform = mut.Isometry3()
         X = np.eye(4, 4)
         self.assertTrue(np.allclose(transform.matrix(), X))
+<<<<<<< HEAD
         self.assertEqual(str(transform), str(X))
         # - Constructor with (X)
         transform = mut.Isometry3(matrix=X)
@@ -93,6 +111,12 @@ class TestEigenGeometry(unittest.TestCase):
         # - Copy constructor.
         cp = mut.Isometry3(other=transform)
         self.assertTrue(np.allclose(transform.matrix(), cp.matrix()))
+=======
+        self.assertEquals(str(transform), str(X))
+        # - Constructor with (X)
+        transform = mut.Isometry3(matrix=X)
+        self.assertTrue(np.allclose(transform.matrix(), X))
+>>>>>>> intial
         # - Identity
         transform = mut.Isometry3.Identity()
         self.assertTrue(np.allclose(transform.matrix(), X))
@@ -127,16 +151,20 @@ class TestEigenGeometry(unittest.TestCase):
         value = test_util.create_isometry()
         self.assertTrue(isinstance(value, mut.Isometry3))
         test_util.check_isometry(value)
+<<<<<<< HEAD
         # Operations.
         transform = mut.Isometry3(rotation=R, translation=p)
         transform_I = transform.inverse().multiply(transform)
         self.assertTrue(np.allclose(transform_I.matrix(), np.eye(4)))
         self.assertTrue((
             transform.multiply(position=[10, 20, 30]) == [21, -8, 33]).all())
+=======
+>>>>>>> intial
 
     def test_translation(self):
         # Test `type_caster`s.
         value = test_util.create_translation()
+<<<<<<< HEAD
         self.assertEqual(value.shape, (3,))
         test_util.check_translation(value)
 
@@ -191,3 +219,7 @@ class TestEigenGeometry(unittest.TestCase):
             value.angle(), -value_sym.angle(), atol=1e-15, rtol=0))
         self.assertTrue(np.allclose(
             value.axis(), -value_sym.axis(), atol=1e-15, rtol=0))
+=======
+        self.assertEquals(value.shape, (3,))
+        test_util.check_translation(value)
+>>>>>>> intial

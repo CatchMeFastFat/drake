@@ -96,8 +96,11 @@ bool rename( const spruce::path& source, const spruce::path& dest );
 
 bool chdir( const spruce::path& p );
 
+<<<<<<< HEAD
 spruce::path getcwd();
 
+=======
+>>>>>>> intial
 }
 
 }

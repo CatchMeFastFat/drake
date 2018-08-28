@@ -72,7 +72,11 @@ class BouncingBallTest : public ::testing::Test {
   void SetUp() override {
     dut_ = std::make_unique<BouncingBall<double>>();
     context_ = dut_->CreateDefaultContext();
+<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
+=======
+    output_ = dut_->AllocateOutput(*context_);
+>>>>>>> intial
     derivatives_ = dut_->AllocateTimeDerivatives();
   }
 
@@ -100,7 +104,10 @@ GTEST_TEST(BouncingBall, AutoDiff) {
 
 TEST_F(BouncingBallTest, Transmogrification) {
   ASSERT_TRUE(systems::is_autodiffxd_convertible(*dut_));
+<<<<<<< HEAD
   ASSERT_TRUE(systems::is_symbolic_convertible(*dut_));
+=======
+>>>>>>> intial
 }
 
 TEST_F(BouncingBallTest, Topology) {

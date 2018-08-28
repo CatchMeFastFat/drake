@@ -8,7 +8,11 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 
 using std::make_unique;
 
@@ -23,7 +27,11 @@ class PidControllerTest : public ::testing::Test {
  protected:
   void SetUp() override {
     context_ = controller_.CreateDefaultContext();
+<<<<<<< HEAD
     output_ = controller_.AllocateOutput();
+=======
+    output_ = controller_.AllocateOutput(*context_);
+>>>>>>> intial
     derivatives_ = controller_.AllocateTimeDerivatives();
 
     // State:
@@ -207,7 +215,11 @@ GTEST_TEST(PidIOProjectionTest, Test) {
 
   PidController<double> dut(P_input, P_output, kp, ki, kd);
   auto context = dut.CreateDefaultContext();
+<<<<<<< HEAD
   auto output = dut.AllocateOutput();
+=======
+  auto output = dut.AllocateOutput(*context);
+>>>>>>> intial
 
   VectorX<double> x = VectorX<double>::Random(2 * num_full_q);
   VectorX<double> x_d = VectorX<double>::Random(2 * num_controlled_q);

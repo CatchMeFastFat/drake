@@ -3,10 +3,15 @@
 #include <memory>
 #include <mutex>
 
+<<<<<<< HEAD
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
 #include "drake/common/never_destroyed.h"
 #include "drake/common/text_logging.h"
+=======
+#include "drake/common/drake_copyable.h"
+#include "drake/common/never_destroyed.h"
+>>>>>>> intial
 
 namespace drake {
 
@@ -36,6 +41,7 @@ std::shared_ptr<T> GetScopedSingleton() {
      * Otherwise, return a shared reference to the resource.
      */
     std::shared_ptr<T> Acquire() {
+<<<<<<< HEAD
       // We must never create more than one instance of a T at a time, since it
       // is supposed to be a singleton.  Thus, we need at least the make_shared
       // to appear in a critical section.  Rather than worrying about a double-
@@ -65,6 +71,22 @@ std::shared_ptr<T> GetScopedSingleton() {
     // The mutex guards all access and changes to weak_ref_, but does not guard
     // the use of the T instance that weak_ref_ points to.
     std::mutex mutex_;
+=======
+      // Acquiring and releasing the resource via a centralized weak pointer,
+      // will be thread-safe. All constructions of T for this particular
+      // Singleton are assigned to this same weak_ref_; the empty-check,
+      // allocation, and weak_ref_ assignment are all guarded by the same
+      // critical section.
+      auto instance = weak_ref_.lock();
+      if (!instance) {
+        instance = std::make_shared<T>();
+        weak_ref_ = instance;
+      }
+      return instance;
+    }
+
+   private:
+>>>>>>> intial
     std::weak_ptr<T> weak_ref_;
   };
   // Allocate singleton as a static function local to control initialization.

@@ -16,11 +16,18 @@ namespace {
 // to touch every method as an API sanity check, so that we are reminded in
 // case we change the generated API without realizing it.
 GTEST_TEST(SampleTest, SimpleCoverage) {
+<<<<<<< HEAD
   EXPECT_EQ(SampleIndices::kNumCoordinates, 4);
   EXPECT_EQ(SampleIndices::kX, 0);
   EXPECT_EQ(SampleIndices::kTwoWord, 1);
   EXPECT_EQ(SampleIndices::kAbsone, 2);
   EXPECT_EQ(SampleIndices::kUnset, 3);
+=======
+  EXPECT_EQ(SampleIndices::kNumCoordinates, 3);
+  EXPECT_EQ(SampleIndices::kX, 0);
+  EXPECT_EQ(SampleIndices::kTwoWord, 1);
+  EXPECT_EQ(SampleIndices::kAbsone, 2);
+>>>>>>> intial
 
   // The device under test.
   Sample<double> dut;
@@ -47,9 +54,13 @@ GTEST_TEST(SampleTest, SimpleCoverage) {
 
   // Coordinate names.
   const std::vector<std::string>& coordinate_names = dut.GetCoordinateNames();
+<<<<<<< HEAD
   const std::vector<std::string> expected_names = {
     "x", "two_word", "absone", "unset",
   };
+=======
+  const std::vector<std::string> expected_names = {"x", "two_word", "absone"};
+>>>>>>> intial
   ASSERT_EQ(coordinate_names.size(), expected_names.size());
   for (int i = 0; i < dut.size(); ++i) {
     EXPECT_EQ(coordinate_names.at(i), expected_names.at(i));
@@ -58,16 +69,23 @@ GTEST_TEST(SampleTest, SimpleCoverage) {
 
 // Cover Simple<double>::IsValid.
 GTEST_TEST(SampleTest, IsValid) {
+<<<<<<< HEAD
   // N.B. Sample<T>.unset is an invalid value by default.
   Sample<double> dummy1;
   EXPECT_FALSE(ExtractBoolOrThrow(dummy1.IsValid()));
   dummy1.set_unset(0.0);
+=======
+  Sample<double> dummy1;
+>>>>>>> intial
   EXPECT_TRUE(ExtractBoolOrThrow(dummy1.IsValid()));
   dummy1.set_x(std::numeric_limits<double>::quiet_NaN());
   EXPECT_FALSE(ExtractBoolOrThrow(dummy1.IsValid()));
 
   Sample<double> dummy2;
+<<<<<<< HEAD
   dummy2.set_unset(0.0);
+=======
+>>>>>>> intial
   EXPECT_TRUE(ExtractBoolOrThrow(dummy2.IsValid()));
   dummy2.set_two_word(std::numeric_limits<double>::quiet_NaN());
   EXPECT_FALSE(ExtractBoolOrThrow(dummy2.IsValid()));
@@ -77,7 +95,10 @@ GTEST_TEST(SampleTest, IsValid) {
 GTEST_TEST(SampleTest, AutoDiffXdIsValid) {
   // A NaN in the AutoDiffScalar::value() makes us invalid.
   Sample<AutoDiffXd> dut;
+<<<<<<< HEAD
   dut.set_unset(0.0);  // N.B. Sample<T>.unset is an invalid value by default.
+=======
+>>>>>>> intial
   EXPECT_TRUE(ExtractBoolOrThrow(dut.IsValid()));
   dut.set_x(std::numeric_limits<double>::quiet_NaN());
   EXPECT_FALSE(ExtractBoolOrThrow(dut.IsValid()));
@@ -108,7 +129,10 @@ GTEST_TEST(SampleTest, SymbolicIsValid) {
       !isnan(dut.x()) &&
       !isnan(dut.two_word()) &&
       !isnan(dut.absone()) &&
+<<<<<<< HEAD
       !isnan(dut.unset()) &&
+=======
+>>>>>>> intial
       (dut.x() >= 0.0) &&
       (dut.absone() >= -1.0) &&
       (dut.absone() <= 1.0);

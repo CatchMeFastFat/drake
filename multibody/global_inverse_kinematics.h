@@ -4,12 +4,16 @@
 
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/solvers/mathematical_program.h"
+<<<<<<< HEAD
 #include "drake/solvers/mixed_integer_rotation_constraint.h"
+=======
+>>>>>>> intial
 
 namespace drake {
 namespace multibody {
 /** Solves the inverse kinematics problem as a mixed integer convex optimization
  * problem.
+<<<<<<< HEAD
  * We use a mixed-integer convex relaxation of the rotation matrix. So if this
  * global inverse kinematics problem says the solution is infeasible, then it is
  * guaranteed that the kinematics constraints are not satisfiable.
@@ -18,6 +22,13 @@ namespace multibody {
  * The approach is described in Global Inverse Kinematics via Mixed-integer
  * Convex Optimization by Hongkai Dai, Gregory Izatt and Russ Tedrake, ISRR,
  * 2017.
+=======
+ * We use a convex relaxation of the rotation matrix. So if this global inverse
+ * kinematics problem says the solution is infeasible, then it is guaranteed
+ * that the kinematics constraints are not satisfiable.
+ * If the global inverse kinematics returns a solution, the posture should
+ * satisfy the kinematics constraints, with some error.
+>>>>>>> intial
  */
 class GlobalInverseKinematics : public solvers::MathematicalProgram {
 // TODO(hongkai.dai): create a function globalIK, with interface similar to
@@ -25,6 +36,7 @@ class GlobalInverseKinematics : public solvers::MathematicalProgram {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(GlobalInverseKinematics)
 
+<<<<<<< HEAD
   struct Options {
     // This constructor is needed, otherwise the compiler complains.
     Options() {}
@@ -44,6 +56,8 @@ class GlobalInverseKinematics : public solvers::MathematicalProgram {
     bool linear_constraint_only{false};
   };
 
+=======
+>>>>>>> intial
   /**
    * Parses the robot kinematics tree. The decision variables include the
    * pose for each body (position/orientation). This constructor loops through
@@ -51,12 +65,22 @@ class GlobalInverseKinematics : public solvers::MathematicalProgram {
    * body pose, so that the adjacent bodies are connected correctly by the joint
    * in between the bodies.
    * @param robot The robot on which the inverse kinematics problem is solved.
+<<<<<<< HEAD
    * @param options The options to relax SO(3) constraint as mixed-integer
    * convex constraints. Refer to MixedIntegerRotationConstraintGenerator for
    * more details on the parameters in options.
    */
   explicit GlobalInverseKinematics(const RigidBodyTreed& robot,
                                    const Options& options = Options());
+=======
+   * @param num_binary_vars_per_half_axis The number of binary variables for
+   * each half axis, to segment the unit circle.
+   * @see AddRotationMatrixMcCormickEnvelopeMilpConstraints() for more details
+   * on num_binary_vars_per_half_axis.
+   */
+  GlobalInverseKinematics(const RigidBodyTreed& robot,
+                          int num_binary_vars_per_half_axis = 2);
+>>>>>>> intial
 
   ~GlobalInverseKinematics() override {}
 
@@ -262,6 +286,7 @@ class GlobalInverseKinematics : public solvers::MathematicalProgram {
    * constrained.
    * @param joint_lower_bound The lower bound for the joint.
    * @param joint_upper_bound The upper bound for the joint.
+<<<<<<< HEAD
    * @param linear_constraint_approximation If true, joint limits are
    * approximated as linear constraints on parent and child link orientations,
    * otherwise they are imposed as Lorentz cone constraints.
@@ -274,6 +299,11 @@ class GlobalInverseKinematics : public solvers::MathematicalProgram {
   void AddJointLimitConstraint(int body_index, double joint_lower_bound,
                                double joint_upper_bound,
                                bool linear_constraint_approximation = false);
+=======
+   */
+  void AddJointLimitConstraint(int body_index, double joint_lower_bound,
+                               double joint_upper_bound);
+>>>>>>> intial
 
  private:
   // This is an utility function for `ReconstructGeneralizedPositionSolution`.

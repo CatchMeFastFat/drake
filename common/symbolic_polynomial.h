@@ -35,11 +35,14 @@ class Polynomial {
   Polynomial() = default;
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(Polynomial)
 
+<<<<<<< HEAD
   /** Constructs a default value.  This overload is used by Eigen when
    * EIGEN_INITIALIZE_MATRICES_BY_ZERO is enabled.
    */
   explicit Polynomial(std::nullptr_t) : Polynomial() {}
 
+=======
+>>>>>>> intial
   /// Constructs a polynomial from a map, Monomial → Expression.
   explicit Polynomial(MapType init);
 
@@ -128,6 +131,7 @@ class Polynomial {
   /// Adds @p coeff * @p m to this polynomial.
   Polynomial& AddProduct(const Expression& coeff, const Monomial& m);
 
+<<<<<<< HEAD
   /// Removes the terms whose absolute value of the coefficients are smaller
   /// than or equal to @p coefficient_tol
   /// For example, if the polynomial is 2x² + 3xy + 10⁻⁴x - 10⁻⁵,
@@ -138,6 +142,8 @@ class Polynomial {
   /// coefficients are removed.
   Polynomial RemoveTermsWithSmallCoefficients(double coefficient_tol) const;
 
+=======
+>>>>>>> intial
   Polynomial& operator+=(const Polynomial& p);
   Polynomial& operator+=(const Monomial& m);
   Polynomial& operator+=(double c);

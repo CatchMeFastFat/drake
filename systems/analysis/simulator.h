@@ -12,7 +12,10 @@
 #include "drake/common/autodiff.h"
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
+<<<<<<< HEAD
 #include "drake/common/drake_optional.h"
+=======
+>>>>>>> intial
 #include "drake/common/text_logging.h"
 #include "drake/systems/analysis/integrator_base.h"
 #include "drake/systems/analysis/runge_kutta3_integrator.h"
@@ -261,12 +264,18 @@ class Simulator {
 
   /// Resets the integrator with a new one. An example usage is:
   /// @code
+<<<<<<< HEAD
   /// simulator.reset_integrator(std::move(integrator));
+=======
+  /// simulator.reset_integrator<ExplicitEulerIntegrator<double>>
+  ///               (sys, DT, context).
+>>>>>>> intial
   /// @endcode
   /// The %Simulator must be reinitialized after resetting the integrator to
   /// ensure the integrator is properly initialized. You can do that explicitly
   /// with the Initialize() method or it will be done implicitly at the first
   /// time step.
+<<<<<<< HEAD
   template <class U>
   U* reset_integrator(std::unique_ptr<U> integrator) {
     initialization_done_ = false;
@@ -285,6 +294,13 @@ class Simulator {
   U* reset_integrator(Args&&... args) {
     auto integrator = std::make_unique<U>(std::forward<Args>(args)...);
     return reset_integrator(std::move(integrator));
+=======
+  template <class U, typename... Args>
+  U* reset_integrator(Args&&... args) {
+    initialization_done_ = false;
+    integrator_ = std::make_unique<U>(std::forward<Args>(args)...);
+    return static_cast<U*>(integrator_.get());
+>>>>>>> intial
   }
 
   /// Gets the length of the interval used for witness function time isolation.

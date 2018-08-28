@@ -3,7 +3,10 @@
 #include <Eigen/Geometry>
 #include <gtest/gtest.h>
 
+<<<<<<< HEAD
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
+=======
+>>>>>>> intial
 #include "drake/multibody/joints/fixed_joint.h"
 #include "drake/multibody/joints/helical_joint.h"
 #include "drake/multibody/joints/prismatic_joint.h"
@@ -30,7 +33,10 @@ namespace {
 
 using std::make_unique;
 using std::unique_ptr;
+<<<<<<< HEAD
 using Eigen::VectorXd;
+=======
+>>>>>>> intial
 
 class DrakeJointTests : public ::testing::Test {
  protected:
@@ -69,6 +75,7 @@ class DrakeJointTests : public ::testing::Test {
   unique_ptr<RollPitchYawFloatingJoint> roll_pitch_yaw_joint_;
 };
 
+<<<<<<< HEAD
 TEST_F(DrakeJointTests, TestSpringTorques) {
   double stiffness = 2.3;
   double nominal_position = -.6;
@@ -123,6 +130,8 @@ TEST_F(DrakeJointTests, TestSpringTorques) {
       0, MatrixCompareType::absolute));
 }
 
+=======
+>>>>>>> intial
 TEST_F(DrakeJointTests, TestIfJointIsFixed) {
   EXPECT_TRUE(fixed_joint_->is_fixed());
   EXPECT_FALSE(helical_joint_->is_fixed());

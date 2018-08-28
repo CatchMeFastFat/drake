@@ -24,6 +24,7 @@ namespace controllers {
 ///   is a dynamics model, this is typically the generalized effort (e.g., force
 ///   or torque) command.
 ///
+<<<<<<< HEAD
 /// * The output port passed to the PidControlledSystem constructor must be
 ///   of size 2 * Q, where the first Q elements are the position states of
 ///   the plant, and the second Q elements are the velocity states of the
@@ -31,6 +32,14 @@ namespace controllers {
 ///
 /// The resulting PidControlledSystem has two input ports with the following
 /// properties:
+=======
+/// * Output port zero must be of size 2 * Q, where the first Q elements are the
+///   position states of the plant, and the second Q elements are the velocity
+///   states of the plant. Q >= U.
+///
+/// The resulting PidControlledSystem has two input ports and one output port
+/// with the following properties:
+>>>>>>> intial
 ///
 /// * Input port zero is the feed forward control (size U), which will be added
 ///   onto the output of the PID controller. The sum is sent to the plant's
@@ -40,9 +49,14 @@ namespace controllers {
 ///   where the first half are the *controlled* positions, and the second half
 ///   are the *controlled* velocities.
 ///
+<<<<<<< HEAD
 /// All output ports of the plant are exposed as output ports of the
 /// PidControlledSystem in the same order (and therefore with the same index)
 /// as they appear in the plant.
+=======
+/// * The output port is the current state of the plant (it is the direct
+///   pass-through of the plant's output port).
+>>>>>>> intial
 ///
 /// Some of the constructors include a parameter called `feedback_selector`.
 /// It is used to select the *controlled* states from the plant's state output
@@ -72,10 +86,15 @@ class PidControlledSystem : public Diagram<T> {
   /// @param[in] Kp the proportional constant.
   /// @param[in] Ki the integral constant.
   /// @param[in] Kd the derivative constant.
+<<<<<<< HEAD
   /// @param[in] state_output_port_index identifies the output port on the
   /// plant that contains the (full) state information.
   PidControlledSystem(std::unique_ptr<System<T>> plant, double Kp, double Ki,
                       double Kd, int state_output_port_index = 0);
+=======
+  PidControlledSystem(std::unique_ptr<System<T>> plant, double Kp, double Ki,
+                      double Kd);
+>>>>>>> intial
 
   /// @p plant full state is used for feedback control, and the vectorized gains
   /// are specified by @p Kp, @p Kd and @p Ki.
@@ -84,12 +103,18 @@ class PidControlledSystem : public Diagram<T> {
   /// @param[in] Kp the proportional vector constant.
   /// @param[in] Ki the integral vector constant.
   /// @param[in] Kd the derivative vector constant.
+<<<<<<< HEAD
   /// @param[in] state_output_port_index identifies the output port on the
   /// plant that contains the (full) state information.
   PidControlledSystem(std::unique_ptr<System<T>> plant,
                       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
                       const Eigen::VectorXd& Kd,
                       int state_output_port_index = 0);
+=======
+  PidControlledSystem(std::unique_ptr<System<T>> plant,
+                      const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
+                      const Eigen::VectorXd& Kd);
+>>>>>>> intial
 
   /// A constructor where the gains are scalar values and some of the plant's
   /// output is part of the feedback signal as specified by
@@ -102,11 +127,17 @@ class PidControlledSystem : public Diagram<T> {
   /// @param[in] Kp the proportional constant.
   /// @param[in] Ki the integral constant.
   /// @param[in] Kd the derivative constant.
+<<<<<<< HEAD
   /// @param[in] state_output_port_index identifies the output port on the
   /// plant that contains the (full) state information.
   PidControlledSystem(std::unique_ptr<System<T>> plant,
                       const MatrixX<double>& feedback_selector, double Kp,
                       double Ki, double Kd, int state_output_port_index = 0);
+=======
+  PidControlledSystem(std::unique_ptr<System<T>> plant,
+                      const MatrixX<double>& feedback_selector,
+                      double Kp, double Ki, double Kd);
+>>>>>>> intial
 
   /// A constructor where the gains are vector values and some of the plant's
   /// output is part of the feedback signal as specified by
@@ -119,6 +150,7 @@ class PidControlledSystem : public Diagram<T> {
   /// @param[in] Kp the proportional vector constant.
   /// @param[in] Ki the integral vector constant.
   /// @param[in] Kd the derivative vector constant.
+<<<<<<< HEAD
   /// @param[in] state_output_port_index identifies the output port on the
   /// plant that contains the (full) state information.
   PidControlledSystem(std::unique_ptr<System<T>> plant,
@@ -126,38 +158,66 @@ class PidControlledSystem : public Diagram<T> {
                       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
                       const Eigen::VectorXd& Kd,
                       int state_output_port_index = 0);
+=======
+  PidControlledSystem(std::unique_ptr<System<T>> plant,
+                      const MatrixX<double>& feedback_selector,
+                      const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
+                      const Eigen::VectorXd& Kd);
+>>>>>>> intial
 
   ~PidControlledSystem() override;
 
   System<T>* plant() { return plant_; }
 
   /// @return the input port for the feed forward control input.
+<<<<<<< HEAD
   const InputPort<T>& get_control_input_port() const {
+=======
+  const InputPortDescriptor<T>& get_control_input_port() const {
+>>>>>>> intial
     return this->get_input_port(0);
   }
 
   /// @return the input port for the desired position/velocity state.
+<<<<<<< HEAD
   const InputPort<T>& get_state_input_port() const {
+=======
+  const InputPortDescriptor<T>& get_state_input_port() const {
+>>>>>>> intial
     return this->get_input_port(1);
   }
 
   const OutputPort<T>& get_state_output_port() const {
+<<<<<<< HEAD
     return this->get_output_port(state_output_port_index_);
+=======
+    return this->get_output_port(0);
+>>>>>>> intial
   }
 
   /// The return type of ConnectController.
   struct ConnectResult {
     /// The feed forward control input.
+<<<<<<< HEAD
     const InputPort<T>& control_input_port;
     /// The feedback state input.
     const InputPort<T>& state_input_port;
+=======
+    const InputPortDescriptor<T>& control_input_port;
+    /// The feedback state input.
+    const InputPortDescriptor<T>& state_input_port;
+>>>>>>> intial
   };
 
   /// Creates a PidController and uses @p builder to connect @p plant_input and
   /// @p plant_output from an existing plant. The controlled states are selected
   /// by @p feedback_selector.
   static ConnectResult ConnectController(
+<<<<<<< HEAD
       const InputPort<T>& plant_input,
+=======
+      const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
       const OutputPort<T>& plant_output,
       const MatrixX<double>& feedback_selector,
       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
@@ -167,7 +227,11 @@ class PidControlledSystem : public Diagram<T> {
   /// @p plant_output from an existing plant. The plant's full state is used for
   /// feedback.
   static ConnectResult ConnectController(
+<<<<<<< HEAD
       const InputPort<T>& plant_input,
+=======
+      const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
       const OutputPort<T>& plant_output,
       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
       const Eigen::VectorXd& Kd, DiagramBuilder<T>* builder);
@@ -179,7 +243,11 @@ class PidControlledSystem : public Diagram<T> {
   /// that using input limits along with integral gain constant may cause the
   /// integrator to windup.
   static ConnectResult ConnectControllerWithInputSaturation(
+<<<<<<< HEAD
       const InputPort<T>& plant_input,
+=======
+      const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
       const OutputPort<T>& plant_output,
       const MatrixX<double>& feedback_selector,
       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
@@ -193,7 +261,11 @@ class PidControlledSystem : public Diagram<T> {
   /// limits along with integral gain constant may cause the integrator to
   /// windup.
   static ConnectResult ConnectControllerWithInputSaturation(
+<<<<<<< HEAD
       const InputPort<T>& plant_input,
+=======
+      const InputPortDescriptor<T>& plant_input,
+>>>>>>> intial
       const OutputPort<T>& plant_output,
       const Eigen::VectorXd& Kp, const Eigen::VectorXd& Ki,
       const Eigen::VectorXd& Kd, const VectorX<T>& min_plant_input,
@@ -209,7 +281,10 @@ class PidControlledSystem : public Diagram<T> {
                   const Eigen::VectorXd& Kd);
 
   System<T>* plant_{nullptr};
+<<<<<<< HEAD
   const int state_output_port_index_;
+=======
+>>>>>>> intial
 };
 
 }  // namespace controllers

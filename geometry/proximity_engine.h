@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+<<<<<<< HEAD
 #include <unordered_set>
 #include <vector>
 
@@ -9,6 +10,15 @@
 #include "drake/geometry/geometry_index.h"
 #include "drake/geometry/query_results/penetration_as_point_pair.h"
 #include "drake/geometry/query_results/signed_distance_pair.h"
+=======
+#include <vector>
+
+#include "drake/common/autodiff.h"
+#include "drake/common/drake_optional.h"
+#include "drake/geometry/geometry_ids.h"
+#include "drake/geometry/geometry_index.h"
+#include "drake/geometry/query_results/penetration_as_point_pair.h"
+>>>>>>> intial
 #include "drake/geometry/shape_specification.h"
 
 namespace drake {
@@ -18,12 +28,15 @@ template <typename T> class GeometryState;
 
 namespace internal {
 
+<<<<<<< HEAD
 #ifndef DRAKE_DOXYGEN_CXX
 // This provides GeometryState limited "friend" access to ProximityEngine for
 // the purpose of collision filters.
 class GeometryStateCollisionFilterAttorney;
 #endif
 
+=======
+>>>>>>> intial
 // TODO(SeanCurtis-TRI): Swap Isometry3 for the new Transform class.
 
 /** The underlying engine for performing geometric _proximity_ queries.
@@ -92,6 +105,7 @@ class ProximityEngine {
   /** Reports the number of _anchored_ geometries (spanning all sources). */
   int num_anchored() const;
 
+<<<<<<< HEAD
   /** The distance (signed/unsigned/penetration distance) is generally computed
    * from an iterative process. The distance_tolerance determines when the
    * iterative process will terminate.
@@ -102,6 +116,8 @@ class ProximityEngine {
 
   double distance_tolerance() const;
 
+=======
+>>>>>>> intial
   //@}
 
   /** Updates the poses for all of the dynamic geometries in the engine. It
@@ -118,6 +134,7 @@ class ProximityEngine {
   //    a vector and the caller sets values there directly.
   void UpdateWorldPoses(const std::vector<Isometry3<T>>& X_WG);
 
+<<<<<<< HEAD
   // ----------------------------------------------------------------------
   /**@name              Signed Distance Queries
   See @ref signed_distance_query "Signed Distance Query" for more details. */
@@ -149,6 +166,8 @@ class ProximityEngine {
       const std::vector<GeometryId>& anchored_map) const;
   //@}
 
+=======
+>>>>>>> intial
 
   //----------------------------------------------------------------------------
   /** @name                Collision Queries
@@ -170,12 +189,22 @@ class ProximityEngine {
    of the penetration "depth" of the two objects -- but _not_ the overlapping
    volume.
 
+<<<<<<< HEAD
    This method is affected by collision filtering; geometry pairs that
    have been filtered will not produce contacts, even if their collision
    geometry is penetrating.
 
    For two penetrating geometries g₁ and g₂, it is guaranteed that they will
    map to `id_A` and `id_B` in a fixed, repeatable manner.
+=======
+   @cond
+   // TODO(SeanCurtis-TRI): Once collision filtering is supported, pull this
+   // *out* of the cond tag.
+   This method is affected by collision filtering; geometry pairs that
+   have been filtered will not produce contacts, even if their collision
+   geometry is penetrating.
+   @endcond
+>>>>>>> intial
 
    @param[in]   dynamic_map   A map from geometry _index_ to the corresponding
                               global geometry identifier for dynamic geometries.
@@ -190,6 +219,7 @@ class ProximityEngine {
 
   //@}
 
+<<<<<<< HEAD
   /** @name               Collision filters
 
    This interface provides the mechanism through which pairs of geometries are
@@ -236,6 +266,9 @@ class ProximityEngine {
   // GeometryState to set up cliques between sibling geometries.
   void set_clique(GeometryIndex index, int clique);
 
+=======
+ private:
+>>>>>>> intial
   ////////////////////////////////////////////////////////////////////////////
 
   // Testing utilities:
@@ -246,9 +279,12 @@ class ProximityEngine {
   // Reports true if other is detectably a deep copy of this engine.
   bool IsDeepCopy(const ProximityEngine<T>& other) const;
 
+<<<<<<< HEAD
   // Reveals what the next generated clique will be (without changing it).
   int peek_next_clique() const;
 
+=======
+>>>>>>> intial
   ////////////////////////////////////////////////////////////////////////////
 
   // TODO(SeanCurtis-TRI): Pimpl + template implementation has proven
@@ -270,6 +306,7 @@ class ProximityEngine {
   friend class ProximityEngineTester;
 };
 
+<<<<<<< HEAD
 #ifndef DRAKE_DOXYGEN_CXX
 // This is an attorney-client pattern providing GeometryState limited access to
 // the collision filtering mechanism of the ProximityEngine in order to be able
@@ -320,6 +357,8 @@ class GeometryStateCollisionFilterAttorney {
 };
 #endif
 
+=======
+>>>>>>> intial
 }  // namespace internal
 }  // namespace geometry
 }  // namespace drake

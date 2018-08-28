@@ -49,18 +49,34 @@ void CacheEntryValue::ThrowIfBadOtherValue(
 
   DRAKE_DEMAND(value_ != nullptr);  // Should have been checked already.
 
+<<<<<<< HEAD
   if (value_->type_info() != other_value->type_info()) {
     throw std::logic_error(FormatName(api) +
                            "other_value has wrong concrete type " +
                            other_value->GetNiceTypeName() + ". Expected " +
                            value_->GetNiceTypeName() + ".");
+=======
+  // Extract these outside typeid() to avoid warnings.
+  const AbstractValue& abstract_value = *value_;
+  const AbstractValue& other_abstract_value = *other_value;
+  if (std::type_index(typeid(abstract_value)) !=
+      std::type_index(typeid(other_abstract_value))) {
+    throw std::logic_error(FormatName(api) +
+                           "other_value has wrong concrete type " +
+                           NiceTypeName::Get(*other_value) + ". Expected " +
+                           NiceTypeName::Get(*value_) + ".");
+>>>>>>> intial
   }
 }
 
 CacheEntryValue& Cache::CreateNewCacheEntryValue(
     CacheIndex index, DependencyTicket ticket,
     const std::string& description,
+<<<<<<< HEAD
     const std::set<DependencyTicket>& prerequisites,
+=======
+    const std::vector<DependencyTicket>& prerequisites,
+>>>>>>> intial
     DependencyGraph* trackers) {
   DRAKE_DEMAND(trackers != nullptr);
   DRAKE_DEMAND(index.is_valid() && ticket.is_valid());
@@ -79,6 +95,7 @@ CacheEntryValue& Cache::CreateNewCacheEntryValue(
                           nullptr /* no value yet */));
   CacheEntryValue& value = *store_[index];
 
+<<<<<<< HEAD
   // Obtain a DependencyTracker for the CacheEntryValue. Normally there will be
   // no tracker associated with the given ticket. However, if this cache entry
   // corresponds to a well-known tracker (e.g. continuous derivatives xcdot)
@@ -100,11 +117,25 @@ CacheEntryValue& Cache::CreateNewCacheEntryValue(
         "cache " + description,
         &value);
   }
+=======
+  // Allocate a DependencyTracker for this cache entry. Note that a pointer
+  // to the new CacheEntryValue is retained so must have a lifetime matching
+  // the tracker. That requires that the Cache and DependencyGraph are contained
+  // in the same Context.
+  DependencyTracker& tracker = trackers->CreateNewDependencyTracker(
+      ticket,
+      "cache " + description,
+      &value);
+>>>>>>> intial
 
   // Subscribe to prerequisites (trackers must already exist).
   for (auto prereq : prerequisites) {
     auto& prereq_tracker = trackers->get_mutable_tracker(prereq);
+<<<<<<< HEAD
     tracker->SubscribeToPrerequisite(&prereq_tracker);
+=======
+    tracker.SubscribeToPrerequisite(&prereq_tracker);
+>>>>>>> intial
   }
   return value;
 }

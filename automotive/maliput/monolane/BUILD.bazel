@@ -1,11 +1,18 @@
 # -*- python -*-
 
 load(
+<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
+=======
+    "//tools:drake.bzl",
+    "drake_cc_binary",
+    "drake_cc_googletest",
+    "drake_cc_library",
+>>>>>>> intial
 )
 load(
     "@drake//tools/skylark:drake_py.bzl",
@@ -15,8 +22,15 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "monolane",
+=======
+drake_cc_library(
+    name = "monolane",
+    srcs = [],
+    hdrs = [],
+>>>>>>> intial
     deps = [
         ":builder",
         ":lanes",
@@ -89,15 +103,26 @@ filegroup(
 
 drake_cc_googletest(
     name = "monolane_builder_test",
+<<<<<<< HEAD
     srcs = ["test/monolane_builder_test.cc"],
     deps = [
         ":builder",
         "//automotive/maliput/api/test_utilities",
+=======
+    size = "small",
+    srcs = ["test/monolane_builder_test.cc"],
+    deps = [
+        ":builder",
+>>>>>>> intial
     ],
 )
 
 drake_cc_googletest(
     name = "monolane_lanes_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     srcs = ["test/monolane_lanes_test.cc"],
     deps = [
         ":lanes",
@@ -108,6 +133,10 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "monolane_road_geometry_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     srcs = ["test/monolane_road_geometry_test.cc"],
     deps = [
         ":builder",
@@ -127,6 +156,10 @@ drake_cc_binary(
 
 drake_py_unittest(
     name = "yaml_load_test",
+<<<<<<< HEAD
+=======
+    size = "small",
+>>>>>>> intial
     args = ["$(location :yaml_load)"],
     data = [
         ":yaml_load",

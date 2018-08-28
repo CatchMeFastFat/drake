@@ -62,6 +62,7 @@ class DummyEvaluator : public EvaluatorBase {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
+<<<<<<< HEAD
               Eigen::VectorXd* y) const override {
     y->resize(2);
     (*y)(0) = x(1) * x(2);
@@ -80,6 +81,19 @@ class DummyEvaluator : public EvaluatorBase {
     y->resize(2);
     (*y)(0) = x(1) * x(2);
     (*y)(1) = x(0) - x(1);
+=======
+              Eigen::VectorXd& y) const override {
+    y.resize(2);
+    y(0) = x(1) * x(2);
+    y(1) = x(0) - x(1);
+  }
+
+  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
+              AutoDiffVecXd& y) const override {
+    y.resize(2);
+    y(0) = x(1) * x(2);
+    y(1) = x(0) - x(1);
+>>>>>>> intial
   }
 };
 

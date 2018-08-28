@@ -8,7 +8,11 @@
 #include <tinydir.h>
 
 #include "drake/common/drake_assert.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 
 using std::string;
 using std::stringstream;
@@ -197,8 +201,12 @@ void originAttributesToTransform(
   parseVectorAttribute(node, "xyz", xyz);
   parseVectorAttribute(node, "rpy", rpy);
 
+<<<<<<< HEAD
   const drake::math::RollPitchYaw<double> roll_pitch_yaw(rpy);
   T.matrix() << roll_pitch_yaw.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
+=======
+  T.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
 }
 
 void poseValueToTransform(tinyxml2::XMLElement* node, const PoseMap& pose_map,
@@ -213,8 +221,12 @@ void poseValueToTransform(tinyxml2::XMLElement* node, const PoseMap& pose_map,
     s >> xyz(0) >> xyz(1) >> xyz(2) >> rpy(0) >> rpy(1) >> rpy(2);
   }
 
+<<<<<<< HEAD
   const drake::math::RollPitchYaw<double> roll_pitch_yaw(rpy);
   T.matrix() << roll_pitch_yaw.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
+=======
+  T.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
+>>>>>>> intial
 
   const char* attr = node->Attribute("frame");
   if (attr && strlen(attr) > 0) {

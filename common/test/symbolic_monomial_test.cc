@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #include <exception>
+=======
+>>>>>>> intial
 #include <sstream>
 #include <stdexcept>
 #include <unordered_map>
@@ -10,7 +13,10 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/hash.h"
 #include "drake/common/symbolic.h"
+<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
+=======
+>>>>>>> intial
 #include "drake/common/test_utilities/symbolic_test_util.h"
 
 using std::map;
@@ -119,6 +125,7 @@ class MonomialTest : public ::testing::Test {
   }
 };
 
+<<<<<<< HEAD
 // Tests that default constructor and EIGEN_INITIALIZE_MATRICES_BY_ZERO
 // constructor both create the same value.
 TEST_F(MonomialTest, DefaultConstructors) {
@@ -128,6 +135,8 @@ TEST_F(MonomialTest, DefaultConstructors) {
   EXPECT_EQ(m_zero.total_degree(), 0);
 }
 
+=======
+>>>>>>> intial
 TEST_F(MonomialTest, ConstructFromVariable) {
   const Monomial m1{var_x_};
   const std::map<Variable, int> powers{m1.get_powers()};
@@ -138,6 +147,7 @@ TEST_F(MonomialTest, ConstructFromVariable) {
   EXPECT_EQ(powers.begin()->second, 1);
 }
 
+<<<<<<< HEAD
 TEST_F(MonomialTest, ConstructFromVariablesAndExponents) {
   // [] * [] => 1.
   const VectorX<Variable> vars(0);
@@ -165,6 +175,8 @@ TEST_F(MonomialTest, ConstructFromVariablesAndExponents) {
                               std::logic_error, "The exponent is negative.");
 }
 
+=======
+>>>>>>> intial
 TEST_F(MonomialTest, GetVariables) {
   const Monomial m0{};
   EXPECT_EQ(m0.GetVariables(), Variables{});
@@ -537,8 +549,12 @@ TEST_F(MonomialTest, ToMonomialException3) {
 TEST_F(MonomialTest, ToMonomialException4) {
   // Note: Parentheses are required around macro argument containing braced
   // initializer list.
+<<<<<<< HEAD
   DRAKE_EXPECT_THROWS_MESSAGE((Monomial{{{var_x_, -1}}}), std::logic_error,
                               "The exponent is negative.");
+=======
+  EXPECT_THROW((Monomial{{{var_x_, -1}}}), runtime_error);
+>>>>>>> intial
 }
 
 TEST_F(MonomialTest, Multiplication) {

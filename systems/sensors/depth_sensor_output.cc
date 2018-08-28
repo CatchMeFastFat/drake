@@ -15,8 +15,14 @@ namespace sensors {
 
 template <typename T>
 DepthSensorOutput<T>::DepthSensorOutput(const DepthSensorSpecification& spec)
+<<<<<<< HEAD
     : BasicVector<double>(VectorX<double>::Zero(spec.num_depth_readings())),
       spec_(spec) {}
+=======
+    : BasicVector<double>(spec.num_depth_readings()), spec_(spec) {
+  this->SetFromVector(VectorX<double>::Zero(spec_.num_depth_readings()));
+}
+>>>>>>> intial
 
 template <typename T>
 double DepthSensorOutput<T>::GetTooFarDistance() {

@@ -35,11 +35,15 @@ def _bazel_lint(name, files, ignore):
         )
 
 #------------------------------------------------------------------------------
+<<<<<<< HEAD
 def bazel_lint(
         name = "bazel",
         ignore = None,
         extra_srcs = None,
         exclude = None):
+=======
+def bazel_lint(name = "bazel", ignore = None, extra_srcs = None):
+>>>>>>> intial
     """
     Runs the ``bzlcodestyle`` code style checker on all Bazel files in the
     current directory. The tool is based on the ``pycodestyle`` :pep:`8` code
@@ -49,10 +53,13 @@ def bazel_lint(
         name: Name prefix of the test (default = "bazel").
         ignore: List of errors (as integers, without the 'E') to ignore
             (default = [265, 302, 305]).
+<<<<<<< HEAD
         extra_srcs: List of files to lint that would otherwise be missed by the
             default glob pattern for Bazel source code.
         exclude: List to be passed to the skylark glob function for files that
             should not be linted (e.g., vendored files).
+=======
+>>>>>>> intial
 
     Example:
         BUILD:
@@ -65,8 +72,11 @@ def bazel_lint(
         ignore = [265, 302, 305]
     if extra_srcs == None:
         extra_srcs = []
+<<<<<<< HEAD
     if exclude == None:
         exclude = []
+=======
+>>>>>>> intial
 
     _bazel_lint(
         name = name,
@@ -79,6 +89,10 @@ def bazel_lint(
             "BUILD",
             "BUILD.bazel",
             "WORKSPACE",
+<<<<<<< HEAD
         ], exclude = exclude) + extra_srcs,
+=======
+        ]) + extra_srcs,
+>>>>>>> intial
         ignore = ignore,
     )

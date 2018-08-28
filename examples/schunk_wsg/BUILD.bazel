@@ -2,9 +2,15 @@
 
 load(
     "//tools:drake.bzl",
+<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
+=======
+    "drake_cc_googletest",
+    "drake_cc_library",
+    "drake_cc_binary",
+>>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -14,7 +20,10 @@ drake_cc_library(
     hdrs = ["simulated_schunk_wsg_system.h"],
     deps = [
         "//common:find_resource",
+<<<<<<< HEAD
         "//manipulation/schunk_wsg",
+=======
+>>>>>>> intial
         "//multibody/parsers",
         "//multibody/rigid_body_plant",
     ],
@@ -41,7 +50,11 @@ drake_cc_binary(
         "//multibody/rigid_body_plant:drake_visualizer",
         "//systems/analysis:simulator",
         "//systems/framework",
+<<<<<<< HEAD
         "//systems/lcm:lcm_pubsub_system",
+=======
+        "//systems/lcm",
+>>>>>>> intial
         "@gflags",
     ],
 )
@@ -50,7 +63,11 @@ drake_cc_binary(
 
 drake_cc_googletest(
     name = "schunk_wsg_lift_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+    size = "large",
+>>>>>>> intial
     data = [
         "test/test_lifter.sdf",
         "//manipulation/models/wsg_50_description:models",
@@ -67,7 +84,11 @@ drake_cc_googletest(
         "//common/trajectories:piecewise_polynomial",
         "//common/trajectories:trajectory",
         "//lcm",
+<<<<<<< HEAD
         "//manipulation/schunk_wsg",
+=======
+        "//manipulation/schunk_wsg:schunk_wsg_constants",
+>>>>>>> intial
         "//multibody:rigid_body_tree",
         "//multibody:rigid_body_tree_construction",
         "//multibody/parsers",
@@ -86,7 +107,12 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "simulated_schunk_wsg_system_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+    # Test size increased to not timeout when run with Valgrind.
+    size = "medium",
+>>>>>>> intial
     data = [
         "//manipulation/models/wsg_50_description:models",
     ],

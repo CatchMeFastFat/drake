@@ -84,6 +84,15 @@ GTEST_TEST(BeamModelTest, TestProbabilityDensity) {
   builder.Connect(w_uniform->get_output_port(0),
                   beam_model->get_uniform_random_input_port());
 
+<<<<<<< HEAD
+=======
+  // TODO(russt): Remove these when #7149 lands.
+  w_event->set_random_seed(142);
+  w_hit->set_random_seed(43);
+  w_short->set_random_seed(44);
+  w_uniform->set_random_seed(45);
+
+>>>>>>> intial
   auto logger = LogOutput(beam_model->get_output_port(0), &builder);
 
   auto diagram = builder.Build();
@@ -185,7 +194,11 @@ GTEST_TEST(BeamModelTest, TestProbabilityDensity) {
               params.sigma_hit());  // "hit" would have returned > kMaxRange.
   EXPECT_NEAR(
       (x.array() == kMaxRange).template cast<double>().matrix().sum() / N,
+<<<<<<< HEAD
       p_max, 3e-3);
+=======
+      p_max, 2e-3);
+>>>>>>> intial
 }
 
 }  // namespace

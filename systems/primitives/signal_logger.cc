@@ -12,11 +12,14 @@ SignalLogger<T>::SignalLogger(int input_size, int batch_allocation_size)
 }
 
 template <typename T>
+<<<<<<< HEAD
 void SignalLogger<T>::set_publish_period(double period) {
   this->DeclarePeriodicPublish(period);
 }
 
 template <typename T>
+=======
+>>>>>>> intial
 void SignalLogger<T>::DoPublish(const Context<T>& context,
                                 const std::vector<const PublishEvent<T>*>&)
                                 const {
@@ -25,7 +28,11 @@ void SignalLogger<T>::DoPublish(const Context<T>& context,
 }
 
 template <typename T>
+<<<<<<< HEAD
 const InputPort<T>& SignalLogger<T>::get_input_port()
+=======
+const InputPortDescriptor<T>& SignalLogger<T>::get_input_port()
+>>>>>>> intial
 const {
   return System<T>::get_input_port(0);
 }

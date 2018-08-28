@@ -1,15 +1,20 @@
 # -*- python -*-
 
+<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
+=======
+load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
+>>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
+<<<<<<< HEAD
 drake_cc_package_library(
     name = "analysis",
     deps = [
@@ -79,6 +84,19 @@ drake_cc_library(
         ":scalar_dense_output",
         "//common:essential",
         "@fmt",
+=======
+drake_cc_library(
+    name = "analysis",
+    srcs = [],
+    hdrs = [],
+    deps = [
+        ":explicit_euler_integrator",
+        ":implicit_euler_integrator",
+        ":runge_kutta2_integrator",
+        ":runge_kutta3_integrator",
+        ":semi_explicit_euler_integrator",
+        ":simulator",
+>>>>>>> intial
     ],
 )
 
@@ -86,9 +104,12 @@ drake_cc_library(
     name = "integrator_base",
     hdrs = ["integrator_base.h"],
     deps = [
+<<<<<<< HEAD
         ":dense_output",
         ":hermitian_dense_output",
         ":stepwise_dense_output",
+=======
+>>>>>>> intial
         "//systems/framework:context",
         "//systems/framework:system",
     ],
@@ -172,10 +193,15 @@ drake_cc_library(
         "initial_value_problem-inl.h",
     ],
     deps = [
+<<<<<<< HEAD
         ":dense_output",
         ":integrator_base",
         ":runge_kutta3_integrator",
         "//common:default_scalars",
+=======
+        ":runge_kutta3_integrator",
+        "//common:essential",
+>>>>>>> intial
         "//systems/framework:context",
         "//systems/framework:continuous_state",
         "//systems/framework:leaf_system",
@@ -191,6 +217,7 @@ drake_cc_library(
     ],
     hdrs = [
         "scalar_initial_value_problem.h",
+<<<<<<< HEAD
         "scalar_initial_value_problem-inl.h",
     ],
     deps = [
@@ -198,6 +225,11 @@ drake_cc_library(
         ":scalar_dense_output",
         ":scalar_view_dense_output",
         "//common:default_scalars",
+=======
+    ],
+    deps = [
+        ":initial_value_problem",
+>>>>>>> intial
         "//common:essential",
         "//common:unused",
     ],
@@ -210,12 +242,18 @@ drake_cc_library(
     ],
     hdrs = [
         "antiderivative_function.h",
+<<<<<<< HEAD
         "antiderivative_function-inl.h",
     ],
     deps = [
         ":scalar_dense_output",
         ":scalar_initial_value_problem",
         "//common:default_scalars",
+=======
+    ],
+    deps = [
+        ":scalar_initial_value_problem",
+>>>>>>> intial
         "//common:essential",
         "//common:unused",
     ],
@@ -250,7 +288,10 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "explicit_euler_integrator_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+>>>>>>> intial
     deps = [
         ":explicit_euler_integrator",
         "//systems/analysis/test_utilities",
@@ -259,12 +300,17 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "implicit_euler_integrator_test",
+<<<<<<< HEAD
     timeout = "moderate",
     # Adding cache invalidation made this take too long with Valgrind.
     # See Drake issue #9261.
     tags = [
         "no_memcheck",
     ],
+=======
+    # Test size increased to not timeout when run with Valgrind.
+    size = "large",
+>>>>>>> intial
     deps = [
         ":implicit_euler_integrator",
         "//systems/analysis/test_utilities",
@@ -274,6 +320,11 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "lyapunov_test",
+<<<<<<< HEAD
+=======
+    # Test size increased to not timeout when run with Valgrind.
+    size = "medium",
+>>>>>>> intial
     deps = [
         ":lyapunov",
         "//examples/pendulum:pendulum_plant",
@@ -284,18 +335,28 @@ drake_cc_googletest(
     name = "runge_kutta2_integrator_test",
     deps = [
         ":runge_kutta2_integrator",
+<<<<<<< HEAD
         "//common/test_utilities:eigen_matrix_compare",
+=======
+>>>>>>> intial
         "//systems/analysis/test_utilities",
     ],
 )
 
 drake_cc_googletest(
     name = "runge_kutta3_integrator_test",
+<<<<<<< HEAD
     # Test timeout increased to not timeout when run with Valgrind.
     timeout = "moderate",
     deps = [
         ":runge_kutta3_integrator",
         "//common/test_utilities:eigen_matrix_compare",
+=======
+    # Test size increased to not timeout when run with Valgrind.
+    size = "medium",
+    deps = [
+        ":runge_kutta3_integrator",
+>>>>>>> intial
         "//math:geometric_transform",
         "//multibody/parsers",
         "//multibody/rigid_body_plant",
@@ -305,7 +366,12 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "semi_explicit_euler_integrator_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+    # Test size increased to not timeout when run with Valgrind.
+    size = "medium",
+>>>>>>> intial
     deps = [
         ":explicit_euler_integrator",
         ":semi_explicit_euler_integrator",
@@ -317,26 +383,40 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "initial_value_problem_test",
+<<<<<<< HEAD
     timeout = "moderate",
+=======
+    size = "small",
+>>>>>>> intial
     deps = [
         ":initial_value_problem",
         ":runge_kutta2_integrator",
         "//common/test_utilities:eigen_matrix_compare",
+<<<<<<< HEAD
         "//common/test_utilities:expect_throws_message",
+=======
+>>>>>>> intial
     ],
 )
 
 drake_cc_googletest(
     name = "scalar_initial_value_problem_test",
+<<<<<<< HEAD
     deps = [
         ":runge_kutta2_integrator",
         ":scalar_initial_value_problem",
         "//common/test_utilities:expect_throws_message",
+=======
+    size = "small",
+    deps = [
+        ":scalar_initial_value_problem",
+>>>>>>> intial
     ],
 )
 
 drake_cc_googletest(
     name = "antiderivative_function_test",
+<<<<<<< HEAD
     deps = [
         ":antiderivative_function",
         ":runge_kutta2_integrator",
@@ -364,6 +444,11 @@ drake_cc_googletest(
         "//common:autodiff",
         "//common:essential",
         "//common/test_utilities:expect_throws_message",
+=======
+    size = "small",
+    deps = [
+        ":antiderivative_function",
+>>>>>>> intial
     ],
 )
 

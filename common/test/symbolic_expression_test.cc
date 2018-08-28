@@ -89,11 +89,17 @@ void CheckOrdering(const vector<Expression>& expressions) {
 // Provides common variables that are used by the following tests.
 class SymbolicExpressionTest : public ::testing::Test {
  protected:
+<<<<<<< HEAD
   const Variable var_a_{"a"};
   const Variable var_x_{"x"};
   const Variable var_y_{"y"};
   const Variable var_z_{"z"};
   const Expression a_{var_a_};
+=======
+  const Variable var_x_{"x"};
+  const Variable var_y_{"y"};
+  const Variable var_z_{"z"};
+>>>>>>> intial
   const Expression x_{var_x_};
   const Expression y_{var_y_};
   const Expression z_{var_z_};
@@ -903,6 +909,7 @@ TEST_F(SymbolicExpressionTest, HashUnary) {
   EXPECT_EQ(hash_set.size(), exprs.size());
 }
 
+<<<<<<< HEAD
 // Confirm that numeric_limits is appropriately specialized for Expression.
 // We'll just spot-test a few values, since our implementation is trivially
 // forwarding to numeric_limits<double>.
@@ -922,6 +929,8 @@ TEST_F(SymbolicExpressionTest, NumericLimits) {
   EXPECT_EQ(num_infinity.to_string(), "inf");
 }
 
+=======
+>>>>>>> intial
 TEST_F(SymbolicExpressionTest, UnaryPlus) {
   EXPECT_PRED2(ExprEqual, c3_, +c3_);
   EXPECT_PRED2(ExprEqual, Expression(var_x_), +var_x_);
@@ -1931,6 +1940,7 @@ TEST_F(SymbolicExpressionTest, GetDistinctVariables) {
             Variables({var_x_, var_z_}));
 }
 
+<<<<<<< HEAD
 TEST_F(SymbolicExpressionTest, TaylorExpand1) {
   // Test TaylorExpand(exp(-x²-y²), {x:1, y:2}, 2).
   const Expression& x{x_};
@@ -2074,6 +2084,8 @@ TEST_F(SymbolicExpressionTest, TaylorExpandPartialEnv2) {
   }
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace symbolic
 }  // namespace drake

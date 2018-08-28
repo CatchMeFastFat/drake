@@ -51,7 +51,11 @@ are @ref collision_filter_mapping "related but complementary".
 Before looking at the details of the collision filter mechanisms, there are a
 few key principles to make note of.
 
+<<<<<<< HEAD
  <!-- TODO(SeanCurtis-TRI): Change this with the advent of SceneGraph to
+=======
+ <!-- TODO(SeanCurtis-TRI): Change this with the advent of GeometrySystem to
+>>>>>>> intial
  reflect current state -->
 \section collision_elements Collision Elements
 
@@ -170,8 +174,13 @@ There are several implications of this:
 being filtered. There is currently no interface for manipulating cliques
 programmatically. This will be implemented when the use case becomes clear.
 However, there is a workaround. As an example, consider two adjacent bodies, `A`
+<<<<<<< HEAD
 and `B`. Their collision elements will automatically be put into a common
 clique. However, we may want collisions between element `E` on `B` and collision
+=======
+and `B`. Their collision elements will automatically be put into a common clique.
+However, we may want collisions between element `E` on `B` and collision
+>>>>>>> intial
 elements on `A` to _not_ be filtered. We can create a massless body `Z` to
 hold `E` and use a weld (fixed) joint to attach `Z` to `B`. `Z` will not be
 adjacent to A, so `E` will interact with `A`'s elements.
@@ -267,6 +276,7 @@ is constrained. The workflow is as follows:
  - Add groups to the "ignore set" of the created groups
  - Compile the tree
 
+<<<<<<< HEAD
 The API only supports _building up_ collision filter groups and _adding_ bodies
 to groups. There is no API for removing bodies from previously declared groups
 or removing groups from another group's ignore list. The API is strictly
@@ -299,6 +309,21 @@ upon parse completion. By passing `false`, the parsing process will _not_
 compile the tree, but it becomes the caller's responsibility to make sure that
 RigidBodyTree::compile() is invoked before doing any work on the tree. For
 example:
+=======
+Once a body in the tree has been through the compilation process, it _cannot_
+have its collision filters modified. In the historical workflow, the act of
+parsing a URDF/SDF file implicitly ends with compiling the tree. So, using the
+standard parsing API means that the bodies parsed from a file cannot be
+programmatically altered.
+
+There is a _second_ parsing API that allows for suppressing the automatic
+tree compilation. If there is a need to augment or modify the collision filter
+groups declared in a parsed file, pass `false` into this alternate API.
+By doing so, you can invoke methods to create and modify collision filter groups
+for those bodies that have not been compiled yet. However, the caller has the
+responsibility to make sure that RigidBodyTree::compile() is invoked before
+doing any work on the tree. For example:
+>>>>>>> intial
 
 ```
  const bool do_compile = false;
@@ -373,7 +398,11 @@ elements.
 collision filter groups is to create a new group which ignores itself and
 make all of the collision elements of both bodies members of that group.
 
+<<<<<<< HEAD
 <b>Comparison</b> Both representations offer a straightforward implementation.
+=======
+<b>Comparision</b> Both representations offer a straightforward implementation.
+>>>>>>> intial
 However, because of the fixed-width bitmask, we have a finite number of
 collision filter groups. For a _single_ robot with `k` links, we would need, on
 the average, `k - 1` groups to handle this case.  If we extend this to multiple
@@ -459,7 +488,11 @@ In this representation, the right-most bit is the low-order bit.  Remember that
 all elements belong to the universal group (bit 0). It should be clear that
 `groupA` and `groupB` were assigned to bits 1 and 2, respectively.
 
+<<<<<<< HEAD
 <b>Comparison</b> Collision filtering based on _classes_ of bodies fits
+=======
+<b>Comparision</b> Collision filtering based on _classes_ of bodies fits
+>>>>>>> intial
 naturally with the collision filter group model.  Its representation is compact
 and its runtime cost remains unchanged.  The efficacy of the clique approach
 depends on the size of the groups and, handled greedily, could lead to an

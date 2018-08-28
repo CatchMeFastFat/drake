@@ -54,11 +54,18 @@ DepthSensor::DepthSensor(const std::string& name,
   }
   DRAKE_DEMAND(specification_.min_range() <= specification_.max_range() &&
                "min_range must be less than or equal to max_range");
+<<<<<<< HEAD
 
   const auto& input_port = DeclareInputPort(
       kVectorValued, tree.get_num_positions() + tree.get_num_velocities());
   input_port_index_ = input_port.get_index();
 
+=======
+  input_port_index_ =
+      DeclareInputPort(kVectorValued,
+                       tree.get_num_positions() + tree.get_num_velocities())
+          .get_index();
+>>>>>>> intial
   depth_output_port_index_ =
       DeclareVectorOutputPort(DepthSensorOutput<double>(specification_),
                               &DepthSensor::CalcDepthOutput)
@@ -67,6 +74,7 @@ DepthSensor::DepthSensor(const std::string& name,
       DeclareVectorOutputPort(PoseVector<double>(),
                               &DepthSensor::CalcPoseOutput)
           .get_index();
+<<<<<<< HEAD
 
   // Kinematics cache here depends only on the input port, specifically just
   // the q's (but the port has v's also).
@@ -90,6 +98,11 @@ void DepthSensor::CalcKinematics(
   tree_.doKinematics(*kinematics_cache);
 }
 
+=======
+  PrecomputeRaycastEndpoints();
+}
+
+>>>>>>> intial
 void DepthSensor::PrecomputeRaycastEndpoints() {
   raycast_endpoints_.resize(3, get_num_depth_readings());
 
@@ -136,7 +149,11 @@ void DepthSensor::PrecomputeRaycastEndpoints() {
   }
 }
 
+<<<<<<< HEAD
 const InputPort<double>&
+=======
+const InputPortDescriptor<double>&
+>>>>>>> intial
 DepthSensor::get_rigid_body_tree_state_input_port() const {
   return this->get_input_port(input_port_index_);
 }
@@ -149,11 +166,22 @@ const OutputPort<double>& DepthSensor::get_pose_output_port() const {
   return System<double>::get_output_port(pose_output_port_index_);
 }
 
+<<<<<<< HEAD
 void DepthSensor::CalcDepthOutput(
     const Context<double>& context,
     DepthSensorOutput<double>* data_output) const {
   const auto& kinematics_cache =
       kinematics_cache_entry_->Eval<KinematicsCache<double>>(context);
+=======
+// TODO(sherm1) Should be accessing an already-calculated kinematics cache,
+// not recalculating.
+void DepthSensor::CalcDepthOutput(
+    const Context<double>& context,
+    DepthSensorOutput<double>* data_output) const {
+  VectorXd u = this->EvalEigenVectorInput(context, 0);
+  auto q = u.head(tree_.get_num_positions());
+  KinematicsCache<double> kinematics_cache = tree_.doKinematics(q);
+>>>>>>> intial
 
   const int frame_index = frame_.get_frame_index();
 
@@ -176,8 +204,13 @@ void DepthSensor::CalcDepthOutput(
 
   VectorX<double> distances(get_num_depth_readings());
 
+<<<<<<< HEAD
   // TODO(liang.fok) Remove the need for const_cast once SceneGraph is ready.
   // See:
+=======
+  // TODO(liang.fok) Remove the need for const_cast once GeometrySystem is
+  // ready. See:
+>>>>>>> intial
   // https://github.com/RobotLocomotion/drake/issues/4592#issuecomment-269491752
   const_cast<RigidBodyTree<double>&>(tree_).collisionRaycast(
       kinematics_cache, origin, raycast_endpoints_world, distances);
@@ -205,10 +238,20 @@ void DepthSensor::ApplyLimits(VectorX<double>* distances) const {
 }
 
 // Evaluates the output port containing X_WS.
+<<<<<<< HEAD
 void DepthSensor::CalcPoseOutput(const Context<double>& context,
                                  PoseVector<double>* pose_output) const {
   const auto& kinematics_cache =
       kinematics_cache_entry_->Eval<KinematicsCache<double>>(context);
+=======
+// TODO(sherm1) Should be accessing an already-calculated kinematics cache,
+// not recalculating.
+void DepthSensor::CalcPoseOutput(const Context<double>& context,
+                                 PoseVector<double>* pose_output) const {
+  VectorXd u = this->EvalEigenVectorInput(context, 0);
+  auto q = u.head(tree_.get_num_positions());
+  KinematicsCache<double> kinematics_cache = tree_.doKinematics(q);
+>>>>>>> intial
 
   const drake::Isometry3<double> X_WS =
       tree_.CalcFramePoseInWorldFrame(kinematics_cache, frame_);

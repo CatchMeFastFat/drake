@@ -29,7 +29,11 @@ class DiscreteTimeSystemConstraint : public solvers::Constraint {
   DiscreteTimeSystemConstraint(const System<AutoDiffXd>& system,
                                Context<AutoDiffXd>* context,
                                DiscreteValues<AutoDiffXd>* discrete_state,
+<<<<<<< HEAD
                                FixedInputPortValue* input_port_value,
+=======
+                               FreestandingInputPortValue* input_port_value,
+>>>>>>> intial
                                int num_states, int num_inputs,
                                double evaluation_time)
       : Constraint(num_states, num_inputs + 2 * num_states,
@@ -58,16 +62,27 @@ class DiscreteTimeSystemConstraint : public solvers::Constraint {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
+<<<<<<< HEAD
               Eigen::VectorXd* y) const override {
     AutoDiffVecXd y_t;
     Eval(math::initializeAutoDiff(x), &y_t);
     *y = math::autoDiffToValueMatrix(y_t);
+=======
+              Eigen::VectorXd& y) const override {
+    AutoDiffVecXd y_t;
+    Eval(math::initializeAutoDiff(x), y_t);
+    y = math::autoDiffToValueMatrix(y_t);
+>>>>>>> intial
   }
 
   // The format of the input to the eval() function is a vector
   // containing {input, state, next_state}.
   void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
+<<<<<<< HEAD
               AutoDiffVecXd* y) const override {
+=======
+              AutoDiffVecXd& y) const override {
+>>>>>>> intial
     DRAKE_ASSERT(x.size() == num_inputs_ + (2 * num_states_));
 
     // Extract our input variables:
@@ -83,6 +98,7 @@ class DiscreteTimeSystemConstraint : public solvers::Constraint {
     context_->get_mutable_discrete_state(0).SetFromVector(state);
 
     system_.CalcDiscreteVariableUpdates(*context_, discrete_state_);
+<<<<<<< HEAD
     *y = next_state - discrete_state_->get_vector(0).CopyToVector();
   }
 
@@ -90,12 +106,19 @@ class DiscreteTimeSystemConstraint : public solvers::Constraint {
               VectorX<symbolic::Expression>*) const override {
     throw std::logic_error(
         "DiscreteTimeSystemConstraint does not support symbolic evaluation.");
+=======
+    y = next_state - discrete_state_->get_vector(0).CopyToVector();
+>>>>>>> intial
   }
 
  private:
   const System<AutoDiffXd>& system_;
   Context<AutoDiffXd>* const context_;
+<<<<<<< HEAD
   FixedInputPortValue* const input_port_value_;
+=======
+  FreestandingInputPortValue* const input_port_value_;
+>>>>>>> intial
   DiscreteValues<AutoDiffXd>* const discrete_state_;
 
   const int num_states_{0};

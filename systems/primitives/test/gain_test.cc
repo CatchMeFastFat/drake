@@ -6,7 +6,11 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/systems/framework/basic_vector.h"
+<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
+=======
+#include "drake/systems/framework/input_port_value.h"
+>>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 
 using Eigen::Vector3d;
@@ -25,7 +29,11 @@ void TestGainSystem(const Gain<T>& gain_system,
 
   // Verifies that Gain allocates no state variables in the context.
   EXPECT_EQ(0, context->get_continuous_state().size());
+<<<<<<< HEAD
   auto output = gain_system.AllocateOutput();
+=======
+  auto output = gain_system.AllocateOutput(*context);
+>>>>>>> intial
   auto input =
       make_unique<BasicVector<double>>(gain_system.get_gain_vector().size());
 

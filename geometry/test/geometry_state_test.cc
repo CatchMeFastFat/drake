@@ -12,7 +12,10 @@
 #include "drake/common/test_utilities/expect_throws_message.h"
 #include "drake/geometry/geometry_frame.h"
 #include "drake/geometry/geometry_instance.h"
+<<<<<<< HEAD
 #include "drake/geometry/geometry_set.h"
+=======
+>>>>>>> intial
 #include "drake/geometry/internal_frame.h"
 #include "drake/geometry/shape_specification.h"
 
@@ -96,6 +99,7 @@ class GeometryStateTester {
     return state_->X_PF_;
   }
 
+<<<<<<< HEAD
   void SetFramePoses(const FramePoseVector<T>& poses) {
     state_->SetFramePoses(poses);
   }
@@ -111,6 +115,20 @@ class GeometryStateTester {
 
   int peek_next_clique() const {
     return state_->peek_next_clique();
+=======
+  void SetFramePoses(const FrameIdVector& ids,
+                     const FramePoseVector<T>& poses) {
+    state_->SetFramePoses(ids, poses);
+  }
+
+  void ValidateFrameIds(const FrameIdVector& ids) const {
+    state_->ValidateFrameIds(ids);
+  }
+
+  void ValidateFramePoses(const FrameIdVector& ids,
+                          const FramePoseVector<T>& poses) const {
+    state_->ValidateFramePoses(ids, poses);
+>>>>>>> intial
   }
 
  private:
@@ -119,7 +137,10 @@ class GeometryStateTester {
 
 namespace {
 
+<<<<<<< HEAD
 using Eigen::Isometry3d;
+=======
+>>>>>>> intial
 using std::make_unique;
 using std::move;
 using std::unique_ptr;
@@ -131,7 +152,11 @@ class GeometryStateTest : public ::testing::Test {
                                         Isometry3<double>::Identity());
     instance_pose_.translation() << 10, 20, 30;
     instance_ = make_unique<GeometryInstance>(
+<<<<<<< HEAD
         instance_pose_, make_unique<Sphere>(1.0), "instance");
+=======
+        instance_pose_, unique_ptr<Shape>(new Sphere(1.0)));
+>>>>>>> intial
     gs_tester_.set_state(&geometry_state_);
   }
 
@@ -145,16 +170,23 @@ class GeometryStateTest : public ::testing::Test {
   // geometries per frame.
   //
   //  Creates the following tree:
+<<<<<<< HEAD
   //                                      s_id
   //                                        ├───┬────────────┐
   //                                        │   │            │
   //                                       f0   f1           a
+=======
+  //                                        s_id
+  //                                        ╱  ╲
+  //                                       f0   f1
+>>>>>>> intial
   //                                      ╱ │    ├───┬───┐
   //                                    g0  g1   │   │   │
   //                                             f2  g2  g3
   //                                            ╱ ╲
   //                                           g4 g5
   //
+<<<<<<< HEAD
   // Default frame configuration
   //  f0 is @ <1, 2, 3>, with a 90-degree rotation around x.
   //  f1 is @ <10, 20, 30>, with a 90-degree rotation around y.
@@ -181,6 +213,18 @@ class GeometryStateTest : public ::testing::Test {
   //  Although the sibling geometries affixed to each frame overlap, the pairs
   //  (g0, g1), (g2, g3), and (g4, g5) are implicitly filtered because they are
   //  sibling geometries affixed to the same frame.
+=======
+  // Frame configuration
+  //  f0 is @ <1, 2, 3>, with a 90-degree rotation around x.
+  //  f1 is @ <10, 20, 30>, with a 90-degree rotation around y.
+  //  f2 is @ <-10, -20, -30>, with a -90-degree rotation around y.
+  // Geometry configuration
+  //  gi is at position <i + 1, 0, 0>, with a rotation of iπ/2 radians around
+  //    the x-axis.
+  // f2's pose is the inverse of f1. As such, for g4 & g5, the pose
+  // relative to the parent frame f2 is the same as to the world, e.g.,
+  // X_PG = X_WG.
+>>>>>>> intial
   SourceId SetUpSingleSourceTree() {
     using std::to_string;
 
@@ -204,7 +248,12 @@ class GeometryStateTest : public ::testing::Test {
     X_PF_.push_back(pose);
 
     // Create f2.
+<<<<<<< HEAD
     pose = pose.inverse();
+=======
+    pose.translation() << -10, -20, -30;
+    pose.linear() << 0, 0, 1, 0, 1, 0, -1, 0, 0;  // -90° around y-axis.
+>>>>>>> intial
     frames_.push_back(geometry_state_.RegisterFrame(
         source_id_, frames_[1], GeometryFrame("f2", pose)));
     X_WF_.push_back(X_WF_[1] * pose);
@@ -213,13 +262,17 @@ class GeometryStateTest : public ::testing::Test {
     // Add geometries to each frame.
     const Vector3<double> x_axis(1, 0, 0);
     geometries_.resize(kFrameCount * kGeometryCount);
+<<<<<<< HEAD
     geometry_names_.resize(geometries_.size());
+=======
+>>>>>>> intial
     int g_count = 0;
     for (auto frame_id : frames_) {
       for (int i = 0; i < kGeometryCount; ++i) {
         pose.translation() << g_count + 1, 0, 0;
         pose.linear() =
             AngleAxis<double>(g_count * M_PI / 2.0, x_axis).matrix();
+<<<<<<< HEAD
         // Have the name reflect the frame and the index in the geometry.
         const std::string& name =
             to_string(frame_id) + "_g" + std::to_string(i);
@@ -227,10 +280,17 @@ class GeometryStateTest : public ::testing::Test {
         geometries_[g_count] = geometry_state_.RegisterGeometry(
             source_id_, frame_id,
             make_unique<GeometryInstance>(pose, make_unique<Sphere>(1), name));
+=======
+        geometries_[g_count] = geometry_state_.RegisterGeometry(
+            source_id_, frame_id,
+            make_unique<GeometryInstance>(
+                pose, std::unique_ptr<Shape>(new Sphere(1))));
+>>>>>>> intial
         X_FG_.push_back(pose);
         ++g_count;
       }
     }
+<<<<<<< HEAD
 
     // Create anchored geometry.
     pose = Isometry3<double>::Identity();
@@ -238,16 +298,22 @@ class GeometryStateTest : public ::testing::Test {
     anchored_geometry_ = geometry_state_.RegisterAnchoredGeometry(
         source_id_, make_unique<GeometryInstance>(
                         pose, make_unique<Box>(100, 100, 2), anchored_name_));
+=======
+>>>>>>> intial
     return source_id_;
   }
 
   // Reports characteristics of the dummy tree.
   int single_tree_frame_count() const { return kFrameCount; }
+<<<<<<< HEAD
 
+=======
+>>>>>>> intial
   int single_tree_geometry_count() const {
     return kFrameCount * kGeometryCount;
   }
 
+<<<<<<< HEAD
   int anchored_geometry_count() const { return 1; }
 
   int default_collision_pair_count() const {
@@ -256,6 +322,8 @@ class GeometryStateTest : public ::testing::Test {
     return 2;
   }
 
+=======
+>>>>>>> intial
   // This method confirms that the stored dummy identifiers don't map to any
   // registered source identifier. This should only be invoked for scenarios
   // where there is *only* the single source.
@@ -316,12 +384,15 @@ class GeometryStateTest : public ::testing::Test {
   vector<FrameId> frames_;
   // The geometry ids created in the dummy tree instantiation.
   vector<GeometryId> geometries_;
+<<<<<<< HEAD
   // The names for all the geometries (as registered).
   vector<std::string> geometry_names_;
   // The single, anchored geometry id.
   GeometryId anchored_geometry_;
   // The registered name of the anchored geometry.
   const std::string anchored_name_{"anchored"};
+=======
+>>>>>>> intial
   // The id of the single-source tree.
   SourceId source_id_;
 
@@ -376,8 +447,11 @@ TEST_F(GeometryStateTest, GeometryStatistics) {
   EXPECT_EQ(geometry_state_.get_num_sources(), 1);
   EXPECT_EQ(geometry_state_.get_num_frames(), single_tree_frame_count());
   EXPECT_EQ(geometry_state_.get_num_geometries(), single_tree_geometry_count());
+<<<<<<< HEAD
   EXPECT_EQ(geometry_state_.get_num_anchored_geometries(),
             anchored_geometry_count());
+=======
+>>>>>>> intial
   SourceId false_id = SourceId::get_new_id();
   EXPECT_FALSE(geometry_state_.source_is_registered(false_id));
 }
@@ -440,9 +514,12 @@ void ExpectSuccessfulTransmogrification(
                     d_tester.get_geometry_world_poses());
   test_ad_vs_double(ad_tester.get_frame_world_poses(),
                     d_tester.get_frame_world_poses());
+<<<<<<< HEAD
 
   // 5. Engine transmogrification tested in its own test; it will *not* be done
   // here.
+=======
+>>>>>>> intial
 }
 
 // This tests the ability to assign a GeometryState<double> to a
@@ -745,8 +822,13 @@ TEST_F(GeometryStateTest, RegisterGeometryonValidGeometry) {
   const int parent_index = 0;
   const GeometryId parent_id = geometries_[parent_index];
   const FrameId frame_id = geometry_state_.GetFrameId(parent_id);
+<<<<<<< HEAD
   auto instance = make_unique<GeometryInstance>(
       pose, make_unique<Sphere>(1), "sphere");
+=======
+  auto instance =
+      make_unique<GeometryInstance>(pose, unique_ptr<Shape>(new Sphere(1)));
+>>>>>>> intial
   GeometryId expected_g_id = instance->id();
   GeometryId g_id =
       geometry_state_.RegisterGeometryWithParent(s_id,
@@ -781,8 +863,13 @@ TEST_F(GeometryStateTest, RegisterGeometryonValidGeometry) {
 TEST_F(GeometryStateTest, RegisterGeometryonInvalidGeometry) {
   SourceId s_id = SetUpSingleSourceTree();
   Isometry3<double> pose = Isometry3<double>::Identity();
+<<<<<<< HEAD
   auto instance = make_unique<GeometryInstance>(
       pose, make_unique<Sphere>(1), "sphere");
+=======
+  auto instance =
+      make_unique<GeometryInstance>(pose, unique_ptr<Shape>(new Sphere(1)));
+>>>>>>> intial
   GeometryId junk_id = GeometryId::get_new_id();
   DRAKE_EXPECT_THROWS_MESSAGE(
       geometry_state_.RegisterGeometryWithParent(s_id, junk_id, move(instance)),
@@ -806,7 +893,11 @@ TEST_F(GeometryStateTest, RegisterAnchoredGeometry) {
   SourceId s_id = NewSource("new source");
   Isometry3<double> pose = Isometry3<double>::Identity();
   auto instance = make_unique<GeometryInstance>(
+<<<<<<< HEAD
       pose, make_unique<Sphere>(1), "sphere");
+=======
+      pose, unique_ptr<Shape>(new Sphere(1)));
+>>>>>>> intial
   GeometryId expected_g_id = instance->id();
   auto g_id = geometry_state_.RegisterAnchoredGeometry(s_id, move(instance));
   EXPECT_EQ(g_id, expected_g_id);
@@ -829,7 +920,11 @@ TEST_F(GeometryStateTest, RegisterDuplicateAnchoredGeometry) {
 TEST_F(GeometryStateTest, RegisterAnchoredGeometryInvalidSource) {
   Isometry3<double> pose = Isometry3<double>::Identity();
   auto instance = make_unique<GeometryInstance>(
+<<<<<<< HEAD
       pose, make_unique<Sphere>(1), "sphere");
+=======
+      pose, unique_ptr<Shape>(new Sphere(1)));
+>>>>>>> intial
   DRAKE_EXPECT_THROWS_MESSAGE(
       geometry_state_.RegisterAnchoredGeometry(SourceId::get_new_id(),
                                                move(instance)),
@@ -879,8 +974,12 @@ TEST_F(GeometryStateTest, SourceOwnershipInvalidSource) {
   GeometryId anchored_id = geometry_state_.RegisterAnchoredGeometry(
       source_id_,
       make_unique<GeometryInstance>(Isometry3<double>::Identity(),
+<<<<<<< HEAD
                                     make_unique<Sphere>(1),
                                     "sphere"));
+=======
+                                    std::unique_ptr<Shape>(new Sphere(1))));
+>>>>>>> intial
   // Valid frame/geometry ids.
   DRAKE_EXPECT_THROWS_MESSAGE(
       geometry_state_.BelongsToSource(frames_[0], source_id), std::logic_error,
@@ -911,9 +1010,16 @@ TEST_F(GeometryStateTest, SourceOwnershipFrameId) {
 TEST_F(GeometryStateTest, SourceOwnershipGeometryId) {
   SourceId s_id = SetUpSingleSourceTree();
   GeometryId anchored_id = geometry_state_.RegisterAnchoredGeometry(
+<<<<<<< HEAD
       s_id, make_unique<GeometryInstance>(Isometry3<double>::Identity(),
                                           make_unique<Sphere>(1),
                                           "sphere"));
+=======
+      s_id,
+      make_unique<GeometryInstance>(
+          Isometry3<double>::Identity(),
+          std::unique_ptr<Shape>(new Sphere(1))));
+>>>>>>> intial
   // Test for invalid geometry.
   DRAKE_EXPECT_THROWS_MESSAGE(
       geometry_state_.BelongsToSource(GeometryId::get_new_id(), s_id),
@@ -931,6 +1037,7 @@ TEST_F(GeometryStateTest, GetFrameIdFromBadId) {
       "Referenced geometry \\d+ has not been registered.");
 }
 
+<<<<<<< HEAD
 // Tests the validation of the ids provided in a frame kinematics vector.
 TEST_F(GeometryStateTest, ValidateFrameIds) {
   SourceId s_id = SetUpSingleSourceTree();
@@ -961,10 +1068,86 @@ TEST_F(GeometryStateTest, ValidateFrameIds) {
   FramePoseVector<double> frame_set_3(s_id, missing_frames);
   DRAKE_EXPECT_THROWS_MESSAGE(
       gs_tester_.ValidateFrameIds(frame_set_3), std::runtime_error,
+=======
+// Tests the validation of the set of ids provided.
+TEST_F(GeometryStateTest, ValidateFrameIdVector) {
+  SourceId s_id = SetUpSingleSourceTree();
+  FrameIdVector frame_set(s_id, frames_);
+
+  // Case: frame ids are valid.
+  EXPECT_NO_THROW(gs_tester_.ValidateFrameIds(frame_set));
+
+  // Case: Set has *extra* frame.
+  frame_set.AddFrameId(FrameId::get_new_id());
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFrameIds(frame_set), std::logic_error,
+      "Disagreement in expected number of frames \\(\\d+\\)"
+      " and the given number of frames \\(\\d+\\).");
+
+  // Case: Right number, wrong frames.
+  FrameIdVector frame_set_2(s_id);
+  for (size_t i = 0; i < frames_.size(); ++i) {
+    frame_set_2.AddFrameId(FrameId::get_new_id());
+  }
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFrameIds(frame_set_2), std::logic_error,
+      "Frame id provided in kinematics data \\(\\d+\\) does "
+      "not belong to the source \\(\\d+\\). At least one "
+      "required frame id is also missing.");
+
+  // Case: Too few frames.
+  FrameIdVector frame_set_3(s_id);
+  for (size_t i = 0; i < frames_.size() - 1; ++i) {
+    frame_set_3.AddFrameId(frames_[i]);
+  }
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFrameIds(frame_set_3), std::logic_error,
+>>>>>>> intial
       "Disagreement in expected number of frames \\(\\d+\\)"
       " and the given number of frames \\(\\d+\\).");
 }
 
+<<<<<<< HEAD
+=======
+// Tests validation of kinematics pose data against ids.
+TEST_F(GeometryStateTest, ValidateFramePoses) {
+  SourceId s_id = SetUpSingleSourceTree();
+  // These tests are only meaningful for *valid* frame_set.
+  FrameIdVector frame_set(s_id, frames_);
+  vector<Isometry3<double>> pose_source;
+  for (size_t i = 0; i < frames_.size(); ++i) {
+    pose_source.push_back(Isometry3<double>::Identity());
+  }
+
+  // Case: validated.
+  FramePoseVector<double> poses(s_id, pose_source);
+  EXPECT_NO_THROW(gs_tester_.ValidateFramePoses(frame_set, poses));
+
+  // Case: Too many pose values.
+  poses.mutable_vector().push_back(Isometry3<double>::Identity());
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFramePoses(frame_set, poses),
+      std::logic_error,
+      "Different number of ids and poses. \\d+ ids and \\d+ poses.");
+
+  // Case: Too few pose values.
+  poses.mutable_vector().pop_back();
+  poses.mutable_vector().pop_back();
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFramePoses(frame_set, poses),
+      std::logic_error,
+      "Different number of ids and poses. \\d+ ids and \\d+ poses.");
+
+  // Case: mis-matched source ids.
+  FramePoseVector<double> poses2(SourceId::get_new_id(), pose_source);
+  DRAKE_EXPECT_THROWS_MESSAGE(
+      gs_tester_.ValidateFramePoses(frame_set, poses2), std::logic_error,
+      "Error setting poses for given ids; the ids and poses "
+      "belong to different geometry sources \\(\\d+ and "
+      "\\d+, respectively\\).");
+}
+
+>>>>>>> intial
 // Tests the GeometryState::SetFramePoses() method. This doesn't test
 // invalid kinematics sets (as that has been tested already). It simply confirms
 // that for valid values, the geometries are posed as expected in the world
@@ -974,12 +1157,19 @@ TEST_F(GeometryStateTest, ValidateFrameIds) {
 // of constructs.
 TEST_F(GeometryStateTest, SetFramePoses) {
   SourceId s_id = SetUpSingleSourceTree();
+<<<<<<< HEAD
   // A vector of poses we will use to populate FramePoseVectors.
+=======
+  FrameIdVector ids(s_id, frames_);
+
+  // Create a vector of poses (initially set to the identity pose).
+>>>>>>> intial
   vector<Isometry3<double>> frame_poses;
   for (int i = 0; i < kFrameCount; ++i) {
     frame_poses.push_back(Isometry3<double>::Identity());
   }
 
+<<<<<<< HEAD
   auto make_pose_vector =
       [&s_id, &frame_poses, this]() -> FramePoseVector<double> {
     const int count = static_cast<int>(this->frames_.size());
@@ -998,6 +1188,12 @@ TEST_F(GeometryStateTest, SetFramePoses) {
   // geometry should be that of the geometry in its frame.
   FramePoseVector<double> poses1 = make_pose_vector();
   gs_tester_.SetFramePoses(poses1);
+=======
+  // Case 1: Set all frames to identity poses. The world pose of all the
+  // geometry should be that of the geometry in its frame.
+  FramePoseVector<double> poses1(s_id, frame_poses);
+  gs_tester_.SetFramePoses(ids, poses1);
+>>>>>>> intial
   const auto& world_poses = gs_tester_.get_geometry_world_poses();
   for (int i = 0; i < kFrameCount * kGeometryCount; ++i) {
     EXPECT_TRUE(CompareMatrices(world_poses[i].matrix().block<3, 4>(0, 0),
@@ -1011,8 +1207,13 @@ TEST_F(GeometryStateTest, SetFramePoses) {
   offset.translation() << 0, 1, 0;
   frame_poses[0] = offset;
   frame_poses[1] = offset;
+<<<<<<< HEAD
   FramePoseVector<double> poses2 = make_pose_vector();
   gs_tester_.SetFramePoses(poses2);
+=======
+  FramePoseVector<double> poses2(s_id, frame_poses);
+  gs_tester_.SetFramePoses(ids, poses2);
+>>>>>>> intial
   for (int i = 0; i < kFrameCount * kGeometryCount; ++i) {
     EXPECT_TRUE(
         CompareMatrices(world_poses[i].matrix().block<3, 4>(0, 0),
@@ -1022,8 +1223,13 @@ TEST_F(GeometryStateTest, SetFramePoses) {
   // Case 3: All frames get set to move up one unit. This will leave geometries
   // 0, 1, 2, & 3 moved up 1, and geometries 4 & 5 moved up two.
   frame_poses[2] = offset;
+<<<<<<< HEAD
   FramePoseVector<double> poses3 = make_pose_vector();
   gs_tester_.SetFramePoses(poses3);
+=======
+  FramePoseVector<double> poses3(s_id, frame_poses);
+  gs_tester_.SetFramePoses(ids, poses3);
+>>>>>>> intial
   for (int i = 0; i < (kFrameCount - 1) * kGeometryCount; ++i) {
     EXPECT_TRUE(
         CompareMatrices(world_poses[i].matrix().block<3, 4>(0, 0),
@@ -1054,10 +1260,16 @@ TEST_F(GeometryStateTest, QueryFrameProperties) {
       "No frame name available for invalid frame id: \\d+");
 
   // Set the frame poses to query geometry and frame poses.
+<<<<<<< HEAD
   FramePoseVector<double> poses(s_id, frames_);
   poses.clear();
   for (int i = 0; i < kFrameCount; ++i) poses.set_value(frames_[i], X_PF_[i]);
   gs_tester_.SetFramePoses(poses);
+=======
+  FrameIdVector ids(s_id, frames_);
+  FramePoseVector<double> poses(s_id, X_PF_);
+  gs_tester_.SetFramePoses(ids, poses);
+>>>>>>> intial
 
   EXPECT_TRUE(
       CompareMatrices(geometry_state_.get_pose_in_world(frames_[0]).matrix(),
@@ -1084,6 +1296,7 @@ TEST_F(GeometryStateTest, QueryFrameProperties) {
       std::logic_error, "No pose available for invalid frame id: \\d+");
 }
 
+<<<<<<< HEAD
 // Test disallowing collisions among members of a group (self collisions).
 TEST_F(GeometryStateTest, ExcludeCollisionsWithin) {
   SetUpSingleSourceTree();
@@ -1354,6 +1567,8 @@ TEST_F(GeometryStateTest, GeometryNameValidation) {
   }
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace geometry
 }  // namespace drake

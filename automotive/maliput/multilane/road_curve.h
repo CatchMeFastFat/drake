@@ -1,7 +1,10 @@
 #pragma once
 
+<<<<<<< HEAD
 #include <functional>
 #include <memory>
+=======
+>>>>>>> intial
 #include <utility>
 
 #include <Eigen/Dense>
@@ -11,9 +14,13 @@
 #include "drake/common/drake_copyable.h"
 #include "drake/common/eigen_types.h"
 #include "drake/common/unused.h"
+<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
 #include "drake/systems/analysis/antiderivative_function.h"
 #include "drake/systems/analysis/scalar_initial_value_problem.h"
+=======
+#include "drake/math/roll_pitch_yaw.h"
+>>>>>>> intial
 
 namespace drake {
 namespace maliput {
@@ -24,7 +31,10 @@ namespace multilane {
 /// This effects a compound rotation around space-fixed x-y-z axes:
 ///
 ///   Rot3(roll, pitch, yaw) * V = RotZ(yaw) * RotY(pitch) * RotX(roll) * V
+<<<<<<< HEAD
 // TODO(Mitiguy) Deprecate this class in favor of math::RollPitchYaw.
+=======
+>>>>>>> intial
 class Rot3 {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(Rot3)
@@ -33,8 +43,12 @@ class Rot3 {
 
   /// Applies the rotation to a 3-vector.
   Vector3<double> apply(const Vector3<double>& in) const {
+<<<<<<< HEAD
     const math::RollPitchYaw<double> roll_pitch_yaw(rpy_);
     return roll_pitch_yaw.ToRotationMatrix() * in;
+=======
+    return math::rpy2rotmat(rpy_) * in;
+>>>>>>> intial
   }
 
   double yaw() const { return rpy_(2); }
@@ -45,6 +59,7 @@ class Rot3 {
   Eigen::Matrix<double, 3, 1, Eigen::DontAlign> rpy_;
 };
 
+<<<<<<< HEAD
 /// A policy to guide all computations in a RoadCurve, in terms of
 /// speed and accuracy.
 enum class ComputationPolicy {
@@ -56,6 +71,8 @@ enum class ComputationPolicy {
                     ///  approximated analytical expressions).
 };
 
+=======
+>>>>>>> intial
 /// Defines an interface for a path in a Segment object surface. The path is
 /// defined by an elevation and superelevation CubicPolynomial objects and a
 /// reference curve. This reference curve is a C1 function in the z=0 plane.
@@ -116,6 +133,7 @@ class RoadCurve {
 
   const CubicPolynomial& superelevation() const { return superelevation_; }
 
+<<<<<<< HEAD
   const double& linear_tolerance() const { return linear_tolerance_; }
 
   const double& scale_length() const { return scale_length_; }
@@ -146,6 +164,20 @@ class RoadCurve {
   /// @throw std::runtime_error When `r` makes the radius of curvature be a non
   ///                           positive number.
   std::function<double(double)> OptimizeCalcSFromP(double r) const;
+=======
+  /// Computes the parametric position p along the reference curve corresponding
+  /// to longitudinal position (in path-length) `s` along a parallel curve
+  /// laterally offset by `r` from the reference curve.
+  /// @return The parametric position p along an offset of the reference curve.
+  virtual double p_from_s(double s, double r) const = 0;
+
+  /// Computes the path length integral in the interval of the parameter [0; p]
+  /// and along a parallel curve laterally offset by `r` the planar reference
+  /// curve.
+  /// @return The path length integral of the curve composed with the elevation
+  /// polynomial.
+  virtual double s_from_p(double p, double r) const = 0;
+>>>>>>> intial
 
   /// Computes the reference curve.
   /// @param p The reference curve parameter.
@@ -251,6 +283,7 @@ class RoadCurve {
   /// avoid recomputing it.)
   Vector3<double> r_hat_of_Rabg(const Rot3& Rabg) const;
 
+<<<<<<< HEAD
   /// Computes the most appropriate value for the elevation derivative g' at
   /// @p p, that accounts for the limitations of the arc length parameterization
   /// being used.
@@ -269,15 +302,22 @@ class RoadCurve {
   /// curve, in meters. This imposes an upper limit to the spatial frequency
   /// (i.e. the Nyquist limit), which indicates the maximum level of detail
   /// expressed by the curve.
+=======
+ protected:
+  /// Constructs a road curve given elevation and superelevation curves.
+>>>>>>> intial
   /// @param elevation CubicPolynomial object that represents the elevation
   /// function (see below for more details).
   /// @param superelevation CubicPolynomial object that represents the
   /// superelevation function (see below for more details).
+<<<<<<< HEAD
   /// @param computation_policy Policy to guide computations in terms of speed
   /// and accuracy. Actual behavior may vary across implementations.
   /// @pre The given @p scale_length is a positive number.
   /// @pre The given @p linear_tolerance is a positive number.
   /// @throw std::runtime_error if any of the preconditions is not met.
+=======
+>>>>>>> intial
   ///
   /// @p elevation and @p superelevation are cubic-polynomial functions which
   /// define the elevation and superelevation as a function of position along
@@ -306,6 +346,7 @@ class RoadCurve {
   ///  * p_scale is q_max (and p = q / p_scale);
   ///  * @p elevation is  E_scaled = (1 / p_scale) * E_true(p_scale * p);
   ///  * @p superelevation is  S_scaled = (1 / p_scale) * S_true(p_scale * p).
+<<<<<<< HEAD
   RoadCurve(double linear_tolerance, double scale_length,
             const CubicPolynomial& elevation,
             const CubicPolynomial& superelevation,
@@ -366,11 +407,19 @@ class RoadCurve {
   // The tolerance for all computations, in the absolute error sense, for scale
   // length-long features in the road curve at most.
   double linear_tolerance_;
+=======
+  RoadCurve(const CubicPolynomial& elevation,
+            const CubicPolynomial& superelevation)
+      : elevation_(elevation), superelevation_(superelevation) {}
+
+ private:
+>>>>>>> intial
   // A polynomial that represents the elevation change as a function of p.
   CubicPolynomial elevation_;
   // A polynomial that represents the superelevation angle change as a function
   // of p.
   CubicPolynomial superelevation_;
+<<<<<<< HEAD
   // A policy to guide computations in terms of speed and accuracy.
   ComputationPolicy computation_policy_;
 
@@ -382,6 +431,8 @@ class RoadCurve {
   // The arc length function, or the arc length s as a function of the
   // parameter p.
   std::unique_ptr<systems::AntiderivativeFunction<double>> s_from_p_func_;
+=======
+>>>>>>> intial
 };
 
 }  // namespace multilane

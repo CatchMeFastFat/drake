@@ -2,7 +2,10 @@
 #include "drake/multibody/multibody_tree/multibody_tree.h"
 /* clang-format on */
 
+<<<<<<< HEAD
 #include <algorithm>
+=======
+>>>>>>> intial
 #include <memory>
 #include <set>
 #include <sstream>
@@ -12,7 +15,10 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/multibody/multibody_tree/joints/revolute_joint.h"
+<<<<<<< HEAD
 #include "drake/multibody/multibody_tree/joints/weld_joint.h"
+=======
+>>>>>>> intial
 #include "drake/multibody/multibody_tree/revolute_mobilizer.h"
 #include "drake/multibody/multibody_tree/rigid_body.h"
 #include "drake/multibody/multibody_tree/uniform_gravity_field_element.h"
@@ -562,6 +568,7 @@ TEST_F(TreeTopologyTests, KinematicPathToWorld) {
   }
 }
 
+<<<<<<< HEAD
 // Unit test to verify the correctness of
 // MultibodyTreeTopology::CreateListOfWeldedBodies().
 // This test creates a tree with a topology as shown below. Single vertical
@@ -712,6 +719,8 @@ GTEST_TEST(WeldedBodies, CreateListOfWeldedBodies) {
   EXPECT_EQ(welded_bodies_set, expected_welded_bodies);
 }
 
+=======
+>>>>>>> intial
 }  // namespace
 }  // namespace multibody
 }  // namespace drake

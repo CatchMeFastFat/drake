@@ -6,7 +6,10 @@ values. */
 
 #include <cstdint>
 #include <memory>
+<<<<<<< HEAD
 #include <set>
+=======
+>>>>>>> intial
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -609,6 +612,7 @@ class Cache {
   dependency notifications are issued. */
   ~Cache() = default;
 
+<<<<<<< HEAD
   /** Allocates a new CacheEntryValue and provides it a DependencyTracker using
   the given CacheIndex and DependencyTicket number. The CacheEntryValue object
   is owned by this Cache and the returned reference remains valid if other cache
@@ -624,6 +628,20 @@ class Cache {
       CacheIndex index, DependencyTicket ticket,
       const std::string& description,
       const std::set<DependencyTicket>& prerequisites,
+=======
+  /** Allocates a new CacheEntryValue and corresponding DependencyTracker using
+  the given CacheIndex and DependencyTicket number. The CacheEntryValue
+  object is owned by this Cache and the returned reference remains valid
+  if other cache entry values are created. The created DependencyTracker
+  object is owned by the given DependencyGraph, which must be owned by
+  the same Context that owns this Cache. The graph must already contain
+  trackers for the indicated prerequisites. The new tracker will retain a
+  pointer to the created CacheEntryValue for invalidation purposes. */
+  CacheEntryValue& CreateNewCacheEntryValue(
+      CacheIndex index, DependencyTicket ticket,
+      const std::string& description,
+      const std::vector<DependencyTicket>& prerequisites,
+>>>>>>> intial
       DependencyGraph* graph);
 
   /** Returns true if there is a CacheEntryValue in this cache that has the

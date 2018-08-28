@@ -3,7 +3,10 @@
 #include <memory>
 #include <vector>
 
+<<<<<<< HEAD
 #include "drake/automotive/maliput/api/basic_id_index.h"
+=======
+>>>>>>> intial
 #include "drake/automotive/maliput/api/branch_point.h"
 #include "drake/automotive/maliput/api/junction.h"
 #include "drake/automotive/maliput/api/road_geometry.h"
@@ -49,8 +52,11 @@ class RoadGeometry : public api::RoadGeometry {
 
   const api::BranchPoint* do_branch_point(int index) const override;
 
+<<<<<<< HEAD
   const IdIndex& DoById() const override { return id_index_; }
 
+=======
+>>>>>>> intial
   // Returns a RoadPosition for a lane containing the provided `geo_position`.
   // If there is no containing lane, the position is returned for the lane
   // closest to the centerline curve.  If `hint` is non-null, then the search is
@@ -70,7 +76,10 @@ class RoadGeometry : public api::RoadGeometry {
   double angular_tolerance_{};
   std::vector<std::unique_ptr<Junction>> junctions_;
   std::vector<std::unique_ptr<BranchPoint>> branch_points_;
+<<<<<<< HEAD
   api::BasicIdIndex id_index_;
+=======
+>>>>>>> intial
 };
 
 }  // namespace monolane

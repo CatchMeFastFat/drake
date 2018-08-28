@@ -1,6 +1,7 @@
 #include "drake/solvers/dreal_solver.h"
 
 #include <algorithm>  // To suppress cpplint.
+<<<<<<< HEAD
 #include <functional>
 #include <map>
 #include <memory>
@@ -12,21 +13,35 @@
 #include <vector>
 
 #include "drake/solvers/mathematical_program.h"
+=======
+#include <map>
+#include <numeric>
+#include <set>
+#include <stdexcept>
+#include <utility>
+>>>>>>> intial
 
 namespace drake {
 namespace solvers {
 
 using std::accumulate;
+<<<<<<< HEAD
 using std::dynamic_pointer_cast;
 using std::logic_error;
+=======
+>>>>>>> intial
 using std::map;
 using std::pair;
 using std::runtime_error;
 using std::set;
+<<<<<<< HEAD
 using std::shared_ptr;
 using std::string;
 using std::unordered_map;
 using std::vector;
+=======
+using std::unordered_map;
+>>>>>>> intial
 
 namespace {
 
@@ -399,6 +414,7 @@ optional<DrealSolver::IntervalBox> DrealSolver::CheckSatisfiability(
 
 optional<DrealSolver::IntervalBox> DrealSolver::Minimize(
     const symbolic::Expression& objective, const symbolic::Formula& constraint,
+<<<<<<< HEAD
     const double delta, const LocalOptimization local_optimization) {
   DrealConverter dreal_converter;
   dreal::Box model;
@@ -408,6 +424,13 @@ optional<DrealSolver::IntervalBox> DrealSolver::Minimize(
       local_optimization == LocalOptimization::kUse;
   const bool result{dreal::Minimize(dreal_converter.Convert(objective),
                                     dreal_converter.Convert(constraint), config,
+=======
+    const double delta) {
+  DrealConverter dreal_converter;
+  dreal::Box model;
+  const bool result{dreal::Minimize(dreal_converter.Convert(objective),
+                                    dreal_converter.Convert(constraint), delta,
+>>>>>>> intial
                                     &model)};
   if (result) {
     return dreal_converter.Convert(model);
@@ -416,6 +439,7 @@ optional<DrealSolver::IntervalBox> DrealSolver::Minimize(
   }
 }
 
+<<<<<<< HEAD
 bool DrealSolver::available() const { return true; }
 
 namespace {
@@ -609,5 +633,7 @@ SolutionResult DrealSolver::Solve(MathematicalProgram& prog) const {
   return solution_result;
 }
 
+=======
+>>>>>>> intial
 }  // namespace solvers
 }  // namespace drake

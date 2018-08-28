@@ -221,7 +221,11 @@ void TestEncodeThenDecode(FloatingBaseType floating_base_type) {
   auto diagram = builder.Build();
 
   auto context = diagram->CreateDefaultContext();
+<<<<<<< HEAD
   auto output = diagram->AllocateOutput();
+=======
+  auto output = diagram->AllocateOutput(*context);
+>>>>>>> intial
   diagram->CalcOutput(*context, output.get());
 
   // TODO(tkoolen): magic numbers.

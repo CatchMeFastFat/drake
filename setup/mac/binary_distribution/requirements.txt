@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 lxml
 matplotlib
 pip
 pydot
+=======
+lxml==4.1.1
+pip
+>>>>>>> intial
 PyYAML

@@ -28,7 +28,11 @@ GTEST_TEST(JacoLcmTest, JacoCommandPassthroughTest) {
   std::unique_ptr<systems::Context<double>> context =
       diagram->CreateDefaultContext();
   std::unique_ptr<systems::SystemOutput<double>> output =
+<<<<<<< HEAD
       diagram->AllocateOutput();
+=======
+      diagram->AllocateOutput(*context);
+>>>>>>> intial
 
   lcmt_jaco_command command{};
   command.num_joints = kJacoDefaultArmNumJoints;
@@ -82,7 +86,11 @@ GTEST_TEST(JacoLcmTest, JacoStatusPassthroughTest) {
   std::unique_ptr<systems::Context<double>> context =
       diagram->CreateDefaultContext();
   std::unique_ptr<systems::SystemOutput<double>> output =
+<<<<<<< HEAD
       diagram->AllocateOutput();
+=======
+      diagram->AllocateOutput(*context);
+>>>>>>> intial
 
   lcmt_jaco_status status{};
   status.num_joints = kJacoDefaultArmNumJoints;

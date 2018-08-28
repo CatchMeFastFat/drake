@@ -31,15 +31,22 @@ GTEST_TEST(MultilaneSegmentsTest, MultipleLanes) {
   const double kRMax = 42.;
   const double kHalfLaneWidth = 0.5 * kRSpacing;
   const double kMaxHeight = 5.;
+<<<<<<< HEAD
   const double kScaleLength = 1.;
   const ComputationPolicy kComputationPolicy{
     ComputationPolicy::kPreferAccuracy};
+=======
+>>>>>>> intial
 
   RoadGeometry rg(api::RoadGeometryId{"apple"}, kLinearTolerance,
                   kAngularTolerance);
   std::unique_ptr<RoadCurve> road_curve_1 = std::make_unique<LineRoadCurve>(
+<<<<<<< HEAD
       Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
+=======
+      Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp);
+>>>>>>> intial
   Segment* s1 =
       rg.NewJunction(api::JunctionId{"j1"})
           ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve_1), kRMin,

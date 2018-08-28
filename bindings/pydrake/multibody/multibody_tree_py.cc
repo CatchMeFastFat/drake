@@ -3,6 +3,7 @@
 #include "pybind11/pybind11.h"
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
+<<<<<<< HEAD
 #include "drake/bindings/pydrake/util/drake_optional_pybind.h"
 #include "drake/bindings/pydrake/util/eigen_geometry_pybind.h"
 #include "drake/bindings/pydrake/util/type_safe_index_pybind.h"
@@ -142,6 +143,15 @@ void init_module(py::module m) {
     py::class_<Class>(m, "MultibodyTree");
   }
 }
+=======
+#include "drake/bindings/pydrake/util/eigen_geometry_pybind.h"
+#include "drake/multibody/multibody_tree/math/spatial_force.h"
+#include "drake/multibody/multibody_tree/math/spatial_vector.h"
+#include "drake/multibody/multibody_tree/math/spatial_velocity.h"
+
+namespace drake {
+namespace pydrake {
+>>>>>>> intial
 
 void init_math(py::module m) {
   // NOLINTNEXTLINE(build/namespaces): Emulate placement in namespace.
@@ -149,6 +159,11 @@ void init_math(py::module m) {
 
   m.doc() = "MultibodyTree math functionality.";
 
+<<<<<<< HEAD
+=======
+  using T = double;
+
+>>>>>>> intial
   py::class_<SpatialVector<SpatialVelocity, T>>(m, "SpatialVector")
       .def("rotational",
            [](const SpatialVector<SpatialVelocity, T>* self)
@@ -165,6 +180,7 @@ void init_math(py::module m) {
       .def(py::init<const Eigen::Ref<const Vector3<T>>&,
                     const Eigen::Ref<const Vector3<T>>&>(),
            py::arg("w"), py::arg("v"));
+<<<<<<< HEAD
 }
 
 void init_multibody_plant(py::module m) {
@@ -310,6 +326,28 @@ PYBIND11_MODULE(multibody_tree, m) {
   init_math(m.def_submodule("math"));
   init_multibody_plant(m.def_submodule("multibody_plant"));
   init_parsing(m.def_submodule("parsing"));
+=======
+
+  // TODO(jadecastro, eric.cousineau): Bind additional classes as necessary.
+}
+
+void init_all(py::module m) {
+  // Not sure if relative imports will work in this context, so we will
+  // manually spell it out.
+  py::dict vars = m.attr("__dict__");
+  py::exec(
+      "from pydrake.multibody.multibody_tree.math import *",
+      py::globals(), vars);
+}
+
+PYBIND11_MODULE(multibody_tree, m) {
+  m.doc() = "MultibodyTree functionality.";
+
+  // N.B. At present, we cannot have `math` as a submodule here, and in
+  // `pydrake`. The current solution is to manually define submodules.
+  // See the dicussion in #8282 for more information.
+  init_math(m.def_submodule("math"));
+>>>>>>> intial
   init_all(m.def_submodule("all"));
 }
 

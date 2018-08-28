@@ -1,11 +1,16 @@
 #include "drake/manipulation/planner/differential_inverse_kinematics.h"
 
 #include <memory>
+<<<<<<< HEAD
 #include <stdexcept>
 #include <string>
 
 #include <fmt/format.h>
 
+=======
+#include <string>
+
+>>>>>>> intial
 #include "drake/solvers/osqp_solver.h"
 
 namespace drake {
@@ -60,6 +65,7 @@ std::ostream& operator<<(std::ostream& os,
   }
 }
 
+<<<<<<< HEAD
 const std::vector<std::shared_ptr<solvers::LinearConstraint>>&
 DifferentialInverseKinematicsParameters::get_linear_velocity_constraints()
     const {
@@ -81,6 +87,8 @@ void DifferentialInverseKinematicsParameters::ClearLinearVelocityConstraints() {
   linear_velocity_constraints_.clear();
 }
 
+=======
+>>>>>>> intial
 Vector6<double> ComputePoseDiffInCommonFrame(const Isometry3<double>& pose0,
                                              const Isometry3<double>& pose1) {
   Vector6<double> diff = Vector6<double>::Zero();
@@ -160,11 +168,14 @@ DifferentialInverseKinematicsResult DoDifferentialInverseKinematics(
     }
   }
 
+<<<<<<< HEAD
   for (const auto& constraint : parameters.get_linear_velocity_constraints()) {
     prog.AddConstraint(
         solvers::Binding<solvers::LinearConstraint>(constraint, v_next));
   }
 
+=======
+>>>>>>> intial
   // If redundant, add a small regularization term to q_nominal.
   const double dt{parameters.get_timestep()};
   if (num_cart_constraints < num_velocities) {
@@ -208,7 +219,11 @@ DifferentialInverseKinematicsResult DoDifferentialInverseKinematics(
 
   if (num_cart_constraints) {
     VectorX<double> cost(1);
+<<<<<<< HEAD
     cart_cost->Eval(prog.GetSolution(alpha), &cost);
+=======
+    cart_cost->Eval(prog.GetSolution(alpha), cost);
+>>>>>>> intial
     const double kMaxTrackingError = 5;
     const double kMinEndEffectorVel = 1e-2;
     if (cost(0) > kMaxTrackingError &&
