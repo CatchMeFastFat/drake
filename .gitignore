@@ -61,3 +61,6 @@ xcode
 .cproject
 .project
 .settings
+/underactuated/
+/draft/
+/drake-shambhala-master/
