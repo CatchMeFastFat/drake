@@ -103,11 +103,7 @@ void DoTrajectoryTest(InterpolatorType interp_type) {
   std::unique_ptr<systems::Context<double>> context =
       dut.CreateDefaultContext();
   std::unique_ptr<systems::SystemOutput<double>> output =
-<<<<<<< HEAD
       dut.AllocateOutput();
-=======
-      dut.AllocateOutput(*context);
->>>>>>> intial
   context->FixInputPort(
       dut.get_state_input_port().get_index(),
       Eigen::VectorXd::Zero(kNumJoints * 2));

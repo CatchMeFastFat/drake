@@ -46,20 +46,12 @@ class IiwaAndBoxPlantWithStateEstimator : public systems::Diagram<T> {
     return plant_->get_rigid_body_tree();
   }
 
-<<<<<<< HEAD
   const systems::InputPort<T>& get_input_port_iiwa_state_command()
-=======
-  const systems::InputPortDescriptor<T>& get_input_port_iiwa_state_command()
->>>>>>> intial
   const {
     return this->get_input_port(input_port_iiwa_state_command_);
   }
 
-<<<<<<< HEAD
   const systems::InputPort<T>&
-=======
-  const systems::InputPortDescriptor<T>&
->>>>>>> intial
   get_input_port_iiwa_acceleration_command() const {
     return this->get_input_port(input_port_iiwa_acceleration_command_);
   }

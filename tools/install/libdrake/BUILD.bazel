@@ -1,10 +1,6 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 package(default_visibility = ["//visibility:private"])
-=======
-package(default_visibility = ["//visibility:public"])
->>>>>>> intial
 
 load(
     "@drake//tools/install:install.bzl",
@@ -20,11 +16,8 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 load(":build_components.bzl", "LIBDRAKE_COMPONENTS")
 load("//tools:drake.bzl", "drake_cc_binary")
 
-<<<<<<< HEAD
 # TODO(eric.cousineau): Try to make the CMake target `drake-marker` private,
 # such that no downstream users can use it?
-=======
->>>>>>> intial
 cmake_config(
     cps_file_name = "drake.cps",
     package = "drake",
@@ -49,10 +42,6 @@ drake_cc_binary(
 # Gather all of libdrake.so's dependent headers.
 drake_transitive_installed_hdrs_filegroup(
     name = "libdrake_headers",
-<<<<<<< HEAD
-=======
-    visibility = [],
->>>>>>> intial
     deps = LIBDRAKE_COMPONENTS,
 )
 
@@ -60,20 +49,14 @@ drake_transitive_installed_hdrs_filegroup(
 # (i.e. in Drake itself; not externals).
 install(
     name = "install",
-<<<<<<< HEAD
     install_tests = [
         "test/snopt_visibility_test.py",
     ],
-=======
->>>>>>> intial
     targets = ["libdrake.so"],
     hdrs = [":libdrake_headers"],
     hdr_dest = "include/drake",
     allowed_externals = ["//:LICENSE.TXT"],  # Root for our #include paths.
-<<<<<<< HEAD
     visibility = ["//:__pkg__"],
-=======
->>>>>>> intial
     deps = [
         ":install_cmake_config",
     ],
@@ -82,14 +65,8 @@ install(
 # Depend on Gurobi's shared library iff Gurobi is enabled.
 cc_library(
     name = "gurobi_deps",
-<<<<<<< HEAD
     deps = select({
         "//tools:with_gurobi": ["@gurobi//:gurobi_c"],
-=======
-    visibility = [],
-    deps = select({
-        "//tools:with_gurobi": ["@gurobi"],
->>>>>>> intial
         "//conditions:default": [],
     }),
 )
@@ -97,10 +74,6 @@ cc_library(
 # Depend on Mosek's shared library iff Mosek is enabled.
 cc_library(
     name = "mosek_deps",
-<<<<<<< HEAD
-=======
-    visibility = [],
->>>>>>> intial
     deps = select({
         "//tools:with_mosek": ["@mosek"],
         "//conditions:default": [],
@@ -110,10 +83,6 @@ cc_library(
 # Depend on the subset of VTK's shared libraries that Drake uses.
 cc_library(
     name = "vtk_deps",
-<<<<<<< HEAD
-=======
-    visibility = [],
->>>>>>> intial
     deps = [
         # TODO(jwnimmer-tri) This duplicates the list of VTK libraries needed
         # by //sensors.  We should find a way for ":drake_shared_library" to be
@@ -126,29 +95,20 @@ cc_library(
         "@vtk//:vtkIOGeometry",
         "@vtk//:vtkIOImage",
         "@vtk//:vtkRenderingCore",
-<<<<<<< HEAD
         "@vtk//:vtkRenderingOSPRay",
-=======
->>>>>>> intial
         "@vtk//:vtkRenderingOpenGL2",
     ],
 )
 
-<<<<<<< HEAD
 # Provide a cc_library target that provides libdrake.so, its headers, its
 # header-only dependencies, and its required *.so's that are WORKSPACE
 # downloads (such as VTK, Gurobi, etc). This is aliased by
 # `//:drake_shared_library`, which is what downstream users will consume if
 # they wish to link to `libdrake.so`.
-=======
-# Provide a cc_library target that provides libdrake.so, its headers, and its
-# required *.so's that are WORKSPACE downloads (such as VTK, Gurobi, etc).
->>>>>>> intial
 #
 # TODO(jwnimmer-tri) Ideally, Bazel should be able to handle the depended-on
 # *.so files for us, without us having to know up-front here which dependencies
 # are coming from the WORKSPACE in the form of *.so.
-<<<<<<< HEAD
 #
 # TODO(jwnimmer-tri) Ideally, drake_cc_library's installed_headers support
 # would capture a list of headerfile dependencies, so that we don't need to
@@ -169,21 +129,6 @@ cc_library(
         ":mosek_deps",
         ":vtk_deps",
         "//common:drake_marker_shared_library",
-=======
-cc_library(
-    name = "drake_shared_library",
-    hdrs = [":libdrake_headers"],
-    include_prefix = "drake",
-    strip_include_prefix = "/",
-    visibility = [
-        "//bindings/pydrake:__subpackages__",
-        "//examples:__subpackages__",
-    ],
-    deps = [
-        ":gurobi_deps",
-        ":mosek_deps",
-        ":vtk_deps",
->>>>>>> intial
         "@dreal",
         "@ignition_math",
         "@ignition_rndf",
@@ -192,7 +137,6 @@ cc_library(
         "@osqp",
         "@scs//:scsdir",
         "@tinyxml2",
-<<<<<<< HEAD
     ] + [
         # The list of depended-on header-only libraries.
         "@eigen",
@@ -204,9 +148,3 @@ cc_library(
 add_lint_tests(
     python_lint_extra_srcs = ["build_components_refresh.py"],
 )
-=======
-    ],
-)
-
-add_lint_tests()
->>>>>>> intial

@@ -91,7 +91,6 @@
    fun:_ZN5drake7solvers11MosekSolver14AcquireLicenseEv
 }
 
-<<<<<<< HEAD
 # Started happening when Mosek got updated to 8.1.0.51. PR 8673
 {
    <mosek-8>
@@ -390,8 +389,6 @@
    fun:MSK_optimizetrm
    fun:_ZNK5drake7solvers11MosekSolver5SolveERNS0_19MathematicalProgramE
 }
-=======
->>>>>>> intial
 # Started happening when Gurobi got updated to 7.0.2. PR 6332.
 {
     <gurobi-1>

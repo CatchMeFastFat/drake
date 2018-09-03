@@ -126,11 +126,7 @@ class DiagramBuilder {
 
   /// Declares that input port @p dest is connected to output port @p src.
   void Connect(const OutputPort<T>& src,
-<<<<<<< HEAD
                const InputPort<T>& dest) {
-=======
-               const InputPortDescriptor<T>& dest) {
->>>>>>> intial
     DRAKE_DEMAND(src.size() == dest.size());
     InputPortLocator dest_id{dest.get_system(), dest.get_index()};
     OutputPortLocator src_id{&src.get_system(), src.get_index()};
@@ -163,11 +159,7 @@ class DiagramBuilder {
   /// Declares that the given @p input port of a constituent system is an input
   /// to the entire Diagram.
   /// @return The index of the exported input port of the entire diagram.
-<<<<<<< HEAD
   InputPortIndex ExportInput(const InputPort<T>& input) {
-=======
-  InputPortIndex ExportInput(const InputPortDescriptor<T>& input) {
->>>>>>> intial
     InputPortLocator id{input.get_system(), input.get_index()};
     ThrowIfInputAlreadyWired(id);
     ThrowIfSystemNotRegistered(input.get_system());
@@ -193,11 +185,7 @@ class DiagramBuilder {
   /// not buildable.
   std::unique_ptr<Diagram<T>> Build() {
     std::unique_ptr<Diagram<T>> diagram(new Diagram<T>(Compile()));
-<<<<<<< HEAD
     return diagram;
-=======
-    return std::move(diagram);
->>>>>>> intial
   }
 
   /// Configures @p target to have the topology that has been described by

@@ -4,11 +4,7 @@
 #include <utility>
 
 #include "drake/common/autodiff.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 
 template <typename T>
 RigidBodyFrame<T>::RigidBodyFrame(const std::string& name, RigidBody<T>* body,
@@ -20,13 +16,9 @@ RigidBodyFrame<T>::RigidBodyFrame(const std::string& name, RigidBody<T>* body,
                                const Eigen::Vector3d& xyz,
                                const Eigen::Vector3d& rpy)
     : name_(name), body_(body) {
-<<<<<<< HEAD
   const drake::math::RollPitchYaw<double> roll_pitch_yaw(rpy);
   transform_to_body_.matrix() << roll_pitch_yaw.ToMatrix3ViaRotationMatrix(),
                                  xyz, 0, 0, 0, 1;
-=======
-  transform_to_body_.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
 }
 
 template <typename T>
@@ -35,43 +27,16 @@ int RigidBodyFrame<T>::get_model_instance_id() const {
 }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-const std::string& RigidBodyFrame<T>::get_name() const { return name_; }
-
-template <typename T>
-const RigidBody<T>& RigidBodyFrame<T>::get_rigid_body() const {
-  return *body_;
-}
-
-template <typename T>
->>>>>>> intial
 RigidBody<T>* RigidBodyFrame<T>::get_mutable_rigid_body() {
   return body_;
 }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-const Eigen::Isometry3d& RigidBodyFrame<T>::get_transform_to_body() const {
-  return transform_to_body_;
-}
-
-template <typename T>
->>>>>>> intial
 Eigen::Isometry3d* RigidBodyFrame<T>::get_mutable_transform_to_body() {
   return &transform_to_body_;
 }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-int RigidBodyFrame<T>::get_frame_index() const {
-  return frame_index_;
-}
-
-template <typename T>
->>>>>>> intial
 void RigidBodyFrame<T>::set_name(const std::string& name) {
   name_ = name;
 }

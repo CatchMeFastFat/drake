@@ -41,15 +41,12 @@ class SignalLogger : public LeafSystem<T> {
   /// input_size-by-batch_allocation_size.
   explicit SignalLogger(int input_size, int batch_allocation_size = 1000);
 
-<<<<<<< HEAD
   /// Sets the publishing period of this system. See
   /// LeafSystem::DeclarePeriodicPublish() for details about the semantics of
   /// parameter `period`.
   void set_publish_period(double period);
 
 
-=======
->>>>>>> intial
   /// Access the (simulation) time of the logged data.
   Eigen::VectorBlock<const VectorX<T>> sample_times() const {
     return log_.sample_times();
@@ -64,11 +61,7 @@ class SignalLogger : public LeafSystem<T> {
   void reset() { log_.reset(); }
 
   /// Returns the only input port.
-<<<<<<< HEAD
   const InputPort<T>& get_input_port() const;
-=======
-  const InputPortDescriptor<T>& get_input_port() const;
->>>>>>> intial
 
  private:
   // Logging is done in this method.

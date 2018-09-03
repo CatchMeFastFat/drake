@@ -157,7 +157,6 @@ class bcolors:
     ENDC = '\033[0m'
 
 
-<<<<<<< HEAD
 def make_driving_command(throttle, steering_angle):
     msg = lcm_msg()
     msg.acceleration = throttle
@@ -165,8 +164,6 @@ def make_driving_command(throttle, steering_angle):
     return msg
 
 
-=======
->>>>>>> intial
 class SteeringCommandPublisher:
     def __init__(self, input_method, lcm_tag, joy_name):
         print 'Initializing...'
@@ -218,29 +215,16 @@ class SteeringCommandPublisher:
             else:
                 self.last_value = self.event_processor.processEvent(
                     event, self.last_value)
-<<<<<<< HEAD
                 msg = make_driving_command(self.last_value.steering_angle,
                                            self.last_value.throttle -
                                            self.last_value.brake)
-=======
-                msg = lcm_msg()
-                msg.steering_angle = self.last_value.steering_angle
-                msg.acceleration = (self.last_value.throttle -
-                                    self.last_value.brake)
->>>>>>> intial
                 self.lc.publish(self.lcm_tag, msg.encode())
                 self.printLCMValues()
 
 
 def publish_driving_command(lcm_tag, throttle, steering_angle):
     lc = lcm.LCM()
-<<<<<<< HEAD
     last_msg = make_driving_command(throttle, steering_angle)
-=======
-    last_msg = lcm_msg()
-    last_msg.accleration = throttle
-    last_msg.steering_angle = steering_angle
->>>>>>> intial
     lc.publish(lcm_tag, last_msg.encode())
 
 

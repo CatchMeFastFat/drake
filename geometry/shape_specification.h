@@ -11,11 +11,7 @@
 
 /** @file
  Provides the classes through which geometric shapes are introduced into
-<<<<<<< HEAD
  SceneGraph. This includes the specific classes which specify shapes as well
-=======
- GeometrySystem. This includes the specific classes which specify shapes as well
->>>>>>> intial
  as an interface for _processing_ those specifications.
  */
 
@@ -115,7 +111,6 @@ class Cylinder final : public Shape {
   double length_{};
 };
 
-<<<<<<< HEAD
 /** Definition of a box. The box is centered on the origin of its canonical
  frame with its dimensions aligned with the frame's axes. The size of the box
  is given by three sizes. */
@@ -144,8 +139,6 @@ class Box final : public Shape {
   Vector3<double> size_;
 };
 
-=======
->>>>>>> intial
 /** Definition of a half space. In its canonical frame, the plane defining the
  boundary of the half space is that frame's z = 0 plane. By implication, the
  plane's normal points in the +z direction and the origin lies on the plane.
@@ -255,10 +248,7 @@ class ShapeReifier {
   virtual void ImplementGeometry(const Cylinder& cylinder, void* user_data) = 0;
   virtual void ImplementGeometry(const HalfSpace& half_space,
                                  void* user_data) = 0;
-<<<<<<< HEAD
   virtual void ImplementGeometry(const Box& box, void* user_data) = 0;
-=======
->>>>>>> intial
   virtual void ImplementGeometry(const Mesh& mesh, void* user_data) = 0;
 };
 

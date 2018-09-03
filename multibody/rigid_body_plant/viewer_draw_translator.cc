@@ -13,16 +13,8 @@ namespace systems {
 
 using std::runtime_error;
 
-<<<<<<< HEAD
 ViewerDrawTranslator::ViewerDrawTranslator(const RigidBodyTree<double>& tree)
     : LcmAndVectorBaseTranslator(tree.get_num_positions()), tree_(tree) {
-=======
-ViewerDrawTranslator::ViewerDrawTranslator(
-    const RigidBodyTree<double>& tree) :
-    LcmAndVectorBaseTranslator(
-        tree.get_num_positions() + tree.get_num_velocities()),
-    tree_(tree) {
->>>>>>> intial
   // Initializes the draw message.
   draw_message_.num_links = tree_.get_bodies().size();
   std::vector<float> position = {0, 0, 0};
@@ -46,13 +38,9 @@ void ViewerDrawTranslator::Deserialize(
 void ViewerDrawTranslator::Serialize(double time,
     const VectorBase<double>& vector_base,
     std::vector<uint8_t>* lcm_message_bytes) const {
-<<<<<<< HEAD
   DRAKE_DEMAND(vector_base.size() == get_vector_size() ||
                vector_base.size() ==
                    tree_.get_num_positions() + tree_.get_num_velocities());
-=======
-  DRAKE_DEMAND(vector_base.size() == get_vector_size());
->>>>>>> intial
   DRAKE_DEMAND(lcm_message_bytes != nullptr);
 
   // Creates a copy of the partially-initialized lcmt_viewer_draw message.
@@ -63,12 +51,7 @@ void ViewerDrawTranslator::Serialize(double time,
   message.timestamp = static_cast<int64_t>(time * 1000);
 
   // Obtains the generalized positions from vector_base.
-<<<<<<< HEAD
   const Eigen::VectorXd q = vector_base.CopyToVector().head(get_vector_size());
-=======
-  const Eigen::VectorXd q = vector_base.CopyToVector().head(
-      tree_.get_num_positions());
->>>>>>> intial
 
   // Computes the poses of each body.
   KinematicsCache<double> cache = tree_.doKinematics(q);

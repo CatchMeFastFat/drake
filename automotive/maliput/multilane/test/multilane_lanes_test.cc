@@ -23,12 +23,7 @@ namespace {
 
 const double kLinearTolerance = 1e-6;
 const double kAngularTolerance = 1e-6;
-<<<<<<< HEAD
 const double kVeryExact = 1e-12;
-=======
-const double kVeryExact = 1e-11;
-
->>>>>>> intial
 
 GTEST_TEST(MultilaneLanesTest, Rot3) {
   // Spot-check that Rot3 is behaving as advertised.
@@ -48,45 +43,22 @@ class MultilaneLanesParamTest : public ::testing::TestWithParam<double> {
     r0 = this->GetParam();
   }
 
-<<<<<<< HEAD
   const double kScaleLength{1.};
   const ComputationPolicy kComputationPolicy{
     ComputationPolicy::kPreferAccuracy};
-=======
->>>>>>> intial
   const CubicPolynomial zp{0., 0., 0., 0.};
   const double kHalfWidth{10.};
   const double kMaxHeight{5.};
   const double kHalfLaneWidth{5.};
   double r0{};
-<<<<<<< HEAD
-=======
-  // NB:  kIntegrationScaleMap and kIntegrationFactorMap are regression
-  //      coefficients to match within the integration tolerance the path
-  //      integral of motion derivatives of the lane. The key of the maps is the
-  //      lateral offset r0 and value are scale and factor respectively.
-  const std::map<double, int> kIntegrationScaleMap{
-      {0., 158597}, {5., 150822}, {-5., 166380}};
-  // NB:  '287' is a fudge-factor.  We know the steps should scale roughly
-  //      as (r / r0), but not exactly because of the elevation curve.
-  //      Mostly, we are testing that we end up in the right place in
-  //      roughly the right number of steps. The same applies for -8017 and
-  //      9373 for other offsets.
-  const std::map<double, int> kIntegrationFactorMap{
-      {0., 287}, {5., -8017}, {-5., 9373}};
->>>>>>> intial
 };
 
 TEST_P(MultilaneLanesParamTest, FlatLineLane) {
   RoadGeometry rg(api::RoadGeometryId{"apple"},
                   kLinearTolerance, kAngularTolerance);
   std::unique_ptr<RoadCurve> road_curve_1 = std::make_unique<LineRoadCurve>(
-<<<<<<< HEAD
       Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp);
->>>>>>> intial
   const Vector3<double> s_vector = Vector3<double>(100., 50., 0.).normalized();
   const Vector3<double> r_vector = Vector3<double>(-50, 100., 0.).normalized();
   const Vector3<double> r_offset_vector = r0 * r_vector;
@@ -185,12 +157,8 @@ TEST_P(MultilaneLanesParamTest, FlatLineLane) {
   const double length = std::sqrt(std::pow(100, 2.) + std::pow(50, 2.));
   std::unique_ptr<RoadCurve> road_curve_2 = std::make_unique<LineRoadCurve>(
       Vector2<double>(100., -75.), Vector2<double>(100., 50.),
-<<<<<<< HEAD
       CubicPolynomial(elevation / length, 0.0, 0.0, 0.0), zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      CubicPolynomial(elevation / length, 0.0, 0.0, 0.0), zp);
->>>>>>> intial
   Segment* s2 = rg.NewJunction(api::JunctionId{"j2"})
                     ->NewSegment(api::SegmentId{"s2"}, std::move(road_curve_2),
                                  -kHalfWidth + r0, kHalfWidth + r0,
@@ -260,7 +228,6 @@ TEST_P(MultilaneLanesParamTest, FlatLineLane) {
       api::LanePosition(1., 2., 3.), kVeryExact));
 }
 
-<<<<<<< HEAD
 namespace {
 
 // Exact corkscrew curve parameterization, for numerical
@@ -502,8 +469,6 @@ TEST_P(MultilaneLanesParamTest, CorkScrewLane) {
     }
   }
 }
-=======
->>>>>>> intial
 
 TEST_P(MultilaneLanesParamTest, FlatArcLane) {
   RoadGeometry rg(api::RoadGeometryId{"apple"},
@@ -515,13 +480,9 @@ TEST_P(MultilaneLanesParamTest, FlatArcLane) {
   const double offset_radius = radius - r0;
 
   std::unique_ptr<RoadCurve> road_curve_1 =
-<<<<<<< HEAD
       std::make_unique<ArcRoadCurve>(center, radius, theta0, d_theta, zp, zp,
                                      kLinearTolerance, kScaleLength,
                                      kComputationPolicy);
-=======
-      std::make_unique<ArcRoadCurve>(center, radius, theta0, d_theta, zp, zp);
->>>>>>> intial
   Segment* s1 = rg.NewJunction(api::JunctionId{"j1"})
                     ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve_1),
                                  -kHalfWidth + r0, kHalfWidth + r0,
@@ -633,12 +594,8 @@ TEST_P(MultilaneLanesParamTest, FlatArcLane) {
   const double elevation = 10.;
   std::unique_ptr<RoadCurve> road_curve_2 = std::make_unique<ArcRoadCurve>(
       center, radius, theta0, d_theta,
-<<<<<<< HEAD
       CubicPolynomial(elevation / radius / d_theta, 0.0, 0.0, 0.0), zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      CubicPolynomial(elevation / radius / d_theta, 0.0, 0.0, 0.0), zp);
->>>>>>> intial
   Segment* s2 = rg.NewJunction(api::JunctionId{"j2"})
                     ->NewSegment(api::SegmentId{"s2"}, std::move(road_curve_2),
                                  -kHalfWidth + r0, kHalfWidth + r0,
@@ -666,12 +623,8 @@ TEST_P(MultilaneLanesParamTest, FlatArcLane) {
   // The result should be identical to Case 1.
   const double d_theta_overlap = 3 * M_PI;
   std::unique_ptr<RoadCurve> road_curve_3 = std::make_unique<ArcRoadCurve>(
-<<<<<<< HEAD
       center, radius, theta0, d_theta_overlap, zp, zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      center, radius, theta0, d_theta_overlap, zp, zp);
->>>>>>> intial
   Segment* s3 =
       rg.NewJunction(api::JunctionId{"j3"})
       ->NewSegment(api::SegmentId{"s3"}, std::move(road_curve_3),
@@ -703,12 +656,8 @@ TEST_P(MultilaneLanesParamTest, FlatArcLane) {
   const double theta0_wrap = 1.2 * M_PI;
   const double d_theta_wrap = -0.4 * M_PI;
   std::unique_ptr<RoadCurve> road_curve_4 = std::make_unique<ArcRoadCurve>(
-<<<<<<< HEAD
       center, radius, theta0_wrap, d_theta_wrap, zp, zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      center, radius, theta0_wrap, d_theta_wrap, zp, zp);
->>>>>>> intial
   Segment* s4 = rg.NewJunction(api::JunctionId{"j4"})
                     ->NewSegment(api::SegmentId{"s4"}, std::move(road_curve_4),
                                  -kHalfWidth + r0, kHalfWidth + r0,
@@ -808,15 +757,11 @@ api::LanePosition IntegrateTrivially(const api::Lane* lane,
 }
 
 
-<<<<<<< HEAD
 // Checks EvalMotionDerivatives() correctness on a non-trivial road surface.
 TEST_P(MultilaneLanesParamTest, HillIntegration) {
   // Sets up a single segment road with three (3) adjacent lanes, whose
   // reference curve is a piece of an arc with cubic elevation and zero
   // superelevation.
-=======
-TEST_P(MultilaneLanesParamTest, HillIntegration) {
->>>>>>> intial
   RoadGeometry rg(api::RoadGeometryId{"apple"},
                   kLinearTolerance, kAngularTolerance);
   const double theta0 = 0.25 * M_PI;
@@ -832,7 +777,6 @@ TEST_P(MultilaneLanesParamTest, HillIntegration) {
   const CubicPolynomial kHillPolynomial(z0 / p_scale, 0.,
                                         (3. * (z1 - z0) / p_scale),
                                         (-2. * (z1 - z0) / p_scale));
-<<<<<<< HEAD
   std::unique_ptr<RoadCurve> road_curve =
       std::make_unique<ArcRoadCurve>(Vector2<double>(-100., -100.), radius,
                                      theta0, d_theta, kHillPolynomial, zp,
@@ -861,33 +805,10 @@ TEST_P(MultilaneLanesParamTest, HillIntegration) {
   const api::LanePosition kInitialLanePosition{0., 0., 0.};
   EXPECT_TRUE(api::test::IsGeoPositionClose(
       center_lane->ToGeoPosition(kInitialLanePosition),
-=======
-  std::unique_ptr<RoadCurve> road_curve_1 =
-      std::make_unique<ArcRoadCurve>(Vector2<double>(-100., -100.), radius,
-                                     theta0, d_theta, kHillPolynomial, zp);
-  Segment* s1 = rg.NewJunction(api::JunctionId{"j1"})
-                    ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve_1),
-                                 -kHalfWidth + r0, kHalfWidth + r0,
-                                 {0., kMaxHeight});
-  Lane* l1 = s1->NewLane(api::LaneId{"l2"}, r0,
-                         {-kHalfLaneWidth, kHalfLaneWidth});
-
-  EXPECT_EQ(rg.CheckInvariants(), std::vector<std::string>());
-
-  const api::IsoLaneVelocity kVelocity {1., 0., 0. };
-  const double kTimeStep = 0.001;
-  const int kStepsForZeroR = kIntegrationScaleMap.find(r0)->second;
-  const double kIntegrationTolerance = 3e-4;
-
-  const api::LanePosition kLpInitialA{0., 0., 0.};
-  EXPECT_TRUE(api::test::IsGeoPositionClose(
-      l1->ToGeoPosition(kLpInitialA),
->>>>>>> intial
       api::GeoPosition(-100. + (offset_radius * std::cos(theta0)),
                        -100. + (offset_radius * std::sin(theta0)), z0),
       kLinearTolerance));
 
-<<<<<<< HEAD
   const api::LanePosition kFinalLanePosition{center_lane->length(), 0., 0.};
   EXPECT_TRUE(api::test::IsGeoPositionClose(
       center_lane->ToGeoPosition(kFinalLanePosition),
@@ -928,34 +849,6 @@ TEST_P(MultilaneLanesParamTest, HillIntegration) {
       IntegrateTrivially(center_lane, kInitialLanePositionL,
                          kVelocity, kTimeStep, kStepCountL),
       kExpectedFinalLanePositionL, kIntegrationTolerance));
-=======
-  api::LanePosition lp_final_a =
-      IntegrateTrivially(l1, kLpInitialA, kVelocity, kTimeStep,
-                         kStepsForZeroR);
-  EXPECT_TRUE(api::test::IsGeoPositionClose(
-      l1->ToGeoPosition(lp_final_a),
-      api::GeoPosition(-100. + (offset_radius * std::cos(theta1)),
-                       -100. + (offset_radius * std::sin(theta1)), z1),
-      kIntegrationTolerance));
-
-  const api::LanePosition kLpInitialB{0., -10., 0.};
-  EXPECT_TRUE(api::test::IsGeoPositionClose(
-      l1->ToGeoPosition(kLpInitialB),
-      api::GeoPosition(-100. + ((offset_radius + 10.) * std::cos(theta0)),
-                       -100. + ((offset_radius + 10.) * std::sin(theta0)), z0),
-      kLinearTolerance));
-
-  const int kStepsForR10 = ((offset_radius + 10.) / radius * kStepsForZeroR) -
-                           kIntegrationFactorMap.find(r0)->second;
-  api::LanePosition lp_final_b =
-      IntegrateTrivially(l1, kLpInitialB, kVelocity, kTimeStep,
-                         kStepsForR10);
-  EXPECT_TRUE(api::test::IsGeoPositionClose(
-      l1->ToGeoPosition(lp_final_b),
-      api::GeoPosition(-100. + ((offset_radius + 10.) * std::cos(theta1)),
-                       -100. + ((offset_radius + 10.) * std::sin(theta1)), z1),
-      kIntegrationTolerance));
->>>>>>> intial
 }
 
 
@@ -965,12 +858,9 @@ INSTANTIATE_TEST_CASE_P(Offset, MultilaneLanesParamTest,
 
 GTEST_TEST(MultilaneLanesTest, ArcLaneWithConstantSuperelevation) {
   CubicPolynomial zp{0., 0., 0., 0.};
-<<<<<<< HEAD
   const double kScaleLength{1.};
   const ComputationPolicy kComputationPolicy{
     ComputationPolicy::kPreferAccuracy};
-=======
->>>>>>> intial
   const double kTheta = 0.10 * M_PI;  // superelevation
   const double kR0 = 0.;
   const double kHalfWidth = 10.;
@@ -981,12 +871,8 @@ GTEST_TEST(MultilaneLanesTest, ArcLaneWithConstantSuperelevation) {
                   kLinearTolerance, kAngularTolerance);
   std::unique_ptr<RoadCurve> road_curve_1 = std::make_unique<ArcRoadCurve>(
       Vector2<double>(100., -75.), 100.0, 0.25 * M_PI, 1.5 * M_PI, zp,
-<<<<<<< HEAD
       CubicPolynomial((kTheta) / (100. * 1.5 * M_PI), 0., 0., 0.),
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      CubicPolynomial((kTheta) / (100. * 1.5 * M_PI), 0., 0., 0.));
->>>>>>> intial
   Segment* s1 = rg.NewJunction(api::JunctionId{"j1"})
                     ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve_1),
                                  -kHalfWidth + kR0, kHalfWidth + kR0,
@@ -1080,12 +966,9 @@ GTEST_TEST(MultilaneLanesTest, ArcLaneWithConstantSuperelevation) {
 class MultilaneMultipleLanesTest : public ::testing::Test {
  protected:
   const CubicPolynomial zp{0., 0., 0., 0.};
-<<<<<<< HEAD
   const double kScaleLength{1.};
   const ComputationPolicy kComputationPolicy{
     ComputationPolicy::kPreferAccuracy};
-=======
->>>>>>> intial
   const double kR0{10.};
   const double kRSpacing{15.};
   const double kRMin{2.};
@@ -1099,12 +982,8 @@ TEST_F(MultilaneMultipleLanesTest, MultipleLineLanes) {
   RoadGeometry rg(api::RoadGeometryId{"apple"}, kLinearTolerance,
                   kAngularTolerance);
   std::unique_ptr<RoadCurve> road_curve = std::make_unique<LineRoadCurve>(
-<<<<<<< HEAD
       Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp,
       kLinearTolerance, kScaleLength, kComputationPolicy);
-=======
-      Vector2<double>(100., -75.), Vector2<double>(100., 50.), zp, zp);
->>>>>>> intial
   Segment* s1 =
       rg.NewJunction(api::JunctionId{"j1"})
           ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve), kRMin,
@@ -1239,12 +1118,8 @@ TEST_F(MultilaneMultipleLanesTest, MultipleArcLanes) {
   RoadGeometry rg(api::RoadGeometryId{"apple"}, kLinearTolerance,
                   kAngularTolerance);
   std::unique_ptr<RoadCurve> road_curve = std::make_unique<ArcRoadCurve>(
-<<<<<<< HEAD
       kCenter, kRadius, kTheta0, kDTheta, zp, zp, kLinearTolerance,
       kScaleLength, kComputationPolicy);
-=======
-      kCenter, kRadius, kTheta0, kDTheta, zp, zp);
->>>>>>> intial
   Segment* s1 =
       rg.NewJunction(api::JunctionId{"j1"})
           ->NewSegment(api::SegmentId{"s1"}, std::move(road_curve), kRMin,

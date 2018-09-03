@@ -59,11 +59,7 @@ class RigidBody : public Body<T> {
   ///   expressed in the body frame B.
   /// @note See @ref multibody_spatial_inertia for details on the monogram
   /// notation used for spatial inertia quantities.
-<<<<<<< HEAD
   explicit RigidBody(const SpatialInertia<double>& M_BBo_B);
-=======
-  explicit RigidBody(const SpatialInertia<double> M_BBo_B);
->>>>>>> intial
 
   /// Constructs a %RigidBody named `body_name` with the given default
   /// SpatialInertia.
@@ -75,7 +71,6 @@ class RigidBody : public Body<T> {
   ///   expressed in the body frame B.
   /// @note See @ref multibody_spatial_inertia for details on the monogram
   /// notation used for spatial inertia quantities.
-<<<<<<< HEAD
   RigidBody(const std::string& body_name,
             const SpatialInertia<double>& M_BBo_B);
 
@@ -94,9 +89,6 @@ class RigidBody : public Body<T> {
   RigidBody(const std::string& body_name,
             ModelInstanceIndex model_instance,
             const SpatialInertia<double>& M_BBo_B);
-=======
-  RigidBody(const std::string& body_name, const SpatialInertia<double> M_BBo_B);
->>>>>>> intial
 
   /// There are no flexible degrees of freedom associated with a rigid body and
   /// therefore this method returns zero. By definition, a rigid body has no
@@ -141,7 +133,6 @@ class RigidBody : public Body<T> {
     return default_spatial_inertia_.CalcRotationalInertia();
   }
 
-<<<<<<< HEAD
   /// Gets the default value of this body B's spatial inertia about Bo
   /// (B's origin) and expressed in B (this body's frame).
   /// @retval M_BBo_B body B's spatial inertia about Bo, expressed in B.
@@ -149,8 +140,6 @@ class RigidBody : public Body<T> {
     return default_spatial_inertia_;
   }
 
-=======
->>>>>>> intial
   T get_mass(const MultibodyTreeContext<T>&) const final {
     return default_spatial_inertia_.get_mass();
   }

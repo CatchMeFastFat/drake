@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
-<<<<<<< HEAD
 <robot xmlns="https://drake.mit.edu"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="https://drake.mit.edu ../../../../doc/drakeURDF.xsd" name="SlidingBrick">
-=======
-<robot xmlns="http://drake.mit.edu"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://drake.mit.edu ../../../../doc/drakeURDF.xsd" name="SlidingBrick">
->>>>>>> intial
 
  <!-- This emulates an actuated floating rpy joint.  Drake only allows actuators
  to be applied to single-dof joints (see issue #4153).  So, we composite the six

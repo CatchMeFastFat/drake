@@ -8,8 +8,4 @@ load(
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_test",
-<<<<<<< HEAD
-=======
-    "drake_example_cc_binary",
->>>>>>> intial
 )

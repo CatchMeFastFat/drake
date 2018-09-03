@@ -19,11 +19,7 @@ SystemSymbolicInspector::SystemSymbolicInspector(
       continuous_state_variables_(context_->get_continuous_state().size()),
       discrete_state_variables_(context_->get_num_discrete_state_groups()),
       numeric_parameters_(context_->num_numeric_parameters()),
-<<<<<<< HEAD
       output_(system.AllocateOutput()),
-=======
-      output_(system.AllocateOutput(*context_)),
->>>>>>> intial
       derivatives_(system.AllocateTimeDerivatives()),
       discrete_updates_(system.AllocateDiscreteVariables()),
       output_port_types_(system.get_num_output_ports()),
@@ -95,11 +91,7 @@ void SystemSymbolicInspector::InitializeVectorInputs(
       input_variables_[i][j] = symbolic::Variable(name.str());
       value->SetAtIndex(j, input_variables_[i][j]);
     }
-<<<<<<< HEAD
     context_->FixInputPort(i, *value);
-=======
-    context_->FixInputPort(i, std::move(value));
->>>>>>> intial
   }
 }
 

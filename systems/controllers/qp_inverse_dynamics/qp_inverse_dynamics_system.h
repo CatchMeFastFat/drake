@@ -36,11 +36,7 @@ class QpInverseDynamicsSystem : public systems::LeafSystem<double> {
   /**
    * Returns the input port for HumanoidStatus.
    */
-<<<<<<< HEAD
   inline const systems::InputPort<double>&
-=======
-  inline const systems::InputPortDescriptor<double>&
->>>>>>> intial
   get_input_port_kinematic_state() const {
     return get_input_port(input_port_index_kinematic_state_);
   }
@@ -48,11 +44,7 @@ class QpInverseDynamicsSystem : public systems::LeafSystem<double> {
   /**
    * Returns the input port for QpInput.
    */
-<<<<<<< HEAD
   inline const systems::InputPort<double>& get_input_port_qp_input()
-=======
-  inline const systems::InputPortDescriptor<double>& get_input_port_qp_input()
->>>>>>> intial
       const {
     return get_input_port(input_port_index_qp_input_);
   }

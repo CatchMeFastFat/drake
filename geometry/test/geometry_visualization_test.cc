@@ -8,11 +8,7 @@
 #include "drake/geometry/geometry_frame.h"
 #include "drake/geometry/geometry_ids.h"
 #include "drake/geometry/geometry_instance.h"
-<<<<<<< HEAD
 #include "drake/geometry/scene_graph.h"
-=======
-#include "drake/geometry/geometry_system.h"
->>>>>>> intial
 #include "drake/lcmt_viewer_geometry_data.hpp"
 #include "drake/lcmt_viewer_load_robot.hpp"
 #include "drake/systems/framework/context.h"
@@ -32,7 +28,6 @@ using std::unique_ptr;
 
 // Confirms that, for a simple scene, the message contains the right data.
 GTEST_TEST(GeometryVisualization, SimpleScene) {
-<<<<<<< HEAD
   SceneGraph<double> scene_graph;
 
   const std::string source_name("source");
@@ -40,15 +35,6 @@ GTEST_TEST(GeometryVisualization, SimpleScene) {
 
   const std::string frame_name("frame");
   FrameId frame_id = scene_graph.RegisterFrame(
-=======
-  GeometrySystem<double> system;
-
-  const std::string source_name("source");
-  SourceId source_id = system.RegisterSource(source_name);
-
-  const std::string frame_name("frame");
-  FrameId frame_id = system.RegisterFrame(
->>>>>>> intial
       source_id, GeometryFrame(frame_name, Isometry3d::Identity()));
 
   // Floats because the lcm messages store floats.
@@ -57,7 +43,6 @@ GTEST_TEST(GeometryVisualization, SimpleScene) {
   const float g = 0.5f;
   const float b = 0.25f;
   const float a = 0.125f;
-<<<<<<< HEAD
   scene_graph.RegisterGeometry(
       source_id, frame_id,
       make_unique<GeometryInstance>(Isometry3d::Identity(),
@@ -65,15 +50,6 @@ GTEST_TEST(GeometryVisualization, SimpleScene) {
                                     VisualMaterial(Vector4d{r, g, b, a})));
 
   unique_ptr<Context<double>> context = scene_graph.AllocateContext();
-=======
-  system.RegisterGeometry(
-      source_id, frame_id,
-      make_unique<GeometryInstance>(Isometry3d::Identity(),
-                                    make_unique<Sphere>(radius),
-                                    VisualMaterial(Vector4d{r, g, b, a})));
-
-  unique_ptr<Context<double>> context = system.AllocateContext();
->>>>>>> intial
   const GeometryContext<double>& geo_context =
       dynamic_cast<GeometryContext<double>&>(*context.get());
 

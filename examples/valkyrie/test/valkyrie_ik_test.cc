@@ -259,14 +259,6 @@ GTEST_TEST(ValkyrieIK_Test, ValkyrieIK_Test_StandingPose_Test) {
   EXPECT_GT(com(2), 0);
 
   // show it in drake visualizer
-<<<<<<< HEAD
-=======
-  VectorX<double> x = VectorX<double>::Zero(tree->get_num_positions() +
-                                            tree->get_num_velocities());
-  x.head(q_sol.size()) = q_sol;
-  systems::BasicVector<double> q_draw(x);
-
->>>>>>> intial
   lcm::DrakeLcm lcm;
 
   lcmt_viewer_load_robot load_msg =
@@ -275,12 +267,8 @@ GTEST_TEST(ValkyrieIK_Test, ValkyrieIK_Test_StandingPose_Test) {
 
   systems::ViewerDrawTranslator posture_drawer(*tree);
   std::vector<uint8_t> message_bytes;
-<<<<<<< HEAD
   posture_drawer.Serialize(0, systems::BasicVector<double>{q_sol},
                            &message_bytes);
-=======
-  posture_drawer.Serialize(0, q_draw, &message_bytes);
->>>>>>> intial
   lcm.Publish("DRAKE_VIEWER_DRAW", message_bytes.data(),
               message_bytes.size(), {});
 }

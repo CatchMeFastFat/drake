@@ -409,11 +409,7 @@ GTEST_TEST(CopyableUniquePtrTest, CopyConstructFromCopyable) {
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_TRUE(is_dynamic_castable<CloneOnlyChildWithClone>(u_ptr2.get()));
   // Copy constructor on copyable_unique-ptr of same specialized class, but
-<<<<<<< HEAD
   // contains derived class.
-=======
-  // contains derived clas.
->>>>>>> intial
   cup<CloneOnly> cup_ptr2(u_ptr2);
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_NE(cup_ptr2.get(), co_ptr);
@@ -454,11 +450,7 @@ GTEST_TEST(CopyableUniquePtrTest, CopyConstructFromUniquePtr) {
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_TRUE(is_dynamic_castable<CloneOnlyChildWithClone>(u_ptr2.get()));
   // Copy constructor on copyable_unique-ptr of same specialized class, but
-<<<<<<< HEAD
   // contains derived class.
-=======
-  // contains derived clas.
->>>>>>> intial
   cup<CloneOnly> cup_ptr2(u_ptr2);
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_NE(cup_ptr2.get(), co_ptr);
@@ -498,11 +490,7 @@ GTEST_TEST(CopyableUniquePtrTest, MoveConstructFromCopyable) {
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_TRUE(is_dynamic_castable<CloneOnlyChildWithClone>(u_ptr2.get()));
   // Copy constructor on copyable_unique-ptr of same specialized class, but
-<<<<<<< HEAD
   // contains derived class.
-=======
-  // contains derived clas.
->>>>>>> intial
   cup<CloneOnly> cup_ptr2(move(u_ptr2));
   EXPECT_EQ(u_ptr2.get(), nullptr);
   EXPECT_EQ(cup_ptr2.get(), co_ptr);
@@ -537,11 +525,7 @@ GTEST_TEST(CopyableUniquePtrTest, MoveConstructFromUnique) {
   EXPECT_EQ(u_ptr2.get(), co_ptr);
   EXPECT_TRUE(is_dynamic_castable<CloneOnlyChildWithClone>(u_ptr2.get()));
   // Copy constructor on copyable_unique-ptr of same specialized class, but
-<<<<<<< HEAD
   // contains derived class.
-=======
-  // contains derived clas.
->>>>>>> intial
   cup<CloneOnly> cup_ptr2(move(u_ptr2));
   EXPECT_EQ(u_ptr2.get(), nullptr);
   EXPECT_EQ(cup_ptr2.get(), co_ptr);

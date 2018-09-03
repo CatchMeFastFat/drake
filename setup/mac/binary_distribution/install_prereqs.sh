@@ -10,7 +10,6 @@ if [[ "${EUID}" -eq 0 ]]; then
   exit 1
 fi
 
-<<<<<<< HEAD
 if ! command -v /usr/local/bin/brew &>/dev/null; then
   /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -23,17 +22,3 @@ if [[ ! -f /usr/include/expat.h || ! -f /usr/include/zlib.h ]]; then
 fi
 
 /usr/local/bin/pip2 install --upgrade --requirement "${BASH_SOURCE%/*}/requirements.txt"
-=======
-if ! command -v brew &>/dev/null; then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-brew update
-brew bundle --file="${BASH_SOURCE%/*}/Brewfile"
-
-if [[ ! -f /usr/include/expat.h || ! -f /usr/include/zlib.h ]]; then
-  xcode-select --install
-fi
-
-pip2 install --upgrade --requirement "${BASH_SOURCE%/*}/requirements.txt"
->>>>>>> intial

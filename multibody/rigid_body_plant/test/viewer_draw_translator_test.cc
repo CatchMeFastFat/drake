@@ -7,11 +7,7 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/roll_pitch_yaw_floating_joint.h"
 #include "drake/multibody/rigid_body.h"
 #include "drake/multibody/rigid_body_tree.h"
@@ -22,11 +18,6 @@ namespace {
 
 using std::make_unique;
 
-<<<<<<< HEAD
-=======
-using drake::math::rpy2quat;
-
->>>>>>> intial
 // Tests the basic functionality of the translator.
 GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
   // Creates a `RigidBodyTree` with `kNumBodies` rigid bodies.
@@ -69,7 +60,6 @@ GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
   generalized_state.SetAtIndex(2, 3);
   generalized_state.SetAtIndex(3, M_PI);
 
-<<<<<<< HEAD
   // Instantiates the generalized position vector corresponding to
   // generalized_state.
   const BasicVector<double> generalized_position{
@@ -86,24 +76,12 @@ GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
                                    &message_from_position_bytes);
   EXPECT_GT(message_from_state_bytes.size(), 0u);
   EXPECT_GT(message_from_position_bytes.size(), 0u);
-=======
-  // Uses the `ViewerDrawTranslator` to convert the `BasicVector<double>` into
-  // a byte array for a `drake::lcmt_viewer_draw` message.
-  double time = 0;
-  std::vector<uint8_t> message_bytes;
-  viewer_draw_translator.Serialize(time, generalized_state, &message_bytes);
-  EXPECT_GT(message_bytes.size(), 0u);
->>>>>>> intial
 
   // Verifies that the serialized message is correct. This entails:
   //     (1) manually creating a the correct `drake::lcmt_viewer_draw`
   //     (2) serializing it into an array of bytes
-<<<<<<< HEAD
   //     (3) verifying that the byte array matches `message_from_state_bytes`
   //         and `message_from_position_bytes`
-=======
-  //     (3) verifying that the byte array matches `message_bytes`
->>>>>>> intial
 
   // TODO(liang.fok): Replace the following two lines with
   // `Eigen::Quaterniond::Identity()` and a common helper method that converts
@@ -113,7 +91,6 @@ GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
 
   std::vector<float> body0_position = {1, 2, 3};
 
-<<<<<<< HEAD
   const math::RollPitchYaw<double> body0_rpy(M_PI, 0, 0);
   const Eigen::Quaterniond body0_quaternion_eigen = body0_rpy.ToQuaternion();
   std::vector<float> body0_quaternion(4);
@@ -121,15 +98,6 @@ GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
   body0_quaternion[1] = static_cast<float>(body0_quaternion_eigen.x());
   body0_quaternion[2] = static_cast<float>(body0_quaternion_eigen.y());
   body0_quaternion[3] = static_cast<float>(body0_quaternion_eigen.z());
-=======
-  Vector3<double> body0_rpy = {M_PI, 0, 0};
-  Vector4<double> body0_quaternion_eigen = rpy2quat(body0_rpy);
-  std::vector<float> body0_quaternion(4);
-  body0_quaternion[0] = static_cast<float>(body0_quaternion_eigen(0));
-  body0_quaternion[1] = static_cast<float>(body0_quaternion_eigen(1));
-  body0_quaternion[2] = static_cast<float>(body0_quaternion_eigen(2));
-  body0_quaternion[3] = static_cast<float>(body0_quaternion_eigen(3));
->>>>>>> intial
 
   lcmt_viewer_draw expected_message;
   expected_message.timestamp = static_cast<int64_t>(time * 1000);
@@ -148,22 +116,14 @@ GTEST_TEST(ViewerDrawTranslatorTests, BasicTest) {
   expected_message.quaternion.push_back(zero_quaternion);
 
   const int byte_count = expected_message.getEncodedSize();
-<<<<<<< HEAD
   EXPECT_EQ(byte_count, static_cast<int>(message_from_state_bytes.size()));
   EXPECT_EQ(byte_count, static_cast<int>(message_from_position_bytes.size()));
-=======
-  EXPECT_EQ(byte_count, static_cast<int>(message_bytes.size()));
->>>>>>> intial
 
   std::vector<uint8_t> expected_bytes(byte_count);
   expected_message.encode(expected_bytes.data(), 0, byte_count);
 
-<<<<<<< HEAD
   EXPECT_EQ(expected_bytes, message_from_state_bytes);
   EXPECT_EQ(expected_bytes, message_from_position_bytes);
-=======
-  EXPECT_EQ(expected_bytes, message_bytes);
->>>>>>> intial
 }
 
 }  // namespace

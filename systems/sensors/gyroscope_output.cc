@@ -9,14 +9,8 @@ const int GyroscopeOutputConstants::kIndexWy;
 const int GyroscopeOutputConstants::kIndexWz;
 
 template <typename T>
-<<<<<<< HEAD
 GyroscopeOutput<T>::GyroscopeOutput()
     : BasicVector<double>(VectorX<double>::Zero(3)) {}
-=======
-GyroscopeOutput<T>::GyroscopeOutput() : BasicVector<double>(3) {
-  this->SetFromVector(VectorX<double>::Zero(3));
-}
->>>>>>> intial
 
 template <typename T>
 Vector3<T> GyroscopeOutput<T>::get_rotational_velocities() const {

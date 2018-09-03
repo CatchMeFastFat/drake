@@ -1,10 +1,7 @@
 #pragma once
 
 #include <cmath>
-<<<<<<< HEAD
 #include <ostream>
-=======
->>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 #include "drake/common/unused.h"
@@ -19,10 +16,7 @@ class CubicPolynomial {
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(CubicPolynomial)
 
   /// Default constructor, all zero coefficients.
-<<<<<<< HEAD
 
-=======
->>>>>>> intial
   CubicPolynomial() : CubicPolynomial(0., 0., 0., 0.) {}
 
   /// Constructs a cubic polynomial given all four coefficients.
@@ -44,7 +38,6 @@ class CubicPolynomial {
   // Returns the d coefficient.
   double d() const { return d_; }
 
-<<<<<<< HEAD
   /// Returns the order of the polynomial, based on
   /// its nonzero coefficients.
   int order() const {
@@ -59,8 +52,6 @@ class CubicPolynomial {
     return (a_ == 0.0 && b_ == 0.0 && c_ == 0.0 && d_ == 0.0);
   }
 
-=======
->>>>>>> intial
   /// Evaluates the polynomial f at @p p.
   double f_p(double p) const {
     return a_ + (b_ * p) + (c_ * p * p) + (d_ * p * p * p);
@@ -104,15 +95,12 @@ class CubicPolynomial {
   double s_1_{};
 };
 
-<<<<<<< HEAD
 /// Streams a string representation of `cubic_polynomial` into `out`.
 /// Returns `out`. This method is provided for the purposes of debugging or
 /// text-logging. It is not intended for serialization.
 std::ostream& operator<<(std::ostream& out,
                          const CubicPolynomial& cubic_polynomial);
 
-=======
->>>>>>> intial
 }  // namespace multilane
 }  // namespace maliput
 }  // namespace drake

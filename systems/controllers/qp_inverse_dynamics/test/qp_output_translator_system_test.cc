@@ -31,11 +31,7 @@ GTEST_TEST(QpOutputTranslatorTest, QpOutputTranslatorTest) {
 
   auto dut = std::make_unique<QpOutputTranslatorSystem>(*robot);
   auto context = dut->CreateDefaultContext();
-<<<<<<< HEAD
   auto output = dut->AllocateOutput();
-=======
-  auto output = dut->AllocateOutput(*context);
->>>>>>> intial
 
   context->set_time(3.);
 

@@ -324,11 +324,7 @@ void Mesh::LoadObjFile(PointsVector* vertices, TrianglesVector* triangles,
       obj_file_name.c_str(), path.c_str(), do_tinyobj_triangulation);
 
   // Use the boolean return value and the error string to determine
-<<<<<<< HEAD
   // if we should proceed.
-=======
-  // if we should proceeed.
->>>>>>> intial
   if (!ret || !err.empty()) {
     throw std::runtime_error("Error parsing file \""
         + obj_file_name + "\" : " + err);

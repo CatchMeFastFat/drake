@@ -40,10 +40,7 @@ INSTALLED_MODEL_PACKAGES = [
     "//examples/acrobot",
     "//examples/atlas",
     "//examples/contact_model",
-<<<<<<< HEAD
     "//examples/compass_gait",
-=======
->>>>>>> intial
     "//examples/double_pendulum",
     "//examples/irb140",
     "//examples/kuka_iiwa_arm",

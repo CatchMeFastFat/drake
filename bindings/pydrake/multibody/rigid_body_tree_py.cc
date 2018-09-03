@@ -7,7 +7,6 @@
 
 #include "drake/bindings/pydrake/autodiff_types_pybind.h"
 #include "drake/bindings/pydrake/pydrake_pybind.h"
-<<<<<<< HEAD
 #include "drake/bindings/pydrake/util/type_pack.h"
 #include "drake/multibody/joints/prismatic_joint.h"
 #include "drake/multibody/joints/revolute_joint.h"
@@ -15,11 +14,6 @@
 #include "drake/multibody/parsers/sdf_parser.h"
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/multibody/rigid_body_actuator.h"
-=======
-#include "drake/multibody/parsers/package_map.h"
-#include "drake/multibody/parsers/sdf_parser.h"
-#include "drake/multibody/parsers/urdf_parser.h"
->>>>>>> intial
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/multibody/rigid_body_tree_construction.h"
 
@@ -28,10 +22,7 @@ using std::make_unique;
 namespace drake {
 namespace pydrake {
 
-<<<<<<< HEAD
 
-=======
->>>>>>> intial
 PYBIND11_MODULE(rigid_body_tree, m) {
   m.doc() = "Bindings for the RigidBodyTree class";
 
@@ -40,14 +31,10 @@ PYBIND11_MODULE(rigid_body_tree, m) {
   namespace sdf = drake::parsers::sdf;
   using std::shared_ptr;
 
-<<<<<<< HEAD
   py::module::import("pydrake.multibody.collision");
   py::module::import("pydrake.multibody.joints");
   py::module::import("pydrake.multibody.parsers");
   py::module::import("pydrake.multibody.rigid_body");
-=======
-  py::module::import("pydrake.multibody.parsers");
->>>>>>> intial
   py::module::import("pydrake.multibody.shapes");
   py::module::import("pydrake.util.eigen_geometry");
 
@@ -58,12 +45,8 @@ PYBIND11_MODULE(rigid_body_tree, m) {
 
   // TODO(eric.cousineau): Try to decouple these APIs so that `rigid_body_tree`
   // and `parsers` do not form a dependency cycle.
-<<<<<<< HEAD
   py::class_<RigidBodyTree<double>> tree_cls(m, "RigidBodyTree");
   tree_cls
-=======
-  py::class_<RigidBodyTree<double>>(m, "RigidBodyTree")
->>>>>>> intial
     .def(py::init<>())
     .def(py::init(
          [](const std::string& urdf_filename,
@@ -119,63 +102,23 @@ PYBIND11_MODULE(rigid_body_tree, m) {
         py::arg("urdf_filename"), py::arg("joint_type") = "ROLLPITCHYAW"
       )
     .def("compile", &RigidBodyTree<double>::compile)
-<<<<<<< HEAD
     .def("initialized", &RigidBodyTree<double>::initialized)
     .def("drawKinematicTree", &RigidBodyTree<double>::drawKinematicTree)
-=======
->>>>>>> intial
     .def("getRandomConfiguration", [](const RigidBodyTree<double>& tree) {
       std::default_random_engine generator(std::random_device {}());
       return tree.getRandomConfiguration(generator);
     })
     .def("getZeroConfiguration", &RigidBodyTree<double>::getZeroConfiguration)
-<<<<<<< HEAD
-=======
-    .def("doKinematics", [](const RigidBodyTree<double>& tree,
-                            const Eigen::VectorXd& q) {
-      return tree.doKinematics(q);
-    })
-    .def("doKinematics", [](const RigidBodyTree<double>& tree,
-                            const Eigen::VectorXd& q,
-                            const Eigen::VectorXd& v) {
-      return tree.doKinematics(q, v);
-    })
-    .def("doKinematics", [](const RigidBodyTree<double>& tree,
-                            const VectorX<AutoDiffXd>& q) {
-      return tree.doKinematics(q);
-    })
-    .def("doKinematics", [](const RigidBodyTree<double>& tree,
-                            const VectorX<AutoDiffXd>& q,
-                            const VectorX<AutoDiffXd>& v) {
-      return tree.doKinematics(q, v);
-    })
->>>>>>> intial
     .def("CalcBodyPoseInWorldFrame", [](const RigidBodyTree<double>& tree,
                                         const KinematicsCache<double> &cache,
                                         const RigidBody<double> &body) {
       return tree.CalcBodyPoseInWorldFrame(cache, body).matrix();
     })
-<<<<<<< HEAD
     .def("get_num_bodies", &RigidBodyTree<double>::get_num_bodies)
     .def("get_num_frames", &RigidBodyTree<double>::get_num_frames)
     .def("get_num_actuators", &RigidBodyTree<double>::get_num_actuators)
     .def("get_num_model_instances",
          &RigidBodyTree<double>::get_num_model_instances)
-=======
-    .def("centerOfMass", &RigidBodyTree<double>::centerOfMass<double>,
-         py::arg("cache"),
-         py::arg("model_instance_id_set") =
-           RigidBodyTreeConstants::default_model_instance_id_set)
-    .def("centerOfMassJacobian",
-         &RigidBodyTree<double>::centerOfMassJacobian<double>,
-         py::arg("cache"),
-         py::arg("model_instance_id_set") =
-           RigidBodyTreeConstants::default_model_instance_id_set,
-         py::arg("in_terms_of_qdot") = false)
-    .def("get_num_bodies", &RigidBodyTree<double>::get_num_bodies)
-    .def("get_num_frames", &RigidBodyTree<double>::get_num_frames)
-    .def("get_num_actuators", &RigidBodyTree<double>::get_num_actuators)
->>>>>>> intial
     .def("getBodyOrFrameName",
          &RigidBodyTree<double>::getBodyOrFrameName,
          py::arg("body_or_frame_id"))
@@ -186,7 +129,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
     .def("get_body", &RigidBodyTree<double>::get_body,
          py::return_value_policy::reference)
     .def("get_position_name", &RigidBodyTree<double>::get_position_name)
-<<<<<<< HEAD
     .def("add_rigid_body", &RigidBodyTree<double>::add_rigid_body)
     .def("addCollisionElement", &RigidBodyTree<double>::addCollisionElement)
     .def("AddCollisionFilterGroupMember",
@@ -199,40 +141,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
     .def("FindCollisionElement",
          &RigidBodyTree<double>::FindCollisionElement,
          py::arg("id"), py::return_value_policy::reference)
-=======
-    .def("transformPoints", [](const RigidBodyTree<double>& tree,
-                               const KinematicsCache<double>& cache,
-                               const Eigen::Matrix<double, 3,
-                                                   Eigen::Dynamic>& points,
-                               int from_body_or_frame_ind,
-                               int to_body_or_frame_ind) {
-      return tree.transformPoints(cache, points,
-                                  from_body_or_frame_ind, to_body_or_frame_ind);
-    })
-    .def("transformPoints", [](const RigidBodyTree<double>& tree,
-                               const KinematicsCache<AutoDiffXd>& cache,
-                               const Eigen::Matrix<double, 3,
-                                                   Eigen::Dynamic>& points,
-                               int from_body_or_frame_ind,
-                               int to_body_or_frame_ind) {
-      return tree.transformPoints(cache, points,
-                                  from_body_or_frame_ind, to_body_or_frame_ind);
-    })
-    .def("relativeTransform", [](const RigidBodyTree<double>& tree,
-                                  const KinematicsCache<double>& cache,
-                                  int base_or_frame_ind,
-                                  int body_or_frame_ind) {
-      return tree.relativeTransform(cache, base_or_frame_ind,
-        body_or_frame_ind).matrix();
-    })
-    .def("relativeTransform", [](const RigidBodyTree<double>& tree,
-                                  const KinematicsCache<AutoDiffXd>& cache,
-                                  int base_or_frame_ind,
-                                  int body_or_frame_ind) {
-      return tree.relativeTransform(cache, base_or_frame_ind,
-        body_or_frame_ind).matrix();
-    })
->>>>>>> intial
     .def("addFrame", &RigidBodyTree<double>::addFrame, py::arg("frame"))
     .def("FindBody", [](const RigidBodyTree<double>& self,
                         const std::string& body_name,
@@ -243,7 +151,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
        py::arg("model_name") = "",
        py::arg("model_id") = -1,
        py::return_value_policy::reference)
-<<<<<<< HEAD
     .def("FindBodyIndex",
          &RigidBodyTree<double>::FindBodyIndex,
          py::arg("body_name"), py::arg("model_id") = -1)
@@ -256,8 +163,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
     .def("FindIndexOfChildBodyOfJoint",
          &RigidBodyTree<double>::FindIndexOfChildBodyOfJoint,
          py::arg("joint_name"), py::arg("model_id") = -1)
-=======
->>>>>>> intial
     .def("world",
          static_cast<RigidBody<double>& (RigidBodyTree<double>::*)()>(
              &RigidBodyTree<double>::world),
@@ -272,7 +177,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
           self.getTerrainContactPoints(body, &pts, group_name);
           return pts;
         }, py::arg("body"), py::arg("group_name")="")
-<<<<<<< HEAD
     .def_readonly("B", &RigidBodyTree<double>::B)
     .def_readonly("joint_limit_min", &RigidBodyTree<double>::joint_limit_min)
     .def_readonly("joint_limit_max", &RigidBodyTree<double>::joint_limit_max)
@@ -481,38 +385,10 @@ PYBIND11_MODULE(rigid_body_tree, m) {
   // Bind for double and AutoDiff.
   type_visit(
       add_rigid_body_tree_typed_methods, type_pack<double, AutoDiffXd>{});
-=======
-    .def("massMatrix", &RigidBodyTree<double>::massMatrix<double>)
-    .def("dynamicsBiasTerm", &RigidBodyTree<double>::dynamicsBiasTerm<double>,
-         py::arg("cache"), py::arg("external_wrenches"),
-         py::arg("include_velocity_terms") = true)
-    .def("inverseDynamics", &RigidBodyTree<double>::inverseDynamics<double>,
-         py::arg("cache"),
-         py::arg("external_wrenches"),
-         py::arg("vd"),
-         py::arg("include_velocity_terms") = true)
-    .def("frictionTorques",
-         [](const RigidBodyTree<double>* self, const VectorX<double>& v) {
-           return self->frictionTorques(v);
-         })
-    .def_readonly("B", &RigidBodyTree<double>::B)
-    .def_readonly("joint_limit_min", &RigidBodyTree<double>::joint_limit_min)
-    .def_readonly("joint_limit_max", &RigidBodyTree<double>::joint_limit_max);
->>>>>>> intial
 
   py::class_<KinematicsCache<double> >(m, "KinematicsCacheDouble");
   py::class_<KinematicsCache<AutoDiffXd> >(m, "KinematicsCacheAutoDiffXd");
 
-<<<<<<< HEAD
-=======
-  py::class_<RigidBody<double> >(m, "RigidBody")
-    .def("get_name", &RigidBody<double>::get_name)
-    .def("get_body_index", &RigidBody<double>::get_body_index)
-    .def("get_center_of_mass", &RigidBody<double>::get_center_of_mass)
-    .def("get_visual_elements", &RigidBody<double>::get_visual_elements)
-    .def("AddVisualElement", &RigidBody<double>::AddVisualElement);
-
->>>>>>> intial
   py::class_<RigidBodyFrame<double>,
              shared_ptr<RigidBodyFrame<double> > >(m, "RigidBodyFrame")
     .def(
@@ -541,7 +417,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
          &RigidBodyFrame<double>::get_transform_to_body);
 
   m.def("AddModelInstanceFromUrdfFile",
-<<<<<<< HEAD
         [](const std::string& urdf_filename,
            const FloatingBaseType floating_base_type,
            shared_ptr<RigidBodyFrame<double>> weld_to_frame,
@@ -554,14 +429,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
         py::arg("urdf_filename"), py::arg("floating_base_type"),
         py::arg("weld_to_frame"), py::arg("tree"),
         py::arg("do_compile") = true);
-=======
-        py::overload_cast<const std::string&, const FloatingBaseType,
-                          shared_ptr<RigidBodyFrame<double>>,
-                          RigidBodyTree<double>*>(
-            &parsers::urdf::AddModelInstanceFromUrdfFile),
-        py::arg("urdf_filename"), py::arg("floating_base_type"),
-        py::arg("weld_to_frame"), py::arg("tree"));
->>>>>>> intial
   m.def("AddModelInstanceFromUrdfStringSearchingInRosPackages",
         py::overload_cast<const std::string&, const PackageMap&,
                           const std::string&, const FloatingBaseType,
@@ -569,7 +436,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
                           RigidBodyTree<double>*>(
             &parsers::urdf::
                 AddModelInstanceFromUrdfStringSearchingInRosPackages));
-<<<<<<< HEAD
   m.def("AddModelInstancesFromSdfFile",
         [](const std::string& sdf_filename,
            const FloatingBaseType floating_base_type,
@@ -582,8 +448,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
         py::arg("sdf_filename"), py::arg("floating_base_type"),
         py::arg("weld_to_frame"), py::arg("tree"),
         py::arg("do_compile") = true);
-=======
->>>>>>> intial
   m.def("AddModelInstancesFromSdfString",
         py::overload_cast<const std::string&, const FloatingBaseType,
                           shared_ptr<RigidBodyFrame<double>>,
@@ -597,7 +461,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
   m.def("AddFlatTerrainToWorld", &multibody::AddFlatTerrainToWorld,
         py::arg("tree"), py::arg("box_size") = 1000,
         py::arg("box_depth") = 10);
-<<<<<<< HEAD
 
   py::class_<RigidBodyActuator>(m, "RigidBodyActuator")
     .def_readonly("name", &RigidBodyActuator::name_)
@@ -605,8 +468,6 @@ PYBIND11_MODULE(rigid_body_tree, m) {
     .def_readonly("reduction", &RigidBodyActuator::reduction_)
     .def_readonly("effort_limit_min", &RigidBodyActuator::effort_limit_min_)
     .def_readonly("effort_limit_max", &RigidBodyActuator::effort_limit_max_);
-=======
->>>>>>> intial
 }
 
 }  // namespace pydrake

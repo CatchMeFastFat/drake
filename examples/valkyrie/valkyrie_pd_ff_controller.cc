@@ -187,11 +187,7 @@ void run_valkyrie_pd_ff_controller() {
 
   std::unique_ptr<Diagram<double>> diagram = builder.Build();
   auto context = diagram->CreateDefaultContext();
-<<<<<<< HEAD
   auto output = diagram->AllocateOutput();
-=======
-  auto output = diagram->AllocateOutput(*context);
->>>>>>> intial
 
   lcm.StartReceiveThread();
   std::cout << "controller started\n";

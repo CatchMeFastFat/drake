@@ -232,11 +232,7 @@ TEST_F(QuadrotorTest, ToAutoDiff) {
 
 TEST_F(QuadrotorTest, ToSymbolic) {
   const QuadrotorPlant<double> plant;
-<<<<<<< HEAD
   EXPECT_FALSE(is_symbolic_convertible(plant));
-=======
-  EXPECT_TRUE(is_symbolic_convertible(plant));
->>>>>>> intial
 }
 
 }  // namespace

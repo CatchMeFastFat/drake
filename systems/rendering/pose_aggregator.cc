@@ -35,17 +35,12 @@ template <typename T>
 PoseAggregator<T>::~PoseAggregator() {}
 
 template <typename T>
-<<<<<<< HEAD
 const InputPort<T>& PoseAggregator<T>::AddSingleInput(
-=======
-const InputPortDescriptor<T>& PoseAggregator<T>::AddSingleInput(
->>>>>>> intial
     const std::string& name, int model_instance_id) {
   return DeclareInput(MakeSinglePoseInputRecord(name, model_instance_id));
 }
 
 template <typename T>
-<<<<<<< HEAD
 PoseVelocityInputPorts<T>
 PoseAggregator<T>::AddSinglePoseAndVelocityInput(const std::string& name,
                                                  int model_instance_id) {
@@ -60,22 +55,6 @@ PoseAggregator<T>::AddSinglePoseAndVelocityInput(const std::string& name,
 
 template <typename T>
 const InputPort<T>& PoseAggregator<T>::AddBundleInput(
-=======
-PoseVelocityInputPortDescriptors<T>
-PoseAggregator<T>::AddSinglePoseAndVelocityInput(const std::string& name,
-                                                 int model_instance_id) {
-  // Add an input for the pose.
-  const auto& pose_descriptor =
-      DeclareInput(MakeSinglePoseInputRecord(name, model_instance_id));
-  // Add an input for the velocity.
-  const auto& velocity_descriptor =
-      DeclareInput(MakeSingleVelocityInputRecord(name, model_instance_id));
-  return {pose_descriptor, velocity_descriptor};
-}
-
-template <typename T>
-const InputPortDescriptor<T>& PoseAggregator<T>::AddBundleInput(
->>>>>>> intial
     const std::string& bundle_name, int num_poses) {
   return DeclareInput(MakePoseBundleInputRecord(bundle_name, num_poses));
 }
@@ -197,11 +176,7 @@ PoseAggregator<T>::MakePoseBundleInputRecord(const std::string& bundle_name,
 }
 
 template <typename T>
-<<<<<<< HEAD
 const InputPort<T>&
-=======
-const InputPortDescriptor<T>&
->>>>>>> intial
 PoseAggregator<T>::DeclareInput(const InputRecord& record) {
   input_records_.push_back(record);
   switch (record.type) {

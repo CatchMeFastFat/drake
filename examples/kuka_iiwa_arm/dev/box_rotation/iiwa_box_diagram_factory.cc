@@ -18,11 +18,7 @@ namespace drake {
 using systems::Context;
 using systems::Diagram;
 using systems::DiagramBuilder;
-<<<<<<< HEAD
 using systems::InputPort;
-=======
-using systems::InputPortDescriptor;
->>>>>>> intial
 using systems::OutputPort;
 using systems::RigidBodyPlant;
 

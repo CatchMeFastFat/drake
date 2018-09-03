@@ -5,10 +5,7 @@ Run this via:
   $ bazel run //doc:serve_sphinx
 """
 
-<<<<<<< HEAD
 import argparse
-=======
->>>>>>> intial
 import os
 import subprocess
 import sys
@@ -17,7 +14,6 @@ import zipfile
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from SocketServer import TCPServer
 
-<<<<<<< HEAD
 
 def str2bool(value):
     # From: https://stackoverflow.com/a/19233287/7829525
@@ -31,8 +27,6 @@ parser.add_argument(
     help="Open browser. Disable this if you are frequently recompiling.")
 args = parser.parse_args()
 
-=======
->>>>>>> intial
 # Unpack zipfile and chdir into it.
 with zipfile.ZipFile("doc/sphinx.zip", "r") as archive:
     archive.extractall("sphinx-tmp")
@@ -61,7 +55,6 @@ print >>sys.stderr, "  " + file_url
 print >>sys.stderr
 
 # Try the default browser, then wait.
-<<<<<<< HEAD
 if args.browser:
     print >>sys.stderr, "Opening webbrowser"
     if sys.platform == "darwin":
@@ -72,13 +65,4 @@ if args.browser:
         webbrowser.open("./index.html")
 
 print >>sys.stderr, "Serving and waiting ... use Ctrl-C to exit."
-=======
-print >>sys.stderr, "Opening webbrowser and waiting ... use Ctrl-C to exit."
-if sys.platform == "darwin":
-    # macOS
-    webbrowser.open(http_url)
-else:
-    # Ubuntu
-    webbrowser.open("./index.html")
->>>>>>> intial
 httpd.serve_forever()

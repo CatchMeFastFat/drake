@@ -7,11 +7,7 @@
 
 #include "drake/common/autodiff.h"
 #include "drake/systems/framework/basic_vector.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 
 using Eigen::VectorXd;
@@ -52,11 +48,7 @@ class PassThroughTest : public ::testing::TestWithParam<bool> {
           make_unique<PassThrough<double>>(Value<SimpleAbstractType>(size));
     }
     context_ = pass_through_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = pass_through_->AllocateOutput();
-=======
-    output_ = pass_through_->AllocateOutput(*context_);
->>>>>>> intial
   }
 
   const bool is_abstract_;

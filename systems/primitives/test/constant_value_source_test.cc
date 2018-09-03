@@ -6,11 +6,7 @@
 
 #include <gtest/gtest.h>
 
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 #include "drake/systems/framework/value.h"
 
@@ -40,7 +36,6 @@ class ConstantValueSourceTest : public ::testing::Test {
 TEST_F(ConstantValueSourceTest, Output) {
   ASSERT_EQ(source_->get_num_input_ports(), context_->get_num_input_ports());
 
-<<<<<<< HEAD
   // Check Calc() method.
   source_->get_output_port(0).Calc(*context_, output_.get());
   EXPECT_EQ("foo", output_->GetValue<std::string>());
@@ -48,11 +43,6 @@ TEST_F(ConstantValueSourceTest, Output) {
   // Check Eval() method.
   auto& cached_value = source_->get_output_port(0).Eval<std::string>(*context_);
   EXPECT_EQ("foo", cached_value);
-=======
-  source_->get_output_port(0).Calc(*context_, output_.get());
-
-  EXPECT_EQ("foo", output_->GetValue<std::string>());
->>>>>>> intial
 }
 
 // Tests that ConstantValueSource allocates no state variables in the context_.

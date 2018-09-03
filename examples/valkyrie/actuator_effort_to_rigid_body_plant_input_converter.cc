@@ -42,11 +42,7 @@ ActuatorEffortToRigidBodyPlantInputConverter<T>::DeclareEffortInputPorts(
 }
 
 template <typename T>
-<<<<<<< HEAD
 const InputPort<T>& ActuatorEffortToRigidBodyPlantInputConverter<
-=======
-const InputPortDescriptor<T>& ActuatorEffortToRigidBodyPlantInputConverter<
->>>>>>> intial
     T>::effort_input_port(const RigidBodyActuator& actuator) {
   return this->get_input_port(effort_ports_indices_.at(&actuator));
 }

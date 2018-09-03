@@ -3,10 +3,7 @@
 #include "pybind11/stl.h"
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
-<<<<<<< HEAD
 #include "drake/common/constants.h"
-=======
->>>>>>> intial
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_assertion_error.h"
 #include "drake/common/drake_path.h"
@@ -28,16 +25,12 @@ void trigger_an_assertion_failure() {
 PYBIND11_MODULE(_common_py, m) {
   m.doc() = "Bindings for //common:common";
 
-<<<<<<< HEAD
   py::enum_<drake::RandomDistribution>(m, "RandomDistribution")
     .value("kUniform", drake::RandomDistribution::kUniform)
     .value("kGaussian", drake::RandomDistribution::kGaussian)
     .value("kExponential", drake::RandomDistribution::kExponential);
 
 // Turn DRAKE_ASSERT and DRAKE_DEMAND exceptions into native SystemExit.
-=======
-  // Turn DRAKE_ASSERT and DRAKE_DEMAND exceptions into native SystemExit.
->>>>>>> intial
   // Admittedly, it's unusual for a python library like pydrake to raise
   // SystemExit, but for now its better than C++ ::abort() taking down the
   // whole interpreter with a worse diagnostic message.

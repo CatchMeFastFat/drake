@@ -49,7 +49,6 @@ class TestEqualToDict(unittest.TestCase):
         d = EqualToDict({a: "a", b: "b"})
         # Ensure that we call `EqualTo`.
         self.assertFalse(Item.equal_to_called)
-<<<<<<< HEAD
         self.assertEqual(d[a], "a")
         self.assertTrue(Item.equal_to_called)
 
@@ -58,16 +57,6 @@ class TestEqualToDict(unittest.TestCase):
 
         # Ensure hash collision does not occur.
         self.assertEqual(hash(a.value), hash(a))
-=======
-        self.assertEquals(d[a], "a")
-        self.assertTrue(Item.equal_to_called)
-
-        self.assertEquals(d[b], "b")
-        self.assertTrue(a in d)
-
-        # Ensure hash collision does not occur.
-        self.assertEquals(hash(a.value), hash(a))
->>>>>>> intial
         self.assertFalse(a.value in d)
 
         # Obtaining the original representation (e.g. for `pybind11`):

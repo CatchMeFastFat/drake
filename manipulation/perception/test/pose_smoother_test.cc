@@ -43,11 +43,7 @@ class PoseSmootherTest : public ::testing::Test {
           kPoseSmootherPeriod, filter_window_size);
 
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
 
     EXPECT_EQ(dut_->get_num_input_ports(), 1);
     EXPECT_EQ(dut_->get_num_output_ports(), 2);

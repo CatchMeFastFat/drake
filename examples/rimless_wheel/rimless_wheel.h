@@ -130,11 +130,7 @@ class RimlessWheel final : public systems::LeafSystem<T> {
   //   θ = slope + the interleg angle (α).
   T StepForwardGuard(const systems::Context<T>& context) const;
 
-<<<<<<< HEAD
   // Handles the impact dynamics, including resetting theta to the angle of the
-=======
-  // Handles the impact dynamics, including reseting theta to the angle of the
->>>>>>> intial
   // new stance leg, and updating the toe position by the step length.
   void StepForwardReset(const systems::Context<T>& context,
                         const systems::UnrestrictedUpdateEvent<T>&,
@@ -144,11 +140,7 @@ class RimlessWheel final : public systems::LeafSystem<T> {
   //   θ = slope - the interleg angle (α).
   T StepBackwardGuard(const systems::Context<T>& context) const;
 
-<<<<<<< HEAD
   // Handles the impact dynamics, including resetting theta to the angle of the
-=======
-  // Handles the impact dynamics, including reseting theta to the angle of the
->>>>>>> intial
   // new stance leg, and updating the toe position by the step length.
   void StepBackwardReset(const systems::Context<T>& context,
                          const systems::UnrestrictedUpdateEvent<T>&,

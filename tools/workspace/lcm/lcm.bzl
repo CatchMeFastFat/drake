@@ -25,25 +25,16 @@ def _lcm_aggregate_hdr(
     """
     if aggregate_hdr and len(hdrs):
         if aggregate_hdr == "AUTO":
-<<<<<<< HEAD
             aggregate_hdr = join_paths(
                 dirname(hdrs[0]),
                 "%s.%s" % (lcm_package, suffix),
             )
-=======
-            aggregate_hdr = join_paths(dirname(hdrs[0]),
-                                       "%s.%s" % (lcm_package, suffix))
->>>>>>> intial
         drake_generate_include_header(
             name = name + "_lcm_aggregate_header",
             hdrs = hdrs,
             out = aggregate_hdr,
-<<<<<<< HEAD
             strip_prefix = strip_prefix,
         )
-=======
-            strip_prefix = strip_prefix)
->>>>>>> intial
 
         return [aggregate_hdr]
 
@@ -55,10 +46,7 @@ def _lcm_outs(lcm_srcs, lcm_package, lcm_structs, extension):
     below).  The filenames will use the given extension.
 
     """
-<<<<<<< HEAD
 
-=======
->>>>>>> intial
     # Find and remove the dirname and extension shared by all lcm_srcs.
     # For srcs in the current directory, the dirname will be empty.
     subdir = dirname(lcm_srcs[0])
@@ -75,12 +63,8 @@ def _lcm_outs(lcm_srcs, lcm_package, lcm_structs, extension):
     # got in lcm_srcs, if necessary.
     outs = [
         join_paths(subdir, lcm_package, lcm_struct + extension)
-<<<<<<< HEAD
         for lcm_struct in (lcm_structs or lcm_names)
     ]
-=======
-        for lcm_struct in (lcm_structs or lcm_names)]
->>>>>>> intial
 
     # Some languages have extra metadata.
     (extension in [".hpp", ".py", ".java"]) or fail(extension)
@@ -107,16 +91,12 @@ def _lcmgen_impl(ctx):
     outpath = ctx.outputs.outs[0].dirname[:-striplen]
 
     if ctx.attr.language == "cc":
-<<<<<<< HEAD
         arguments = [
             "--cpp",
             "--use-quotes-for-includes",
             "--cpp-std=c++11",
             "--cpp-hpath=" + outpath,
         ]
-=======
-        arguments = ["--cpp", "--cpp-std=c++11", "--cpp-hpath=" + outpath]
->>>>>>> intial
     elif ctx.attr.language == "py":
         arguments = ["--python", "--ppath=" + outpath]
     elif ctx.attr.language == "java":
@@ -127,13 +107,9 @@ def _lcmgen_impl(ctx):
         inputs = ctx.files.lcm_srcs,
         outputs = ctx.outputs.outs,
         arguments = arguments + [
-<<<<<<< HEAD
             lcm_src.path
             for lcm_src in ctx.files.lcm_srcs
         ],
-=======
-            lcm_src.path for lcm_src in ctx.files.lcm_srcs],
->>>>>>> intial
         executable = ctx.executable.lcmgen,
     )
     return struct()
@@ -198,12 +174,8 @@ def lcm_cc_library(
         language = "cc",
         lcm_srcs = lcm_srcs,
         lcm_package = lcm_package,
-<<<<<<< HEAD
         outs = outs,
     )
-=======
-        outs = outs)
->>>>>>> intial
 
     if aggregate_hdr:
         outs += _lcm_aggregate_hdr(
@@ -212,12 +184,8 @@ def lcm_cc_library(
             aggregate_hdr,
             outs,
             "hpp",
-<<<<<<< HEAD
             aggregate_hdr_strip_prefix,
         )
-=======
-            aggregate_hdr_strip_prefix)
->>>>>>> intial
 
     deps = kwargs.pop("deps", [])
     if "@lcm" not in deps:
@@ -232,12 +200,8 @@ def lcm_cc_library(
         hdrs = outs,
         deps = deps,
         includes = includes,
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial
 
     # We report the computed output filenames for use by calling code.
     return struct(hdrs = outs)
@@ -280,12 +244,8 @@ def lcm_py_library(
         language = "py",
         lcm_srcs = lcm_srcs,
         lcm_package = lcm_package,
-<<<<<<< HEAD
         outs = outs,
     )
-=======
-        outs = outs)
->>>>>>> intial
 
     if add_current_package_to_imports:
         if "." not in imports:
@@ -295,12 +255,8 @@ def lcm_py_library(
         name = name,
         srcs = outs + extra_srcs,
         imports = imports,
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial
 
 def lcm_java_library(
         name,
@@ -325,12 +281,8 @@ def lcm_java_library(
         language = "java",
         lcm_srcs = lcm_srcs,
         lcm_package = lcm_package,
-<<<<<<< HEAD
         outs = outs,
     )
-=======
-        outs = outs)
->>>>>>> intial
 
     deps = kwargs.pop("deps", [])
     if "@lcm//:lcm-java" not in deps:
@@ -340,9 +292,5 @@ def lcm_java_library(
         name = name,
         srcs = outs,
         deps = deps,
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial

@@ -606,7 +606,6 @@ Polynomial& Polynomial::AddProduct(const Expression& coeff, const Monomial& m) {
   return *this;
 }
 
-<<<<<<< HEAD
 Polynomial Polynomial::RemoveTermsWithSmallCoefficients(
     double coefficient_tol) const {
   DRAKE_DEMAND(coefficient_tol > 0);
@@ -625,8 +624,6 @@ Polynomial Polynomial::RemoveTermsWithSmallCoefficients(
   return Polynomial(cleaned_polynomial);
 }
 
-=======
->>>>>>> intial
 void Polynomial::CheckInvariant() const {
   Variables vars{intersect(decision_variables(), indeterminates())};
   if (!vars.empty()) {

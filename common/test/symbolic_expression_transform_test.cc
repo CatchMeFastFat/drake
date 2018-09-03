@@ -9,18 +9,11 @@ namespace drake {
 namespace symbolic {
 namespace {
 
-<<<<<<< HEAD
 using math::RotationMatrixd;
-=======
-using math::XRotation;
-using math::YRotation;
-using math::ZRotation;
->>>>>>> intial
 
 class SymbolicExpressionTransformationTest : public ::testing::Test {
  protected:
   void SetUp() override {
-<<<<<<< HEAD
     R1_ = RotationMatrixd::MakeXRotation(.25 * M_PI) *
           RotationMatrixd::MakeYRotation(.5 * M_PI) *
           RotationMatrixd::MakeZRotation(.33 * M_PI);
@@ -42,36 +35,12 @@ class SymbolicExpressionTransformationTest : public ::testing::Test {
 
     projective_.setIdentity();
     projective_.rotate(-(R2_ * R1_).matrix());
-=======
-    R1_ = XRotation(.25 * M_PI) * YRotation(.5 * M_PI) * ZRotation(.33 * M_PI);
-    R2_ = XRotation(M_PI / 2) * YRotation(-M_PI / 2) * ZRotation(M_PI / 2);
-
-    affine_.setIdentity();
-    affine_.rotate(R1_);
-    affine_.translation() << 1.0, 2.0, 3.0;
-
-    affine_compact_.setIdentity();
-    affine_compact_.rotate(R1_ * R2_);
-    affine_compact_.translation() << -2.0, 1.0, 3.0;
-
-    isometry_.setIdentity();
-    isometry_.rotate(-R2_);
-    isometry_.translation() << 3.0, -1.0, 2.0;
-
-    projective_.setIdentity();
-    projective_.rotate(-R2_ * R1_);
->>>>>>> intial
     projective_.translation() << 2.0, 3.0, -1.0;
   }
 
   // Rotation Matrices.
-<<<<<<< HEAD
   RotationMatrixd R1_;
   RotationMatrixd R2_;
-=======
-  Eigen::Matrix3d R1_;
-  Eigen::Matrix3d R2_;
->>>>>>> intial
 
   // Transformations.
   Eigen::Transform<double, 3, Eigen::Affine, Eigen::DontAlign> affine_;
@@ -81,11 +50,7 @@ class SymbolicExpressionTransformationTest : public ::testing::Test {
   Eigen::Transform<double, 3, Eigen::Projective, Eigen::DontAlign> projective_;
 };
 
-<<<<<<< HEAD
 // Checks if `lhs.cast<Expression>() * rhs` and `(lhs * rhs).cast<Expression>()`
-=======
-// Checks if `lhs.cast<Expresion>() * rhs` and `(lhs * rhs).cast<Expresion>()`
->>>>>>> intial
 // produce almost identical output. Also checks the symmetric case. See the
 // following commutative diagram.
 //                  * rhs
@@ -97,11 +62,7 @@ class SymbolicExpressionTransformationTest : public ::testing::Test {
 //    ||                                ||
 //    || * rhs                          ||
 //    \/                          ?     \/
-<<<<<<< HEAD
 //   lhs.cast<Expression>() * rhs  ==  (lhs * rhs).cast<Expression>()
-=======
-//   lhs.cast<Expresion>() * rhs  ==  (lhs * rhs).cast<Expresion>()
->>>>>>> intial
 //
 // The exactness is not guaranteed due to the non-associativity of
 // floating-point arithmetic (+, *).

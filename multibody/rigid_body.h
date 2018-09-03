@@ -12,10 +12,7 @@
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_deprecated.h"
-<<<<<<< HEAD
 #include "drake/common/drake_throw.h"
-=======
->>>>>>> intial
 #include "drake/common/eigen_types.h"
 #include "drake/multibody/collision/drake_collision.h"
 #include "drake/multibody/joints/drake_joint.h"
@@ -120,7 +117,6 @@ class RigidBody {
    *
    * @return The parent joint of this rigid body.
    */
-<<<<<<< HEAD
   const DrakeJoint& getJoint() const {
     DRAKE_DEMAND(joint_ != nullptr);
     return *joint_;
@@ -138,9 +134,6 @@ class RigidBody {
       throw std::runtime_error("This method cannot be called on world body");
     return *joint_;
   }
-=======
-  const DrakeJoint& getJoint() const;
->>>>>>> intial
 
   /**
    * Reports if the body has a parent joint.
@@ -158,11 +151,7 @@ class RigidBody {
   /**
    * Returns a const pointer to this rigid body's parent rigid body.
    */
-<<<<<<< HEAD
   const RigidBody* get_parent() const { return parent_; }
-=======
-  const RigidBody* get_parent() const;
->>>>>>> intial
 
   /**
    * Returns whether this RigidBody has a "parent", which is a RigidBody that is
@@ -172,11 +161,7 @@ class RigidBody {
    * the RigidBodyTree. Thus, by definition, all RigidBody objects should have a
    * parent RigidBody except for the RigidBodyTree's root, which is the world.
    */
-<<<<<<< HEAD
   bool has_parent_body() const { return parent_ != nullptr; }
-=======
-  bool has_parent_body() const;
->>>>>>> intial
 
   // TODO(liang.fok): Remove this deprecated method prior to Release 1.0.
   DRAKE_DEPRECATED("Please use has_parent_body().")
@@ -205,11 +190,7 @@ class RigidBody {
    * Returns the "body index" of this `RigidBody`. This is the index within the
    * vector of `RigidBody` objects within the `RigidBodyTree`.
    */
-<<<<<<< HEAD
   int get_body_index() const { return body_index_; }
-=======
-  int get_body_index() const;
->>>>>>> intial
 
   /**
    * Sets the start index of this rigid body's mobilizer joint's contiguous
@@ -225,11 +206,7 @@ class RigidBody {
    * Returns the start index of this body's parent jont's position states; see
    * RigidBody::set_position_start_index() for more information.
    */
-<<<<<<< HEAD
   int get_position_start_index() const { return position_start_index_; }
-=======
-  int get_position_start_index() const;
->>>>>>> intial
 
   /**
    * Sets the start index of this rigid body's mobilizer joint's contiguous
@@ -245,11 +222,7 @@ class RigidBody {
    * Returns the start index of this body's parent jont's velocity states; see
    * RigidBody::set_velocity_start_index() for more information.
    */
-<<<<<<< HEAD
   int get_velocity_start_index() const { return velocity_start_index_; }
-=======
-  int get_velocity_start_index() const;
->>>>>>> intial
 
   void AddVisualElement(const DrakeShapes::VisualElement& elements);
 
@@ -257,11 +230,7 @@ class RigidBody {
 
   // TODO(SeanCurtis-TRI): This shouldn't be called publicly. Collision elements
   // have to be processed in the context of the rigid body tree.  Long term,
-<<<<<<< HEAD
   // this will be displaced into SceneGraph.  Short term, just don't call
-=======
-  // this will be displaced into GeometrySystem.  Short term, just don't call
->>>>>>> intial
   // it. If you need to add a collision element to a body, add it through
   // RigidBodyTree::addCollisionElement.
   /**
@@ -277,11 +246,7 @@ class RigidBody {
    * represent the collision geometry of this rigid body.
    */
   const std::vector<drake::multibody::collision::ElementId>&
-<<<<<<< HEAD
   get_collision_element_ids() const { return collision_element_ids_; }
-=======
-  get_collision_element_ids() const;
->>>>>>> intial
 
   /**
    * Returns a reference to an `std::vector` of collision elements that
@@ -428,14 +393,9 @@ class RigidBody {
   /**
    * Returns the spatial inertia of this rigid body.
    */
-<<<<<<< HEAD
   const drake::SquareTwistMatrix<double>& get_spatial_inertia() const {
     return spatial_inertia_;
   }
-=======
-  const drake::SquareTwistMatrix<double>& get_spatial_inertia()
-      const;
->>>>>>> intial
 
   /**
    * Transforms all of the visual, collision, and inertial elements associated

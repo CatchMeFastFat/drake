@@ -208,11 +208,7 @@ int fastQPThatTakesQinv(vector<MatrixXd*> QinvblkDiag, const VectorXd& f,
 
     i = 0;
     set<int>::iterator iter = active.begin(), tmp;
-<<<<<<< HEAD
     while (iter != active.end()) {  // to accommodating inloop erase
-=======
-    while (iter != active.end()) {  // to accomodating inloop erase
->>>>>>> intial
       tmp = iter++;
       if (lamIneq(i++) < 0) {
         active.erase(tmp);

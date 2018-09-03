@@ -71,12 +71,9 @@ drake_cc_googletest(
 drake_cc_binary(
     name = "remote_tree_viewer_wrapper_demo",
     srcs = ["test/remote_tree_viewer_wrapper_demo.cc"],
-<<<<<<< HEAD
     data = [
         "//examples/atlas:models",
     ],
-=======
->>>>>>> intial
     deps = [
         ":remote_tree_viewer_wrapper",
         "//common:find_resource",
@@ -84,7 +81,6 @@ drake_cc_binary(
     ],
 )
 
-<<<<<<< HEAD
 drake_cc_binary(
     name = "quasistatic_iiwa_pick_and_place_demo",
     testonly = 1,
@@ -119,8 +115,6 @@ drake_cc_binary(
     ],
 )
 
-=======
->>>>>>> intial
 install_data()
 
 add_lint_tests()

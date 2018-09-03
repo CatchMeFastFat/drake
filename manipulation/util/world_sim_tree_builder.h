@@ -31,7 +31,6 @@ struct ModelInstanceInfo {
 template <typename T>
 class WorldSimTreeBuilder {
  public:
-<<<<<<< HEAD
   /// Constructs a WorldSimTreeBuilder object and specifies whether a call to
   /// any of the add model instance functions should compile the tree.
   ///
@@ -55,9 +54,6 @@ class WorldSimTreeBuilder {
   /// instead of to an empty tree.
   WorldSimTreeBuilder(bool compile_tree = true,
                       std::unique_ptr<RigidBodyTree<T>> base_tree = nullptr);
-=======
-  WorldSimTreeBuilder();
->>>>>>> intial
 
   ~WorldSimTreeBuilder();
 
@@ -165,7 +161,6 @@ class WorldSimTreeBuilder {
     return *rigid_body_tree_;
   }
 
-<<<<<<< HEAD
   /// Returns a pointer to the (not yet built) mutable tree. This is useful when
   /// one needs to programmatically modify a recently parsed, uncompiled tree
   /// (e.g., accessing/modifying collision filters declared in the corresponding
@@ -183,8 +178,6 @@ class WorldSimTreeBuilder {
     return rigid_body_tree_.get();
   }
 
-=======
->>>>>>> intial
   ModelInstanceInfo<T> get_model_info_for_instance(int id) {
     return instance_id_to_model_info_.at(id);
   }
@@ -200,17 +193,10 @@ class WorldSimTreeBuilder {
   }
 
  private:
-<<<<<<< HEAD
   std::unique_ptr<RigidBodyTree<T>> rigid_body_tree_{};
 
   bool built_{false};
   bool compile_tree_{true};
-=======
-  std::unique_ptr<RigidBodyTree<T>> rigid_body_tree_{
-      std::make_unique<RigidBodyTree<T>>()};
-
-  bool built_{false};
->>>>>>> intial
 
   // Maps between models (stored as filename strings in the map) and their
   // user-supplied names (keys in the map). Instances of these models can be

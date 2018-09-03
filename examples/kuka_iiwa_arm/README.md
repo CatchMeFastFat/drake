@@ -4,11 +4,7 @@ IIWA Manipulation Examples
 There are a number of examples contained in these directories.
 
 The following instructions assume Drake was
-<<<<<<< HEAD
 [built using bazel](https://drake.mit.edu/bazel.html?highlight=bazel).
-=======
-[built using bazel](http://drake.mit.edu/bazel.html?highlight=bazel).
->>>>>>> intial
 
 Prerequisites
 -------------
@@ -19,11 +15,7 @@ bazel build //tools:drake_visualizer
 ```
 
 Ensure that you have set your
-<<<<<<< HEAD
 [PYTHONPATH](https://drake.mit.edu/python_bindings.html?highlight=python).
-=======
-[PYTHONPATH](http://drake.mit.edu/python_bindings.html?highlight=python).
->>>>>>> intial
 
 All instructions assume that you are launching from the `drake`
 workspace directory.

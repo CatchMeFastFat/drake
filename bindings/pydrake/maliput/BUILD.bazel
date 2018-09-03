@@ -38,12 +38,9 @@ drake_py_library(
 
 drake_pybind_library(
     name = "api_py",
-<<<<<<< HEAD
     cc_deps = [
         "//bindings/pydrake/util:wrap_pybind",
     ],
-=======
->>>>>>> intial
     cc_so_name = "api",
     cc_srcs = ["api_py.cc"],
     package_info = PACKAGE_INFO,
@@ -93,10 +90,6 @@ install(
 
 drake_py_unittest(
     name = "maliput_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":api_py",
         ":dragway_py",

@@ -45,7 +45,6 @@ maliput_simple_rulebook_v1:
 
   right_of_way:
     rw1:
-<<<<<<< HEAD
       zone:
         - [l0, 0., 90.]
         - [l1, 23., 7.]
@@ -58,13 +57,6 @@ maliput_simple_rulebook_v1:
         green:
           type: Go
           yield_to: []
-=======
-      controlled_zone:
-        - [l0, 0., 90.]
-        - [l1, 23., 7.]
-        - [l2, 5., 10.]
-      type: StopThenGo
->>>>>>> intial
 something_after: other-stuff
 )R");
 
@@ -87,11 +79,8 @@ something_after: other-stuff
                      0., 34.)));
 
   const RightOfWayRule::Id rw1_id("rw1");
-<<<<<<< HEAD
   const RightOfWayRule::Id other_rw_a_id("other-rw-A");
   const RightOfWayRule::Id other_rw_b_id("other-rw-B");
-=======
->>>>>>> intial
 
   EXPECT_TRUE(MALIPUT_IS_EQUAL(
       dut.GetRule(rw1_id),
@@ -101,7 +90,6 @@ something_after: other-stuff
                          LaneSRange(LaneId("l1"), {23., 7.}),
                          LaneSRange(LaneId("l2"), {5., 10.}),
                              }),
-<<<<<<< HEAD
                      RightOfWayRule::ZoneType::kStopExcluded,
                      {RightOfWayRule::State{
                          RightOfWayRule::State::Id("red"),
@@ -111,9 +99,6 @@ something_after: other-stuff
                          RightOfWayRule::State::Id("green"),
                          RightOfWayRule::State::Type::kGo,
                          {}}})));
-=======
-                     RightOfWayRule::Type::kStopThenGo)));
->>>>>>> intial
 }
 
 
@@ -193,11 +178,7 @@ maliput_simple_rulebook_v1:
       LoadYaml(&yaml, &dut), std::runtime_error,
       "Failure .* condition 'map_result.second' failed.");
 
-<<<<<<< HEAD
   // Bad RightOfWayRule::ZoneType
-=======
-  // Bad RightOfWayRule::Type
->>>>>>> intial
   yaml = std::istringstream(R"R(# -*- yaml -*-
 ---
 maliput_simple_rulebook_v1:
@@ -206,7 +187,6 @@ maliput_simple_rulebook_v1:
       controlled_zone:
         - [l0, 0., 90.]
       type: StopThenGoXXX
-<<<<<<< HEAD
       zone:
         - [l0, 0., 90.]
       zone_type: StopExcludedXXX
@@ -241,12 +221,6 @@ maliput_simple_rulebook_v1:
   DRAKE_EXPECT_THROWS_MESSAGE(
       LoadYaml(&yaml, &dut), std::runtime_error,
       "Unknown RightOfWayRule::State::Type: StopThenGoXXX");
-=======
-)R");
-  dut.RemoveAll();
-  DRAKE_EXPECT_THROWS_MESSAGE(LoadYaml(&yaml, &dut), std::runtime_error,
-                              "Unknown RightOfWayRule::Type: StopThenGoXXX");
->>>>>>> intial
 }
 
 

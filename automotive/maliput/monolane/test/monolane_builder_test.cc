@@ -7,11 +7,8 @@
 
 #include <gtest/gtest.h>
 
-<<<<<<< HEAD
 #include "drake/automotive/maliput/api/test_utilities/check_id_indexing.h"
 
-=======
->>>>>>> intial
 namespace drake {
 namespace maliput {
 namespace monolane {
@@ -98,11 +95,8 @@ GTEST_TEST(MonolaneBuilderTest, Fig8) {
     EXPECT_EQ(bp->GetASide()->size(), 1);
     EXPECT_EQ(bp->GetBSide()->size(), 1);
   }
-<<<<<<< HEAD
 
   EXPECT_TRUE(api::test::CheckIdIndexing(rg.get()));
-=======
->>>>>>> intial
 };
 
 
@@ -227,10 +221,7 @@ GTEST_TEST(MonolaneBuilderTest, QuadRing) {
       GTEST_FAIL();
     }
   }
-<<<<<<< HEAD
   EXPECT_TRUE(api::test::CheckIdIndexing(rg.get()));
-=======
->>>>>>> intial
 };
 
 

@@ -1,20 +1,15 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
->>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "trajectories",
     deps = [
@@ -25,8 +20,6 @@ drake_cc_package_library(
     ],
 )
 
-=======
->>>>>>> intial
 # TODO(jwnimmer-tri) Move code to a trajectory.cc file
 drake_cc_library(
     name = "trajectory",
@@ -95,13 +88,8 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "piecewise_generation_test",
-<<<<<<< HEAD
     # Test timeout increased to not timeout when run with Valgrind.
     timeout = "moderate",
-=======
-    # Test size increased to not timeout when run with Valgrind.
-    size = "medium",
->>>>>>> intial
     srcs = ["test/piecewise_polynomial_generation_test.cc"],
     deps = [
         ":piecewise_polynomial",

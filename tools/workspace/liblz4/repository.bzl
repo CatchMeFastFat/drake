@@ -16,9 +16,5 @@ def liblz4_repository(
         licenses = licenses,
         modname = modname,
         pkg_config_paths = pkg_config_paths,
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial

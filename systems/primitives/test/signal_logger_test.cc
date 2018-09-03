@@ -8,43 +8,26 @@
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/systems/analysis/simulator.h"
 #include "drake/systems/framework/diagram_builder.h"
-<<<<<<< HEAD
 #include "drake/systems/primitives/constant_vector_source.h"
 #include "drake/systems/primitives/linear_system.h"
 
 namespace drake {
 namespace systems {
-=======
-#include "drake/systems/primitives/linear_system.h"
-
-namespace drake {
->>>>>>> intial
 namespace {
 
 // Log the output of a simple linear system (with a known solution).
 GTEST_TEST(TestSignalLogger, LinearSystemTest) {
-<<<<<<< HEAD
   DiagramBuilder<double> builder;
 
   // xdot = -x.  y = x.  (No inputs).
   auto plant = builder.AddSystem<LinearSystem<double>>(
-=======
-  systems::DiagramBuilder<double> builder;
-
-  // xdot = -x.  y = x.  (No inputs).
-  auto plant = builder.AddSystem<systems::LinearSystem<double>>(
->>>>>>> intial
       Vector1d::Constant(-1.0),      // A.
       Eigen::MatrixXd::Zero(1, 0),   // B.
       Vector1d::Constant(1.0),       // C.
       Eigen::MatrixXd::Zero(1, 0));  // D.
   plant->set_name("plant");
 
-<<<<<<< HEAD
   auto logger = builder.AddSystem<SignalLogger<double>>(1);
-=======
-  auto logger = builder.AddSystem<systems::SignalLogger<double>>(1);
->>>>>>> intial
   logger->set_name("logger");
   builder.Cascade(*plant, *logger);
 
@@ -54,13 +37,8 @@ GTEST_TEST(TestSignalLogger, LinearSystemTest) {
   auto diagram = builder.Build();
 
   // Simulate the simple system from x(0) = 1.0.
-<<<<<<< HEAD
   Simulator<double> simulator(*diagram);
   Context<double>& context = simulator.get_mutable_context();
-=======
-  systems::Simulator<double> simulator(*diagram);
-  systems::Context<double>& context = simulator.get_mutable_context();
->>>>>>> intial
   context.get_mutable_continuous_state_vector().SetAtIndex(0, 1.0);
 
   // Make the integrator tolerance sufficiently tight for the test to pass.
@@ -101,7 +79,6 @@ GTEST_TEST(TestSignalLogger, LinearSystemTest) {
   EXPECT_EQ(logger->data().cols(), logger->sample_times().size());
 }
 
-<<<<<<< HEAD
 // Test that set_publish_period triggers properly even for logging a constant
 // signal.
 GTEST_TEST(TestSignalLogger, SetPublishPeriod) {
@@ -125,7 +102,4 @@ GTEST_TEST(TestSignalLogger, SetPublishPeriod) {
 }  // namespace
 
 }  // namespace systems
-=======
-}  // namespace
->>>>>>> intial
 }  // namespace drake

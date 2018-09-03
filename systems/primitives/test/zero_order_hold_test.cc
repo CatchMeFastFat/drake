@@ -9,13 +9,8 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/systems/framework/basic_vector.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
 #include "drake/systems/framework/system_output.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
-#include "drake/systems/framework/output_port_value.h"
->>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 
 namespace drake {
@@ -65,11 +60,7 @@ class ZeroOrderHoldTest : public ::testing::TestWithParam<bool> {
           kTenHertz, Value<SimpleAbstractType>(Eigen::Vector3d::Zero()));
     }
     context_ = hold_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = hold_->AllocateOutput();
-=======
-    output_ = hold_->AllocateOutput(*context_);
->>>>>>> intial
     if (!is_abstract_) {
       context_->FixInputPort(
           0, std::make_unique<BasicVector<double>>(input_value_));
@@ -231,11 +222,7 @@ class SymbolicZeroOrderHoldTest : public ::testing::Test {
     auto& xd = context_->get_mutable_discrete_state(0);
     xd[0] = symbolic::Variable("x0");
 
-<<<<<<< HEAD
     output_ = hold_->AllocateOutput();
-=======
-    output_ = hold_->AllocateOutput(*context_);
->>>>>>> intial
     update_ = hold_->AllocateDiscreteVariables();
   }
 

@@ -83,7 +83,6 @@ std::unique_ptr<systems::AffineSystem<double>> StabilizingLQRController(
 
 }  // namespace quadrotor
 }  // namespace examples
-<<<<<<< HEAD
 
 // The following code was added to prevent scalar conversion to symbolic scalar
 // types. The QuadrotorPlant makes use of classes that are not compatible with
@@ -97,6 +96,4 @@ struct Traits<examples::quadrotor::QuadrotorPlant> : public NonSymbolicTraits {
 }  // namespace scalar_conversion
 }  // namespace systems
 
-=======
->>>>>>> intial
 }  // namespace drake

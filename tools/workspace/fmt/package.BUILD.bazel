@@ -16,7 +16,6 @@ package(
 cc_library(
     name = "fmt",
     hdrs = glob([
-<<<<<<< HEAD
         "include/fmt/*.h",
     ], exclude = [
         # The POSIX bindings are not header-only.
@@ -27,13 +26,6 @@ cc_library(
         "FMT_NO_FMT_STRING_ALIAS=1",  # Avoid macro pollution.
     ],
     includes = ["include"],
-=======
-        "fmt/*.cc",
-        "fmt/*.h",
-    ]),
-    defines = ["FMT_HEADER_ONLY=1"],
-    includes = ["."],
->>>>>>> intial
 )
 
 CMAKE_PACKAGE = "fmt"
@@ -41,11 +33,7 @@ CMAKE_PACKAGE = "fmt"
 cmake_config(
     package = CMAKE_PACKAGE,
     script = "@drake//tools/workspace/fmt:package-create-cps.py",
-<<<<<<< HEAD
     version_file = "include/fmt/core.h",
-=======
-    version_file = "fmt/format.h",
->>>>>>> intial
 )
 
 # Creates rule :install_cmake_config.
@@ -55,10 +43,7 @@ install(
     name = "install",
     targets = [":fmt"],
     hdr_dest = "include/" + CMAKE_PACKAGE,
-<<<<<<< HEAD
     hdr_strip_prefix = ["include"],
-=======
->>>>>>> intial
     guess_hdrs = "PACKAGE",
     docs = ["LICENSE.rst"],
     deps = [":install_cmake_config"],

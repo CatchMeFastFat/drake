@@ -2,37 +2,23 @@
 
 #include "drake/common/default_scalars.h"
 #include "drake/common/drake_assert.h"
-<<<<<<< HEAD
 #include "drake/geometry/scene_graph.h"
-=======
-#include "drake/geometry/geometry_system.h"
->>>>>>> intial
 
 namespace drake {
 namespace geometry {
 
 template <typename T>
 QueryObject<T>::QueryObject(const QueryObject&)
-<<<<<<< HEAD
     : context_{nullptr}, scene_graph_{nullptr} {}
-=======
-    : context_{nullptr},
-      system_{nullptr} {}
->>>>>>> intial
 
 template <typename T>
 QueryObject<T>& QueryObject<T>::operator=(const QueryObject<T>&) {
   context_ = nullptr;
-<<<<<<< HEAD
   scene_graph_ = nullptr;
-=======
-  system_ = nullptr;
->>>>>>> intial
   return *this;
 }
 
 template <typename T>
-<<<<<<< HEAD
 std::vector<PenetrationAsPointPair<double>>
 QueryObject<T>::ComputePointPairPenetration() const {
   ThrowIfDefault();
@@ -60,28 +46,6 @@ const GeometryState<T>& QueryObject<T>::geometry_state() const {
   DRAKE_DEMAND(scene_graph_ != nullptr);
   DRAKE_DEMAND(context_ != nullptr);
   return context_->get_geometry_state();
-=======
-const std::string& QueryObject<T>::GetSourceName(SourceId id) const {
-  ThrowIfDefault();
-  return context_->get_geometry_state().get_source_name(id);
-}
-
-template <typename T>
-FrameId QueryObject<T>::GetFrameId(GeometryId geometry_id) const {
-  ThrowIfDefault();
-  return context_->get_geometry_state().GetFrameId(geometry_id);
-}
-
-template <typename T>
-std::vector<PenetrationAsPointPair<double>>
-QueryObject<T>::ComputePointPairPenetration() const {
-  ThrowIfDefault();
-
-  // TODO(SeanCurtis-TRI): Modify this when the cache system is in place.
-  system_->FullPoseUpdate(*context_);
-  const GeometryState<T>& state = context_->get_geometry_state();
-  return state.ComputePointPairPenetration();
->>>>>>> intial
 }
 
 }  // namespace geometry

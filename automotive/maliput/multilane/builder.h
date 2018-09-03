@@ -19,7 +19,6 @@ namespace multilane {
 
 class RoadGeometry;
 
-<<<<<<< HEAD
 /// Defines the direction of an Endpoint or EndpointZ.
 enum class Direction { kForward, kReverse };
 
@@ -356,8 +355,6 @@ class LaneLayout {
 /// It is not intended for serialization.
 std::ostream& operator<<(std::ostream& out, const LaneLayout& lane_layout);
 
-=======
->>>>>>> intial
 /// Defines a builder interface for multilane. It is used for testing purposes
 /// only, and derived code should instantiate Builder objects.
 class BuilderBase {
@@ -380,7 +377,6 @@ class BuilderBase {
   /// Gets `angular_tolerance` value.
   virtual double get_angular_tolerance() const = 0;
 
-<<<<<<< HEAD
   /// Gets `scale_length` value.
   virtual double get_scale_length() const = 0;
 
@@ -452,34 +448,6 @@ class BuilderBase {
                                     const StartLane::Spec& start_spec,
                                     const ArcOffset& arc_offset,
                                     const EndLane::Spec& end_spec) = 0;
-=======
-  /// Connects `start` to an end-point linearly displaced from `start`.
-  /// `length` specifies the length of displacement (in the direction of the
-  /// heading of `start`). `z_end` specifies the elevation characteristics at
-  /// the end-point.
-  /// `r0` is the distance from the reference curve to the first Lane
-  /// centerline. `left_shoulder` and `right_shoulder` are extra lateral
-  /// distances added to the extents of the Segment after the first and last
-  /// Lanes positions are determined.
-  virtual const Connection* Connect(const std::string& id, int num_lanes,
-                                    double r0, double left_shoulder,
-                                    double right_shoulder,
-                                    const Endpoint& start, double length,
-                                    const EndpointZ& z_end) = 0;
-
-  /// Connects `start` to an end-point displaced from `start` via an arc.
-  /// `arc` specifies the shape of the arc. `z_end` specifies the elevation
-  /// characteristics at the end-point.
-  /// `r0` is the distance from the reference curve to the first Lane
-  /// centerline. `left_shoulder` and `right_shoulder` are extra lateral
-  /// distances added to the extents of the Segment after the first and last
-  /// Lanes positions are determined.
-  virtual const Connection* Connect(const std::string& id, int num_lanes,
-                                    double r0, double left_shoulder,
-                                    double right_shoulder,
-                                    const Endpoint& start, const ArcOffset& arc,
-                                    const EndpointZ& z_end) = 0;
->>>>>>> intial
 
   /// Sets the default branch for one end of a connection.
   ///
@@ -521,7 +489,6 @@ class BuilderFactoryBase {
 
   /// Creates a BuilderBase instance.
   ///
-<<<<<<< HEAD
   /// `lane_width`, `elevation_bounds`, `linear_tolerance`,
   /// `angular_tolerance`, `scale_length` and `computation_policy` are
   /// BuilderBase properties.
@@ -529,13 +496,6 @@ class BuilderFactoryBase {
       double lane_width, const api::HBounds& elevation_bounds,
       double linear_tolerance, double angular_tolerance,
       double scale_length, ComputationPolicy computation_policy) const = 0;
-=======
-  /// `lane_width`, `elevation_bounds`, `linear_tolerance` and
-  /// `angular_tolerance` are BuilderBase properties.
-  virtual std::unique_ptr<BuilderBase> Make(
-      double lane_width, const api::HBounds& elevation_bounds,
-      double linear_tolerance, double angular_tolerance) const = 0;
->>>>>>> intial
 };
 
 /// Convenient builder class which makes it easy to construct a multilane road
@@ -555,13 +515,8 @@ class BuilderFactoryBase {
 /// components into a valid RoadGeometry.  In the Builder model, an Endpoint
 /// specifies a point in world coordinates (along with a direction, slope,
 /// and superelevation parameters).  A Connection is a path from an explicit
-<<<<<<< HEAD
 /// start Endpoint to an end Endpoint calculated via a linear (LineOffset) or
 /// arc displacement (ArcOffset).  A Group is a collection of Connections.
-=======
-/// start Endpoint to an end Endpoint calculated via a linear or arc
-/// displacement (ArcOffset).  A Group is a collection of Connections.
->>>>>>> intial
 ///
 /// Builder::Build() constructs a RoadGeometry. Each Connection yields a
 /// Segment bearing multiple Lanes. Each Group yields a Junction containing
@@ -593,18 +548,12 @@ class Builder : public BuilderBase {
   /// left and right shoulders, number of lanes and lane spacing. The
   /// `elevation_bounds` is applied uniformly to all lanes of every segment.
   /// `linear_tolerance` and `angular_tolerance` specify the respective
-<<<<<<< HEAD
   /// tolerances for the resulting RoadGeometry. `scale_length` constrains
   /// the maximum level of detail captured by the resulting RoadGeometry.
   /// `computation_policy` sets the speed vs. accuracy balance for computations.
   Builder(double lane_width, const api::HBounds& elevation_bounds,
           double linear_tolerance, double angular_tolerance,
           double scale_length, ComputationPolicy computation_policy);
-=======
-  /// tolerances for the resulting RoadGeometry.
-  Builder(double lane_width, const api::HBounds& elevation_bounds,
-          double linear_tolerance, double angular_tolerance);
->>>>>>> intial
 
   /// Gets `lane_width` value.
   double get_lane_width() const override { return lane_width_; }
@@ -620,7 +569,6 @@ class Builder : public BuilderBase {
   /// Gets `angular_tolerance` value.
   double get_angular_tolerance() const override { return angular_tolerance_; }
 
-<<<<<<< HEAD
   double get_scale_length() const override { return scale_length_; }
 
   ComputationPolicy get_computation_policy() const override {
@@ -650,17 +598,6 @@ class Builder : public BuilderBase {
                             const StartLane::Spec& start_spec,
                             const ArcOffset& arc_offset,
                             const EndLane::Spec& end_spec) override;
-=======
-  const Connection* Connect(const std::string& id, int num_lanes, double r0,
-                            double left_shoulder, double right_shoulder,
-                            const Endpoint& start, double length,
-                            const EndpointZ& z_end) override;
-
-  const Connection* Connect(const std::string& id, int num_lanes, double r0,
-                            double left_shoulder, double right_shoulder,
-                            const Endpoint& start, const ArcOffset& arc,
-                            const EndpointZ& z_end) override;
->>>>>>> intial
 
   void SetDefaultBranch(const Connection* in, int in_lane_index,
                         const api::LaneEnd::Which in_end, const Connection* out,
@@ -768,11 +705,8 @@ class Builder : public BuilderBase {
   api::HBounds elevation_bounds_;
   double linear_tolerance_{};
   double angular_tolerance_{};
-<<<<<<< HEAD
   double scale_length_{};
   ComputationPolicy computation_policy_{};
-=======
->>>>>>> intial
   std::vector<std::unique_ptr<Connection>> connections_;
   std::vector<DefaultBranch> default_branches_;
   std::vector<std::unique_ptr<Group>> groups_;
@@ -785,7 +719,6 @@ class BuilderFactory : public BuilderFactoryBase {
 
   BuilderFactory() = default;
 
-<<<<<<< HEAD
   std::unique_ptr<BuilderBase> Make(
       double lane_width, const api::HBounds& elevation_bounds,
       double linear_tolerance, double angular_tolerance, double scale_length,
@@ -793,14 +726,6 @@ class BuilderFactory : public BuilderFactoryBase {
     return std::make_unique<Builder>(lane_width, elevation_bounds,
                                      linear_tolerance, angular_tolerance,
                                      scale_length, computation_policy);
-=======
-  std::unique_ptr<BuilderBase> Make(double lane_width,
-                                    const api::HBounds& elevation_bounds,
-                                    double linear_tolerance,
-                                    double angular_tolerance) const override {
-    return std::make_unique<Builder>(lane_width, elevation_bounds,
-                                     linear_tolerance, angular_tolerance);
->>>>>>> intial
   }
 };
 

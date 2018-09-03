@@ -47,11 +47,7 @@ internal::RandomSource system blocks; we have provided the
 AddRandomInputs() method to facilitate this.
 
 Algorithms written for Systems can query the property of the
-<<<<<<< HEAD
 InputPort to find the input ports that are labeled as
-=======
-InputPortDescriptor to find the input ports that are labeled as
->>>>>>> intial
 random, and the random vector distribution type.  The list of
 supported distributions for random input ports is intentionally very
 limited (to simplify algorithm development); we place the burden on

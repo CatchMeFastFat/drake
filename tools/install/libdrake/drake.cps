@@ -5,11 +5,7 @@
   "X-See-Also": "https://github.com/mwoehlke/pycps",
   "Cps-Version": "0.8.0",
   "Name": "drake",
-<<<<<<< HEAD
   "Website": "https://drake.mit.edu/",
-=======
-  "Website": "http://drake.mit.edu/",
->>>>>>> intial
   "Requires": {
     "bot2-core-lcmtypes": {
       "Hints": ["@prefix@/lib/cmake/bot2-core-lcmtypes"],
@@ -71,10 +67,7 @@
       "Link-Flags": ["-ltinyxml2"],
       "Requires": [
         ":drake-lcmtypes-cpp",
-<<<<<<< HEAD
         ":drake-marker",
-=======
->>>>>>> intial
         "bot2-core-lcmtypes:lcmtypes_bot2-core-cpp",
         "Eigen3:Eigen",
         "fmt:fmt-header-only",
@@ -103,13 +96,10 @@
       "Type": "jar",
       "Location": "@prefix@/share/java/lcmtypes_drake.jar",
       "Requires": ["lcm:lcm-java"]
-<<<<<<< HEAD
     },
     "drake-marker": {
       "Type": "dylib",
       "Location": "@prefix@/lib/libdrake_marker.so"
-=======
->>>>>>> intial
     }
   },
   "X-CMake-Variables": {

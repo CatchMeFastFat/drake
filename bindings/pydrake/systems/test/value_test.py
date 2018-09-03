@@ -62,11 +62,7 @@ class TestValue(unittest.TestCase):
                     np.allclose(value_data.get_mutable_value(), expected_set))
                 # Ensure we can construct from size.
                 value_data = BasicVector(n)
-<<<<<<< HEAD
                 self.assertEqual(value_data.size(), n)
-=======
-                self.assertEquals(value_data.size(), n)
->>>>>>> intial
                 # Ensure we can clone.
                 value_copies = [
                     value_data.Clone(),
@@ -75,7 +71,6 @@ class TestValue(unittest.TestCase):
                 ]
                 for value_copy in value_copies:
                     self.assertTrue(value_copy is not value_data)
-<<<<<<< HEAD
                     self.assertEqual(value_data.size(), n)
 
     def test_basic_vector_set_get(self):
@@ -83,41 +78,26 @@ class TestValue(unittest.TestCase):
         self.assertEqual(value.GetAtIndex(1), 4.)
         value.SetAtIndex(1, 5.)
         self.assertEqual(value.GetAtIndex(1), 5.)
-=======
-                    self.assertEquals(value_data.size(), n)
->>>>>>> intial
 
     def test_abstract_value_copyable(self):
         expected = "Hello world"
         value = Value[str](expected)
         self.assertTrue(isinstance(value, AbstractValue))
-<<<<<<< HEAD
         self.assertEqual(value.get_value(), expected)
         expected_new = "New value"
         value.set_value(expected_new)
         self.assertEqual(value.get_value(), expected_new)
-=======
-        self.assertEquals(value.get_value(), expected)
-        expected_new = "New value"
-        value.set_value(expected_new)
-        self.assertEquals(value.get_value(), expected_new)
->>>>>>> intial
         # Test docstring.
         self.assertFalse("unique_ptr" in value.set_value.__doc__)
 
     def test_abstract_value_move_only(self):
         obj = MoveOnlyType(10)
         # This *always* clones `obj`.
-<<<<<<< HEAD
         self.assertEqual(
-=======
-        self.assertEquals(
->>>>>>> intial
             str(Value[MoveOnlyType]),
             "<class 'pydrake.systems.framework.Value[MoveOnlyType]'>")
         value = Value[MoveOnlyType](obj)
         self.assertTrue(value.get_value() is not obj)
-<<<<<<< HEAD
         self.assertEqual(value.get_value().x(), 10)
         # Set value.
         value.get_mutable_value().set_x(20)
@@ -125,15 +105,6 @@ class TestValue(unittest.TestCase):
         # Test custom emplace constructor.
         emplace_value = Value[MoveOnlyType](30)
         self.assertEqual(emplace_value.get_value().x(), 30)
-=======
-        self.assertEquals(value.get_value().x(), 10)
-        # Set value.
-        value.get_mutable_value().set_x(20)
-        self.assertEquals(value.get_value().x(), 20)
-        # Test custom emplace constructor.
-        emplace_value = Value[MoveOnlyType](30)
-        self.assertEquals(emplace_value.get_value().x(), 30)
->>>>>>> intial
         # Test docstring.
         self.assertTrue("unique_ptr" in value.set_value.__doc__)
 
@@ -144,26 +115,15 @@ class TestValue(unittest.TestCase):
         self.assertTrue(value.get_value() is expected)
         # Update mutable version.
         value.get_mutable_value()["y"] = 30
-<<<<<<< HEAD
         self.assertEqual(value.get_value(), expected)
         # Cloning the value should perform a deep copy of the Python object.
         value_clone = copy.deepcopy(value)
         self.assertEqual(value_clone.get_value(), expected)
-=======
-        self.assertEquals(value.get_value(), expected)
-        # Cloning the value should perform a deep copy of the Python object.
-        value_clone = copy.deepcopy(value)
-        self.assertEquals(value_clone.get_value(), expected)
->>>>>>> intial
         self.assertTrue(value_clone.get_value() is not expected)
         # Using `set_value` on the original value changes object reference.
         expected_new = {"a": 20}
         value.set_value(expected_new)
-<<<<<<< HEAD
         self.assertEqual(value.get_value(), expected_new)
-=======
-        self.assertEquals(value.get_value(), expected_new)
->>>>>>> intial
         self.assertTrue(value.get_value() is not expected)
 
     def test_abstract_value_make(self):
@@ -190,33 +150,20 @@ class TestValue(unittest.TestCase):
     def test_parameters_api(self):
 
         def compare(actual, expected):
-<<<<<<< HEAD
             self.assertEqual(type(actual), type(expected))
-=======
-            self.assertEquals(type(actual), type(expected))
->>>>>>> intial
             if isinstance(actual, VectorBase):
                 self.assertTrue(
                     np.allclose(actual.get_value(), expected.get_value()))
             else:
-<<<<<<< HEAD
                 self.assertEqual(actual.get_value(), expected.get_value())
-=======
-                self.assertEquals(actual.get_value(), expected.get_value())
->>>>>>> intial
 
         model_numeric = BasicVector([0.])
         model_abstract = AbstractValue.Make("Hello")
 
         params = Parameters(
             numeric=[model_numeric.Clone()], abstract=[model_abstract.Clone()])
-<<<<<<< HEAD
         self.assertEqual(params.num_numeric_parameters(), 1)
         self.assertEqual(params.num_abstract_parameters(), 1)
-=======
-        self.assertEquals(params.num_numeric_parameters(), 1)
-        self.assertEquals(params.num_abstract_parameters(), 1)
->>>>>>> intial
         # Numeric.
         compare(params.get_numeric_parameter(index=0), model_numeric)
         compare(params.get_mutable_numeric_parameter(index=0), model_numeric)

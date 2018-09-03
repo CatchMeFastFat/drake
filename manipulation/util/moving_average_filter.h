@@ -49,7 +49,6 @@ class MovingAverageFilter {
    */
   T Update(const T& new_data);
 
-<<<<<<< HEAD
   const std::queue<T>& window() const { return window_; }
 
   /**
@@ -57,8 +56,6 @@ class MovingAverageFilter {
    */
   const T moving_average() const { return (1.0 / window_.size()) * sum_; }
 
-=======
->>>>>>> intial
  private:
   std::queue<T> window_;
   int window_size_{0};

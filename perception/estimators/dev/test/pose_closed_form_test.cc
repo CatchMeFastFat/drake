@@ -4,11 +4,7 @@
 
 #include "drake/common/test_utilities/eigen_geometry_compare.h"
 #include "drake/common/text_logging.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/perception/estimators/dev/test/test_util.h"
 
 using Eigen::Matrix3Xd;

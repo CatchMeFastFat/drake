@@ -6,7 +6,6 @@ namespace drake {
 namespace systems {
 namespace scalar_conversion {
 
-<<<<<<< HEAD
 /// A templated traits class for whether an `S<T>` can be converted into an
 /// `S<U>`; the default value is true for all values of `S`, `T`, and `U`.
 /// Particular scalar-dependent classes (`S`) may specialize this template to
@@ -16,15 +15,6 @@ namespace scalar_conversion {
 /// When `Traits<S>::supported<T, U>` is `std::true_type`, the
 /// "scalar-converting copy constructor" that relates `S`, `T`, and `U` will be
 /// used.  That constructor takes the form of, e.g., when `S` is `Foo`:
-=======
-/// A templated traits class for whether an S<T> can be converted into an S<U>;
-/// the default value is true for all values of S, T, and U.  Particular
-/// scalar-dependent classes may specialize this template to indicate whether
-/// the framework should support conversion for a combination of S, T, and U.
-///
-/// In supported cases, the "scalar-converting copy constructor" for those
-/// types will be used.  That constructor takes the form of, e.g.:
->>>>>>> intial
 ///
 /// @code
 /// template <typename T>
@@ -34,7 +24,6 @@ namespace scalar_conversion {
 /// };
 /// @endcode
 ///
-<<<<<<< HEAD
 /// See @ref system_scalar_conversion for detailed background and examples
 /// related to scalar-type conversion support.
 ///
@@ -42,10 +31,6 @@ namespace scalar_conversion {
 /// `S<T>::S(const S<U>&)` scalar-conversion copy constructor will not even be
 /// mentioned by the framework, so that `S` need not even compile for certain
 /// values of `T` and `U`.
-=======
-/// In unsupported cases, the constructor will not even be mentioned by the
-/// framework, so that S need not even compile for certain values of T and U.
->>>>>>> intial
 ///
 /// @tparam S is the scalar-templated type to copy
 template <template <typename> class S>

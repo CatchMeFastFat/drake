@@ -82,7 +82,6 @@ class MobilizerImpl : public Mobilizer<T> {
         this->get_positions_start());
   }
 
-<<<<<<< HEAD
   /// Returns a mutable reference to the state vector stored in `state` as an
   /// Eigen::VectorBlock<VectorX<T>>.
   Eigen::VectorBlock<VectorX<T>> get_mutable_state_vector(
@@ -95,23 +94,13 @@ class MobilizerImpl : public Mobilizer<T> {
     return state_vector.get_mutable_value();
   }
 
-=======
->>>>>>> intial
   /// Helper variant to return a const fixed-size Eigen::VectorBlock referencing
   /// the segment in the `state` corresponding to `this` mobilizer's generalized
   /// positions.
   Eigen::VectorBlock<VectorX<T>, kNq> get_mutable_positions(
-<<<<<<< HEAD
       const systems::Context<T>& context, systems::State<T>* state) const {
     Eigen::VectorBlock<VectorX<T>> xc =
         get_mutable_state_vector(context, state);
-=======
-      systems::State<T>* state) const {
-    Eigen::VectorBlock<VectorX<T>> xc =
-        dynamic_cast<systems::BasicVector<T>&>(
-            state->get_mutable_continuous_state().get_mutable_vector()).
-            get_mutable_value();
->>>>>>> intial
     // xc.nestedExpression() resolves to "VectorX<T>&" since the continuous
     // state is a BasicVector.
     // If we do return xc.segment() directly, we would instead get a
@@ -124,17 +113,9 @@ class MobilizerImpl : public Mobilizer<T> {
   /// the segment in the `state` corresponding to `this` mobilizer's generalized
   /// velocities.
   Eigen::VectorBlock<VectorX<T>, kNv> get_mutable_velocities(
-<<<<<<< HEAD
       const systems::Context<T>& context, systems::State<T>* state) const {
     Eigen::VectorBlock<VectorX<T>> xc =
         get_mutable_state_vector(context, state);
-=======
-      systems::State<T>* state) const {
-    Eigen::VectorBlock<VectorX<T>> xc =
-        dynamic_cast<systems::BasicVector<T>&>(
-            state->get_mutable_continuous_state().get_mutable_vector()).
-            get_mutable_value();
->>>>>>> intial
     // xc.nestedExpression() resolves to "VectorX<T>&" since the continuous
     // state is a BasicVector.
     // If we do return xc.segment() directly, we would instead get a
@@ -160,21 +141,12 @@ class MobilizerImpl : public Mobilizer<T> {
   }
   /// @}
 
-<<<<<<< HEAD
-=======
- protected:
->>>>>>> intial
   /// Helper method to retrieve a const reference to the MultibodyTreeContext
   /// object referenced by `context`.
   /// @throws `std::logic_error` if `context` is not a MultibodyTreeContext
   /// object.
-<<<<<<< HEAD
   static const MultibodyTreeContext<T>& GetMultibodyTreeContextOrThrow(
       const systems::Context<T>& context) {
-=======
-  const MultibodyTreeContext<T>& GetMultibodyTreeContextOrThrow(
-      const systems::Context<T>& context) const {
->>>>>>> intial
     // TODO(amcastro-tri): Implement this in terms of
     // MultibodyTree::GetMultibodyTreeContextOrThrow() with additional validity
     // checks.
@@ -209,7 +181,6 @@ class MobilizerImpl : public Mobilizer<T> {
   /// Be aware however that this default does not apply in general to all
   /// mobilizers and specific subclasses (for instance for unit quaternions)
   /// must override this method for correctness.
-<<<<<<< HEAD
   void set_default_zero_state(const systems::Context<T>& context,
                               systems::State<T>* state) const {
     get_mutable_positions(context, state).setZero();
@@ -223,15 +194,6 @@ class MobilizerImpl : public Mobilizer<T> {
     return GetMultibodyTreeContextOrThrow(context).is_state_discrete();
   }
 
-=======
-  void set_default_zero_state(const systems::Context<T>&,
-                              systems::State<T>* state) const {
-    get_mutable_positions(state).setZero();
-    get_mutable_velocities(state).setZero();
-  }
-
- private:
->>>>>>> intial
   // Returns the index in the global array of generalized coordinates in the
   // MultibodyTree model to the first component of the generalized coordinates
   // vector that corresponds to this mobilizer.

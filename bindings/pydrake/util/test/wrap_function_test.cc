@@ -20,11 +20,7 @@ auto WrapIdentity(Func&& func) {
   return WrapFunction<wrap_arg_default>(std::forward<Func>(func));
 }
 
-<<<<<<< HEAD
 // Functions with primitive values (int) as return, with 0-1 arguments and/or
-=======
-// Functions with primitive values (int) as return, with 0-1 arugments and/or
->>>>>>> intial
 // parameters.
 void Void() {}
 void IntToVoid(int) {}
@@ -360,7 +356,6 @@ GTEST_TEST(WrapFunction, ChangeCallbackNested) {
   check_expected::run(wrapped);
 }
 
-<<<<<<< HEAD
 // Test `wrap_arg_function`.
 template <typename T, typename = void>
 struct wrap_change_callback : public wrap_arg_default<T> {};
@@ -395,7 +390,5 @@ GTEST_TEST(WrapFunction, ChangeCallbackOnly) {
   check_expected::run(wrapped);
 }
 
-=======
->>>>>>> intial
 }  // namespace pydrake
 }  // namespace drake

@@ -64,7 +64,6 @@ void CheckQuaternion(const Eigen::Quaternion<T>& q) {
       "Quaternion is not normalized");
 }
 
-<<<<<<< HEAD
 template <typename T>
 void CheckAngleAxis(const Eigen::AngleAxis<T>& value) {
   const T norm_error = fabs(value.axis().norm() - 1);
@@ -73,8 +72,6 @@ void CheckAngleAxis(const Eigen::AngleAxis<T>& value) {
       "Axis is not normalized");
 }
 
-=======
->>>>>>> intial
 }  // namespace
 
 PYBIND11_MODULE(eigen_geometry, m) {
@@ -120,13 +117,10 @@ PYBIND11_MODULE(eigen_geometry, m) {
         out.translation() = translation;
         return out;
       }), py::arg("quaternion"), py::arg("translation"))
-<<<<<<< HEAD
       .def(py::init([](const Class& other) {
         CheckIsometry(other);
         return other;
       }), py::arg("other"))
-=======
->>>>>>> intial
       .def("matrix", [](const Class* self) -> Matrix4<T> {
         return self->matrix();
       })
@@ -157,7 +151,6 @@ PYBIND11_MODULE(eigen_geometry, m) {
       })
       .def("__str__", [](py::object self) {
         return py::str(self.attr("matrix")());
-<<<<<<< HEAD
       })
       // Do not define operator `__mul__` until we have the Python3 `@`
       // operator so that operations are similar to those of arrays.
@@ -171,9 +164,6 @@ PYBIND11_MODULE(eigen_geometry, m) {
         return self->inverse();
       });
     py::implicitly_convertible<Matrix4<T>, Class>();
-=======
-      });
->>>>>>> intial
   }
 
   // Quaternion.
@@ -208,13 +198,10 @@ PYBIND11_MODULE(eigen_geometry, m) {
         CheckQuaternion(out);
         return out;
       }), py::arg("rotation"))
-<<<<<<< HEAD
       .def(py::init([](const Class& other) {
         CheckQuaternion(other);
         return other;
       }), py::arg("other"))
-=======
->>>>>>> intial
       .def("w", [](const Class* self) { return self->w(); })
       .def("x", [](const Class* self) { return self->x(); })
       .def("y", [](const Class* self) { return self->y(); })
@@ -249,7 +236,6 @@ PYBIND11_MODULE(eigen_geometry, m) {
         return py::str("{}(w={}, x={}, y={}, z={})").format(
             py_class_obj.attr("__name__"),
             self->w(), self->x(), self->y(), self->z());
-<<<<<<< HEAD
       })
       // Do not define operator `__mul__` until we have the Python3 `@`
       // operator so that operations are similar to those of arrays.
@@ -340,8 +326,6 @@ PYBIND11_MODULE(eigen_geometry, m) {
       })
       .def("inverse", [](const Class* self) {
         return self->inverse();
-=======
->>>>>>> intial
       });
   }
 }

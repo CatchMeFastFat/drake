@@ -9,11 +9,7 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/find_resource.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/floating_base_types.h"
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/util/drakeGeometryUtil.h"
@@ -51,23 +47,15 @@ class KinematicsResultsTest : public ::testing::Test {
 TEST_F(KinematicsResultsTest, PoseTest) {
   const RigidBody<double>& body = *robot_->FindBody("link1");
   Isometry3<double> pose = kinematics_result_->get_pose_in_world(body);
-<<<<<<< HEAD
   const math::RollPitchYaw<double> rpy(q_.segment<3>(3));
-=======
-  Matrix3<double> rotmat = math::rpy2rotmat(q_.segment<3>(3));
->>>>>>> intial
 
   // Position and orientation get from kinematics result = quantities directly
   // computed from q and v.
   EXPECT_TRUE(drake::CompareMatrices(q_.segment<3>(0), pose.translation(),
                                      1e-14,
                                      drake::MatrixCompareType::absolute));
-<<<<<<< HEAD
   EXPECT_TRUE(drake::CompareMatrices(rpy.ToMatrix3ViaRotationMatrix(),
                                      pose.linear(), 1e-14,
-=======
-  EXPECT_TRUE(drake::CompareMatrices(rotmat, pose.linear(), 1e-14,
->>>>>>> intial
                                      drake::MatrixCompareType::absolute));
 }
 

@@ -59,11 +59,7 @@ class SimDiagramBuilder {
   /**
    * Adds a RigidBodyPlant. Can be called at most once.
    * @param plant unique pointer to the RigidBodyPlant. Ownership will be
-<<<<<<< HEAD
    * transferred.
-=======
-   * transfered.
->>>>>>> intial
    * @return Pointer to the added plant.
    */
   systems::RigidBodyPlant<T>* AddPlant(
@@ -72,11 +68,7 @@ class SimDiagramBuilder {
   /**
    * Adds a RigidBodyPlant. Can be called at most once.
    * @param plant unique pointer to a RigidBodyTree that is used to construct a
-<<<<<<< HEAD
    * RigidBodyPlant. Ownership will be transferred.
-=======
-   * RigidBodyPlant. Ownership will be transfered.
->>>>>>> intial
    * @return Pointer to the added plant.
    */
   systems::RigidBodyPlant<T>* AddPlant(
@@ -97,11 +89,7 @@ class SimDiagramBuilder {
    * to be controlled by the added controller. Each model instance can have at
    * most one controller.
    * @param controller Unique pointer to the controller. Ownership will be
-<<<<<<< HEAD
    * transferred.
-=======
-   * transfered.
->>>>>>> intial
    * @return Pointer to the added controller.
    */
   template <class ControllerType>
@@ -125,11 +113,7 @@ class SimDiagramBuilder {
    * StateFeedbackControllerInterface<T>. Assumes the RigidBodyPlant only has
    * one model instance. Can be called at most once.
    * @param controller Unique pointer to the controller. Ownership will be
-<<<<<<< HEAD
    * transferred.
-=======
-   * transfered.
->>>>>>> intial
    * @return Pointer to the added controller.
    */
   template <class ControllerType>

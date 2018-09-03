@@ -30,23 +30,11 @@ SimpleTreeVisualizer::SimpleTreeVisualizer(const RigidBodyTreed& tree,
 
 void SimpleTreeVisualizer::visualize(const VectorX<double>& position_vector) {
   DRAKE_DEMAND(position_vector.size() == tree_.get_num_positions());
-<<<<<<< HEAD
 
   std::vector<uint8_t> message_bytes;
   constexpr double kTime = 0;
   draw_message_translator_.Serialize(
       kTime, systems::BasicVector<double>{position_vector}, &message_bytes);
-=======
-  Eigen::VectorXd state = Eigen::VectorXd::Zero(state_dimension_);
-  state.head(tree_.get_num_positions()) = position_vector;
-  systems::BasicVector<double> state_vector(state_dimension_);
-
-  state_vector.SetFromVector(state);
-
-  std::vector<uint8_t> message_bytes;
-  constexpr double kTime = 0;
-  draw_message_translator_.Serialize(kTime, state_vector, &message_bytes);
->>>>>>> intial
 
   // Publishes onto the specified LCM channel.
   lcm_->Publish("DRAKE_VIEWER_DRAW", message_bytes.data(),

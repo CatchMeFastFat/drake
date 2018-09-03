@@ -1,10 +1,7 @@
 #pragma once
 
 #include <cmath>
-<<<<<<< HEAD
 #include <limits>
-=======
->>>>>>> intial
 #include <utility>
 
 #include "drake/automotive/maliput/api/lane_data.h"
@@ -34,7 +31,6 @@ class LineRoadCurve : public RoadCurve {
   /// @param superelevation CubicPolynomial object that represents the
   /// superelevation polynomial. See RoadCurve class constructor for more
   /// details.
-<<<<<<< HEAD
   /// @param linear_tolerance The linear tolerance, in meters, for all
   /// computations. See RoadCurve class constructor for more details.
   /// @param scale_length The minimum spatial period of variation in the curve,
@@ -54,27 +50,11 @@ class LineRoadCurve : public RoadCurve {
                   elevation, superelevation,
                   computation_policy),
         p0_(xy0), dp_(dxy), heading_(std::atan2(dxy.y(), dxy.x())) {
-=======
-  explicit LineRoadCurve(const Vector2<double>& xy0, const Vector2<double>& dxy,
-                         const CubicPolynomial& elevation,
-                         const CubicPolynomial& superelevation)
-      : RoadCurve(elevation, superelevation),
-        p0_(xy0),
-        dp_(dxy),
-        heading_(std::atan2(dxy.y(), dxy.x())) {
->>>>>>> intial
     DRAKE_DEMAND(dxy.norm() > kMinimumNorm);
   }
 
   ~LineRoadCurve() override = default;
 
-<<<<<<< HEAD
-=======
-  double p_from_s(double s, double r) const override;
-
-  double s_from_p(double p, double r) const override;
-
->>>>>>> intial
   Vector2<double> xy_of_p(double p) const override { return p0_ + p * dp_; }
 
   Vector2<double> xy_dot_of_p(double p) const override {
@@ -109,7 +89,6 @@ class LineRoadCurve : public RoadCurve {
   }
 
  private:
-<<<<<<< HEAD
   double FastCalcPFromS(double s, double r) const override;
 
   double FastCalcSFromP(double p, double r) const override;
@@ -119,8 +98,6 @@ class LineRoadCurve : public RoadCurve {
     return std::numeric_limits<double>::infinity();
   }
 
-=======
->>>>>>> intial
   // The first point in world coordinates over the z=0 plane of the reference
   // curve.
   const Vector2<double> p0_{};

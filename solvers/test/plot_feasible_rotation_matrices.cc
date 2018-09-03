@@ -2,10 +2,7 @@
 
 #include "drake/common/proto/call_matlab.h"
 #include "drake/solvers/mathematical_program.h"
-<<<<<<< HEAD
 #include "drake/solvers/mixed_integer_rotation_constraint.h"
-=======
->>>>>>> intial
 #include "drake/solvers/rotation_constraint.h"
 
 /// Provides a simple utility for developers to visualize (slices of) the
@@ -28,11 +25,7 @@ namespace {
 void AddTestConstraints(MathematicalProgram* prog,
                         const MatrixDecisionVariable<3, 3>& R) {
   // Add your favorite constraints here.
-<<<<<<< HEAD
   AddRotationMatrixBoxSphereIntersectionMilpConstraints(R, 1, prog);
-=======
-  AddRotationMatrixMcCormickEnvelopeMilpConstraints(prog, R, 1);
->>>>>>> intial
 }
 
 bool IsFeasible(

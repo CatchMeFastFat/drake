@@ -104,11 +104,7 @@ TYPED_TEST(TrajectoryCarTest, ConstantSpeedTest) {
     systems::Simulator<T> simulator(car_dut);
     systems::Context<T>& context = simulator.get_mutable_context();
     std::unique_ptr<systems::SystemOutput<T>> all_output =
-<<<<<<< HEAD
         car_dut.AllocateOutput();
-=======
-        car_dut.AllocateOutput(context);
->>>>>>> intial
 
     // Specify the initial position and speed.
     auto car_state = dynamic_cast<TrajectoryCarState<T>*>(
@@ -351,11 +347,7 @@ GTEST_TEST(TrajectoryCarTest, ToAutoDiff) {
 
   EXPECT_TRUE(is_autodiffxd_convertible(dut, [&](const auto& autodiff_dut) {
     auto context = autodiff_dut.CreateDefaultContext();
-<<<<<<< HEAD
     auto output = autodiff_dut.AllocateOutput();
-=======
-    auto output = autodiff_dut.AllocateOutput(*context);
->>>>>>> intial
     auto derivatives = autodiff_dut.AllocateTimeDerivatives();
 
     context->FixInputPort(

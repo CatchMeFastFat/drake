@@ -186,7 +186,6 @@ class NonConvexQPproblem1 {
 
     template <typename ScalarType>
     void eval(detail::VecIn<ScalarType> const& x,
-<<<<<<< HEAD
               detail::VecOut<ScalarType>* y) const {
       DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
       DRAKE_ASSERT(static_cast<size_t>(y->rows()) == numOutputs());
@@ -194,16 +193,6 @@ class NonConvexQPproblem1 {
                 (44 * x(1)) - (50.0 * x(2) * x(2)) + (45 * x(2)) -
                 (50.0 * x(3) * x(3)) + (47 * x(3)) - (50.0 * x(4) * x(4)) +
                 (47.5 * x(4));
-=======
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              detail::VecOut<ScalarType>& y) const {
-      DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
-      DRAKE_ASSERT(static_cast<size_t>(y.rows()) == numOutputs());
-      y(0) = (-50.0 * x(0) * x(0)) + (42 * x(0)) - (50.0 * x(1) * x(1)) +
-             (44 * x(1)) - (50.0 * x(2) * x(2)) + (45 * x(2)) -
-             (50.0 * x(3) * x(3)) + (47 * x(3)) - (50.0 * x(4) * x(4)) +
-             (47.5 * x(4));
->>>>>>> intial
     }
   };
 
@@ -255,7 +244,6 @@ class NonConvexQPproblem2 {
 
     template <typename ScalarType>
     void eval(detail::VecIn<ScalarType> const& x,
-<<<<<<< HEAD
               detail::VecOut<ScalarType>* y) const {
       DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
       DRAKE_ASSERT(static_cast<size_t>(y->rows()) == numOutputs());
@@ -263,16 +251,6 @@ class NonConvexQPproblem2 {
                 (-7.5 * x(1)) - (50.0 * x(2) * x(2)) + (-3.5 * x(2)) -
                 (50.0 * x(3) * x(3)) + (-2.5 * x(3)) - (50.0 * x(4) * x(4)) +
                 (-1.5 * x(4)) + (-10.0 * x(5));
-=======
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              detail::VecOut<ScalarType>& y) const {
-      DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
-      DRAKE_ASSERT(static_cast<size_t>(y.rows()) == numOutputs());
-      y(0) = (-50.0 * x(0) * x(0)) + (-10.5 * x(0)) - (50.0 * x(1) * x(1)) +
-             (-7.5 * x(1)) - (50.0 * x(2) * x(2)) + (-3.5 * x(2)) -
-             (50.0 * x(3) * x(3)) + (-2.5 * x(3)) - (50.0 * x(4) * x(4)) +
-             (-1.5 * x(4)) + (-10.0 * x(5));
->>>>>>> intial
     }
   };
 
@@ -323,22 +301,12 @@ class LowerBoundedProblem {
 
     template <typename ScalarType>
     void eval(detail::VecIn<ScalarType> const& x,
-<<<<<<< HEAD
               detail::VecOut<ScalarType>* y) const {
       DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
       DRAKE_ASSERT(static_cast<size_t>(y->rows()) == numOutputs());
       (*y)(0) = -25 * (x(0) - 2) * (x(0) - 2) + (x(1) - 2) * (x(1) - 2) -
                 (x(2) - 1) * (x(2) - 1) - (x(3) - 4) * (x(3) - 4) -
                 (x(4) - 1) * (x(4) - 1) - (x(5) - 4) * (x(5) - 4);
-=======
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              detail::VecOut<ScalarType>& y) const {
-      DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
-      DRAKE_ASSERT(static_cast<size_t>(y.rows()) == numOutputs());
-      y(0) = -25 * (x(0) - 2) * (x(0) - 2) + (x(1) - 2) * (x(1) - 2) -
-             (x(2) - 1) * (x(2) - 1) - (x(3) - 4) * (x(3) - 4) -
-             (x(4) - 1) * (x(4) - 1) - (x(5) - 4) * (x(5) - 4);
->>>>>>> intial
     }
   };
 
@@ -356,7 +324,6 @@ class LowerBoundedProblem {
    protected:
     // For just these two types, implementing this locally is almost cleaner...
     void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
                 Eigen::VectorXd* y) const override {
       EvalImpl(x, y);
     }
@@ -372,34 +339,14 @@ class LowerBoundedProblem {
       throw std::logic_error(
           "LowerBoundTestConstraint does not support symbolic evaluation.");
     }
-=======
-                Eigen::VectorXd& y) const override {
-      EvalImpl(x, y);
-    }
-    void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-                AutoDiffVecXd& y) const override {
-      // Check that the autodiff vector was initialized to the proper (minimal)
-      // size.
-      EXPECT_EQ(x.size(), x(0).derivatives().size());
-
-      EvalImpl(x, y);
-    }
->>>>>>> intial
 
    private:
     template <typename ScalarType>
     void EvalImpl(
         const Eigen::Ref<const Eigen::Matrix<ScalarType, Eigen::Dynamic, 1>>& x,
-<<<<<<< HEAD
         Eigen::Matrix<ScalarType, Eigen::Dynamic, 1>* y) const {
       y->resize(1);
       (*y)(0) = (x(i1_) - 3) * (x(i1_) - 3) + x(i2_);
-=======
-        // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-        Eigen::Matrix<ScalarType, Eigen::Dynamic, 1>& y) const {
-      y.resize(1);
-      y(0) = (x(i1_) - 3) * (x(i1_) - 3) + x(i2_);
->>>>>>> intial
     }
 
     int i1_;
@@ -460,18 +407,10 @@ class GloptiPolyConstrainedMinimizationProblem {
 
     template <typename ScalarType>
     void eval(detail::VecIn<ScalarType> const& x,
-<<<<<<< HEAD
               detail::VecOut<ScalarType>* y) const {
       DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
       DRAKE_ASSERT(static_cast<size_t>(y->rows()) == numOutputs());
       (*y)(0) = -2 * x(0) + x(1) - x(2);
-=======
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              detail::VecOut<ScalarType>& y) const {
-      DRAKE_ASSERT(static_cast<size_t>(x.rows()) == numInputs());
-      DRAKE_ASSERT(static_cast<size_t>(y.rows()) == numOutputs());
-      y(0) = -2 * x(0) + x(1) - x(2);
->>>>>>> intial
     }
   };
 
@@ -489,7 +428,6 @@ class GloptiPolyConstrainedMinimizationProblem {
    protected:
     // For just these two types, implementing this locally is almost cleaner.
     void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
                 Eigen::VectorXd* y) const override {
       EvalImpl(x, y);
     }
@@ -503,14 +441,6 @@ class GloptiPolyConstrainedMinimizationProblem {
       throw std::logic_error(
           "GloptipolyConstrainedExampleConstraint does not support symbolic "
           "evaluation.");
-=======
-                Eigen::VectorXd& y) const override {
-      EvalImpl(x, &y);
-    }
-    void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-                AutoDiffVecXd& y) const override {
-      EvalImpl(x, &y);
->>>>>>> intial
     }
 
    private:

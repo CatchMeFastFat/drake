@@ -15,30 +15,17 @@ namespace rendering {
 
 namespace pose_aggregator_detail { struct InputRecord; }
 
-<<<<<<< HEAD
 /// A container with references to the input port for the pose input, and a
 /// reference to the input port for the velocity input.
 template <typename T>
 struct PoseVelocityInputPorts {
   const InputPort<T>& pose_input_port;
   const InputPort<T>& velocity_input_port;
-=======
-/// A container with references to the input port descriptor for the pose input,
-/// and a reference to an input port descriptor for the velocity input.
-template <typename T>
-struct PoseVelocityInputPortDescriptors {
-  const InputPortDescriptor<T>& pose_descriptor;
-  const InputPortDescriptor<T>& velocity_descriptor;
->>>>>>> intial
 };
 
 
 // TODO(david-german-tri, SeanCurtis-TRI): Evolve PoseAggregator into
-<<<<<<< HEAD
 // SceneGraph as it becomes available.
-=======
-// GeometrySystem as it becomes available.
->>>>>>> intial
 
 // TODO(david-german-tri): Rename PoseAggregator to KinematicsAggregator, since
 // it includes both poses and velocities now.
@@ -105,32 +92,19 @@ class PoseAggregator : public LeafSystem<T> {
 
   /// Adds an input for a PoseVector. @p name must be unique for all inputs with
   /// the same @p model_instance_id.
-<<<<<<< HEAD
   const InputPort<T>& AddSingleInput(const std::string& name,
-=======
-  const InputPortDescriptor<T>& AddSingleInput(const std::string& name,
->>>>>>> intial
                                                int model_instance_id);
 
   /// Adds an input for a PoseVector, and a corresponding input for a
   /// FrameVelocity. @p name must be unique for all inputs with the same
   /// @p model_instance_id.
   ///
-<<<<<<< HEAD
   /// @return Input ports for pose and velocity.
   PoseVelocityInputPorts<T>
   AddSinglePoseAndVelocityInput(const std::string& name, int model_instance_id);
 
   /// Adds an input for a PoseBundle containing @p num_poses poses.
   const InputPort<T>& AddBundleInput(const std::string& bundle_name,
-=======
-  /// @return Descriptors for pose and velocity.
-  PoseVelocityInputPortDescriptors<T>
-  AddSinglePoseAndVelocityInput(const std::string& name, int model_instance_id);
-
-  /// Adds an input for a PoseBundle containing @p num_poses poses.
-  const InputPortDescriptor<T>& AddBundleInput(const std::string& bundle_name,
->>>>>>> intial
                                                int num_poses);
 
  private:
@@ -162,11 +136,7 @@ class PoseAggregator : public LeafSystem<T> {
                                                int num_poses);
 
   // Declares a System input port based on the given record.
-<<<<<<< HEAD
   const InputPort<T>& DeclareInput(const InputRecord&);
-=======
-  const InputPortDescriptor<T>& DeclareInput(const InputRecord&);
->>>>>>> intial
 
   // Returns the total number of poses from all inputs.
   int CountNumPoses() const;

@@ -1,16 +1,10 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -18,7 +12,6 @@ package(
     default_visibility = ["//visibility:public"],
 )
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "multibody_tree",
     deps = [
@@ -40,12 +33,6 @@ drake_cc_library(
     hdrs = [
         "multibody_tree_indexes.h",
     ],
-=======
-drake_cc_library(
-    name = "multibody_tree_indexes",
-    srcs = [],
-    hdrs = ["multibody_tree_indexes.h"],
->>>>>>> intial
     deps = [
         "//common:type_safe_index",
     ],
@@ -100,17 +87,12 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "multibody_tree_core",
-=======
-    name = "multibody_tree",
->>>>>>> intial
     srcs = [
         "body.cc",
         "body_node_impl.cc",
         "fixed_offset_frame.cc",
         "joint_actuator.cc",
-<<<<<<< HEAD
         "joints/prismatic_joint.cc",
         "joints/revolute_joint.cc",
         "joints/weld_joint.cc",
@@ -120,21 +102,12 @@ drake_cc_library(
         "multibody_forces.cc",
         "multibody_tree.cc",
         "prismatic_mobilizer.cc",
-=======
-        "joints/revolute_joint.cc",
-        "mobilizer_impl.cc",
-        "multibody_forces.cc",
-        "multibody_tree.cc",
->>>>>>> intial
         "quaternion_floating_mobilizer.cc",
         "revolute_mobilizer.cc",
         "rigid_body.cc",
         "space_xyz_mobilizer.cc",
         "uniform_gravity_field_element.cc",
-<<<<<<< HEAD
         "weld_mobilizer.cc",
-=======
->>>>>>> intial
     ],
     hdrs = [
         "body.h",
@@ -147,7 +120,6 @@ drake_cc_library(
         "frame_base.h",
         "joint_actuator.h",
         "joints/joint.h",
-<<<<<<< HEAD
         "joints/prismatic_joint.h",
         "joints/revolute_joint.h",
         "joints/weld_joint.h",
@@ -158,37 +130,23 @@ drake_cc_library(
         "multibody_forces.h",
         "multibody_tree.h",
         "prismatic_mobilizer.h",
-=======
-        "joints/revolute_joint.h",
-        "mobilizer.h",
-        "mobilizer_impl.h",
-        "multibody_forces.h",
-        "multibody_tree.h",
->>>>>>> intial
         "quaternion_floating_mobilizer.h",
         "revolute_mobilizer.h",
         "rigid_body.h",
         "space_xyz_mobilizer.h",
         "uniform_gravity_field_element.h",
-<<<<<<< HEAD
         "weld_mobilizer.h",
     ],
     # Hide this library outside of this package; users should depend on
     # ":multibody_tree" broadly, not just ":multibody_tree_core".
     visibility = ["//visibility:private"],
-=======
-    ],
->>>>>>> intial
     deps = [
         ":multibody_tree_context",
         ":multibody_tree_element",
         ":multibody_tree_indexes",
         ":spatial_inertia",
         "//common:autodiff",
-<<<<<<< HEAD
         "//common:nice_type_name",
-=======
->>>>>>> intial
         "//math:geometric_transform",
     ],
 )
@@ -262,10 +220,6 @@ drake_cc_library(
 
 drake_cc_googletest(
     name = "free_rotating_body_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     srcs = [
         "test/free_rotating_body_test.cc",
     ],
@@ -290,10 +244,6 @@ drake_cc_library(
 
 drake_cc_googletest(
     name = "floating_body_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     timeout = "moderate",
     srcs = [
         "test/floating_body_test.cc",
@@ -308,24 +258,15 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "tree_from_mobilizers_test",
-<<<<<<< HEAD
     # Test timeout increased to not timeout in debug and when run with
     # Valgrind.
     timeout = "moderate",
-=======
-    # Presently times out in valgrind + debug with default size, "small".
-    size = "medium",
->>>>>>> intial
     deps = [
         ":multibody_tree",
         "//common/test_utilities:eigen_matrix_compare",
         "//math:autodiff",
         "//math:gradient",
-<<<<<<< HEAD
         "//multibody/benchmarks/acrobot:analytical_acrobot",
-=======
-        "//multibody/benchmarks/acrobot",
->>>>>>> intial
     ],
 )
 
@@ -334,11 +275,7 @@ drake_cc_googletest(
     deps = [
         ":multibody_tree",
         "//common/test_utilities:eigen_matrix_compare",
-<<<<<<< HEAD
         "//multibody/benchmarks/acrobot:analytical_acrobot",
-=======
-        "//multibody/benchmarks/acrobot",
->>>>>>> intial
     ],
 )
 
@@ -348,7 +285,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "model_instance_test",
     deps = [
         ":multibody_tree",
@@ -357,8 +293,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "multibody_forces_test",
     deps = [
         ":multibody_tree",
@@ -372,11 +306,7 @@ drake_cc_googletest(
         ":multibody_tree",
         "//common/test_utilities",
         "//math:gradient",
-<<<<<<< HEAD
         "//multibody/benchmarks/kuka_iiwa_robot",
-=======
-        "//multibody/benchmarks/kuka_iiwa_robot:make_kuka_iiwa_model",
->>>>>>> intial
         "//multibody/benchmarks/kuka_iiwa_robot/MG:MG_kuka_robot_lib",
     ],
 )
@@ -417,7 +347,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "prismatic_mobilizer_test",
     deps = [
         ":multibody_tree",
@@ -434,8 +363,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "rigid_body_test",
     deps = [
         ":multibody_tree",
@@ -462,7 +389,6 @@ drake_cc_googletest(
     ],
 )
 
-<<<<<<< HEAD
 drake_cc_googletest(
     name = "linear_spring_damper_test",
     deps = [
@@ -473,8 +399,6 @@ drake_cc_googletest(
     ],
 )
 
-=======
->>>>>>> intial
 # === joints/test/ ===
 
 drake_cc_googletest(
@@ -485,7 +409,6 @@ drake_cc_googletest(
     ],
 )
 
-<<<<<<< HEAD
 drake_cc_googletest(
     name = "prismatic_joint_test",
     srcs = ["joints/test/prismatic_joint_test.cc"],
@@ -502,6 +425,4 @@ drake_cc_googletest(
     ],
 )
 
-=======
->>>>>>> intial
 add_lint_tests()

@@ -58,16 +58,11 @@ cc_library(
 )
 """
 
-<<<<<<< HEAD
         repository_ctx.file(
             "BUILD.bazel",
             content = file_content,
             executable = False,
         )
-=======
-        repository_ctx.file("BUILD.bazel", content = file_content,
-                            executable = False)
->>>>>>> intial
     else:
         error = setup_pkg_config_repository(repository_ctx).error
 

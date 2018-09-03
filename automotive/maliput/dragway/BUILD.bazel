@@ -1,24 +1,16 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_binary",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "dragway",
     deps = [
@@ -28,10 +20,6 @@ drake_cc_package_library(
 
 drake_cc_library(
     name = "everything",
-=======
-drake_cc_library(
-    name = "dragway",
->>>>>>> intial
     srcs = [
         "branch_point.cc",
         "junction.cc",
@@ -46,10 +34,7 @@ drake_cc_library(
         "road_geometry.h",
         "segment.h",
     ],
-<<<<<<< HEAD
     visibility = ["//visibility:private"],
-=======
->>>>>>> intial
     deps = [
         "//automotive/maliput/api",
         "//common:essential",
@@ -75,11 +60,6 @@ drake_cc_binary(
 
 drake_cc_googletest(
     name = "dragway_test",
-<<<<<<< HEAD
-=======
-    # Test size increased to not timeout when run with Valgrind.
-    size = "medium",
->>>>>>> intial
     srcs = ["test/dragway_test.cc"],
     deps = [
         ":dragway",

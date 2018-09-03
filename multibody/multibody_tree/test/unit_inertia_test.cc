@@ -578,11 +578,7 @@ GTEST_TEST(UnitInertia, CompatibleWithSymbolicExpression) {
   // (the default).
   UnitInertia<Expression> Gz = UnitInertia<Expression>::SolidCylinder(r, L);
 
-<<<<<<< HEAD
   // Let's give the variables above some values.
-=======
-  // Lets give the varaibles above some values.
->>>>>>> intial
   const double r_value = 0.025;
   const double L_value = 0.2;
   // And the expected principal moments.

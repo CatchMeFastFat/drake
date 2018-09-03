@@ -2,7 +2,6 @@
 
 #include <memory>
 
-<<<<<<< HEAD
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using std::make_shared;
@@ -53,40 +52,6 @@ void QuadraticCost::DoEval(
     const Eigen::Ref<const VectorX<symbolic::Variable>>& x,
     VectorX<symbolic::Expression>* y) const {
   DoEvalGeneric(x, y);
-=======
-using std::make_shared;
-using std::shared_ptr;
-using Eigen::MatrixXd;
-using Eigen::VectorXd;
-
-namespace drake {
-namespace solvers {
-
-void LinearCost::DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-                        Eigen::VectorXd& y) const {
-  y.resize(1);
-  y(0) = a_.dot(x) + b_;
-}
-void LinearCost::DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-                        AutoDiffVecXd& y) const {
-  y.resize(1);
-  y(0) = a_.cast<AutoDiffXd>().dot(x) + b_;
-}
-
-void QuadraticCost::DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-                           Eigen::VectorXd& y) const {
-  y.resize(1);
-  y = .5 * x.transpose() * Q_ * x + b_.transpose() * x;
-  y(0) += c_;
-}
-
-void QuadraticCost::DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-                           AutoDiffVecXd& y) const {
-  y.resize(1);
-  y = .5 * x.transpose() * Q_.cast<AutoDiffXd>() * x +
-      b_.cast<AutoDiffXd>().transpose() * x;
-  y(0) += c_;
->>>>>>> intial
 }
 
 shared_ptr<QuadraticCost> MakeQuadraticErrorCost(

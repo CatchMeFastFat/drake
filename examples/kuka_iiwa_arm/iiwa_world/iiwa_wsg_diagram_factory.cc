@@ -37,7 +37,6 @@ IiwaAndWsgPlantWithStateEstimator<T>::IiwaAndWsgPlantWithStateEstimator(
   plant_ = builder.AddPlant(std::move(combined_plant));
   plant_->set_name("IiwaAndWsgCombinedPlant");
 
-<<<<<<< HEAD
   // This remaps a frame from a separate rigid body tree to a new tree.
   // This is done because we communicate `RigidBodyFrame`s to specify the
   // anchor location (`ModelInstanceInfo::world_offset`), but if this frame
@@ -56,8 +55,6 @@ IiwaAndWsgPlantWithStateEstimator<T>::IiwaAndWsgPlantWithStateEstimator(
       old_frame->get_transform_to_body());
   };
 
-=======
->>>>>>> intial
   for (int i = 0; i < kNumArms; ++i) {
     const std::string suffix{"_" + std::to_string(i)};
     const auto& iiwa_output_port =
@@ -73,12 +70,8 @@ IiwaAndWsgPlantWithStateEstimator<T>::IiwaAndWsgPlantWithStateEstimator(
     auto single_arm = std::make_unique<RigidBodyTree<double>>();
     parsers::urdf::AddModelInstanceFromUrdfFile(
         iiwa_instances[i].absolute_model_path, multibody::joints::kFixed,
-<<<<<<< HEAD
         remap_frame(iiwa_instances[i].world_offset, single_arm.get()),
         single_arm.get());
-=======
-        iiwa_instances[i].world_offset, single_arm.get());
->>>>>>> intial
 
     auto iiwa_controller = builder.template AddController<
         systems::controllers::InverseDynamicsController<T>>(
@@ -153,12 +146,8 @@ IiwaAndWsgPlantWithStateEstimator<T>::IiwaAndWsgPlantWithStateEstimator(
     objects_.emplace_back(new RigidBodyTree<T>);
     parsers::urdf::AddModelInstanceFromUrdfFile(
         object_instances[i].absolute_model_path, multibody::joints::kQuaternion,
-<<<<<<< HEAD
         remap_frame(object_instances[i].world_offset, objects_.back().get()),
         objects_.back().get());
-=======
-        object_instances[i].world_offset, objects_.back().get());
->>>>>>> intial
     auto object_state_est =
         base_builder->template AddSystem<OracularStateEstimation<T>>(
             *objects_.back());

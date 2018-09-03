@@ -37,30 +37,19 @@ target label (and optional configuration options if desired).  We give some
 typical examples below; for more reading about target patterns, see:
 https://docs.bazel.build/versions/master/user-manual.html#target-patterns.
 
-<<<<<<< HEAD
 On Ubuntu Xenial, the default compiler is the first ``gcc`` compiler in the
 ``PATH``, usually GCC 5.4. On macOS, the default compiler is Apple Clang. To
 use Clang 4.0 on Ubuntu Xenial, set the ``CC`` and ``CXX`` environment
 variables before running **bazel build**, **bazel test**, or any other
 **bazel** commands.
-=======
-Under Bazel, Clang is the default compiler on all platforms, but command-line
-options are available to use GCC on Ubuntu.
->>>>>>> intial
 
 Cheat sheet for operating on the entire project::
 
   cd /path/to/drake
-<<<<<<< HEAD
   bazel build //...                               # Build the entire project.
   bazel test //...                                # Build and test the entire project.
   CC=clang-4.0 CXX=clang++-4.0 bazel build //...  # Build using Clang 4.0 on Xenial.
   CC=clang-4.0 CXX=clang++-4.0 bazel test //...   # Build and test using Clang 4.0 on Xenial.
-=======
-  bazel build //...                     # Build the entire project.
-  bazel test //...                      # Build and test the entire project.
-  bazel build --compiler=gcc-5 //...    # Build using gcc 5.x on Xenial.
->>>>>>> intial
 
 - The "``//``" means "starting from the root of the project".
 - The "``...``" means "everything including the subdirectories' ``BUILD`` files".
@@ -110,11 +99,7 @@ Cheat sheet for operating on specific portions of the project::
 
 - The "``:``" syntax separates target names from the directory path of the
   ``BUILD`` file they appear in.  In this case, for example,
-<<<<<<< HEAD
   ``drake/common/BUILD`` specifies ``cc_test(name = "polynomial_test")``.
-=======
-  ``drake/commmon/BUILD`` specifies ``cc_test(name = "polynomial_test")``.
->>>>>>> intial
 - Note that the configuration switches (``-c`` and ``--config``) influence the
   entire command.  For example, running a test in ``dbg`` mode means that its
   prerequisite libraries are also compiled and linked in ``dbg`` mode.
@@ -157,7 +142,6 @@ Proprietary Solvers
 
 The Drake Bazel build currently supports the following proprietary solvers:
 
-<<<<<<< HEAD
  * Gurobi 8.0.0
  * MOSEK 8.1
  * SNOPT 7.6
@@ -168,48 +152,26 @@ The Drake Bazel build currently supports the following proprietary solvers:
 .. _gurobi:
 
 Gurobi 8.0.0
-=======
- * Gurobi 7.5.2
- * MOSEK 7.1
- * SNOPT 7.2
-
-.. _gurobi:
-
-Gurobi 7.5.2
->>>>>>> intial
 ------------
 
 Install on Ubuntu
 ~~~~~~~~~~~~~~~~~
 1. Register for an account on https://www.gurobi.com.
 2. Set up your Gurobi license file in accordance with Gurobi documentation.
-<<<<<<< HEAD
 3. ``export GRB_LICENSE_FILE=/path/to/gurobi.lic``.
 4. Download ``gurobi8.0.0_linux64.tar.gz``
 5. Unzip it.  We suggest that you use ``/opt/gurobi800`` to simplify working with Drake installations.
 6. ``export GUROBI_PATH=/opt/gurobi800/linux64``
-=======
-3. Download ``gurobi7.5.2_linux64.tar.gz``.
-4. Unzip it.  We suggest that you use ``/opt/gurobi752`` to simplify working with Drake installations.
-5. ``export GUROBI_PATH=/opt/gurobi752/linux64``
->>>>>>> intial
 
 Install on macOS
 ~~~~~~~~~~~~~~~~
 1. Register for an account on http://www.gurobi.com.
 2. Set up your Gurobi license file in accordance with Gurobi documentation.
-<<<<<<< HEAD
 3. ``export GRB_LICENSE_FILE=/path/to/gurobi.lic``
 4. Download and install ``gurobi8.0.0_mac64.pkg``.
 
 
 To confirm that your setup was successful, run the tests that require Gurobi:
-=======
-3. Download and install ``gurobi7.5.2_mac64.pkg``.
-
-
-To confirm that your setup was successful, run the tests that require Gurobi.
->>>>>>> intial
 
   ``bazel test --config gurobi --test_tag_filters=gurobi //...``
 
@@ -218,7 +180,6 @@ these tests.  If you will be developing with Gurobi regularly, you may wish
 to specify a more convenient ``--test_tag_filters`` in a local ``.bazelrc``.
 See https://docs.bazel.build/versions/master/user-manual.html#bazelrc.
 
-<<<<<<< HEAD
 MOSEK 8.1
 ---------
 
@@ -228,16 +189,6 @@ installation is required.  Set the location of your license file as follows:
 ``export MOSEKLM_LICENSE_FILE=/path/to/mosek.lic``
 
 To confirm that your setup was successful, run the tests that require MOSEK:
-=======
-MOSEK 7.1
----------
-
-The Drake Bazel build system downloads MOSEK 7.1 automatically.  No manual
-installation is required.  Please obtain and save a license file at
-``~/mosek/mosek.lic``.
-
-To confirm that your setup was successful, run the tests that require MOSEK.
->>>>>>> intial
 
   ``bazel test --config mosek --test_tag_filters=mosek //...``
 
@@ -246,13 +197,8 @@ these tests.  If you will be developing with MOSEK regularly, you may wish
 to specify a more convenient ``--test_tag_filters`` in a local ``.bazelrc``.
 See https://docs.bazel.build/versions/master/user-manual.html#bazelrc.
 
-<<<<<<< HEAD
 SNOPT
 -----
-=======
-SNOPT 7.2
----------
->>>>>>> intial
 
 Drake provides two mechanisms to include the SNOPT sources.  One mechanism is
 to provide your own SNOPT source archive.  The other mechanism is via access to
@@ -262,35 +208,20 @@ Using your own source archive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Download the SNOPT sources from the distributor in ``.tar.gz`` format (e.g.,
-<<<<<<< HEAD
    named ``snopt7.6.tar.gz``).
 2. ``export SNOPT_PATH=/home/username/Downloads/snopt7.6.tar.gz``
-=======
-   named ``snopt7.5-1.4.tar.gz``).
-2. ``export SNOPT_PATH=/home/username/Downloads/snopt7.5-1.4.tar.gz``
->>>>>>> intial
 
 Using the RobotLocomotion git repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Obtain access to the private RobotLocomotion/snopt GitHub repository.
 2. `Set up SSH access to github.com <https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/>`_.
-<<<<<<< HEAD
 3. ``export SNOPT_PATH=git``
-=======
-
-The build will attempt to use this mechanism anytime SNOPT is enabled and a
-source archive has not been specified.
->>>>>>> intial
 
 Test the build (for either mechanism)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-<<<<<<< HEAD
 To confirm that your setup was successful, run the tests that require SNOPT:
-=======
-To confirm that your setup was successful, run the tests that require SNOPT.
->>>>>>> intial
 
   ``bazel test --config snopt --test_tag_filters=snopt //...``
 

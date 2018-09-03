@@ -27,11 +27,7 @@ namespace van_der_pol {
 /// - AutoDiffXd
 /// - symbolic::Expression
 template <typename T>
-<<<<<<< HEAD
 class VanDerPolOscillator final : public systems::LeafSystem<T> {
-=======
-class VanDerPolOscillator : public systems::LeafSystem<T> {
->>>>>>> intial
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(VanDerPolOscillator)
 

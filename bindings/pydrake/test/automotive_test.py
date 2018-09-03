@@ -1,5 +1,4 @@
 from pydrake.automotive import (
-<<<<<<< HEAD
     AheadOrBehind,
     ClosestPose,
     DrivingCommand,
@@ -8,12 +7,6 @@ from pydrake.automotive import (
     PoseSelector,
     PurePursuitController,
     RoadOdometry,
-=======
-    DrivingCommand,
-    IdmController,
-    LaneDirection,
-    PurePursuitController,
->>>>>>> intial
     RoadPositionStrategy,
     ScanStrategy,
     SimpleCar,
@@ -28,10 +21,7 @@ import pydrake.systems.framework as framework
 from pydrake.maliput.api import (
     LanePosition,
     RoadGeometryId,
-<<<<<<< HEAD
     RoadPosition,
-=======
->>>>>>> intial
 )
 from pydrake.maliput.dragway import (
     create_dragway,
@@ -61,7 +51,6 @@ def make_two_lane_road():
 
 
 class TestAutomotive(unittest.TestCase):
-<<<<<<< HEAD
     def test_road_odometry(self):
         RoadOdometry()
         rg = make_two_lane_road()
@@ -117,8 +106,6 @@ class TestAutomotive(unittest.TestCase):
                          lane_1.id().string())
         self.assertEqual(closest_pose.distance, 5.9)
 
-=======
->>>>>>> intial
     def test_lane_direction(self):
         rg = make_two_lane_road()
         lane1 = rg.junction(0).segment(0).lane(0)
@@ -152,11 +139,7 @@ class TestAutomotive(unittest.TestCase):
         lane = rg.junction(0).segment(0).lane(0)
         pure_pursuit = PurePursuitController()
         context = pure_pursuit.CreateDefaultContext()
-<<<<<<< HEAD
         output = pure_pursuit.AllocateOutput()
-=======
-        output = pure_pursuit.AllocateOutput(context)
->>>>>>> intial
 
         # Fix the inputs.
         ld_value = framework.AbstractValue.Make(
@@ -164,11 +147,7 @@ class TestAutomotive(unittest.TestCase):
         lane_index = pure_pursuit.lane_input().get_index()
         context.FixInputPort(lane_index, ld_value)
 
-<<<<<<< HEAD
         pos = [1., 2., 3.]  # An arbitrary position with the lane.
-=======
-        pos = [1., 2., 3.]  # An aribtrary position with the lane.
->>>>>>> intial
         pose_vector = PoseVector()
         pose_vector.set_translation(pos)
         pose_index = pure_pursuit.ego_pose_input().get_index()
@@ -186,7 +165,6 @@ class TestAutomotive(unittest.TestCase):
         self.assertEqual(len(steering.get_value()), 1)
         self.assertTrue(steering.get_value() < 0.)
 
-<<<<<<< HEAD
     def test_simple_car_state(self):
         simple_car_state = SimpleCarState()
         self.assertTrue(isinstance(simple_car_state, framework.BasicVector))
@@ -204,8 +182,6 @@ class TestAutomotive(unittest.TestCase):
         simple_car_state.set_velocity(52.)
         self.assertEqual(simple_car_state.velocity(), 52.)
 
-=======
->>>>>>> intial
     def test_idm_controller(self):
         rg = make_two_lane_road()
         idm = IdmController(
@@ -213,11 +189,7 @@ class TestAutomotive(unittest.TestCase):
             road_position_strategy=RoadPositionStrategy.kExhaustiveSearch,
             period_sec=0.)
         context = idm.CreateDefaultContext()
-<<<<<<< HEAD
         output = idm.AllocateOutput()
-=======
-        output = idm.AllocateOutput(context)
->>>>>>> intial
 
         # Fix the inputs.
         pose_vector1 = PoseVector()
@@ -263,11 +235,7 @@ class TestAutomotive(unittest.TestCase):
         simple_car = SimpleCar()
         simulator = Simulator(simple_car)
         context = simulator.get_mutable_context()
-<<<<<<< HEAD
         output = simple_car.AllocateOutput()
-=======
-        output = simple_car.AllocateOutput(context)
->>>>>>> intial
 
         # Fix the input.
         command = DrivingCommand()
@@ -300,7 +268,6 @@ class TestAutomotive(unittest.TestCase):
         velocity_value = output.get_vector_data(velocity_index)
         self.assertIsInstance(velocity_value, FrameVelocity)
         self.assertTrue(velocity_value.get_velocity().translational()[0] > 0.)
-<<<<<<< HEAD
 
     def test_pose_selector(self):
         kScanDistance = 4.
@@ -346,5 +313,3 @@ class TestAutomotive(unittest.TestCase):
             road_position=road_pos, frame_velocity=frame_velocity)
         sigma_v = PoseSelector.GetSigmaVelocity(road_odom)
         self.assertEqual(sigma_v, v[0])
-=======
->>>>>>> intial

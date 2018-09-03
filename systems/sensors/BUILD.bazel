@@ -1,18 +1,11 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_binary",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load(
     "@drake//tools/vector_gen:vector_gen.bzl",
@@ -22,7 +15,6 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 vtk_test_tags = [
     # Disable under LeakSanitizer and Valgrind Memcheck due to
     # driver-related leaks. For more information, see #7520.
@@ -50,20 +42,6 @@ drake_cc_package_library(
         ":rgbd_renderer",
         ":rotary_encoders",
         ":vtk_util",
-=======
-drake_cc_library(
-    name = "sensors",
-    srcs = [],
-    hdrs = [],
-    deps = [
-        ":accelerometer",
-        ":beam_model",
-        ":camera_info",
-        ":depth_sensor",
-        ":rgbd_camera",
-        ":rgbd_renderer",
-        ":rotary_encoders",
->>>>>>> intial
     ],
 )
 
@@ -217,20 +195,14 @@ drake_cc_library(
     name = "rgbd_renderer",
     srcs = [
         "rgbd_renderer.cc",
-<<<<<<< HEAD
         "rgbd_renderer_ospray.cc",
-=======
->>>>>>> intial
         "rgbd_renderer_vtk.cc",
     ],
     hdrs = [
         "color_palette.h",
         "depth_shaders.h",
         "rgbd_renderer.h",
-<<<<<<< HEAD
         "rgbd_renderer_ospray.h",
-=======
->>>>>>> intial
         "rgbd_renderer_vtk.h",
     ],
     deps = [
@@ -247,13 +219,9 @@ drake_cc_library(
         "@vtk//:vtkIOGeometry",
         "@vtk//:vtkIOImage",
         "@vtk//:vtkRenderingCore",
-<<<<<<< HEAD
         "@vtk//:vtkRenderingOSPRay",
         "@vtk//:vtkRenderingOpenGL2",
         "@vtk//:vtkRenderingSceneGraph",
-=======
-        "@vtk//:vtkRenderingOpenGL2",
->>>>>>> intial
     ],
 )
 
@@ -281,13 +249,9 @@ drake_cc_library(
         "@vtk//:vtkIOGeometry",
         "@vtk//:vtkIOImage",
         "@vtk//:vtkRenderingCore",
-<<<<<<< HEAD
         "@vtk//:vtkRenderingOSPRay",
         "@vtk//:vtkRenderingOpenGL2",
         "@vtk//:vtkRenderingSceneGraph",
-=======
-        "@vtk//:vtkRenderingOpenGL2",
->>>>>>> intial
     ],
 )
 
@@ -307,11 +271,7 @@ drake_cc_binary(
         "//multibody/rigid_body_plant",
         "//multibody/rigid_body_plant:drake_visualizer",
         "//systems/analysis:simulator",
-<<<<<<< HEAD
         "//systems/lcm:lcm_pubsub_system",
-=======
-        "//systems/lcm",
->>>>>>> intial
         "//systems/rendering:pose_stamped_t_pose_vector_translator",
         "@gflags",
     ],
@@ -374,29 +334,12 @@ drake_cc_library(
     srcs = ["optitrack_sender.cc"],
     hdrs = ["optitrack_sender.h"],
     deps = [
-<<<<<<< HEAD
         "//geometry:frame_kinematics",
-=======
-        ":optitrack_encoder",
->>>>>>> intial
         "//systems/framework:leaf_system",
         "@optitrack_driver//lcmtypes:optitrack_lcmtypes",
     ],
 )
 
-<<<<<<< HEAD
-=======
-drake_cc_library(
-    name = "optitrack_encoder",
-    srcs = ["optitrack_encoder.cc"],
-    hdrs = ["optitrack_encoder.h"],
-    deps = [
-        "//systems/framework:leaf_system",
-        "//systems/rendering:pose_bundle",
-    ],
-)
-
->>>>>>> intial
 # === test/ ===
 
 drake_cc_googletest(
@@ -478,18 +421,12 @@ filegroup(
     name = "test_models",
     testonly = 1,
     srcs = [
-<<<<<<< HEAD
         "test/models/background.jpg",
         "test/models/box.sdf",
         "test/models/meshes/box.json",
         "test/models/meshes/box.obj",
         "test/models/meshes/box.png",
         "test/models/meshes/box2.obj",
-=======
-        "test/models/box.sdf",
-        "test/models/meshes/box.obj",
-        "test/models/meshes/box.png",
->>>>>>> intial
         "test/models/nothing.sdf",
         "test/models/sphere.sdf",
     ],
@@ -500,19 +437,7 @@ drake_cc_googletest(
     data = [
         ":test_models",
     ],
-<<<<<<< HEAD
     tags = vtk_test_tags,
-=======
-    # Mitigates driver-related issues when running under `bazel test`. For more
-    # information, see #7004.
-    local = 1,
-    # Disable under LeakSanitizer and Valgrind Memcheck due to driver-related
-    # leaks. For more information, see #7520.
-    tags = [
-        "no_lsan",
-        "no_memcheck",
-    ],
->>>>>>> intial
     deps = [
         ":rgbd_camera",
         "//common:find_resource",
@@ -530,7 +455,6 @@ drake_cc_library(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "rgbd_renderer_ospray_test",
     data = [
         ":test_models",
@@ -546,25 +470,11 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "rgbd_renderer_vtk_test",
     data = [
         ":test_models",
     ],
-<<<<<<< HEAD
     tags = vtk_test_tags,
-=======
-    # Mitigates driver-related issues when running under `bazel test`. For more
-    # information, see #7004.
-    local = 1,
-    # Disable under LeakSanitizer and Valgrind Memcheck due to driver-related
-    # leaks. For more information, see #7520.
-    tags = [
-        "no_lsan",
-        "no_memcheck",
-    ],
->>>>>>> intial
     deps = [
         ":rgbd_renderer",
         ":rgbd_renderer_test_util",
@@ -576,10 +486,7 @@ drake_cc_googletest(
 
 sh_test(
     name = "rgbd_camera_publish_lcm_test",
-<<<<<<< HEAD
     size = "small",
-=======
->>>>>>> intial
     srcs = ["rgbd_camera_publish_lcm_example"],
     args = [
         "--sdf_dir=" + native.package_name() + "/test/models",
@@ -588,23 +495,7 @@ sh_test(
     data = [
         ":test_models",
     ],
-<<<<<<< HEAD
     tags = vtk_test_tags,
-=======
-    # Mitigates driver-related issues when running under `bazel test`. For more
-    # information, see #7004.
-    local = 1,
-    # TODO(mitiguy) Issue #8368: Test rgbd_camera_publish_lcm_test in the
-    # BUILD.bazel file in directory drake/systems/sensors cannot be run anymore
-    # due to the new RotationMatrix class which insists on being a proper
-    # orthogonal rotation matrix.  This test produces a quaternion with NANs
-    # which causes the RotationMatrix class to throw an exception in debug
-    # builds. This test is labeled with tags = "manual" so CI does not run it.
-    # This test is defective and should never have passed earlier code review.
-    tags = [
-        "manual",
-    ],
->>>>>>> intial
 )
 
 drake_cc_googletest(
@@ -628,25 +519,9 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "optitrack_sender_test",
     srcs = ["test/optitrack_sender_test.cc"],
     deps = [
-=======
-    name = "optitrack_encoder_test",
-    srcs = ["test/optitrack_encoder_test.cc"],
-    deps = [
-        ":optitrack_encoder",
-        "//systems/framework",
-    ],
-)
-
-drake_cc_googletest(
-    name = "optitrack_sender_test",
-    srcs = ["test/optitrack_sender_test.cc"],
-    deps = [
-        ":optitrack_encoder",
->>>>>>> intial
         ":optitrack_sender",
         "//systems/framework",
         "@optitrack_driver//lcmtypes:optitrack_lcmtypes",

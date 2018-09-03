@@ -1,10 +1,7 @@
 #pragma once
 
-<<<<<<< HEAD
 #include <string>
 
-=======
->>>>>>> intial
 #include <Eigen/Dense>
 
 #include "drake/common/eigen_stl_types.h"
@@ -23,12 +20,8 @@ class VisualElement final : public Element {
    */
   VisualElement(const Geometry& geometry,
                 const Eigen::Isometry3d& T_element_to_local,
-<<<<<<< HEAD
                 const Eigen::Vector4d& material,
                 const std::string& name = "");
-=======
-                const Eigen::Vector4d& material);
->>>>>>> intial
 
   /** Copy constructor for use by, e.g., std::vector. */
   VisualElement(const VisualElement&) = default;
@@ -50,10 +43,7 @@ class VisualElement final : public Element {
 
  protected:
   Eigen::Vector4d material;
-<<<<<<< HEAD
   std::string name;
-=======
->>>>>>> intial
 
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW

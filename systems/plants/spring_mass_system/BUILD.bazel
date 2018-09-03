@@ -1,20 +1,15 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
->>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "spring_mass_system",
     deps = [
@@ -27,12 +22,6 @@ drake_cc_library(
     srcs = ["spring_mass_system.cc"],
     hdrs = ["spring_mass_system.h"],
     visibility = ["//visibility:private"],
-=======
-drake_cc_library(
-    name = "spring_mass_system",
-    srcs = ["spring_mass_system.cc"],
-    hdrs = ["spring_mass_system.h"],
->>>>>>> intial
     deps = [
         "//systems/framework",
     ],
@@ -42,10 +31,7 @@ drake_cc_library(
 
 drake_cc_googletest(
     name = "spring_mass_system_test",
-<<<<<<< HEAD
     size = "medium",
-=======
->>>>>>> intial
     deps = [
         ":spring_mass_system",
         "//common/test_utilities",

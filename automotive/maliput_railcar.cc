@@ -14,11 +14,7 @@
 #include "drake/automotive/maliput/api/lane_data.h"
 #include "drake/common/cond.h"
 #include "drake/common/drake_assert.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw_using_quaternion.h"
->>>>>>> intial
 #include "drake/multibody/multibody_tree/math/spatial_velocity.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/value.h"
@@ -32,18 +28,10 @@ using maliput::api::Lane;
 using maliput::api::LaneEnd;
 using maliput::api::LanePosition;
 using maliput::api::Rotation;
-<<<<<<< HEAD
 using systems::BasicVector;
 using systems::Context;
 using systems::ContinuousState;
 using systems::InputPort;
-=======
-using math::RollPitchYawToQuaternion;
-using systems::BasicVector;
-using systems::Context;
-using systems::ContinuousState;
-using systems::InputPortDescriptor;
->>>>>>> intial
 using systems::LeafContext;
 using systems::OutputPort;
 using systems::Parameters;
@@ -111,11 +99,7 @@ MaliputRailcar<T>::MaliputRailcar(const LaneDirection& initial_lane_direction)
 }
 
 template <typename T>
-<<<<<<< HEAD
 const InputPort<T>& MaliputRailcar<T>::command_input() const {
-=======
-const InputPortDescriptor<T>& MaliputRailcar<T>::command_input() const {
->>>>>>> intial
   return this->get_input_port(command_input_port_index_);
 }
 
@@ -208,16 +192,10 @@ void MaliputRailcar<T>::CalcPose(const Context<T>& context,
                          -rotation.pitch(),
                          atan2(-sin(rotation.yaw()), -cos(rotation.yaw()))));
   pose->set_translation(Eigen::Translation<T, 3>(geo_position.xyz()));
-<<<<<<< HEAD
   const math::RollPitchYaw<T> rpy(adjusted_rotation.roll(),
                                   adjusted_rotation.pitch(),
                                   adjusted_rotation.yaw());
   pose->set_rotation(rpy.ToQuaternion());
-=======
-  pose->set_rotation(RollPitchYawToQuaternion(
-      Vector3<T>(adjusted_rotation.roll(), adjusted_rotation.pitch(),
-                 adjusted_rotation.yaw())));
->>>>>>> intial
 }
 
 template <typename T>

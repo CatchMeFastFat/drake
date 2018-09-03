@@ -1,11 +1,7 @@
 #pragma once
-<<<<<<< HEAD
 /// @file
 ///
 /// Provides implementation-details of symbolic formulas.
-=======
-/// @file Provides implementation-details of symbolic formulas.
->>>>>>> intial
 ///
 /// It is strongly discouraged to include and use this header file outside of
 /// drake/common/symbolic_* files. To include this file, you need to define

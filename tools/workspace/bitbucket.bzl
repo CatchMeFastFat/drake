@@ -1,10 +1,7 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-=======
->>>>>>> intial
 def bitbucket_archive(
         name,
         repository = None,
@@ -61,7 +58,6 @@ def bitbucket_archive(
     if len(repository_split) != 2:
         fail("The repository= must be formatted as 'organization/project'")
 
-<<<<<<< HEAD
     http_archive(
         name = name,
         urls = urls,
@@ -70,20 +66,3 @@ def bitbucket_archive(
         strip_prefix = strip_prefix,
         **kwargs
     )
-=======
-    if build_file == None:
-        native.http_archive(
-            name = name,
-            urls = urls,
-            sha256 = sha256,
-            strip_prefix = strip_prefix,
-            **kwargs)
-    else:
-        native.new_http_archive(
-            name = name,
-            urls = urls,
-            sha256 = sha256,
-            build_file = build_file,
-            strip_prefix = strip_prefix,
-            **kwargs)
->>>>>>> intial

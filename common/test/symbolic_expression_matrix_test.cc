@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/symbolic.h"
-<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
-=======
->>>>>>> intial
 #include "drake/common/test_utilities/symbolic_test_util.h"
 
 namespace drake {
@@ -78,7 +75,6 @@ TEST_F(SymbolicExpressionMatrixTest, EigenAdd) {
   EXPECT_EQ(M, M_expected);
 }
 
-<<<<<<< HEAD
 TEST_F(SymbolicExpressionMatrixTest, GetVariableVector) {
   const Vector3<Expression> evec(x_, y_, z_);
   const VectorX<Variable> vec = GetVariableVector(evec);
@@ -90,8 +86,6 @@ TEST_F(SymbolicExpressionMatrixTest, GetVariableVector) {
                std::logic_error);
 }
 
-=======
->>>>>>> intial
 TEST_F(SymbolicExpressionMatrixTest, EigenSub1) {
   auto const M(A_ - A_);
   Eigen::Matrix<Expression, 3, 2> M_expected;
@@ -435,7 +429,6 @@ TEST_F(SymbolicExpressionMatrixTest, MatrixVarRopMatrixVar) {
   EXPECT_TRUE(CheckMatrixOperatorNeq(matrix_var_2_, matrix_var_1_));
 }
 
-<<<<<<< HEAD
 TEST_F(SymbolicExpressionMatrixTest, Evaluate) {
   const Environment env{{{var_x_, 1.0}, {var_y_, 2.0}, {var_z_, 3.0}}};
 
@@ -473,8 +466,6 @@ TEST_F(SymbolicExpressionMatrixTest, Evaluate) {
   DRAKE_EXPECT_THROWS_MESSAGE(Evaluate(C, env), std::runtime_error,
                               "NaN is detected during Symbolic computation.");
 }
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace symbolic
 }  // namespace drake

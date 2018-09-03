@@ -119,7 +119,6 @@ class FixedAxisOneDoFJoint : public DrakeJointImpl<Derived> {
     return ret;
   }
 
-<<<<<<< HEAD
   /// Compute the spring torque for a simple singleaxis joint.
   /// Since this is a one DOF joint, the input and output vectors will be
   /// length 1.
@@ -136,8 +135,6 @@ class FixedAxisOneDoFJoint : public DrakeJointImpl<Derived> {
     return torque;
   }
 
-=======
->>>>>>> intial
   void setJointLimits(double joint_limit_min, double joint_limit_max) {
     if (joint_limit_min > joint_limit_max) {
       throw std::logic_error(
@@ -200,7 +197,6 @@ class FixedAxisOneDoFJoint : public DrakeJointImpl<Derived> {
     DRAKE_ASSERT(coulomb_window_ > 0);
   }
 
-<<<<<<< HEAD
   /// Set the spring stiffness and nominal position.
   /// The resuting force will be
   ///   torque = stiffness * (nominal_position - position).
@@ -209,8 +205,6 @@ class FixedAxisOneDoFJoint : public DrakeJointImpl<Derived> {
     nominal_position_ = nominal_position;
   }
 
-=======
->>>>>>> intial
   std::string get_position_name(int index) const override {
     if (index != 0) throw std::runtime_error("bad index");
     return DrakeJoint::name_;
@@ -240,22 +234,16 @@ class FixedAxisOneDoFJoint : public DrakeJointImpl<Derived> {
     fixed_axis_one_dof_joint->damping_ = this->damping_;
     fixed_axis_one_dof_joint->coulomb_friction_ = this->coulomb_friction_;
     fixed_axis_one_dof_joint->coulomb_window_ = this->coulomb_window_;
-<<<<<<< HEAD
     fixed_axis_one_dof_joint->stiffness_ = this->stiffness_;
     fixed_axis_one_dof_joint->nominal_position_ = this->nominal_position_;
-=======
->>>>>>> intial
   }
 
  private:
   drake::TwistVector<double> joint_axis_;
   double damping_{};
   double coulomb_friction_{};
-<<<<<<< HEAD
   double stiffness_{0};
   double nominal_position_{0};
-=======
->>>>>>> intial
   // We're trying to emulate MATLAB's code:
   // NOLINTNEXTLINE(whitespace/line_length)
   // https://github.com/RobotLocomotion/drake/blob/d7f3c011d37d471d7b9293ecf2066c98d88b2a05/drake/matlab/systems/plants/RigidBody.m#L29

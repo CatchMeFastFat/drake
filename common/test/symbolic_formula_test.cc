@@ -1217,7 +1217,6 @@ TEST_F(SymbolicFormulaTest, DrakeAssert) {
   DRAKE_THROW_UNLESS(mutable_f);
 }
 
-<<<<<<< HEAD
 // Tests that default constructor and EIGEN_INITIALIZE_MATRICES_BY_ZERO
 // constructor both create the same value.
 GTEST_TEST(FormulaTest, DefaultConstructors) {
@@ -1227,8 +1226,6 @@ GTEST_TEST(FormulaTest, DefaultConstructors) {
   EXPECT_TRUE(is_false(f_zero));
 }
 
-=======
->>>>>>> intial
 // This test checks whether symbolic::Formula is compatible with
 // std::unordered_set.
 GTEST_TEST(FormulaTest, CompatibleWithUnorderedSet) {

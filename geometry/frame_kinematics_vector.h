@@ -1,9 +1,6 @@
 #pragma once
 
-<<<<<<< HEAD
 #include <unordered_map>
-=======
->>>>>>> intial
 #include <utility>
 #include <vector>
 
@@ -14,7 +11,6 @@
 namespace drake {
 namespace geometry {
 
-<<<<<<< HEAD
 #ifndef DRAKE_DOXYGEN_CXX
 namespace detail {
 
@@ -148,30 +144,6 @@ struct KinematicsValueInitializer<Isometry3<S>> {
  };
  ```
  __Example 2: Deferred pose vector allocation.__
-=======
-/** A %FrameKinematicsVector associates a std::vector with a geometry source.
- It serves as the basis of FramePoseVector, FrameVelocityVector, and
- FrameAccelerationVector. Geometry sources report the kinematics values for
- their registered frame through these classes.
-
- The %FrameKinematicsVector must be constructed with the source's SourceId
- and then one kinematics value (e.g., pose) must be added to the underlying
- vector for each registered frame. The values are interpreted by the order of
- FrameId values in the corresponding FrameIdVector; the iᵗʰ value is attributed
- to the frame identified by the iᵗʰ FrameId in the FrameIdVector.
-
- @internal The FrameVelocityVector and FrameAccelerationVector are still to
- come.
-
- The intent is for the vector to be manipulated directly. Access the vector
- through a call to mutable_vector() and operate directly on the vector to
- improve performance. For example, for a FramePoseVector `poses`:
-
-   - Reserving space for `n` frame poses (e.g.,
-     `poses.mutable_vector().reserve(n);`).
-   - Making use of `emplace_back()` or writing directly to mutable references
-     via `poses.mutable_vector()[i] = KinematicsValue()`.
->>>>>>> intial
 
  @tparam KinematicsValue  The underlying data type of for the order of
                           kinematics data (e.g., pose, velocity, or
@@ -192,19 +164,13 @@ struct KinematicsValueInitializer<Isometry3<S>> {
  -----------------|------------------------------------------|--------------
   FramePoseVector | FrameKinematicsVector<Isometry3<Scalar>> | double
   FramePoseVector | FrameKinematicsVector<Isometry3<Scalar>> | AutoDiffXd
-<<<<<<< HEAD
   FramePoseVector | FrameKinematicsVector<Isometry3<Scalar>> | Expression
   */
-=======
-
-  @see FrameIdVector */
->>>>>>> intial
 template <class KinematicsValue>
 class FrameKinematicsVector {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(FrameKinematicsVector)
 
-<<<<<<< HEAD
   /** Initializes the vector on the owned ids.
    @param source_id  The source id of the owning geometry source.
    @param ids        The set of *all* frames owned by this geometry source. All
@@ -267,33 +233,6 @@ class FrameKinematicsVector {
 
 /** Class for communicating _pose_ information to SceneGraph for registered
  frames.
-=======
-  /** Constructs an empty vector. */
-  explicit FrameKinematicsVector(SourceId source_id);
-
-  /** Copy constructs from a std::vector of KinematicsValue type. */
-  FrameKinematicsVector(SourceId source_id,
-                        const std::vector<KinematicsValue>& values);
-
-  /** Move constructs from a std::vector of KinematicsValue type. */
-  FrameKinematicsVector(SourceId source_id,
-                        std::vector<KinematicsValue>&& values);
-
-  SourceId get_source_id() const { return source_id_; }
-  const std::vector<KinematicsValue>& vector() const { return vector_; }
-  std::vector<KinematicsValue>& mutable_vector() { return vector_; }
-
- private:
-  // The underlying data.
-  std::vector<KinematicsValue> vector_;
-
-  // The source id this data is associated with.
-  SourceId source_id_;
-};
-
-/** Class for communicating ordered _pose_ information to
- GeometrySystem for registered frames.
->>>>>>> intial
 
  @tparam T The scalar type. Must be a valid Eigen scalar.
 

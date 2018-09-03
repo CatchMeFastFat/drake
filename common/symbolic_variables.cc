@@ -27,11 +27,7 @@ using std::string;
 namespace drake {
 namespace symbolic {
 
-<<<<<<< HEAD
 Variables::Variables(std::initializer_list<Variable> init) : vars_(init) {}
-=======
-Variables::Variables(initializer_list<Variable> init) : vars_(init) {}
->>>>>>> intial
 
 Variables::Variables(const Eigen::Ref<const VectorX<Variable>>& init)
     : vars_{init.data(), init.data() + init.size()} {}

@@ -7,12 +7,9 @@
 
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/math/barycentric.h"
-<<<<<<< HEAD
 #include "drake/math/rigid_transform.h"
 #include "drake/math/roll_pitch_yaw.h"
 #include "drake/math/rotation_matrix.h"
-=======
->>>>>>> intial
 #include "drake/math/wrap_to.h"
 
 namespace drake {
@@ -24,11 +21,8 @@ PYBIND11_MODULE(math, m) {
 
   m.doc() = "Bindings for //math.";
 
-<<<<<<< HEAD
   py::module::import("pydrake.util.eigen_geometry");
 
-=======
->>>>>>> intial
   // TODO(eric.cousineau): At present, we only bind doubles.
   // In the future, we will bind more scalar types, and enable scalar
   // conversion.
@@ -61,7 +55,6 @@ PYBIND11_MODULE(math, m) {
                        &BarycentricMesh<T>::Eval))
       .def("MeshValuesFrom", &BarycentricMesh<T>::MeshValuesFrom);
 
-<<<<<<< HEAD
   // TODO(eric.cousineau): Add bindings for `Bool<T>`.
   py::class_<RigidTransform<T>>(m, "RigidTransform")
       .def(py::init())
@@ -129,8 +122,6 @@ PYBIND11_MODULE(math, m) {
               &RotationMatrix<T>::ToQuaternion))
       .def_static("Identity", &RotationMatrix<T>::Identity);
 
-=======
->>>>>>> intial
   // General math overloads.
   // N.B. Additional overloads will be added for autodiff, symbolic, etc, by
   // those respective modules.

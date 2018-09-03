@@ -3,10 +3,7 @@
 #include <memory>
 
 #include "drake/common/autodiff.h"
-<<<<<<< HEAD
 #include "drake/common/nice_type_name.h"
-=======
->>>>>>> intial
 #include "drake/multibody/multibody_tree/frame_base.h"
 #include "drake/multibody/multibody_tree/multibody_tree_context.h"
 #include "drake/multibody/multibody_tree/multibody_tree_indexes.h"
@@ -58,7 +55,6 @@ class Frame : public FrameBase<T> {
   virtual Isometry3<T> CalcPoseInBodyFrame(
       const systems::Context<T>& context) const = 0;
 
-<<<<<<< HEAD
   /// Variant of CalcPoseInBodyFrame() that returns the fixed pose `X_BF` of
   /// `this` frame F in the body frame B associated with this frame.
   /// Throws std::logic_error if called on a %Frame that does not have a
@@ -75,8 +71,6 @@ class Frame : public FrameBase<T> {
             "', which does not support this operation.");
   }
 
-=======
->>>>>>> intial
   /// Given the offset pose `X_FQ` of a frame Q in `this` frame F, this method
   /// computes the pose `X_BQ` of frame Q in the body frame B to which this
   /// frame is attached.
@@ -93,7 +87,6 @@ class Frame : public FrameBase<T> {
     return CalcPoseInBodyFrame(context) * X_FQ;
   }
 
-<<<<<<< HEAD
   /// Variant of CalcOffsetPoseInBody() that given the offset pose `X_FQ` of a
   /// frame Q in `this` frame F, returns the pose `X_BQ` of frame Q in the body
   /// frame B to which this frame is attached.
@@ -104,8 +97,6 @@ class Frame : public FrameBase<T> {
     return GetFixedPoseInBodyFrame() * X_FQ;
   }
 
-=======
->>>>>>> intial
   /// NVI to DoCloneToScalar() templated on the scalar type of the new clone to
   /// be created. This method is mostly intended to be called by
   /// MultibodyTree::CloneToScalar(). Most users should not call this clone
@@ -120,16 +111,11 @@ class Frame : public FrameBase<T> {
 
  protected:
   /// Only derived classes can use this constructor. It creates a %Frame
-<<<<<<< HEAD
   /// object attached to `body` and puts the frame in the body's model
   /// instance.
   explicit Frame(const Body<T>& body)
       : FrameBase<T>(body.model_instance()),
         body_(body) {}
-=======
-  /// object attached to `body`.
-  explicit Frame(const Body<T>& body) : body_(body) {}
->>>>>>> intial
 
   /// @name Methods to make a clone templated on different scalar types.
   ///

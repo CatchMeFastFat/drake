@@ -2,13 +2,10 @@
 
 #include <mutex>
 
-<<<<<<< HEAD
 #ifdef HAVE_SPDLOG
 #include <spdlog/sinks/stdout_sinks.h>
 #endif
 
-=======
->>>>>>> intial
 #include "drake/common/never_destroyed.h"
 
 namespace drake {

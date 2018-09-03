@@ -34,11 +34,8 @@
 /// @endcode
 ///
 /// See also @ref system_scalar_conversion.
-<<<<<<< HEAD
 // N.B. `CommonScalarPack` in `systems_pybind.h` should be kept in sync
 // with this.
-=======
->>>>>>> intial
 #define DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS( \
     SomeType) \
 DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_NONSYMBOLIC_SCALARS( \
@@ -50,11 +47,8 @@ template SomeType<::drake::symbolic::Expression>;
 /// macro should only be used in .cc files, never in .h files.  This is
 /// identical to DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS
 /// except that it does not define support for any drake::symbolic types.
-<<<<<<< HEAD
 // N.B. `NonSymbolicScalarPack` in `systems_pybind.h` should be kept in sync
 // with this.
-=======
->>>>>>> intial
 #define \
   DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_NONSYMBOLIC_SCALARS( \
       SomeType) \

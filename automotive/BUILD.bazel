@@ -1,7 +1,6 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
@@ -12,25 +11,12 @@ load(
     "@drake//tools/skylark:drake_py.bzl",
     "drake_py_binary",
     "drake_py_unittest",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_googletest",
-    "drake_cc_library",
-    "drake_cc_binary",
->>>>>>> intial
 )
 load(
     "@drake//tools/skylark:drake_java.bzl",
     "drake_java_binary",
 )
 load(
-<<<<<<< HEAD
-=======
-    "@drake//tools/skylark:drake_py.bzl",
-    "drake_py_binary",
-)
-load(
->>>>>>> intial
     "@drake//tools/vector_gen:vector_gen.bzl",
     "drake_cc_vector_gen_library",
     "drake_cc_vector_gen_translator_library",
@@ -39,7 +25,6 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "automotive",
     deps = [
@@ -78,8 +63,6 @@ drake_cc_package_library(
     ],
 )
 
-=======
->>>>>>> intial
 # Keep this list in sync with the list of _AUTOMOTIVE_LCM_SRCS within
 # ../lcmtypes/BUILD.bazel.  TODO(jwnimmer-tri) De-duplicate the two lists,
 # likely by moving the automotive lcmtypes into their own package.
@@ -95,12 +78,9 @@ drake_cc_vector_gen_library(
     name = "generated_vectors",
     srcs = [
         "bicycle_car_parameters.named_vector",
-<<<<<<< HEAD
         "dynamic_bicycle_car_input.named_vector",
         "dynamic_bicycle_car_params.named_vector",
         "dynamic_bicycle_car_state.named_vector",
-=======
->>>>>>> intial
         "idm_planner_parameters.named_vector",
         "maliput_railcar_params.named_vector",
         "mobil_planner_parameters.named_vector",
@@ -120,7 +100,6 @@ drake_cc_vector_gen_translator_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "trajectory",
     srcs = ["trajectory.cc"],
     hdrs = ["trajectory.h"],
@@ -133,8 +112,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "bicycle_car",
     srcs = ["bicycle_car.cc"],
     hdrs = ["bicycle_car.h"],
@@ -206,7 +183,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "driving_command_mux",
     srcs = ["driving_command_mux.cc"],
     hdrs = ["driving_command_mux.h"],
@@ -228,8 +204,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "idm_controller",
     srcs = ["idm_controller.cc"],
     hdrs = ["idm_controller.h"],
@@ -313,7 +287,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "multilane_onramp_merge",
     srcs = ["multilane_onramp_merge.cc"],
     hdrs = ["multilane_onramp_merge.h"],
@@ -324,8 +297,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "pose_selector",
     srcs = ["pose_selector.cc"],
     hdrs = ["pose_selector.h"],
@@ -366,10 +337,7 @@ drake_cc_library(
         ":lane_direction",
         "//automotive/maliput/api",
         "//common:symbolic",
-<<<<<<< HEAD
         "//math:geometric_transform",
-=======
->>>>>>> intial
         "//math:saturate",
         "//systems/rendering:pose_vector",
     ],
@@ -467,7 +435,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "trajectory_follower",
     srcs = ["trajectory_follower.cc"],
     hdrs = ["trajectory_follower.h"],
@@ -483,8 +450,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "trajectory_car",
     srcs = ["trajectory_car.cc"],
     hdrs = ["trajectory_car.h"],
@@ -501,7 +466,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "trivial_right_of_way_state_provider",
     srcs = [
         "trivial_right_of_way_state_provider.cc",
@@ -516,17 +480,12 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "automotive_simulator",
     srcs = ["automotive_simulator.cc"],
     hdrs = ["automotive_simulator.h"],
     deps = [
         ":car_vis_applicator",
-<<<<<<< HEAD
         ":driving_command_mux",
-=======
->>>>>>> intial
         ":generated_translators",
         ":generated_vectors",
         ":idm_controller",
@@ -537,10 +496,7 @@ drake_cc_library(
         ":pure_pursuit_controller",
         ":simple_car",
         ":trajectory_car",
-<<<<<<< HEAD
         ":trivial_right_of_way_state_provider",
-=======
->>>>>>> intial
         "//automotive/maliput/api",
         "//automotive/maliput/utility",
         "//common:temp_directory",
@@ -548,16 +504,9 @@ drake_cc_library(
         "//multibody/parsers",
         "//multibody/rigid_body_plant:drake_visualizer",
         "//systems/analysis",
-<<<<<<< HEAD
         "//systems/lcm:lcm_pubsub_system",
         "//systems/lcm:lcmt_drake_signal_translator",
         "//systems/primitives:constant_value_source",
-=======
-        "//systems/lcm",
-        "//systems/lcm:lcmt_drake_signal_translator",
-        "//systems/primitives:constant_value_source",
-        "//systems/primitives:multiplexer",
->>>>>>> intial
         "//systems/rendering:pose_aggregator",
         "//systems/rendering:pose_bundle_to_draw_message",
     ],
@@ -575,10 +524,7 @@ drake_cc_binary(
         ":automotive_simulator",
         ":create_trajectory_params",
         ":monolane_onramp_merge",
-<<<<<<< HEAD
         ":multilane_onramp_merge",
-=======
->>>>>>> intial
         "//automotive/maliput/dragway",
         "//common:text_logging_gflags",
         "//lcm",
@@ -656,7 +602,6 @@ drake_cc_library(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "trajectory_test",
     deps = [
         "//automotive:trajectory",
@@ -666,16 +611,10 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "automotive_simulator_test",
     data = ["//automotive/models:prod_models"],
     # Flaky because LCM self-test can fail (PR #7311)
     flaky = 1,
-<<<<<<< HEAD
-=======
-    local = 1,
->>>>>>> intial
     deps = [
         "//automotive:automotive_simulator",
         "//automotive:create_trajectory_params",
@@ -719,7 +658,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "driving_command_mux_test",
     deps = [
         ":driving_command_mux",
@@ -737,8 +675,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "maliput_railcar_test",
     deps = [
         "//automotive:maliput_railcar",
@@ -759,7 +695,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "multilane_onramp_merge_test",
     deps = [
         ":multilane_onramp_merge",
@@ -770,8 +705,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "simple_car_test",
     deps = [
         "//automotive:simple_car",
@@ -845,10 +778,7 @@ drake_cc_googletest(
     deps = [
         "//automotive:pure_pursuit",
         "//automotive/maliput/dragway",
-<<<<<<< HEAD
         "//automotive/maliput/multilane",
-=======
->>>>>>> intial
         "//common/test_utilities:eigen_matrix_compare",
     ],
 )
@@ -882,11 +812,7 @@ drake_cc_googletest(
     name = "calc_ongoing_road_position_test",
     deps = [
         "//automotive:calc_ongoing_road_position",
-<<<<<<< HEAD
         "//automotive:multilane_onramp_merge",
-=======
-        "//automotive:monolane_onramp_merge",
->>>>>>> intial
         "//automotive/maliput/dragway",
         "//common:essential",
         "//common/test_utilities:eigen_matrix_compare",
@@ -894,7 +820,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "trajectory_follower_test",
     deps = [
         "//automotive:trajectory_follower",
@@ -905,8 +830,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "trajectory_car_test",
     deps = [
         "//automotive:autodiff_test_utilities",
@@ -919,13 +842,8 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "trajectory_optimization_test",
-<<<<<<< HEAD
     # Test timeout increased to not timeout when run with Valgrind.
     timeout = "moderate",
-=======
-    # Test size increased to not timeout when run with Valgrind.
-    size = "medium",
->>>>>>> intial
     # Disable IPOPT for this example due to test timeouts on Mac-Clang-Bazel
     # builds (see #6223).
     tags = ["snopt"],
@@ -937,7 +855,6 @@ drake_cc_googletest(
     ],
 )
 
-<<<<<<< HEAD
 drake_cc_googletest(
     name = "trivial_right_of_way_state_provider_test",
     deps = [
@@ -958,10 +875,6 @@ drake_py_unittest(
 sh_test(
     name = "demo_dry_run_test",
     size = "small",
-=======
-sh_test(
-    name = "demo_dry_run_test",
->>>>>>> intial
     srcs = ["test/demo_test.sh"],
     args = [
         "--driving_command_gui_names=alpha,beta",

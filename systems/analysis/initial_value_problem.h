@@ -2,18 +2,12 @@
 
 #include <memory>
 #include <utility>
-<<<<<<< HEAD
 #include <vector>
-=======
->>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 #include "drake/common/drake_optional.h"
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/systems/analysis/dense_output.h"
-=======
->>>>>>> intial
 #include "drake/systems/analysis/integrator_base.h"
 #include "drake/systems/framework/context.h"
 #include "drake/systems/framework/parameters.h"
@@ -29,7 +23,6 @@ namespace systems {
 /// allows for generic IVP definitions, which can later be solved for any
 /// instance of said vector.
 ///
-<<<<<<< HEAD
 /// By default, an explicit 3rd order RungeKutta integration scheme is used.
 ///
 /// The implementation of this class performs basic computation caching,
@@ -48,13 +41,6 @@ namespace systems {
 /// instance (either the default or a user-defined one, set via
 /// reset_integrator()) for further reference on the specific dense output
 /// technique in use.
-=======
-/// Additionally, this class' implementation performs basic computation caching,
-/// optimizing away repeated integration whenever the IVP is solved for
-/// increasing values of time t while both initial conditions and parameters are
-/// kept constant, e.g. if solved for t₁ > t₀ first, solving for t₂ > t₁ will
-/// only require integrating from t₁ onward.
->>>>>>> intial
 ///
 /// For further insight into its use, consider the following examples:
 ///
@@ -80,11 +66,7 @@ class InitialValueProblem {
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(InitialValueProblem);
 
   /// Default integration accuracy in the relative tolerance sense.
-<<<<<<< HEAD
   static const double kDefaultAccuracy;
-=======
-  static const T kDefaultAccuracy;
->>>>>>> intial
   /// Default initial integration step size.
   static const T kInitialStepSize;
   /// Default maximum integration step size.
@@ -96,14 +78,8 @@ class InitialValueProblem {
   /// @param x The dependent vector variable 𝐱 ∈ ℝⁿ.
   /// @param k The vector of parameters 𝐤 ∈ ℝᵐ.
   /// @return The derivative vector d𝐱/dt ∈ ℝⁿ.
-<<<<<<< HEAD
   using ODEFunction = std::function<VectorX<T> (
       const T& t, const VectorX<T>& x, const VectorX<T>& k)>;
-=======
-  typedef std::function<VectorX<T> (
-      const T& t, const VectorX<T>& x,
-      const VectorX<T>& k)> ODEFunction;
->>>>>>> intial
 
   /// A collection of values i.e. initial time t₀, initial state vector 𝐱₀
   /// and parameters vector 𝐤.to further specify the ODE system (in order
@@ -122,7 +98,6 @@ class InitialValueProblem {
                     const optional<VectorX<T>>& k_in)
         : t0(t0_in), x0(x0_in), k(k_in) {}
 
-<<<<<<< HEAD
     bool operator==(const SpecifiedValues& rhs) const {
       return (t0 == rhs.t0 && x0 == rhs.x0 && k == rhs.k);
     }
@@ -131,8 +106,6 @@ class InitialValueProblem {
       return !operator==(rhs);
     }
 
-=======
->>>>>>> intial
     optional<T> t0;  ///< The initial time t₀ for the IVP.
     optional<VectorX<T>> x0;  ///< The initial state vector 𝐱₀ for the IVP.
     optional<VectorX<T>> k;  ///< The parameter vector 𝐤 for the IVP.
@@ -150,11 +123,7 @@ class InitialValueProblem {
   /// @pre An initial time @p default_values.t0 is given.
   /// @pre An initial state vector @p default_values.x0 is given.
   /// @pre A parameter vector @p default_values.k is given.
-<<<<<<< HEAD
   /// @throws std::logic_error if preconditions are not met.
-=======
-  /// @throw std::logic_error if preconditions are not met.
->>>>>>> intial
   InitialValueProblem(const ODEFunction& ode_function,
                       const SpecifiedValues& default_values);
 
@@ -162,15 +131,9 @@ class InitialValueProblem {
   /// vector 𝐱₀ and parameter vector 𝐤 present in @p values, falling back to
   /// the ones given on construction if not given.
   ///
-<<<<<<< HEAD
   /// @param tf The IVP will be solved for this time.
   /// @param values IVP initial conditions and parameters.
   /// @returns The IVP solution 𝐱(@p tf; 𝐤) for 𝐱(t₀; 𝐤) = 𝐱₀.
-=======
-  /// @param tf The time to solve the IVP for.
-  /// @param values The specified values for the IVP.
-  /// @return The IVP solution 𝐱(@p tf; 𝐤) for 𝐱(t₀; 𝐤) = 𝐱₀.
->>>>>>> intial
   /// @pre Given @p tf must be larger than or equal to the specified initial
   ///      time t₀ (either given or default).
   /// @pre If given, the dimension of the initial state vector @p values.x0
@@ -179,7 +142,6 @@ class InitialValueProblem {
   /// @pre If given, the dimension of the parameter vector @p values.k
   ///      must match that of the parameter vector in the default specified
   ///      values given on construction.
-<<<<<<< HEAD
   /// @throws std::logic_error if preconditions are not met.
   VectorX<T> Solve(const T& tf, const SpecifiedValues& values = {}) const;
 
@@ -213,11 +175,6 @@ class InitialValueProblem {
   std::unique_ptr<DenseOutput<T>> DenseSolve(
       const T& tf, const SpecifiedValues& values = {}) const;
 
-=======
-  /// @throw std::logic_error if preconditions are not met.
-  VectorX<T> Solve(const T& tf, const SpecifiedValues& values = {}) const;
-
->>>>>>> intial
   /// Resets the internal integrator instance by in-place
   /// construction of the given integrator type.
   ///
@@ -227,11 +184,7 @@ class InitialValueProblem {
   /// @endcode
   ///
   /// @param args The integrator type-specific arguments.
-<<<<<<< HEAD
   /// @returns The new integrator instance.
-=======
-  /// @return The new integrator instance.
->>>>>>> intial
   /// @tparam Integrator The integrator type, which must be an
   ///         IntegratorBase subclass.
   /// @tparam Args The integrator specific argument types.
@@ -247,25 +200,16 @@ class InitialValueProblem {
   }
 
   /// Gets a pointer to the internal integrator instance.
-<<<<<<< HEAD
   const IntegratorBase<T>* get_integrator() const {
-=======
-  inline const IntegratorBase<T>* get_integrator() const {
->>>>>>> intial
     return integrator_.get();
   }
 
   /// Gets a pointer to the internal mutable integrator instance.
-<<<<<<< HEAD
   IntegratorBase<T>* get_mutable_integrator() {
-=======
-  inline IntegratorBase<T>* get_mutable_integrator() {
->>>>>>> intial
     return integrator_.get();
   }
 
  private:
-<<<<<<< HEAD
   // Sanitizes given @p values to solve for @p tf, i.e. sets defaults
   // when values are missing and validates that all preconditions specified
   // for InitialValueProblem::Solve() and InitialValueProblem::DenseSolve()
@@ -281,8 +225,6 @@ class InitialValueProblem {
   SpecifiedValues SanitizeValuesOrThrow(
       const T& tf, const SpecifiedValues& values) const;
 
-=======
->>>>>>> intial
   // IVP values specified by default.
   const SpecifiedValues default_values_;
 
@@ -295,7 +237,6 @@ class InitialValueProblem {
   // expresses the fact that neither computation results nor IVP
   // definition are affected when these change.
 
-<<<<<<< HEAD
   // Invalidates and initializes cached IVP specified values and
   // integration context based on the newly provided @p values.
   void ResetCachedState(const SpecifiedValues& values) const;
@@ -307,8 +248,6 @@ class InitialValueProblem {
   void ResetCachedStateIfNecessary(
       const T& tf, const SpecifiedValues& values) const;
 
-=======
->>>>>>> intial
   // IVP current specified values (for caching).
   mutable SpecifiedValues current_values_;
 

@@ -116,17 +116,12 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
   /// @note %BodyNode keeps a reference to the parent body, body and mobilizer
   /// for this node, which must outlive `this` BodyNode.
   BodyNode(const BodyNode<T>* parent_node,
-<<<<<<< HEAD
            const Body<T>* body, const Mobilizer<T>* mobilizer)
       : MultibodyTreeElement<BodyNode<T>, BodyNodeIndex>(
             body->model_instance()),
         parent_node_(parent_node),
         body_(body),
         mobilizer_(mobilizer) {
-=======
-           const Body<T>* body, const Mobilizer<T>* mobilizer) :
-      parent_node_(parent_node), body_(body), mobilizer_(mobilizer) {
->>>>>>> intial
     DRAKE_DEMAND(!(parent_node == nullptr &&
         body->index() != world_index()));
     DRAKE_DEMAND(!(mobilizer == nullptr && body->index() != world_index()));
@@ -176,11 +171,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
 
   /// Returns the number of generalized velocities for the Mobilizer in `this`
   /// node.
-<<<<<<< HEAD
   int get_num_mobilizer_velocities() const {
-=======
-  int get_num_mobilizer_velocites() const {
->>>>>>> intial
     return topology_.num_mobilizer_velocities;
   }
   //@}
@@ -269,11 +260,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
 
     DRAKE_ASSERT(vc != nullptr);
     DRAKE_DEMAND(H_PB_W.rows() == 6);
-<<<<<<< HEAD
     DRAKE_DEMAND(H_PB_W.cols() == get_num_mobilizer_velocities());
-=======
-    DRAKE_DEMAND(H_PB_W.cols() == get_num_mobilizer_velocites());
->>>>>>> intial
 
     // As a guideline for developers, a summary of the computations performed in
     // this method is provided:
@@ -573,11 +560,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
   ///   Externally applied generalized force at this node's mobilizer. It can
   ///   have zero size, implying no generalized forces are applied. Otherwise it
   ///   must have a size equal to the number of generalized velocities for this
-<<<<<<< HEAD
   ///   node's mobilizer, see get_num_mobilizer_velocities().
-=======
-  ///   node's mobilizer, see get_num_mobilizer_velocites().
->>>>>>> intial
   ///   `tau_applied` **must** not be an entry into `tau_array`, which would
   ///   result in undefined results.
   /// @param[out] F_BMo_W_array_ptr
@@ -625,11 +608,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
     DRAKE_DEMAND(F_BMo_W_array_ptr != nullptr);
     std::vector<SpatialForce<T>>& F_BMo_W_array = *F_BMo_W_array_ptr;
     DRAKE_DEMAND(
-<<<<<<< HEAD
         tau_applied.size() == get_num_mobilizer_velocities() ||
-=======
-        tau_applied.size() == get_num_mobilizer_velocites() ||
->>>>>>> intial
         tau_applied.size() == 0);
     DRAKE_DEMAND(tau_array != nullptr);
     DRAKE_DEMAND(tau_array->size() ==
@@ -811,11 +790,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
     DRAKE_DEMAND(topology_.body != world_index());
     DRAKE_DEMAND(H_PB_W != nullptr);
     DRAKE_DEMAND(H_PB_W->rows() == 6);
-<<<<<<< HEAD
     DRAKE_DEMAND(H_PB_W->cols() == get_num_mobilizer_velocities());
-=======
-    DRAKE_DEMAND(H_PB_W->cols() == get_num_mobilizer_velocites());
->>>>>>> intial
 
     // Inboard frame F of this node's mobilizer.
     const Frame<T>& frame_F = inboard_frame();
@@ -837,19 +812,11 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
         get_X_FM(pc).linear() * X_MB.translation();
 
     // Compute the imob-th column in J_PB_W:
-<<<<<<< HEAD
     VectorUpTo6<T> v = VectorUpTo6<T>::Zero(get_num_mobilizer_velocities());
     // We compute H_FM(q) one column at a time by calling the multiplication by
     // H_FM operation on a vector of generalized velocities which is zero except
     // for its imob-th component, which is one.
     for (int imob = 0; imob < get_num_mobilizer_velocities(); ++imob) {
-=======
-    VectorUpTo6<T> v = VectorUpTo6<T>::Zero(get_num_mobilizer_velocites());
-    // We compute H_FM(q) one column at a time by calling the multiplication by
-    // H_FM operation on a vector of generalized velocities which is zero except
-    // for its imob-th component, which is one.
-    for (int imob = 0; imob < get_num_mobilizer_velocites(); ++imob) {
->>>>>>> intial
       v(imob) = 1.0;
       // Compute the imob-th column of H_FM:
       const SpatialVelocity<T> Himob_FM =
@@ -1037,11 +1004,7 @@ class BodyNode : public MultibodyTreeElement<BodyNode<T>, BodyNodeIndex> {
     }
 
     // Get the number of mobilizer velocities (number of columns of H_PB_W).
-<<<<<<< HEAD
     const int nv = get_num_mobilizer_velocities();
-=======
-    const int nv = get_num_mobilizer_velocites();
->>>>>>> intial
 
     // Compute common term HTxP.
     const MatrixUpTo6<T> HTxP = H_PB_W.transpose() * P_B_W;

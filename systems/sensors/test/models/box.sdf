@@ -6,7 +6,6 @@
       <pose>0 0 0 0 0 0</pose>
         <inertial>
           <mass>1.</mass>
-<<<<<<< HEAD
           <inertia>
             <ixx>8.41666666</ixx>
             <ixy>0</ixy>
@@ -15,8 +14,6 @@
             <iyz>0</iyz>
             <izz>16.6666666</izz>
           </inertia>
-=======
->>>>>>> intial
         </inertial>
         <visual name="box">
           <pose>0 0 0 0 0 0</pose>

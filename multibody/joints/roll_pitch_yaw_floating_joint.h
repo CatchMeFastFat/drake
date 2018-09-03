@@ -7,11 +7,7 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/unused.h"
 #include "drake/math/autodiff.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/drake_joint_impl.h"
 #include "drake/util/drakeGeometryUtil.h"
 
@@ -37,7 +33,6 @@ class RollPitchYawFloatingJoint
   jointTransform(const Eigen::MatrixBase<DerivedQ>& q) const {
     Eigen::Transform<typename DerivedQ::Scalar, 3, Eigen::Isometry> ret;
     auto pos = q.template middleRows<drake::kSpaceDimension>(0);
-<<<<<<< HEAD
     typedef typename DerivedQ::Scalar Scalar;
     const Eigen::Matrix<Scalar, 3, 1> rpy =
         q.template middleRows<drake::kRpySize>(drake::kSpaceDimension);
@@ -45,11 +40,6 @@ class RollPitchYawFloatingJoint
                                                            rpy(2));
     const drake::math::RotationMatrix<Scalar> R(roll_pitch_yaw);
     ret.linear() = R.matrix();
-=======
-    auto rpy =
-        q.template middleRows<drake::kRpySize>(drake::kSpaceDimension);
-    ret.linear() = drake::math::rpy2rotmat(rpy);
->>>>>>> intial
     ret.translation() = pos;
     ret.makeAffine();
     return ret;
@@ -64,7 +54,6 @@ class RollPitchYawFloatingJoint
           dmotion_subspace = nullptr) const {
     typedef typename DerivedQ::Scalar Scalar;
     motion_subspace.resize(drake::kTwistSize, get_num_velocities());
-<<<<<<< HEAD
     const Eigen::Matrix<Scalar, 3, 1> rpy =
             q.template middleRows<drake::kRpySize>(drake::kSpaceDimension);
     const drake::math::RollPitchYaw<Scalar> roll_pitch_yaw(rpy(0), rpy(1),
@@ -77,16 +66,6 @@ class RollPitchYawFloatingJoint
     motion_subspace.template block<3, 3>(0, 0).setZero();
     motion_subspace.template block<3, 3>(0, 3) = R_transpose * E;
     motion_subspace.template block<3, 3>(3, 0) = R_transpose;
-=======
-    auto rpy =
-        q.template middleRows<drake::kRpySize>(drake::kSpaceDimension);
-    Eigen::Matrix<Scalar, drake::kSpaceDimension, drake::kRpySize> E;
-    rpydot2angularvelMatrix(rpy, E);
-    Eigen::Matrix<Scalar, 3, 3> R = drake::math::rpy2rotmat(rpy);
-    motion_subspace.template block<3, 3>(0, 0).setZero();
-    motion_subspace.template block<3, 3>(0, 3) = R.transpose() * E;
-    motion_subspace.template block<3, 3>(3, 0) = R.transpose();
->>>>>>> intial
     motion_subspace.template block<3, 3>(3, 3).setZero();
 
     if (dmotion_subspace) {
@@ -301,7 +280,6 @@ class RollPitchYawFloatingJoint
         get_num_velocities(), 1);
   }
 
-<<<<<<< HEAD
   template <typename DerivedQ>
   Eigen::Matrix<typename DerivedQ::Scalar, Eigen::Dynamic, 1> SpringTorque(
       const Eigen::MatrixBase<DerivedQ>& q) const {
@@ -313,8 +291,6 @@ class RollPitchYawFloatingJoint
   }
 
 
-=======
->>>>>>> intial
   bool is_floating() const override { return true; }
 
 // TODO(liang.fok) Remove this deprecated method prior to release 1.0.

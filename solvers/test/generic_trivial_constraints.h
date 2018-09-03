@@ -7,10 +7,6 @@
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
-=======
-#include "drake/common/number_traits.h"
->>>>>>> intial
 #include "drake/math/autodiff.h"
 #include "drake/solvers/constraint.h"
 #include "drake/solvers/function.h"
@@ -34,7 +30,6 @@ class GenericTrivialConstraint1 : public Constraint {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
               Eigen::VectorXd* y) const override {
     DoEvalGeneric(x, y);
   }
@@ -58,24 +53,6 @@ class GenericTrivialConstraint1 : public Constraint {
     (*y)(1) = x(1) * x(2) - x(0);
   }
 
-=======
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              Eigen::VectorXd& y) const override {
-    y.resize(2);
-    y(0) = x(0) * x(1) + x(2) / x(0) * private_val_;
-    y(1) = x(1) * x(2) - x(0);
-  }
-
-  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-              // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-              AutoDiffVecXd& y) const override {
-    y.resize(2);
-    y(0) = x(0) * x(1) + x(2) / x(0) * private_val_;
-    y(1) = x(1) * x(2) - x(0);
-  }
-
- private:
->>>>>>> intial
   // Add a private data member to make sure no slicing on this class, derived
   // from Constraint.
   double private_val_{0};

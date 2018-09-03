@@ -17,10 +17,7 @@
 #include "drake/multibody/rigid_body.h"
 #include "drake/multibody/rigid_body_frame.h"
 #include "drake/multibody/rigid_body_tree.h"
-<<<<<<< HEAD
 #include "drake/solvers/constraint.h"
-=======
->>>>>>> intial
 
 namespace drake {
 namespace manipulation {
@@ -32,10 +29,7 @@ using examples::kuka_iiwa_arm::get_iiwa_max_joint_velocities;
 using multibody::MultibodyTree;
 using multibody::RevoluteJoint;
 using multibody::FixedOffsetFrame;
-<<<<<<< HEAD
 using solvers::LinearConstraint;
-=======
->>>>>>> intial
 
 std::unique_ptr<RigidBodyTree<double>> BuildTree() {
   const std::string iiwa_absolute_path = FindResourceOrThrow(
@@ -110,7 +104,6 @@ class DifferentialInverseKinematicsTest : public ::testing::Test {
     }
   }
 
-<<<<<<< HEAD
   void CheckPositiveResult(const Vector6<double>& V_WE,
                            const DifferentialInverseKinematicsResult& result) {
     const auto& q_bounds = *(params_->get_joint_position_limits());
@@ -144,8 +137,6 @@ class DifferentialInverseKinematicsTest : public ::testing::Test {
     }
   }
 
-=======
->>>>>>> intial
   std::unique_ptr<RigidBodyTree<double>> tree_;
   std::unique_ptr<KinematicsCache<double>> cache_;
   std::shared_ptr<RigidBodyFrame<double>> frame_E_;
@@ -159,7 +150,6 @@ class DifferentialInverseKinematicsTest : public ::testing::Test {
 
 TEST_F(DifferentialInverseKinematicsTest, PositiveTest) {
   auto V_WE = (Vector6<double>() << 1.0, 2.0, 3.0, 4.0, 5.0, 6.0).finished();
-<<<<<<< HEAD
 
   // Test without additional linear constraints.
   DifferentialInverseKinematicsResult result = DoDifferentialInverseKinematics(
@@ -192,56 +182,17 @@ TEST_F(DifferentialInverseKinematicsTest, OverConstrainedTest) {
   const auto b = VectorX<double>::Zero(A.rows());
   params_->AddLinearVelocityConstraint(
       std::make_shared<LinearConstraint>(A, b, b));
-=======
-  const auto& q_bounds = *(params_->get_joint_position_limits());
-  const auto& v_bounds = *(params_->get_joint_velocity_limits());
-  const auto& q = cache_->getQ();
-  const double dt = params_->get_timestep();
-
-  const double velocity_tolerance{1e-6};
-
->>>>>>> intial
   DifferentialInverseKinematicsResult function_result =
       DoDifferentialInverseKinematics(*tree_, *cache_, V_WE, *frame_E_,
                                       *params_);
   DifferentialInverseKinematicsStatus function_status{function_result.status};
   drake::log()->info("function_status = {}", function_status);
 
-<<<<<<< HEAD
   ASSERT_TRUE(function_result.joint_velocities == nullopt);
 }
 
 TEST_F(DifferentialInverseKinematicsTest, MultiBodyTreeTest) {
   const double eps = std::numeric_limits<double>::epsilon();
-=======
-  ASSERT_TRUE(function_result.joint_velocities != nullopt);
-  drake::log()->info("function_result.joint_velocities = {}",
-                     function_result.joint_velocities->transpose());
-
-  const KinematicsCache<double> cache1 =
-      tree_->doKinematics(q, function_result.joint_velocities.value());
-
-  const int num_velocities{tree_->get_num_velocities()};
-  Vector6<double> V_WE_actual =
-      tree_->CalcFrameSpatialVelocityInWorldFrame(cache1, *frame_E_);
-  drake::log()->info("V_WE_actual = {}", V_WE_actual.transpose());
-  drake::log()->info("V_WE = {}", V_WE.transpose());
-
-  EXPECT_TRUE(CompareMatrices(V_WE_actual.normalized(), V_WE.normalized(),
-                              velocity_tolerance));
-  ASSERT_EQ(function_result.joint_velocities->size(), num_velocities);
-  for (int i = 0; i < num_velocities; ++i) {
-    EXPECT_GE(q(i) + dt * (*function_result.joint_velocities)(i),
-              q_bounds.first(i));
-    EXPECT_LE(q(i) + dt * (*function_result.joint_velocities)(i),
-              q_bounds.second(i));
-    EXPECT_GE((*function_result.joint_velocities)(i), v_bounds.first(i));
-    EXPECT_LE((*function_result.joint_velocities)(i), v_bounds.second(i));
-  }
-}
-
-TEST_F(DifferentialInverseKinematicsTest, MultiBodyTreeTest) {
->>>>>>> intial
   auto V_WE = (Vector6<double>() << 1.0, 2.0, 3.0, 4.0, 5.0, 6.0).finished();
   DifferentialInverseKinematicsResult rbt_result =
       DoDifferentialInverseKinematics(*tree_, *cache_, V_WE, *frame_E_,
@@ -249,17 +200,11 @@ TEST_F(DifferentialInverseKinematicsTest, MultiBodyTreeTest) {
   DifferentialInverseKinematicsResult mbt_result =
       DoDifferentialInverseKinematics(*mbt_, *context_, V_WE, *frame_E_mbt_,
                                       *params_);
-<<<<<<< HEAD
   // TODO(siyuanfeng-tri) Ideally a smaller tolerance would pass, but there
   // seems to be differences in the RBT and MBT outcomes for unknown reasons.
   EXPECT_TRUE(CompareMatrices(rbt_result.joint_velocities.value(),
                               mbt_result.joint_velocities.value(),
                               1e5 * eps));
-=======
-  EXPECT_TRUE(CompareMatrices(rbt_result.joint_velocities.value(),
-                              mbt_result.joint_velocities.value(),
-                              10 * std::numeric_limits<double>::epsilon()));
->>>>>>> intial
 
   Isometry3<double> X_WE_desired =
       Translation3<double>(Vector3<double>(0.1, 0.2, 0.3)) *
@@ -268,17 +213,11 @@ TEST_F(DifferentialInverseKinematicsTest, MultiBodyTreeTest) {
                                                *frame_E_, *params_);
   mbt_result = DoDifferentialInverseKinematics(*mbt_, *context_, X_WE_desired,
                                                *frame_E_mbt_, *params_);
-<<<<<<< HEAD
   // TODO(siyuanfeng-tri) Ideally a smaller tolerance would pass, but there
   // seems to be differences in the RBT and MBT outcomes for unknown reasons.
   EXPECT_TRUE(CompareMatrices(rbt_result.joint_velocities.value(),
                               mbt_result.joint_velocities.value(),
                               1e7 * eps));
-=======
-  EXPECT_TRUE(CompareMatrices(rbt_result.joint_velocities.value(),
-                              mbt_result.joint_velocities.value(),
-                              10 * std::numeric_limits<double>::epsilon()));
->>>>>>> intial
 }
 
 TEST_F(DifferentialInverseKinematicsTest, GainTest) {
@@ -393,7 +332,6 @@ GTEST_TEST(DifferentialInverseKinematicsParametersTest, TestSetter) {
                std::exception);
 }
 
-<<<<<<< HEAD
 // Test linear velocity constraint mutators.
 GTEST_TEST(DifferentialInverseKinematicsParametersTest, TestMutators) {
   DifferentialInverseKinematicsParameters dut(3, 3);
@@ -420,8 +358,6 @@ GTEST_TEST(DifferentialInverseKinematicsParametersTest, TestMutators) {
   EXPECT_EQ(dut.get_linear_velocity_constraints().size(), 0);
 }
 
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace planner
 }  // namespace manipulation

@@ -7,17 +7,11 @@ namespace examples {
 namespace multibody {
 namespace bouncing_ball {
 
-<<<<<<< HEAD
 using geometry::Sphere;
 using geometry::HalfSpace;
 using geometry::SceneGraph;
 using geometry::VisualMaterial;
 using drake::multibody::multibody_plant::CoulombFriction;
-=======
-using geometry::GeometrySystem;
-using geometry::Sphere;
-using geometry::HalfSpace;
->>>>>>> intial
 using drake::multibody::multibody_plant::MultibodyPlant;
 using drake::multibody::RigidBody;
 using drake::multibody::SpatialInertia;
@@ -26,14 +20,9 @@ using drake::multibody::UnitInertia;
 
 std::unique_ptr<drake::multibody::multibody_plant::MultibodyPlant<double>>
 MakeBouncingBallPlant(double radius, double mass,
-<<<<<<< HEAD
                       const CoulombFriction<double>& surface_friction,
                       const Vector3<double>& gravity_W,
                       SceneGraph<double>* scene_graph) {
-=======
-                      const Vector3<double>& gravity_W,
-                      geometry::GeometrySystem<double>* geometry_system) {
->>>>>>> intial
   auto plant = std::make_unique<MultibodyPlant<double>>();
 
   UnitInertia<double> G_Bcm = UnitInertia<double>::SolidSphere(radius);
@@ -41,20 +30,14 @@ MakeBouncingBallPlant(double radius, double mass,
 
   const RigidBody<double>& ball = plant->AddRigidBody("Ball", M_Bcm);
 
-<<<<<<< HEAD
   if (scene_graph != nullptr) {
     plant->RegisterAsSourceForSceneGraph(scene_graph);
-=======
-  if (geometry_system != nullptr) {
-    plant->RegisterAsSourceForGeometrySystem(geometry_system);
->>>>>>> intial
 
     Vector3<double> normal_W(0, 0, 1);
     Vector3<double> point_W(0, 0, 0);
 
     // A half-space for the ground geometry.
     plant->RegisterCollisionGeometry(
-<<<<<<< HEAD
         plant->world_body(), HalfSpace::MakePose(normal_W, point_W),
         HalfSpace(), "collision", surface_friction, scene_graph);
 
@@ -62,16 +45,11 @@ MakeBouncingBallPlant(double radius, double mass,
     plant->RegisterVisualGeometry(
         plant->world_body(), HalfSpace::MakePose(normal_W, point_W),
         HalfSpace(), "visual", scene_graph);
-=======
-        plant->world_body(),
-        HalfSpace::MakePose(normal_W, point_W), HalfSpace(), geometry_system);
->>>>>>> intial
 
     // Add sphere geometry for the ball.
     plant->RegisterCollisionGeometry(
         ball,
         /* Pose X_BG of the geometry frame G in the ball frame B. */
-<<<<<<< HEAD
         Isometry3<double>::Identity(), Sphere(radius), "collision",
             surface_friction, scene_graph);
 
@@ -82,21 +60,13 @@ MakeBouncingBallPlant(double radius, double mass,
         /* Pose X_BG of the geometry frame G in the ball frame B. */
         Isometry3<double>::Identity(), Sphere(radius), "visual", orange,
         scene_graph);
-=======
-        Isometry3<double>::Identity(),
-        Sphere(radius), geometry_system);
->>>>>>> intial
   }
 
   // Gravity acting in the -z direction.
   plant->AddForceElement<UniformGravityFieldElement>(gravity_W);
 
   // We are done creating the plant.
-<<<<<<< HEAD
   plant->Finalize(scene_graph);
-=======
-  plant->Finalize();
->>>>>>> intial
 
   return plant;
 }

@@ -7,50 +7,28 @@
 #include <vector>
 
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/geometry/frame_kinematics_vector.h"
 #include "drake/multibody/rigid_body.h"
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/systems/framework/leaf_system.h"
-=======
-#include "drake/multibody/rigid_body.h"
-#include "drake/multibody/rigid_body_tree.h"
-#include "drake/systems/framework/leaf_system.h"
-#include "drake/systems/rendering/pose_bundle.h"
->>>>>>> intial
 
 namespace drake {
 namespace manipulation {
 namespace util {
 
-<<<<<<< HEAD
 
 /**
  * Implements a class that maintains pose information for a set of specified
  * RigidBodyFrames. Frame information is communicated via a FramePoseVector
-=======
-using systems::rendering::PoseBundle;
-
-/**
- * Implements a class that maintains pose and velocity information for a set of
- * specified RigidBodyFrames. Frame information is communicated via a PoseBundle
->>>>>>> intial
  * object. Frames can be specified at construction in one of two ways: (1) by
  * providing a set of RigidBody names (of bodies already existing in the
  * RigidBodyTree), which specify which RigidBodies these newly created frames
  * should be attached to, or (2) by providing a set of RigidBodyFrames directly.
  * The former simply searches the RigidBodyTree and assigns a RigidBodyFrame to
  * the specified body. Frame pose w.r.t. the base RigidBody frame can also be
-<<<<<<< HEAD
  * specified. This system takes an abstract valued input of type
  * KinematicResults<double> and generates an abstract value output of type
  * geometry::FramePoseVector<double>.
-=======
- * specified.
- * This system takes an abstract valued input of type KinematicResults<double>
- * and generates an abstract value output of type
- * systems::rendering::PoseBundle<double>.
->>>>>>> intial
  */
 // TODO(rcory): Template FramePoseTracker on type T
 class FramePoseTracker : public systems::LeafSystem<double> {
@@ -92,11 +70,7 @@ class FramePoseTracker : public systems::LeafSystem<double> {
    *        std::pair consisting of the parent name and model instance id. The
    *        parent is either a frame or body. If model instance id is -1, every
    *        model is searched.
-<<<<<<< HEAD
   * @param frame_poses A vector containing each frame's pose relative to the
-=======
-   * @param frame_poses A vector containing each frame's pose relative to the
->>>>>>> intial
    *        parent body or frame. If this vector is empty, it assumes identity
    *        for all poses.
    */
@@ -107,17 +81,10 @@ class FramePoseTracker : public systems::LeafSystem<double> {
       std::vector<Eigen::Isometry3d>());
 
   /**
-<<<<<<< HEAD
    * This InputPort represents an abstract valued input port of type
    * KinematicsResults<double>.
    */
   const systems::InputPort<double>& get_kinematics_input_port()
-=======
-   * This InputPortDescriptor represents an abstract valued input port of type
-   * KinematicsResults<double>.
-   */
-  const systems::InputPortDescriptor<double>& get_kinematics_input_port()
->>>>>>> intial
   const {
     return this->get_input_port(kinematics_input_port_index_);
   }
@@ -128,7 +95,6 @@ class FramePoseTracker : public systems::LeafSystem<double> {
 
   /**
    * This OutputPort represents an abstract valued output port of type
-<<<<<<< HEAD
    * geometry::FramePoseVector. This port cannot be connected to
    * geometry::SceneGraph (an exception will be thrown). This port exists only
    * to connect to other systems which expect a FramePoseVector
@@ -147,24 +113,6 @@ class FramePoseTracker : public systems::LeafSystem<double> {
     return frame_name_to_id_map_;
   }
 
-=======
-   * systems::rendering::PoseBundle.
-   */
-  const systems::OutputPort<double>& get_pose_bundle_output_port() const {
-    return this->get_output_port(0);
-  }
-
-  int get_pose_bundle_output_port_index() const {
-    return this->pose_bundle_output_port_index_;
-  }
-
-  std::size_t get_num_tracked_frames() const {
-    return this->frame_name_to_frame_map_.size();
-  }
-
-  std::vector<std::string> get_tracked_frame_names();
-
->>>>>>> intial
   RigidBodyFrame<double>* get_mutable_frame(std::string frame_name) {
     return this->frame_name_to_frame_map_[frame_name].get();
   }
@@ -172,7 +120,6 @@ class FramePoseTracker : public systems::LeafSystem<double> {
  private:
   void Init();
 
-<<<<<<< HEAD
   void OutputStatus(const systems::Context<double>& context,
                     geometry::FramePoseVector<double>* output) const;
 
@@ -183,18 +130,6 @@ class FramePoseTracker : public systems::LeafSystem<double> {
            std::unique_ptr<RigidBodyFrame<double>>> frame_name_to_frame_map_;
   const geometry::SourceId source_id_;
   std::map<std::string, geometry::FrameId> frame_name_to_id_map_;
-=======
-  PoseBundle<double> MakeOutputStatus() const;
-
-  void OutputStatus(const systems::Context<double>& context,
-                    PoseBundle<double>* output) const;
-
-  int kinematics_input_port_index_{-1};
-  int pose_bundle_output_port_index_{-1};
-  const RigidBodyTree<double>* tree_;
-  std::map<std::string,
-           std::unique_ptr<RigidBodyFrame<double>>> frame_name_to_frame_map_;
->>>>>>> intial
 };
 
 }  // namespace util

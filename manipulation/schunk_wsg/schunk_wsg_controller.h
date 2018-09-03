@@ -17,7 +17,6 @@ namespace schunk_wsg {
 class SchunkWsgController : public systems::Diagram<double> {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(SchunkWsgController)
-<<<<<<< HEAD
 
   // The gains here are somewhat arbitrary.  The goal is to make sure
   // that the maximum force is generated except when very close to the
@@ -30,15 +29,6 @@ class SchunkWsgController : public systems::Diagram<double> {
   }
 
   const systems::InputPort<double>& get_state_input_port() const {
-=======
-  SchunkWsgController();
-
-  const systems::InputPortDescriptor<double>& get_command_input_port() const {
-    return this->get_input_port(command_input_port_);
-  }
-
-  const systems::InputPortDescriptor<double>& get_state_input_port() const {
->>>>>>> intial
     return this->get_input_port(state_input_port_);
   }
 

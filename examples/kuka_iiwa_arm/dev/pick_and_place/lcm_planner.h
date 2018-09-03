@@ -21,15 +21,9 @@ class LcmPlanner : public systems::Diagram<double> {
   /**
    * Getter for the input port corresponding to the abstract input with iiwa
    * state message (LCM `lcmt_iiwa_status` message).
-<<<<<<< HEAD
    * @return The corresponding `sytems::InputPort`.
    */
   const systems::InputPort<double>& get_input_port_iiwa_status()
-=======
-   * @return The corresponding `sytems::InputPortDescriptor`.
-   */
-  const systems::InputPortDescriptor<double>& get_input_port_iiwa_status()
->>>>>>> intial
       const {
     return this->get_input_port(input_port_iiwa_status_);
   }
@@ -37,15 +31,9 @@ class LcmPlanner : public systems::Diagram<double> {
   /**
    * Getter for the input port corresponding to the abstract input with the wsg
    * status message (LCM `lcmt_schunk_wsg_status` message).
-<<<<<<< HEAD
    * @return The corresponding `sytems::InputPort`.
    */
   const systems::InputPort<double>& get_input_port_wsg_status()
-=======
-   * @return The corresponding `sytems::InputPortDescriptor`.
-   */
-  const systems::InputPortDescriptor<double>& get_input_port_wsg_status()
->>>>>>> intial
       const {
     return this->get_input_port(input_port_wsg_status_);
   }
@@ -53,15 +41,9 @@ class LcmPlanner : public systems::Diagram<double> {
   /**
    * Getter for the input port corresponding to the abstract input with the
    * optitrack message (LCM `optitrack::optitrack_frame_t` message).
-<<<<<<< HEAD
    * @return The corresponding `sytems::InputPort`.
    */
   const systems::InputPort<double>& get_input_port_optitrack_message()
-=======
-   * @return The corresponding `sytems::InputPortDescriptor`.
-   */
-  const systems::InputPortDescriptor<double>& get_input_port_optitrack_message()
->>>>>>> intial
       const {
     return get_input_port(input_port_optitrack_message_);
   }

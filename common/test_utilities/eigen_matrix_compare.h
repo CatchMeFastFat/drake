@@ -59,11 +59,7 @@ template <typename DerivedA, typename DerivedB>
       // Check for case where one value is NaN and the other is not
       if ((isnan(m1(ii, jj)) && !isnan(m2(ii, jj))) ||
           (!isnan(m1(ii, jj)) && isnan(m2(ii, jj)))) {
-<<<<<<< HEAD
         return ::testing::AssertionFailure() << "NaN mismatch at (" << ii
-=======
-        return ::testing::AssertionFailure() << "NaN missmatch at (" << ii
->>>>>>> intial
                                              << ", " << jj << "):\nm1 =\n"
                                              << m1 << "\nm2 =\n"
                                              << m2;

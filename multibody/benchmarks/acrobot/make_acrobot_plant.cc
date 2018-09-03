@@ -14,11 +14,7 @@ using Eigen::Vector3d;
 
 using geometry::Cylinder;
 using geometry::FrameId;
-<<<<<<< HEAD
 using geometry::SceneGraph;
-=======
-using geometry::GeometrySystem;
->>>>>>> intial
 using geometry::Sphere;
 using drake::multibody::multibody_plant::MultibodyPlant;
 using drake::multibody::RevoluteJoint;
@@ -29,14 +25,8 @@ using drake::multibody::UniformGravityFieldElement;
 using drake::multibody::UnitInertia;
 
 std::unique_ptr<drake::multibody::multibody_plant::MultibodyPlant<double>>
-<<<<<<< HEAD
 MakeAcrobotPlant(const AcrobotParameters& params, bool finalize,
                  SceneGraph<double>* scene_graph) {
-=======
-MakeAcrobotPlant(
-    const AcrobotParameters& params, bool finalize,
-    geometry::GeometrySystem<double>* geometry_system) {
->>>>>>> intial
   auto plant = std::make_unique<MultibodyPlant<double>>();
 
   // COM's positions in each link (L1/L2) frame:
@@ -64,30 +54,19 @@ MakeAcrobotPlant(
   const RigidBody<double>& link2 = plant->AddRigidBody(
       params.link2_name(), M2_L2o);
 
-<<<<<<< HEAD
   if (scene_graph != nullptr) {
     plant->RegisterAsSourceForSceneGraph(scene_graph);
-=======
-  if (geometry_system != nullptr) {
-    plant->RegisterAsSourceForGeometrySystem(geometry_system);
->>>>>>> intial
 
     // Pose of the geometry for link 1 in the link's frame.
     const Isometry3d X_L1G1{
         Translation3d(-params.l1() / 2.0 * Vector3d::UnitZ())};
-<<<<<<< HEAD
     plant->RegisterVisualGeometry(link1, X_L1G1,
                                   Cylinder(params.r1(), params.l1()), "visual",
                                   scene_graph);
-=======
-    plant->RegisterVisualGeometry(
-        link1, X_L1G1, Cylinder(params.r1(), params.l1()), geometry_system);
->>>>>>> intial
 
     // Pose of the geometry for link 2 in the link's frame.
     const Isometry3d X_L2G2{
         Translation3d(-params.l2() / 2.0 * Vector3d::UnitZ())};
-<<<<<<< HEAD
     plant->RegisterVisualGeometry(link2, X_L2G2,
                                   Cylinder(params.r2(), params.l2()), "visual",
                                   scene_graph);
@@ -97,17 +76,6 @@ MakeAcrobotPlant(
         plant->world_body(), Isometry3d::Identity(), /* X_WG */
         Sphere(params.l1() / 8.0), /* Arbitrary radius to decorate the model. */
         "visual", scene_graph);
-=======
-    plant->RegisterVisualGeometry(
-        link2, X_L2G2, Cylinder(params.r2(), params.l2()), geometry_system);
-
-    // Register some (anchored) geometry to the world.
-    plant->RegisterVisualGeometry(
-        plant->world_body(),
-        Isometry3d::Identity(), /* X_WG */
-        Sphere(params.l1() / 8.0), /* Arbitrary radius to decorate the model. */
-        geometry_system);
->>>>>>> intial
   }
 
   plant->AddJoint<RevoluteJoint>(
@@ -136,11 +104,7 @@ MakeAcrobotPlant(
       -params.g() * Vector3d::UnitZ());
 
   // We are done creating the plant.
-<<<<<<< HEAD
   if (finalize) plant->Finalize(scene_graph);
-=======
-  if (finalize) plant->Finalize();
->>>>>>> intial
 
   return plant;
 }

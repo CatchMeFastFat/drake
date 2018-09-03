@@ -1,20 +1,15 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_library")
->>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "acrobot",
     deps = [
@@ -25,10 +20,6 @@ drake_cc_package_library(
 
 drake_cc_library(
     name = "analytical_acrobot",
-=======
-drake_cc_library(
-    name = "acrobot",
->>>>>>> intial
     srcs = ["acrobot.cc"],
     hdrs = ["acrobot.h"],
     deps = [
@@ -39,10 +30,6 @@ drake_cc_library(
 
 filegroup(
     name = "models",
-<<<<<<< HEAD
-=======
-    testonly = 1,
->>>>>>> intial
     srcs = glob([
         "**/*.obj",
         "**/*.sdf",
@@ -55,7 +42,6 @@ drake_cc_library(
     name = "make_acrobot_plant",
     srcs = [
         "make_acrobot_plant.cc",
-<<<<<<< HEAD
         "make_acrobot_plant_sdf.cc",
     ],
     hdrs = [
@@ -74,15 +60,6 @@ drake_cc_googletest(
     deps = [
         "//common/test_utilities:eigen_matrix_compare",
         "//multibody/benchmarks/acrobot:make_acrobot_plant",
-=======
-    ],
-    hdrs = [
-        "make_acrobot_plant.h",
-    ],
-    deps = [
-        "//geometry:geometry_system",
-        "//multibody/multibody_tree/multibody_plant",
->>>>>>> intial
     ],
 )
 

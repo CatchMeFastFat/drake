@@ -1,11 +1,7 @@
 #pragma once
-<<<<<<< HEAD
 /// @file
 ///
 /// Provides implementation-details of symbolic expressions.
-=======
-/// @file Provides implementation-details of symbolic expressions.
->>>>>>> intial
 ///
 /// It is strongly discouraged to include and use this header file outside of
 /// drake/common/symbolic_* files. To include this file, you need to define
@@ -265,11 +261,7 @@ class ExpressionNaN : public ExpressionCell {
  */
 class ExpressionAdd : public ExpressionCell {
  public:
-<<<<<<< HEAD
   /** Constructs ExpressionAdd from @p constant_term and @p term_to_coeff_map.
-=======
-  /** Constructs ExpressionAdd from @p constant_term and @term_to_coeff_map.
->>>>>>> intial
    */
   ExpressionAdd(double constant,
                 const std::map<Expression, double>& expr_to_coeff_map);
@@ -317,11 +309,7 @@ class ExpressionAddFactory {
 
   /** Adds @p e to this factory. */
   void AddExpression(const Expression& e);
-<<<<<<< HEAD
   /** Adds ExpressionAdd pointed by @p ptr to this factory. */
-=======
-  /** Adds ExpressionAdd pointed by @ptr to this factory. */
->>>>>>> intial
   void Add(const std::shared_ptr<const ExpressionAdd>& ptr);
   /** Assigns a factory from a shared pointer to ExpressionAdd.  */
   ExpressionAddFactory& operator=(const std::shared_ptr<ExpressionAdd>& ptr);
@@ -424,11 +412,7 @@ class ExpressionMulFactory {
 
   /** Adds @p e to this factory. */
   void AddExpression(const Expression& e);
-<<<<<<< HEAD
   /** Adds ExpressionMul pointed by @p ptr to this factory. */
-=======
-  /** Adds ExpressionMul pointed by @ptr to this factory. */
->>>>>>> intial
   void Add(const std::shared_ptr<const ExpressionMul>& ptr);
   /** Assigns a factory from a shared pointer to ExpressionMul.  */
   ExpressionMulFactory& operator=(const std::shared_ptr<ExpressionMul>& ptr);

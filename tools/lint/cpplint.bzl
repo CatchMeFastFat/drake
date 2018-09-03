@@ -29,17 +29,11 @@ _EXTENSIONS_ARGS = ["--extensions=" + ",".join(
 
 def _extract_labels(srcs):
     """Convert a srcs= or hdrs= value to its set of labels."""
-<<<<<<< HEAD
 
     # Tuples are already labels.
     if type(srcs) == type(()):
         return list(srcs)
 
-=======
-    # Tuples are already labels.
-    if type(srcs) == type(()):
-        return list(srcs)
->>>>>>> intial
     # The select() syntax returns an object we (apparently) can't inspect.
     # TODO(jwnimmer-tri) Figure out how to cpplint these files.  For now,
     # folks will have to pass extra_srcs when calling cpplint() macro.
@@ -67,13 +61,8 @@ def _add_linter_rules(source_labels, source_filenames, name, data = None):
     # root package.  Projects that want to use exactly the Drake defaults can
     # alias Drake's config file into their top-level BUILD.bazel file.)
     cpplint_cfg = ["//:CPPLINT.cfg"] + native.glob([
-<<<<<<< HEAD
         "CPPLINT.cfg",
         "test/CPPLINT.cfg",
-=======
-        'CPPLINT.cfg',
-        'test/CPPLINT.cfg',
->>>>>>> intial
     ])
 
     # Google cpplint.
@@ -84,11 +73,7 @@ def _add_linter_rules(source_labels, source_filenames, name, data = None):
         args = _EXTENSIONS_ARGS + source_filenames,
         main = "@styleguide//:cpplint/cpplint.py",
         size = size,
-<<<<<<< HEAD
         tags = ["cpplint", "lint"],
-=======
-        tags = ["cpplint", "lint"]
->>>>>>> intial
     )
 
     # Additional Drake lint.
@@ -99,11 +84,7 @@ def _add_linter_rules(source_labels, source_filenames, name, data = None):
         args = source_filenames,
         main = "@drake//tools/lint:drakelint.py",
         size = size,
-<<<<<<< HEAD
         tags = ["drakelint", "lint"],
-=======
-        tags = ["drakelint", "lint"]
->>>>>>> intial
     )
 
 def cpplint(existing_rules = None, data = None, extra_srcs = None):
@@ -136,42 +117,28 @@ def cpplint(existing_rules = None, data = None, extra_srcs = None):
             _extract_labels(rule.get("hdrs", ()))
         )
         source_labels = [
-<<<<<<< HEAD
             label
             for label in candidate_labels
-=======
-            label for label in candidate_labels
->>>>>>> intial
             if _is_source_label(label)
         ]
         source_filenames = ["$(location %s)" % x for x in source_labels]
 
         # Run the cpplint checker as a unit test.
         if len(source_filenames) > 0:
-<<<<<<< HEAD
             _add_linter_rules(
                 source_labels,
                 source_filenames,
                 rule["name"],
                 data,
             )
-=======
-            _add_linter_rules(source_labels, source_filenames,
-                              rule["name"], data)
->>>>>>> intial
 
     # Lint all of the extra_srcs separately in a single rule.
     if extra_srcs:
         source_labels = extra_srcs
         source_filenames = ["$(location %s)" % x for x in source_labels]
-<<<<<<< HEAD
         _add_linter_rules(
             source_labels,
             source_filenames,
             "extra_srcs_cpplint",
             data,
         )
-=======
-        _add_linter_rules(source_labels, source_filenames,
-                          "extra_srcs_cpplint", data)
->>>>>>> intial

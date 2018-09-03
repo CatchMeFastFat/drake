@@ -1,18 +1,12 @@
 #include "drake/solvers/gurobi_solver.h"
 
-<<<<<<< HEAD
 #include <thread>
 
-=======
->>>>>>> intial
 #include <gtest/gtest.h>
 
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/solvers/mathematical_program.h"
-<<<<<<< HEAD
 #include "drake/solvers/mixed_integer_optimization_util.h"
-=======
->>>>>>> intial
 #include "drake/solvers/test/linear_program_examples.h"
 #include "drake/solvers/test/quadratic_program_examples.h"
 #include "drake/solvers/test/second_order_cone_program_examples.h"
@@ -242,7 +236,6 @@ TEST_P(TestFindSpringEquilibrium, TestSOCP) {
 INSTANTIATE_TEST_CASE_P(
     GurobiTest, TestFindSpringEquilibrium,
     ::testing::ValuesIn(GetFindSpringEquilibriumProblems()));
-<<<<<<< HEAD
 
 GTEST_TEST(GurobiTest, MultipleThreadsSharingEnvironment) {
   // Running multiple threads of GurobiSolver, they share the same GRBenv
@@ -319,8 +312,3 @@ int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
-=======
-}  // namespace test
-}  // namespace solvers
-}  // namespace drake
->>>>>>> intial

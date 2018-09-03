@@ -119,11 +119,7 @@ namespace test {
     error_message = error_message
                    + "Rotations are different at pitch angle. "
                    + "rot1.pitch(): " + std::to_string(rot1.pitch()) + " vs. "
-<<<<<<< HEAD
                    + "rot2.pitch(): " + std::to_string(rot2.pitch())
-=======
-                   + "rot2.pitch(): " + std::to_string(rot1.pitch())
->>>>>>> intial
                    + ", diff = " + std::to_string(delta) + ", tolerance = "
                    + std::to_string(tolerance) + "\n";
   }
@@ -132,11 +128,7 @@ namespace test {
     fails = true;
     error_message = error_message
                    + "Rotations are different at yaw angle. "
-<<<<<<< HEAD
                    + "rot1.yaw(): " + std::to_string(rot1.yaw()) + " vs. "
-=======
-                   + "rot1.yaw(): " + std::to_string(rot2.yaw()) + " vs. "
->>>>>>> intial
                    + "rot2.yaw(): " + std::to_string(rot2.yaw()) + ", diff = "
                    + std::to_string(delta) + ", tolerance = "
                    + std::to_string(tolerance) + "\n";

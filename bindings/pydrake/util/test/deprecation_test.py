@@ -4,10 +4,7 @@ from pydrake.util.deprecation import DrakeDeprecationWarning
 
 import pydoc
 import unittest
-<<<<<<< HEAD
 import rlcompleter
-=======
->>>>>>> intial
 import sys
 from types import ModuleType
 import warnings
@@ -69,7 +66,6 @@ class TestDeprecation(unittest.TestCase):
         exec "from deprecation_example import *" in temp
         self.assertIsInstance(temp["sub_module"], str)
 
-<<<<<<< HEAD
     def test_module_autocomplete(self):
         # Ensure that we can autocomplete with our example module.
         # Without `__dir__` being implemented, it'll only return `install` as a
@@ -118,14 +114,6 @@ class TestDeprecation(unittest.TestCase):
         if type == DrakeDeprecationWarning:
             message_expected += DrakeDeprecationWarning.addendum
         self.assertEqual(item.message.message, message_expected)
-=======
-    def _check_warning(
-            self, item, message_expected, type=DrakeDeprecationWarning):
-        self.assertEquals(item.category, type)
-        if type == DrakeDeprecationWarning:
-            message_expected += DrakeDeprecationWarning.addendum
-        self.assertEquals(item.message.message, message_expected)
->>>>>>> intial
 
     def test_member_deprecation(self):
         from deprecation_example import ExampleClass
@@ -139,16 +127,11 @@ class TestDeprecation(unittest.TestCase):
         with warnings.catch_warnings(record=True) as w:
             base_deprecation()  # Should not appear.
             obj = ExampleClass()
-<<<<<<< HEAD
             # Call each deprecated method / property repeatedly; it should only
-=======
-            # Call each deprecated method / propery repeatedly; it should only
->>>>>>> intial
             # warn once per unique line of source code.
             # - Method.
             for _ in range(3):
                 method = ExampleClass.deprecated_method
-<<<<<<< HEAD
                 self.assertEqual(obj.deprecated_method(), 1)
                 # The next line will not show a warning.
                 self.assertEqual(method(obj), 1)
@@ -162,21 +145,6 @@ class TestDeprecation(unittest.TestCase):
             self.assertEqual(prop.__doc__, ExampleClass.doc_prop)
             # Check warnings.
             self.assertEqual(len(w), 2)
-=======
-                self.assertEquals(obj.deprecated_method(), 1)
-                # The next line will not show a warning.
-                self.assertEquals(method(obj), 1)
-            self.assertEquals(method.__doc__, ExampleClass.doc_method)
-            # - Property.
-            for _ in range(3):
-                prop = ExampleClass.deprecated_prop
-                self.assertEquals(obj.deprecated_prop, 2)
-                # The next line will not show a warning.
-                self.assertEquals(prop.__get__(obj), 2)
-            self.assertEquals(prop.__doc__, ExampleClass.doc_prop)
-            # Check warnings.
-            self.assertEquals(len(w), 2)
->>>>>>> intial
             self._check_warning(w[0], ExampleClass.message_method)
             self._check_warning(w[1], ExampleClass.message_prop)
 
@@ -195,11 +163,7 @@ class TestDeprecation(unittest.TestCase):
             warnings.simplefilter("default", DeprecationWarning)
             base_deprecation()
             method = ExampleClass.deprecated_method
-<<<<<<< HEAD
             self.assertEqual(len(w), 2)
-=======
-            self.assertEquals(len(w), 2)
->>>>>>> intial
             self._check_warning(
                 w[0], "Non-drake warning", type=DeprecationWarning)
             self._check_warning(w[1], ExampleClass.message_method)
@@ -225,7 +189,6 @@ class TestDeprecation(unittest.TestCase):
             # Manually set this back to `once`.
             warnings.simplefilter("ignored", DeprecationWarning)
             warnings.simplefilter("once", DrakeDeprecationWarning)
-<<<<<<< HEAD
 
     def test_deprecation_pybind(self):
         """Test C++ usage in `deprecation_pybind.h`."""
@@ -247,5 +210,3 @@ class TestDeprecation(unittest.TestCase):
             obj.overload(10)
             self.assertEqual(len(w), 3)
             self._check_warning(w[2], ExampleCppClass.message_overload)
-=======
->>>>>>> intial

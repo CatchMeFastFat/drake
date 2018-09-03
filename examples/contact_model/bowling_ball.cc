@@ -30,15 +30,8 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/common/find_resource.h"
-<<<<<<< HEAD
 #include "drake/geometry/geometry_visualization.h"
 #include "drake/lcm/drake_lcm.h"
-=======
-#include "drake/geometry/geometry_system.h"
-#include "drake/geometry/geometry_visualization.h"
-#include "drake/lcm/drake_lcm.h"
-#include "drake/lcmt_viewer_draw.hpp"
->>>>>>> intial
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/multibody/rigid_body_plant/rigid_body_plant.h"
 #include "drake/multibody/rigid_body_plant/rigid_body_plant_bridge.h"
@@ -46,30 +39,14 @@
 #include "drake/systems/analysis/runge_kutta2_integrator.h"
 #include "drake/systems/analysis/simulator.h"
 #include "drake/systems/framework/diagram_builder.h"
-<<<<<<< HEAD
-=======
-#include "drake/systems/lcm/lcm_publisher_system.h"
-#include "drake/systems/lcm/serializer.h"
-#include "drake/systems/rendering/pose_bundle_to_draw_message.h"
->>>>>>> intial
 
 namespace drake {
 namespace systems {
 
-<<<<<<< HEAD
 using lcm::DrakeLcm;
 using multibody::joints::kQuaternion;
 using Eigen::VectorXd;
 using std::make_unique;
-=======
-using drake::lcm::DrakeLcm;
-using drake::multibody::joints::kQuaternion;
-using Eigen::VectorXd;
-using std::make_unique;
-using systems::lcm::LcmPublisherSystem;
-using systems::lcm::Serializer;
-using systems::rendering::PoseBundleToDrawMessage;
->>>>>>> intial
 
 // Simulation parameters.
 DEFINE_double(v, 12, "The ball's initial linear speed down the lane (m/s)");
@@ -151,7 +128,6 @@ int main() {
   const auto& tree = plant.get_rigid_body_tree();
 
   // TODO(SeanCurtis-TRI): This should be wrapped up into a sugar diagram so
-<<<<<<< HEAD
   // this can be done more concisely. Perhaps bundle a SceneGraph in with
   // all the others and called (something like) SceneGraphWithLcmVisuals.
   auto scene_graph = builder.AddSystem<geometry::SceneGraph<double>>();
@@ -160,32 +136,11 @@ int main() {
   auto rbt_gs_bridge = builder.AddSystem<systems::RigidBodyPlantBridge<double>>(
       &tree, scene_graph);
 
-=======
-  // this can be done more concisely. Perhaps bundle a GeometrySystem in with
-  // all the others and called (something like) GeometrySystemWithLcmVisuals.
-  auto geometry_system = builder.AddSystem<geometry::GeometrySystem<double>>();
-  geometry_system->set_name("geometry_system");
-
-  auto rbt_gs_bridge =
-      builder.AddSystem<systems::RigidBodyPlantBridge<double>>(
-          &tree, geometry_system);
-
-  DrakeLcm lcm;
-
-  PoseBundleToDrawMessage* converter =
-      builder.template AddSystem<PoseBundleToDrawMessage>();
-  LcmPublisherSystem* publisher =
-      builder.template AddSystem<LcmPublisherSystem>(
-          "DRAKE_VIEWER_DRAW",
-  std::make_unique<Serializer<drake::lcmt_viewer_draw>>(), &lcm);
-  publisher->set_publish_period(1 / 60.0);
->>>>>>> intial
 
   builder.Connect(plant.state_output_port(),
                   rbt_gs_bridge->rigid_body_plant_state_input_port());
 
   builder.Connect(
-<<<<<<< HEAD
       rbt_gs_bridge->geometry_pose_output_port(),
       scene_graph->get_source_pose_port(rbt_gs_bridge->source_id()));
 
@@ -205,30 +160,6 @@ int main() {
   simulator.reset_integrator<RungeKutta2Integrator<double>>(*diagram,
                                                             FLAGS_timestep,
                                                             &context);
-=======
-      rbt_gs_bridge->geometry_id_output_port(),
-      geometry_system->get_source_frame_id_port(rbt_gs_bridge->source_id()));
-  builder.Connect(
-      rbt_gs_bridge->geometry_pose_output_port(),
-      geometry_system->get_source_pose_port(rbt_gs_bridge->source_id()));
-
-  builder.Connect(geometry_system->get_pose_bundle_output_port(),
-                  converter->get_input_port(0));
-  builder.Connect(*converter, *publisher);
-
-  // Last thing before building the diagram; dispatch the message to load
-  // geometry.
-  geometry::DispatchLoadMessage(*geometry_system);
-
-  auto diagram = builder.Build();
-
-  // Create simulator.
-  auto simulator = std::make_unique<Simulator<double>>(*diagram);
-  Context<double>& context = simulator->get_mutable_context();
-  simulator->reset_integrator<RungeKutta2Integrator<double>>(*diagram,
-                                                             FLAGS_timestep,
-                                                             &context);
->>>>>>> intial
   // Set initial state.
   Context<double>& plant_context =
       diagram->GetMutableSubsystemContext(plant, &context);
@@ -282,11 +213,7 @@ int main() {
 
   plant.set_state_vector(&plant_context, initial_state);
 
-<<<<<<< HEAD
   simulator.StepTo(FLAGS_sim_duration);
-=======
-  simulator->StepTo(FLAGS_sim_duration);
->>>>>>> intial
 
   return 0;
 }

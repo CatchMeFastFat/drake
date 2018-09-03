@@ -1,9 +1,6 @@
 #pragma once
 
-<<<<<<< HEAD
 #include <functional>
-=======
->>>>>>> intial
 #include <memory>
 
 #include "drake/automotive/maliput/api/junction.h"
@@ -22,28 +19,19 @@ class LineLane;
 /// An api::Segment implementation.
 class Segment : public api::Segment {
  public:
-<<<<<<< HEAD
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Segment);
-=======
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Segment)
->>>>>>> intial
 
   /// Constructs a new Segment.
   ///
   /// The Segment is not fully initialized until one of NewLineLane()
   /// or NewArcLane() is called exactly once.  @p junction must remain
   /// valid for the lifetime of this class.
-<<<<<<< HEAD
   ///
   /// @p register_lane will be called on any new Lane instance created as
   /// a child of the Segment.
   Segment(const api::SegmentId& id, const api::Junction* junction,
           const std::function<void(const api::Lane*)>& register_lane)
       : id_(id), junction_(junction), register_lane_(register_lane) {}
-=======
-  Segment(const api::SegmentId& id, api::Junction* junction)
-      : id_(id), junction_(junction) {}
->>>>>>> intial
 
   /// Gives the segment a newly constructed LineLane.
   LineLane* NewLineLane(api::LaneId id,
@@ -76,12 +64,8 @@ class Segment : public api::Segment {
   const api::Lane* do_lane(int index) const override;
 
   api::SegmentId id_;
-<<<<<<< HEAD
   const api::Junction* junction_{};
   std::function<void(const api::Lane*)> register_lane_;
-=======
-  api::Junction* junction_{};
->>>>>>> intial
   std::unique_ptr<Lane> lane_;
 };
 

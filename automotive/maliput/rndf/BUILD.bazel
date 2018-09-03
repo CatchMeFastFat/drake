@@ -1,32 +1,18 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_binary",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "rndf",
-=======
-drake_cc_library(
-    name = "rndf",
-    srcs = [],
-    hdrs = [],
->>>>>>> intial
     deps = [
         ":builder",
         ":lanes",
@@ -120,10 +106,6 @@ drake_cc_binary(
     test_rule_data = [
         ":test/maps/cross.rndf",
     ],
-<<<<<<< HEAD
-=======
-    test_rule_size = "small",
->>>>>>> intial
     deps = [
         ":loader",
         "//common:text_logging_gflags",

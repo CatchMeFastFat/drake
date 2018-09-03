@@ -8,10 +8,7 @@
 #include "drake/common/default_scalars.h"
 #include "drake/common/drake_assert.h"
 #include "drake/common/symbolic.h"
-<<<<<<< HEAD
 #include "drake/math/roll_pitch_yaw.h"
-=======
->>>>>>> intial
 #include "drake/math/saturate.h"
 
 namespace drake {
@@ -40,11 +37,7 @@ T PurePursuit<T>::Evaluate(const PurePursuitParams<T>& pp_params,
 
   const T x = pose.get_translation().translation().x();
   const T y = pose.get_translation().translation().y();
-<<<<<<< HEAD
   const T heading = math::RollPitchYaw<T>(pose.get_rotation()).yaw_angle();
-=======
-  const T heading = pose.get_rotation().z();
->>>>>>> intial
 
   const T delta_r = -(goal_position.x() - x) * sin(heading) +
                     (goal_position.y() - y) * cos(heading);

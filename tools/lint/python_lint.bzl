@@ -18,11 +18,7 @@ def _python_lint(name_prefix, files, ignore):
         args = (ignore or []) + locations,
         main = "@pycodestyle//:pycodestyle.py",
         srcs_version = "PY2AND3",
-<<<<<<< HEAD
         tags = ["pycodestyle", "lint"],
-=======
-        tags = ["pycodestyle", "lint"]
->>>>>>> intial
     )
 
     # Additional Drake lint.
@@ -33,7 +29,6 @@ def _python_lint(name_prefix, files, ignore):
         data = files,
         args = locations,
         main = "@drake//tools/lint:drakelint.py",
-<<<<<<< HEAD
         tags = ["drakelint", "lint"],
     )
 
@@ -42,13 +37,6 @@ def python_lint(
         ignore = None,
         exclude = None,
         extra_srcs = None):
-=======
-        tags = ["drakelint", "lint"]
-    )
-
-def python_lint(existing_rules = None, ignore = None, exclude = None,
-                extra_srcs = None):
->>>>>>> intial
     """Runs the pycodestyle PEP 8 code style checker on all Python source files
     declared in rules in a BUILD file.  Also runs the drakelint.py linter.
 
@@ -84,15 +72,10 @@ def python_lint(existing_rules = None, ignore = None, exclude = None,
         srcs = rule.get("srcs", ())
         if type(srcs) == type(()):
             files = [
-<<<<<<< HEAD
                 s
                 for s in srcs
                 if s.endswith(".py") and s not in (exclude or [])
             ]
-=======
-                s for s in srcs
-                if s.endswith(".py") and s not in (exclude or [])]
->>>>>>> intial
         else:
             # The select() syntax returns an object we (apparently) can't
             # inspect.  TODO(jwnimmer-tri) Figure out how to lint these files.

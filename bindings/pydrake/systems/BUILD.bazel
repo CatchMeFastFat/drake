@@ -40,7 +40,6 @@ drake_py_library(
     ],
 )
 
-<<<<<<< HEAD
 # N.B. Any C++ libraries that include this must include `cpp_template_py` when
 # being used in Python.
 drake_cc_library(
@@ -52,20 +51,12 @@ drake_cc_library(
         "//bindings/pydrake:symbolic_types_pybind",
         "//bindings/pydrake/util:cpp_template_pybind",
     ],
-=======
-# N.B. Any C++ libraries that include this must include `cpp_template_py`.
-drake_cc_library(
-    name = "systems_pybind",
-    hdrs = ["systems_pybind.h"],
-    deps = ["//bindings/pydrake/util:cpp_template_pybind"],
->>>>>>> intial
 )
 
 drake_pybind_library(
     name = "framework_py",
     cc_deps = [
         ":systems_pybind",
-<<<<<<< HEAD
         "//bindings/pydrake/util:deprecation_pybind",
         "//bindings/pydrake/util:drake_optional_pybind",
         "//bindings/pydrake/util:eigen_pybind",
@@ -87,22 +78,10 @@ drake_pybind_library(
         ":module_py",
         "//bindings/pydrake:autodiffutils_py",
         "//bindings/pydrake:symbolic_py",
-=======
-        "//bindings/pydrake/util:drake_optional_pybind",
-        "//bindings/pydrake/util:eigen_pybind",
-        "//bindings/pydrake/util:type_safe_index_pybind",
-    ],
-    cc_so_name = "framework",
-    cc_srcs = ["framework_py.cc"],
-    package_info = PACKAGE_INFO,
-    py_deps = [
-        ":module_py",
->>>>>>> intial
         "//bindings/pydrake/util:cpp_template_py",
     ],
 )
 
-<<<<<<< HEAD
 drake_py_library(
     name = "scalar_conversion_py",
     srcs = ["scalar_conversion.py"],
@@ -115,11 +94,6 @@ drake_pybind_library(
     name = "primitives_py",
     cc_deps = [
         ":systems_pybind",
-=======
-drake_pybind_library(
-    name = "primitives_py",
-    cc_deps = [
->>>>>>> intial
         "//bindings/pydrake/util:drake_optional_pybind",
     ],
     cc_so_name = "primitives",
@@ -133,12 +107,9 @@ drake_pybind_library(
 
 drake_pybind_library(
     name = "analysis_py",
-<<<<<<< HEAD
     cc_deps = [
         ":systems_pybind",
     ],
-=======
->>>>>>> intial
     cc_so_name = "analysis",
     cc_srcs = ["analysis_py.cc"],
     package_info = PACKAGE_INFO,
@@ -152,11 +123,7 @@ drake_pybind_library(
     name = "controllers_py",
     cc_deps = [
         "//bindings/pydrake:symbolic_types_pybind",
-<<<<<<< HEAD
         "//bindings/pydrake/util:wrap_pybind",
-=======
-        "//bindings/pydrake/util:wrap_function",
->>>>>>> intial
     ],
     cc_so_name = "controllers",
     cc_srcs = ["controllers_py.cc"],
@@ -231,7 +198,6 @@ drake_py_library(
     deps = [":module_py"],
 )
 
-<<<<<<< HEAD
 drake_pybind_library(
     name = "lcm_py",
     cc_deps = [
@@ -256,16 +222,11 @@ drake_py_unittest(
     ],
 )
 
-=======
->>>>>>> intial
 PY_LIBRARIES_WITH_INSTALL = [
     ":analysis_py",
     ":controllers_py",
     ":framework_py",
-<<<<<<< HEAD
     ":lcm_py",
-=======
->>>>>>> intial
     ":primitives_py",
     ":rendering_py",
     ":sensors_py",
@@ -299,10 +260,6 @@ install(
 
 drake_py_unittest(
     name = "general_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":analysis_py",
         ":framework_py",
@@ -349,10 +306,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "custom_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":analysis_py",
         ":framework_py",
@@ -363,10 +316,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "value_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":framework_py",
         ":test_util_py",
@@ -375,7 +324,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "controllers_test",
-<<<<<<< HEAD
     data = [
         "//manipulation/models/iiwa_description:models",
     ],
@@ -383,39 +331,22 @@ drake_py_unittest(
         ":controllers_py",
         "//bindings/pydrake/examples:pendulum_py",
         "//bindings/pydrake/multibody:rigid_body_tree_py",
-=======
-    size = "small",
-    deps = [
-        ":controllers_py",
-        "//bindings/pydrake/examples:pendulum_py",
->>>>>>> intial
     ],
 )
 
 drake_py_unittest(
     name = "primitives_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":analysis_py",
         ":framework_py",
         ":primitives_py",
         ":test_util_py",
-<<<<<<< HEAD
         "//bindings/pydrake:trajectories_py",
-=======
->>>>>>> intial
     ],
 )
 
 drake_py_unittest(
     name = "rendering_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":rendering_py",
         "//bindings/pydrake/multibody:multibody_tree_py",
@@ -423,7 +354,6 @@ drake_py_unittest(
 )
 
 drake_py_unittest(
-<<<<<<< HEAD
     name = "scalar_conversion_test",
     deps = [
         ":framework_py",
@@ -433,10 +363,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "sensors_test",
-=======
-    name = "sensors_test",
-    size = "small",
->>>>>>> intial
     data = [
         "//systems/sensors:test_models",
     ],
@@ -447,10 +373,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "trajectory_optimization_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":trajectory_optimization_py",
         "//bindings/pydrake/examples:pendulum_py",

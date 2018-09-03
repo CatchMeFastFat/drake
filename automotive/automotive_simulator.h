@@ -291,11 +291,7 @@ class AutomotiveSimulator {
   /// @pre Build() and BuildandInitialize() have NOT been called.
   void Build();
 
-<<<<<<< HEAD
   /// Builds the Diagram and initializes the Diagram Context to the predefined
-=======
-  /// Builds the Diagram and intializes the Diagram Context to the predefined
->>>>>>> intial
   /// initial states.
   ///
   /// @pre Build() and BuildandInitialize() have NOT been called.

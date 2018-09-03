@@ -2,15 +2,9 @@
 
 load(
     "//tools:drake.bzl",
-<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
-=======
-    "drake_cc_library",
-    "drake_cc_binary",
-    "drake_cc_googletest",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -43,38 +37,25 @@ drake_cc_library(
 drake_cc_binary(
     name = "multi_arm_with_gripper_demo",
     srcs = ["multi_arm_with_gripper_demo.cc"],
-<<<<<<< HEAD
     add_test_rule = 1,
-=======
->>>>>>> intial
     data = [
         "//examples/kuka_iiwa_arm:models",
         "//manipulation/models/iiwa_description:models",
         "//manipulation/models/wsg_50_description:models",
     ],
-<<<<<<< HEAD
     test_rule_args = ["--simulation_sec=0.01"],
     deps = [
         "//common:text_logging_gflags",
         "//examples/kuka_iiwa_arm:iiwa_common",
         "//lcm",
         "//manipulation/schunk_wsg",
-=======
-    deps = [
-        "//examples/kuka_iiwa_arm:iiwa_common",
-        "//lcm",
-        "//manipulation/schunk_wsg:schunk_wsg_constants",
->>>>>>> intial
         "//manipulation/util:sim_diagram_builder",
         "//manipulation/util:world_sim_tree_builder",
         "//systems/analysis",
         "//systems/controllers:inverse_dynamics_controller",
         "//systems/controllers:pid_controller",
         "//systems/primitives:trajectory_source",
-<<<<<<< HEAD
         "@gflags",
-=======
->>>>>>> intial
         "@lcmtypes_bot2_core",
         "@lcmtypes_robotlocomotion",
     ],

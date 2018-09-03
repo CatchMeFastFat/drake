@@ -5,19 +5,13 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
-=======
->>>>>>> intial
 #include "drake/common/test_utilities/is_dynamic_castable.h"
 #include "drake/examples/pendulum/pendulum_plant.h"
 #include "drake/systems/analysis/test_utilities/stateless_system.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/diagram_builder.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
->>>>>>> intial
 #include "drake/systems/framework/leaf_system.h"
 #include "drake/systems/framework/output_port.h"
 #include "drake/systems/framework/test_utilities/pack_value.h"
@@ -275,7 +269,6 @@ GTEST_TEST(EmptySystemDiagramTest, CheckPeriodicTriggerDiscreteUpdate) {
   }
 }
 
-<<<<<<< HEAD
 /* This Diagram contains a sub-Diagram with one of its input ports unconnected.
 This is a specialized test to cover a case that was otherwise missed -- a
 Diagram has an input port that is neither exported nor fixed.
@@ -360,8 +353,6 @@ GTEST_TEST(BadDiagramTest, UnconnectedInsideInputPort) {
   EXPECT_EQ(value1, nullptr);
 }
 
-=======
->>>>>>> intial
 /* ExampleDiagram has the following structure:
 adder0_: (input0_ + input1_) -> A
 adder1_: (A + input2_)       -> B, output 0
@@ -478,20 +469,12 @@ class DiagramTest : public ::testing::Test {
     diagram_->set_name("Unicode Snowman's Favorite Diagram!!1!☃!");
 
     context_ = diagram_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = diagram_->AllocateOutput();
 
     // Make sure caching is on locally, even if it is off by default.
     // Do not remove this line; we want to show that these tests function
     // correctly with caching on. It is easier to pass with caching off!
     context_->EnableCaching();
-=======
-    output_ = diagram_->AllocateOutput(*context_);
-
-    input0_ = BasicVector<double>::Make({1, 2, 4});
-    input1_ = BasicVector<double>::Make({8, 16, 32});
-    input2_ = BasicVector<double>::Make({64, 128, 256});
->>>>>>> intial
 
     // Initialize the integrator states.
     auto& integrator0_xc = GetMutableContinuousState(integrator0());
@@ -548,15 +531,9 @@ class DiagramTest : public ::testing::Test {
   }
 
   void AttachInputs() {
-<<<<<<< HEAD
     context_->FixInputPort(0, input0_);
     context_->FixInputPort(1, input1_);
     context_->FixInputPort(2, input2_);
-=======
-    context_->FixInputPort(0, std::move(input0_));
-    context_->FixInputPort(1, std::move(input1_));
-    context_->FixInputPort(2, std::move(input2_));
->>>>>>> intial
   }
 
   Adder<double>* adder0() { return diagram_->adder0(); }
@@ -567,15 +544,9 @@ class DiagramTest : public ::testing::Test {
 
   std::unique_ptr<ExampleDiagram> diagram_;
 
-<<<<<<< HEAD
   const BasicVector<double> input0_{1, 2, 4};
   const BasicVector<double> input1_{8, 16, 32};
   const BasicVector<double> input2_{64, 128, 256};
-=======
-  std::unique_ptr<BasicVector<double>> input0_;
-  std::unique_ptr<BasicVector<double>> input1_;
-  std::unique_ptr<BasicVector<double>> input2_;
->>>>>>> intial
 
   std::unique_ptr<Context<double>> context_;
   std::unique_ptr<SystemOutput<double>> output_;
@@ -596,17 +567,10 @@ TEST_F(DiagramTest, Witness) {
 TEST_F(DiagramTest, Topology) {
   ASSERT_EQ(kSize, diagram_->get_num_input_ports());
   for (int i = 0; i < kSize; ++i) {
-<<<<<<< HEAD
     const auto& input_port = diagram_->get_input_port(i);
     EXPECT_EQ(diagram_.get(), input_port.get_system());
     EXPECT_EQ(kVectorValued, input_port.get_data_type());
     EXPECT_EQ(kSize, input_port.size());
-=======
-    const auto& descriptor = diagram_->get_input_port(i);
-    EXPECT_EQ(diagram_.get(), descriptor.get_system());
-    EXPECT_EQ(kVectorValued, descriptor.get_data_type());
-    EXPECT_EQ(kSize, descriptor.size());
->>>>>>> intial
   }
 
   ASSERT_EQ(kSize, diagram_->get_num_output_ports());
@@ -631,7 +595,6 @@ TEST_F(DiagramTest, Topology) {
   }
 }
 
-<<<<<<< HEAD
 // Tests that dependency wiring is set up correctly between
 //  1. input ports and their source output ports,
 //  2. diagram output ports and their source leaf output ports,
@@ -713,11 +676,6 @@ TEST_F(DiagramTest, Path) {
   // Just the root.
   EXPECT_EQ("::Unicode Snowman's Favorite Diagram!!1!☃!",
             diagram_->GetSystemPathname());
-=======
-TEST_F(DiagramTest, Path) {
-  const std::string path = adder0()->GetPath();
-  EXPECT_EQ("::Unicode Snowman's Favorite Diagram!!1!☃!::adder0", path);
->>>>>>> intial
 }
 
 TEST_F(DiagramTest, Graphviz) {
@@ -777,7 +735,6 @@ TEST_F(DiagramTest, CalcOutput) {
   ExpectDefaultOutputs();
 }
 
-<<<<<<< HEAD
 // Tests that Diagram output ports are built with the right prerequisites
 // and that Eval caches as expected.
 TEST_F(DiagramTest, EvalOutput) {
@@ -796,8 +753,6 @@ TEST_F(DiagramTest, EvalOutput) {
   }
 }
 
-=======
->>>>>>> intial
 TEST_F(DiagramTest, CalcTimeDerivatives) {
   AttachInputs();
   std::unique_ptr<ContinuousState<double>> derivatives =
@@ -834,15 +789,11 @@ TEST_F(DiagramTest, AllocateInputs) {
     EXPECT_EQ(vec, nullptr);
   }
 
-<<<<<<< HEAD
   // Also check that abstract evaluation returns nullptr.
   const AbstractValue* value = diagram_->EvalAbstractInput(*context, 0);
   EXPECT_EQ(value, nullptr);
 
   diagram_->AllocateFixedInputs(context.get());
-=======
-  diagram_->AllocateFreestandingInputs(context.get());
->>>>>>> intial
 
   for (int port = 0; port < 3; port++) {
     const BasicVector<double>* vec = diagram_->EvalVectorInput(*context, port);
@@ -851,7 +802,6 @@ TEST_F(DiagramTest, AllocateInputs) {
   }
 }
 
-<<<<<<< HEAD
 // Tests that ContextBase methods for affecting cache behavior propagate
 // through to subcontexts. Since leaf output ports have cache entries in their
 // corresponding subcontext, we'll pick one and check its behavior.
@@ -885,20 +835,13 @@ TEST_F(DiagramTest, CachingChangePropagation) {
 }
 
 // Tests that a diagram can be transmogrified to AutoDiffXd.
-=======
-/// Tests that a diagram can be transmogrified to AutoDiffXd.
->>>>>>> intial
 TEST_F(DiagramTest, ToAutoDiffXd) {
   std::unique_ptr<System<AutoDiffXd>> ad_diagram =
       diagram_->ToAutoDiffXd();
   std::unique_ptr<Context<AutoDiffXd>> context =
       ad_diagram->CreateDefaultContext();
   std::unique_ptr<SystemOutput<AutoDiffXd>> output =
-<<<<<<< HEAD
       ad_diagram->AllocateOutput();
-=======
-      ad_diagram->AllocateOutput(*context);
->>>>>>> intial
 
   // The name was preserved.
   EXPECT_EQ(diagram_->get_name(), ad_diagram->get_name());
@@ -909,7 +852,6 @@ TEST_F(DiagramTest, ToAutoDiffXd) {
   /// adder2_: (A + B)             -> output 1
   /// integrator1_: A              -> C
   /// integrator2_: C              -> output 2
-<<<<<<< HEAD
   BasicVector<AutoDiffXd> input0(3);
   BasicVector<AutoDiffXd> input1(3);
   BasicVector<AutoDiffXd> input2(3);
@@ -924,22 +866,6 @@ TEST_F(DiagramTest, ToAutoDiffXd) {
   context->FixInputPort(0, input0);
   context->FixInputPort(1, input1);
   context->FixInputPort(2, input2);
-=======
-  auto input0 = std::make_unique<BasicVector<AutoDiffXd>>(3);
-  auto input1 = std::make_unique<BasicVector<AutoDiffXd>>(3);
-  auto input2 = std::make_unique<BasicVector<AutoDiffXd>>(3);
-  for (int i = 0; i < 3; ++i) {
-    (*input0)[i].value() = 1 + 0.1 * i;
-    (*input0)[i].derivatives() = Eigen::VectorXd::Unit(9, i);
-    (*input1)[i].value() = 2 + 0.2 * i;
-    (*input1)[i].derivatives() = Eigen::VectorXd::Unit(9, 3 + i);
-    (*input2)[i].value() = 3 + 0.3 * i;
-    (*input2)[i].derivatives() = Eigen::VectorXd::Unit(9, 6 + i);
-  }
-  context->FixInputPort(0, std::move(input0));
-  context->FixInputPort(1, std::move(input1));
-  context->FixInputPort(2, std::move(input2));
->>>>>>> intial
 
   ad_diagram->CalcOutput(*context, output.get());
   ASSERT_EQ(kSize, output->get_num_ports());
@@ -997,15 +923,9 @@ TEST_F(DiagramTest, ToSymbolic) {
 // Tests that the same diagram can be evaluated into the same output with
 // different contexts interchangeably.
 TEST_F(DiagramTest, Clone) {
-<<<<<<< HEAD
   context_->FixInputPort(0, input0_);
   context_->FixInputPort(1, input1_);
   context_->FixInputPort(2, input2_);
-=======
-  context_->FixInputPort(0, std::move(input0_));
-  context_->FixInputPort(1, std::move(input1_));
-  context_->FixInputPort(2, std::move(input2_));
->>>>>>> intial
 
   // Compute the output with the default inputs and sanity-check it.
   diagram_->CalcOutput(*context_, output_.get());
@@ -1014,14 +934,8 @@ TEST_F(DiagramTest, Clone) {
   // Create a clone of the context and change an input.
   auto clone = context_->Clone();
 
-<<<<<<< HEAD
   DRAKE_DEMAND(kSize == 3);
   clone->FixInputPort(0, {3, 6, 9});
-=======
-  auto next_input_0 = std::make_unique<BasicVector<double>>(kSize);
-  next_input_0->get_mutable_value() << 3, 6, 9;
-  clone->FixInputPort(0, std::move(next_input_0));
->>>>>>> intial
 
   // Recompute the output and check the values.
   diagram_->CalcOutput(*clone, output_.get());
@@ -1081,7 +995,6 @@ class DiagramOfDiagramsTest : public ::testing::Test {
     diagram_->set_name("DiagramOfDiagrams");
 
     context_ = diagram_->CreateDefaultContext();
-<<<<<<< HEAD
 
     // Make sure caching is on locally, even if it is off by default.
     // Do not remove this line; we want to show that these tests function
@@ -1093,17 +1006,6 @@ class DiagramOfDiagramsTest : public ::testing::Test {
     context_->FixInputPort(0, {8});
     context_->FixInputPort(1, {64});
     context_->FixInputPort(2, {512});
-=======
-    output_ = diagram_->AllocateOutput(*context_);
-
-    input0_ = BasicVector<double>::Make({8});
-    input1_ = BasicVector<double>::Make({64});
-    input2_ = BasicVector<double>::Make({512});
-
-    context_->FixInputPort(0, std::move(input0_));
-    context_->FixInputPort(1, std::move(input1_));
-    context_->FixInputPort(2, std::move(input2_));
->>>>>>> intial
 
     // Initialize the integrator states.
     Context<double>& d0_context =
@@ -1138,13 +1040,6 @@ class DiagramOfDiagramsTest : public ::testing::Test {
   ExampleDiagram* subdiagram0_ = nullptr;
   ExampleDiagram* subdiagram1_ = nullptr;
 
-<<<<<<< HEAD
-=======
-  std::unique_ptr<BasicVector<double>> input0_;
-  std::unique_ptr<BasicVector<double>> input1_;
-  std::unique_ptr<BasicVector<double>> input2_;
-
->>>>>>> intial
   std::unique_ptr<Context<double>> context_;
   std::unique_ptr<SystemOutput<double>> output_;
 };
@@ -1162,7 +1057,6 @@ TEST_F(DiagramOfDiagramsTest, Graphviz) {
   EXPECT_NE(std::string::npos, dot.find("_" + id0 + "_y0 -> _" + id1 + "_u0"));
 }
 
-<<<<<<< HEAD
 // Tests that a diagram composed of diagrams can be evaluated, and gives
 // correct answers with caching enabled.
 TEST_F(DiagramOfDiagramsTest, EvalOutput) {
@@ -1172,11 +1066,6 @@ TEST_F(DiagramOfDiagramsTest, EvalOutput) {
   EXPECT_EQ(diagram_->EvalVectorInput(*context_, 1)->GetAtIndex(0), 64.);
   EXPECT_EQ(diagram_->EvalVectorInput(*context_, 2)->GetAtIndex(0), 512.);
 
-=======
-// Tests that a diagram composed of diagrams can be evaluated.
-TEST_F(DiagramOfDiagramsTest, EvalOutput) {
-  diagram_->CalcOutput(*context_, output_.get());
->>>>>>> intial
   // The outputs of subsystem0_ are:
   //   output0 = 8 + 64 + 512 = 584
   //   output1 = output0 + 8 + 64 = 656
@@ -1186,7 +1075,6 @@ TEST_F(DiagramOfDiagramsTest, EvalOutput) {
   //   output0 = 584 + 656 + 9 = 1249
   //   output1 = output0 + 584 + 656 = 2489
   //   output2 = 81 (state of integrator1_)
-<<<<<<< HEAD
   EXPECT_EQ(1249, diagram_->get_output_port(0).
       Eval<BasicVector<double>>(*context_).GetAtIndex(0));
   EXPECT_EQ(2489, diagram_->get_output_port(1).
@@ -1228,11 +1116,6 @@ TEST_F(DiagramOfDiagramsTest, EvalOutput) {
       Eval<BasicVector<double>>(*context_).GetAtIndex(0));
   EXPECT_EQ(81, diagram_->get_output_port(2).
       Eval<BasicVector<double>>(*context_).GetAtIndex(0));
-=======
-  EXPECT_EQ(1249, output_->get_vector_data(0)->get_value().x());
-  EXPECT_EQ(2489, output_->get_vector_data(1)->get_value().x());
-  EXPECT_EQ(81, output_->get_vector_data(2)->get_value().x());
->>>>>>> intial
 }
 
 TEST_F(DiagramOfDiagramsTest, DirectFeedthrough) {
@@ -1275,22 +1158,11 @@ class AddConstantDiagram : public Diagram<double> {
 GTEST_TEST(DiagramSubclassTest, TwelvePlusSevenIsNineteen) {
   AddConstantDiagram plus_seven(7.0);
   auto context = plus_seven.CreateDefaultContext();
-<<<<<<< HEAD
   auto output = plus_seven.AllocateOutput();
   ASSERT_TRUE(context != nullptr);
   ASSERT_TRUE(output != nullptr);
 
   context->FixInputPort(0, {12.0});
-=======
-  auto output = plus_seven.AllocateOutput(*context);
-  ASSERT_TRUE(context != nullptr);
-  ASSERT_TRUE(output != nullptr);
-
-  auto vec = std::make_unique<BasicVector<double>>(1 /* size */);
-  vec->get_mutable_value() << 12.0;
-  context->FixInputPort(0, std::move(vec));
-
->>>>>>> intial
   plus_seven.CalcOutput(*context, output.get());
 
   ASSERT_EQ(1, output->get_num_ports());
@@ -1469,19 +1341,11 @@ class Reduce : public LeafSystem<double> {
                                   &Reduce::CalcFeedthrough);
   }
 
-<<<<<<< HEAD
   const systems::InputPort<double>& get_sink_input() {
     return this->get_input_port(sink_input_);
   }
 
   const systems::InputPort<double>& get_feedthrough_input() {
-=======
-  const systems::InputPortDescriptor<double>& get_sink_input() {
-    return this->get_input_port(sink_input_);
-  }
-
-  const systems::InputPortDescriptor<double>& get_feedthrough_input() {
->>>>>>> intial
     return this->get_input_port(feedthrough_input_);
   }
 
@@ -1761,13 +1625,8 @@ class DiscreteStateTest : public ::testing::Test {
  public:
   void SetUp() override {
     context_ = diagram_.CreateDefaultContext();
-<<<<<<< HEAD
     context_->FixInputPort(0, {17.0});
     context_->FixInputPort(1, {23.0});
-=======
-    context_->FixInputPort(0, BasicVector<double>::Make({17.0}));
-    context_->FixInputPort(1, BasicVector<double>::Make({23.0}));
->>>>>>> intial
   }
 
  protected:
@@ -1881,10 +1740,7 @@ class SystemWithAbstractState : public LeafSystem<double> {
  public:
   SystemWithAbstractState(int id, double update_period) : id_(id) {
     DeclarePeriodicUnrestrictedUpdate(update_period, 0);
-<<<<<<< HEAD
     DeclareAbstractState(AbstractValue::Make<double>(id_));
-=======
->>>>>>> intial
 
     // Verify that no periodic discrete updates are registered.
     EXPECT_FALSE(this->GetUniquePeriodicDiscreteUpdateAttribute());
@@ -1892,15 +1748,6 @@ class SystemWithAbstractState : public LeafSystem<double> {
 
   ~SystemWithAbstractState() override {}
 
-<<<<<<< HEAD
-=======
-  std::unique_ptr<AbstractValues> AllocateAbstractState() const override {
-    std::vector<std::unique_ptr<AbstractValue>> values;
-    values.push_back({PackValue<double>(id_)});
-    return std::make_unique<AbstractValues>(std::move(values));
-  }
-
->>>>>>> intial
   // Abstract state is set to time + id.
   void DoCalcUnrestrictedUpdate(
       const Context<double>& context,
@@ -2082,16 +1929,12 @@ class NestedDiagramContextTest : public ::testing::Test {
     big_diagram_ = big_diagram_builder.Build();
     big_diagram_->set_name("big_diagram");
     big_context_ = big_diagram_->CreateDefaultContext();
-<<<<<<< HEAD
     big_output_ = big_diagram_->AllocateOutput();
 
     // Make sure caching is on locally, even if it is off by default.
     // Do not remove this line; we want to show that these tests function
     // correctly with caching on. It is easier to pass with caching off!
     big_context_->EnableCaching();
-=======
-    big_output_ = big_diagram_->AllocateOutput(*big_context_);
->>>>>>> intial
   }
 
   Integrator<double>* integrator0_;
@@ -2212,7 +2055,6 @@ TEST_F(NestedDiagramContextTest, GetSubsystemState) {
   EXPECT_EQ(big_output_->get_vector_data(3)->GetAtIndex(0), 4);
 }
 
-<<<<<<< HEAD
 // Tests that ContextBase methods for affecting cache behavior propagate
 // all the way through a nested Diagram. Since leaf output ports have cache
 // entries in their corresponding subcontext, we'll pick one at the bottom
@@ -2415,8 +2257,6 @@ GTEST_TEST(MutateSubcontextTest, DiagramRecalculatesOnSubcontextChange) {
       ".*set_accuracy.*Accuracy change allowed only.*root.*");
 }
 
-=======
->>>>>>> intial
 // Tests that an exception is thrown if the systems in a Diagram do not have
 // unique names.
 GTEST_TEST(NonUniqueNamesTest, NonUniqueNames) {
@@ -2820,11 +2660,7 @@ GTEST_TEST(DiagramConstraintTest, SystemConstraintsTest) {
 }
 
 GTEST_TEST(DiagramParametersTest, ParameterTest) {
-<<<<<<< HEAD
   // Construct a diagram with multiple subsystems that have parameters.
-=======
-  // Construct a diagram with multiple subsytems that have parameters.
->>>>>>> intial
   systems::DiagramBuilder<double> builder;
   auto pendulum1 =
       builder.AddSystem<examples::pendulum::PendulumPlant<double>>();

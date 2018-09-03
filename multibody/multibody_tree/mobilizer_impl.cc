@@ -2,11 +2,7 @@
 
 #include <memory>
 
-<<<<<<< HEAD
 #include "drake/common/default_scalars.h"
-=======
-#include "drake/common/autodiff.h"
->>>>>>> intial
 #include "drake/multibody/multibody_tree/body_node_impl.h"
 
 namespace drake {
@@ -20,7 +16,6 @@ std::unique_ptr<internal::BodyNode<T>> MobilizerImpl<T, nq, nv>::CreateBodyNode(
                                                              body, mobilizer);
 }
 
-<<<<<<< HEAD
 // Helper classes to aid the explicit instantiation with macro
 // DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS(), which
 // expects a template class as an argument.
@@ -48,18 +43,3 @@ DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS(
     class ::drake::multibody::MobilizerImpl3x3)
 DRAKE_DEFINE_CLASS_TEMPLATE_INSTANTIATIONS_ON_DEFAULT_SCALARS(
     class ::drake::multibody::MobilizerImpl7x6)
-=======
-// Macro used to explicitly instantiate implementations on all sizes needed.
-#define EXPLICITLY_INSTANTIATE_IMPLS(T) \
-template class MobilizerImpl<T, 1, 1>; \
-template class MobilizerImpl<T, 2, 2>; \
-template class MobilizerImpl<T, 3, 3>; \
-template class MobilizerImpl<T, 7, 6>;
-
-// Explicitly instantiates on the most common scalar types.
-EXPLICITLY_INSTANTIATE_IMPLS(double);
-EXPLICITLY_INSTANTIATE_IMPLS(AutoDiffXd);
-
-}  // namespace multibody
-}  // namespace drake
->>>>>>> intial

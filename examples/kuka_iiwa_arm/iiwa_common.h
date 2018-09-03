@@ -8,10 +8,6 @@
 
 #include "drake/common/eigen_types.h"
 #include "drake/common/trajectories/piecewise_polynomial.h"
-<<<<<<< HEAD
-=======
-#include "drake/multibody/rigid_body_ik.h"
->>>>>>> intial
 #include "drake/multibody/rigid_body_tree.h"
 
 namespace drake {
@@ -44,11 +40,7 @@ void VerifyIiwaTree(const RigidBodyTree<double>& tree);
 
 /// Builds a RigidBodyTree at the specified @position and @orientation from
 /// the model specified by @model_file_name.
-<<<<<<< HEAD
 /// This method is a convenience wrapper over `AddModelInstanceFromUrdfFile`.
-=======
-/// This method is a convinience wrapper over `AddModelInstanceFromUrdfFile`.
->>>>>>> intial
 /// @see drake::parsers::urdf::AddModelInstanceFromUrdfFile
 void CreateTreedFromFixedModelAtPose(
     const std::string& model_file_name, RigidBodyTreed* tree,
@@ -60,13 +52,10 @@ void SetPositionControlledIiwaGains(Eigen::VectorXd* Kp,
                                     Eigen::VectorXd* Ki,
                                     Eigen::VectorXd* Kd);
 
-<<<<<<< HEAD
 /// Used to set the feedback gains for the simulated torque controlled KUKA.
 void SetTorqueControlledIiwaGains(Eigen::VectorXd* stiffness,
                                   Eigen::VectorXd* damping_ratio);
 
-=======
->>>>>>> intial
 /// Scales a plan so that no step exceeds the robot's maximum joint velocities.
 /// The number of columns in @p keyframes must match the size of @p time.  Times
 /// must be in strictly increasing order.

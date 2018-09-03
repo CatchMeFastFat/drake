@@ -14,10 +14,7 @@ namespace drake {
 namespace symbolic {
 
 using std::accumulate;
-<<<<<<< HEAD
 using std::logic_error;
-=======
->>>>>>> intial
 using std::make_pair;
 using std::map;
 using std::ostream;
@@ -81,7 +78,6 @@ map<Variable, int> ToMonomialPower(const Expression& e) {
   }
   return powers;
 }
-<<<<<<< HEAD
 
 // Converts a pair of variables and their integer exponents into an internal
 // representation of Monomial class, a mapping from a base (Variable) to its
@@ -109,10 +105,6 @@ Monomial::Monomial(const Eigen::Ref<const VectorX<Variable>>& vars,
     : total_degree_{exponents.sum()},
       powers_{ToMonomialPower(vars, exponents)} {}
 
-=======
-}  // namespace
-
->>>>>>> intial
 Monomial::Monomial(const Variable& var) : total_degree_{1}, powers_{{var, 1}} {}
 
 Monomial::Monomial(const Variable& var, const int exponent)
@@ -130,11 +122,7 @@ Monomial::Monomial(const map<Variable, int>& powers)
     if (exponent > 0) {
       powers_.insert(p);
     } else if (exponent < 0) {
-<<<<<<< HEAD
       throw std::logic_error("The exponent is negative.");
-=======
-      throw std::runtime_error("The exponent is negative.");
->>>>>>> intial
     }
     // Ignore the entry if exponent == 0.
   }
@@ -161,7 +149,6 @@ Variables Monomial::GetVariables() const {
 }
 
 bool Monomial::operator==(const Monomial& m) const {
-<<<<<<< HEAD
   // The first test below checks the number of factors in each monomial, e.g., x
   // * y^2 * z^3 differs from x * y^2 due to a different number of factors. x *
   // y^2 * z^3 and x * y^2 * z^7 have the same number of factors and this first
@@ -182,9 +169,6 @@ bool Monomial::operator==(const Monomial& m) const {
     }
   }
   return true;
-=======
-  return powers_ == m.powers_;
->>>>>>> intial
 }
 
 bool Monomial::operator!=(const Monomial& m) const { return !(*this == m); }

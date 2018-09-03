@@ -10,10 +10,7 @@
 #include "drake/automotive/maliput/multilane/road_curve.h"
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
-<<<<<<< HEAD
 #include "drake/common/drake_optional.h"
-=======
->>>>>>> intial
 
 namespace drake {
 namespace maliput {
@@ -70,36 +67,24 @@ std::ostream& operator<<(std::ostream& out, const EndpointXy& endpoint_xy);
 ///  - theta: superelevation (rotation of road surface around r = 0 centerline;
 ///           when theta > 0, elevation at r > 0 is above elevation at r < 0)
 ///  - theta_dot: rate of change of superelevation with respect to arc length
-<<<<<<< HEAD
 ///               of the reference path. It is optional because it may be
 ///               unknown when building a RoadGeometry and the Builder may need
 ///               to adjust it to force the same orientation for all r at a
 ///               certain s coordinate of the Segment surface.
-=======
-///               of the reference path
->>>>>>> intial
 class EndpointZ {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(EndpointZ)
   // Constructs an EndpointZ with all zero parameters.
   EndpointZ() = default;
 
-<<<<<<< HEAD
   EndpointZ(double z, double z_dot, double theta, optional<double> theta_dot)
-=======
-  EndpointZ(double z, double z_dot, double theta, double theta_dot)
->>>>>>> intial
       : z_(z), z_dot_(z_dot), theta_(theta), theta_dot_(theta_dot) {}
 
   /// Returns an EndpointZ with reversed direction.
   ///
   /// Reversing direction is equivalent to rotating s (and along with it, r)
   /// around the h-axis by 180 degrees, thus flipping the signs of z_dot
-<<<<<<< HEAD
   /// and theta. theta_dot will remain the same.
-=======
-  /// and theta.
->>>>>>> intial
   EndpointZ reverse() const {
     return EndpointZ(z_, -z_dot_, -theta_, theta_dot_);
   }
@@ -110,24 +95,16 @@ class EndpointZ {
 
   double theta() const { return theta_; }
 
-<<<<<<< HEAD
   const optional<double>& theta_dot() const { return theta_dot_; }
 
   optional<double>& get_mutable_theta_dot() { return theta_dot_; }
-=======
-  double theta_dot() const { return theta_dot_; }
->>>>>>> intial
 
  private:
   double z_{};
   double z_dot_{};
 
   double theta_{};
-<<<<<<< HEAD
   optional<double> theta_dot_{};
-=======
-  double theta_dot_{};
->>>>>>> intial
 };
 
 /// Streams a string representation of `endpoint_z` into `out`. Returns
@@ -158,11 +135,8 @@ class Endpoint {
   /// aspects.
   const EndpointZ& z() const { return z_; }
 
-<<<<<<< HEAD
   EndpointZ& get_mutable_z() { return z_; }
 
-=======
->>>>>>> intial
  private:
   EndpointXy xy_;
   EndpointZ z_;
@@ -173,7 +147,6 @@ class Endpoint {
 /// text-logging. It is not intended for serialization.
 std::ostream& operator<<(std::ostream& out, const Endpoint& endpoint);
 
-<<<<<<< HEAD
 /// Specification for path offset along a line.
 ///  * length: length of the line, which must be nonnegative.
 class LineOffset {
@@ -197,8 +170,6 @@ class LineOffset {
 /// It is not intended for serialization.
 std::ostream& operator<<(std::ostream& out, const LineOffset& line_offset);
 
-=======
->>>>>>> intial
 /// Specification for path offset along a circular arc.
 ///  * radius: radius of the arc, which must be positive
 ///  * d_theta:  angle of arc segment (Δθ)
@@ -252,20 +223,12 @@ class Connection {
   /// Constructs a line-segment connection.
   ///
   /// Segment's reference curve begins at `start` and extends on the plane
-<<<<<<< HEAD
   /// z=0 `line_offset.length()` distance with `start.xy().heading()` heading
   /// angle.
   /// `end_z` will be used to build elevation and superelevation information of
   /// the road.
   ///
   /// `line_offset` holds the length of the line.
-=======
-  /// z=0 `line_length` distance with `start.xy().heading()` heading angle.
-  /// `end_z` will be used to build elevation and superelevation information of
-  /// the road.
-  ///
-  /// `line_length` must be non negative.
->>>>>>> intial
   ///
   /// Segments will contain `num_lanes` lanes, which must be greater than zero.
   /// First Lane centerline will be placed at `r0` distance from the reference
@@ -275,7 +238,6 @@ class Connection {
   /// `left_shoulder` and `right_shoulder` are extra spaces added to the right
   /// and left side of the first and last lanes of the Segment. They will be
   /// added to Segment's bounds and must be greater or equal to zero.
-<<<<<<< HEAD
   ///
   /// `scale_length` constrains the maximum level of detail captured by the
   /// underlying RoadCurve.
@@ -287,12 +249,6 @@ class Connection {
              double lane_width, double left_shoulder, double right_shoulder,
              const LineOffset& line_offset, double linear_tolerance,
              double scale_length, ComputationPolicy computation_policy);
-=======
-  Connection(const std::string& id, const Endpoint& start,
-             const EndpointZ& end_z, int num_lanes, double r0,
-             double lane_width, double left_shoulder, double right_shoulder,
-             double line_length);
->>>>>>> intial
 
   /// Constructs an arc-segment connection.
   ///
@@ -313,7 +269,6 @@ class Connection {
   /// `left_shoulder` and `right_shoulder` are extra spaces added to the right
   /// and left side of the first and last lanes of the Segment. They will be
   /// added to Segment's bounds and must be greater or equal to zero.
-<<<<<<< HEAD
   ///
   /// `linear_tolerance` applies to all RoadCurve-level computations. It must be
   /// positive.
@@ -328,12 +283,6 @@ class Connection {
              double lane_width, double left_shoulder, double right_shoulder,
              const ArcOffset& arc_offset, double linear_tolerance,
              double scale_length, ComputationPolicy computation_policy);
-=======
-  Connection(const std::string& id, const Endpoint& start,
-             const EndpointZ& end_z, int num_lanes, double r0,
-             double lane_width, double left_shoulder, double right_shoulder,
-             const ArcOffset& arc_offset);
->>>>>>> intial
 
   /// Returns the geometric type of the path.
   Type type() const { return type_; }
@@ -398,7 +347,6 @@ class Connection {
   /// Segment.
   double r_max() const { return r_max_; }
 
-<<<<<<< HEAD
   /// Returns the linear tolerance, in meters, that applies to RoadCurve
   /// instances as constructed by this Connection. Refer to RoadCurve class
   /// documentation for further details.
@@ -414,8 +362,6 @@ class Connection {
   /// for further details.
   ComputationPolicy computation_policy() const { return computation_policy_; }
 
-=======
->>>>>>> intial
   /// Returns an Endpoint describing the start of the `lane_index` lane.
   Endpoint LaneStart(int lane_index) const;
 
@@ -437,12 +383,9 @@ class Connection {
   const double right_shoulder_{};
   const double r_min_{};
   const double r_max_{};
-<<<<<<< HEAD
   const double linear_tolerance_{};
   const double scale_length_{};
   const ComputationPolicy computation_policy_;
-=======
->>>>>>> intial
   std::unique_ptr<RoadCurve> road_curve_;
   // Bits specific to type_ == kLine:
   double line_length_{};

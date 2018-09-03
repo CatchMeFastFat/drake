@@ -11,11 +11,7 @@ from pydrake.multibody.rigid_body_tree import (
     RigidBodyFrame,
     )
 from pydrake.systems.framework import (
-<<<<<<< HEAD
     InputPort,
-=======
-    InputPortDescriptor,
->>>>>>> intial
     OutputPort,
     Value,
     )
@@ -45,7 +41,6 @@ class TestSensors(unittest.TestCase):
     def test_image_traits(self):
         # Test instantiations of ImageTraits<>.
         t = mut.ImageTraits[pt.kRgba8U]
-<<<<<<< HEAD
         self.assertEqual(t.kNumChannels, 4)
         self.assertEqual(t.ChannelType, np.uint8)
         self.assertEqual(t.kPixelFormat, pf.kRgba)
@@ -59,40 +54,19 @@ class TestSensors(unittest.TestCase):
         self.assertEqual(t.kNumChannels, 1)
         self.assertEqual(t.ChannelType, np.int16)
         self.assertEqual(t.kPixelFormat, pf.kLabel)
-=======
-        self.assertEquals(t.kNumChannels, 4)
-        self.assertEquals(t.ChannelType, np.uint8)
-        self.assertEquals(t.kPixelFormat, pf.kRgba)
-
-        t = mut.ImageTraits[pt.kDepth32F]
-        self.assertEquals(t.kNumChannels, 1)
-        self.assertEquals(t.ChannelType, np.float32)
-        self.assertEquals(t.kPixelFormat, pf.kDepth)
-
-        t = mut.ImageTraits[pt.kLabel16I]
-        self.assertEquals(t.kNumChannels, 1)
-        self.assertEquals(t.ChannelType, np.int16)
-        self.assertEquals(t.kPixelFormat, pf.kLabel)
->>>>>>> intial
 
     def test_image_types(self):
         # Test instantiations of Image<>.
         for pixel_type, image_type_alias in (
                 zip(pixel_types, image_type_aliases)):
             ImageT = mut.Image[pixel_type]
-<<<<<<< HEAD
             self.assertEqual(ImageT.Traits, mut.ImageTraits[pixel_type])
             self.assertEqual(ImageT, image_type_alias)
-=======
-            self.assertEquals(ImageT.Traits, mut.ImageTraits[pixel_type])
-            self.assertEquals(ImageT, image_type_alias)
->>>>>>> intial
 
             w = 640
             h = 480
             nc = ImageT.Traits.kNumChannels
             image = ImageT(w, h)
-<<<<<<< HEAD
             self.assertEqual(image.width(), w)
             self.assertEqual(image.height(), h)
             self.assertEqual(image.size(), h * w * nc)
@@ -101,16 +75,6 @@ class TestSensors(unittest.TestCase):
             self.assertEqual(image.shape, (h, w, nc))
             self.assertEqual(image.data.shape, image.shape)
             self.assertEqual(image.data.dtype, ImageT.Traits.ChannelType)
-=======
-            self.assertEquals(image.width(), w)
-            self.assertEquals(image.height(), h)
-            self.assertEquals(image.size(), h * w * nc)
-            # N.B. Since `shape` is a custom-Python extension, it's defined as
-            # a property (not a function).
-            self.assertEquals(image.shape, (h, w, nc))
-            self.assertEquals(image.data.shape, image.shape)
-            self.assertEquals(image.data.dtype, ImageT.Traits.ChannelType)
->>>>>>> intial
 
             w /= 2
             h /= 2
@@ -118,11 +82,7 @@ class TestSensors(unittest.TestCase):
             # `image.data` will cause `image.data` + `image.mutable_data` to be
             # invalid.
             image.resize(w, h)
-<<<<<<< HEAD
             self.assertEqual(image.shape, (h, w, nc))
-=======
-            self.assertEquals(image.shape, (h, w, nc))
->>>>>>> intial
 
     def test_image_data(self):
         # Test data mapping.
@@ -136,21 +96,13 @@ class TestSensors(unittest.TestCase):
             nc = ImageT.Traits.kNumChannels
 
             # Test default initialization.
-<<<<<<< HEAD
             self.assertEqual(image.at(0, 0)[0], channel_default)
-=======
-            self.assertEquals(image.at(0, 0)[0], channel_default)
->>>>>>> intial
             self.assertTrue(np.allclose(image.data, channel_default))
 
             # Test pixel / channel mutation and access.
             image.at(0, 0)[0] = 2
             # - Also test named arguments.
-<<<<<<< HEAD
             self.assertEqual(image.at(x=0, y=0)[0], 2)
-=======
-            self.assertEquals(image.at(x=0, y=0)[0], 2)
->>>>>>> intial
 
             bad_coords = [
                 # Bad X
@@ -174,20 +126,12 @@ class TestSensors(unittest.TestCase):
 
             # Test numpy views, access and mutation.
             image.mutable_data[:] = 3
-<<<<<<< HEAD
             self.assertEqual(image.at(0, 0)[0], 3)
-=======
-            self.assertEquals(image.at(0, 0)[0], 3)
->>>>>>> intial
             self.assertTrue(np.allclose(image.data, 3))
             self.assertTrue(np.allclose(image.mutable_data, 3))
 
             # Ensure that each dimension of the image array is unique.
-<<<<<<< HEAD
             self.assertEqual(len(set(image.shape)), 3)
-=======
-            self.assertEquals(len(set(image.shape)), 3)
->>>>>>> intial
             # Ensure indices match as expected. Fill each channel at each pixel
             # with unique values, and ensure that pixel / channels map
             # appropriately.
@@ -229,30 +173,17 @@ class TestSensors(unittest.TestCase):
         ]
 
         for info in infos:
-<<<<<<< HEAD
             self.assertEqual(info.width(), width)
             self.assertEqual(info.height(), height)
             self.assertEqual(info.focal_x(), focal_x)
             self.assertEqual(info.focal_y(), focal_y)
             self.assertEqual(info.center_x(), center_x)
             self.assertEqual(info.center_y(), center_y)
-=======
-            self.assertEquals(info.width(), width)
-            self.assertEquals(info.height(), height)
-            self.assertEquals(info.focal_x(), focal_x)
-            self.assertEquals(info.focal_y(), focal_y)
-            self.assertEquals(info.center_x(), center_x)
-            self.assertEquals(info.center_y(), center_y)
->>>>>>> intial
             self.assertTrue(
                 (info.intrinsic_matrix() == intrinsic_matrix).all())
 
     def _check_input(self, value):
-<<<<<<< HEAD
         self.assertIsInstance(value, InputPort)
-=======
-        self.assertIsInstance(value, InputPortDescriptor)
->>>>>>> intial
 
     def _check_output(self, value):
         self.assertIsInstance(value, OutputPort)
@@ -275,7 +206,6 @@ class TestSensors(unittest.TestCase):
         frame = RigidBodyFrame("rgbd camera frame", tree.FindBody("link"))
         tree.addFrame(frame)
 
-<<<<<<< HEAD
         # Use HDTV size.
         width = 1280
         height = 720
@@ -293,24 +223,11 @@ class TestSensors(unittest.TestCase):
 
         check_info(camera.color_camera_info())
         check_info(camera.depth_camera_info())
-=======
-        camera = mut.RgbdCamera(
-            name="camera", tree=tree, frame=frame,
-            z_near=0.5, z_far=5.0,
-            fov_y=np.pi / 4, show_window=False)
-
-        self.assertIsInstance(camera.color_camera_info(), mut.CameraInfo)
-        self.assertIsInstance(camera.depth_camera_info(), mut.CameraInfo)
->>>>>>> intial
         self.assertIsInstance(camera.color_camera_optical_pose(), Isometry3)
         self.assertIsInstance(camera.depth_camera_optical_pose(), Isometry3)
         self.assertTrue(camera.tree() is tree)
         # N.B. `RgbdCamera` copies the input frame.
-<<<<<<< HEAD
         self.assertEqual(camera.frame().get_name(), frame.get_name())
-=======
-        self.assertEquals(camera.frame().get_name(), frame.get_name())
->>>>>>> intial
         self._check_ports(camera)
 
         # Test discrete camera.
@@ -319,11 +236,7 @@ class TestSensors(unittest.TestCase):
             camera=camera, period=period, render_label_image=True)
         self.assertTrue(discrete.camera() is camera)
         self.assertTrue(discrete.mutable_camera() is camera)
-<<<<<<< HEAD
         self.assertEqual(discrete.period(), period)
-=======
-        self.assertEquals(discrete.period(), period)
->>>>>>> intial
         self._check_ports(discrete)
 
         # That we can access the state as images.

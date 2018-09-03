@@ -36,11 +36,7 @@ class PurePursuitControllerTest : public ::testing::Test {
     // Initialize PurePursuitController with the dragway.
     dut_.reset(new PurePursuitController<double>());
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
   }
 
   // Create poses for one ego car and two traffic cars.
@@ -72,7 +68,6 @@ class PurePursuitControllerTest : public ::testing::Test {
 
 TEST_F(PurePursuitControllerTest, Topology) {
   ASSERT_EQ(2, dut_->get_num_input_ports());
-<<<<<<< HEAD
   const auto& lane_input_port =
       dut_->get_input_port(dut_->lane_input().get_index());
   EXPECT_EQ(systems::kAbstractValued, lane_input_port.get_data_type());
@@ -80,15 +75,6 @@ TEST_F(PurePursuitControllerTest, Topology) {
       dut_->get_input_port(dut_->ego_pose_input().get_index());
   EXPECT_EQ(systems::kVectorValued, ego_input_port.get_data_type());
   EXPECT_EQ(7 /* PoseVector input */, ego_input_port.size());
-=======
-  const auto& lane_input_descriptor =
-      dut_->get_input_port(dut_->lane_input().get_index());
-  EXPECT_EQ(systems::kAbstractValued, lane_input_descriptor.get_data_type());
-  const auto& ego_input_descriptor =
-      dut_->get_input_port(dut_->ego_pose_input().get_index());
-  EXPECT_EQ(systems::kVectorValued, ego_input_descriptor.get_data_type());
-  EXPECT_EQ(7 /* PoseVector input */, ego_input_descriptor.size());
->>>>>>> intial
 
   ASSERT_EQ(1, dut_->get_num_output_ports());
   const auto& command_output_port =
@@ -100,11 +86,7 @@ TEST_F(PurePursuitControllerTest, Topology) {
 TEST_F(PurePursuitControllerTest, ToAutoDiff) {
   EXPECT_TRUE(is_autodiffxd_convertible(*dut_, [&](const auto& other_dut) {
     auto other_context = other_dut.CreateDefaultContext();
-<<<<<<< HEAD
     auto other_output = other_dut.AllocateOutput();
-=======
-    auto other_output = other_dut.AllocateOutput(*other_context);
->>>>>>> intial
     auto other_derivatives = other_dut.AllocateTimeDerivatives();
 
     other_context->FixInputPort(dut_->lane_input().get_index(),

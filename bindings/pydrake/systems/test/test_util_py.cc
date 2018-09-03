@@ -5,24 +5,15 @@
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/bindings/pydrake/systems/systems_pybind.h"
 #include "drake/systems/framework/basic_vector.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/leaf_system.h"
 #include "drake/systems/framework/vector_system.h"
-=======
-#include "drake/systems/framework/vector_system.h"
-#include "drake/systems/primitives/constant_vector_source.h"
->>>>>>> intial
 
 using std::unique_ptr;
 
 namespace drake {
 
 using systems::BasicVector;
-<<<<<<< HEAD
 using systems::LeafSystem;
-=======
-using systems::ConstantVectorSource;
->>>>>>> intial
 
 namespace pydrake {
 namespace {
@@ -30,17 +21,10 @@ namespace {
 using T = double;
 
 // Informs listener when this class is deleted.
-<<<<<<< HEAD
 class DeleteListenerSystem : public LeafSystem<T> {
  public:
   explicit DeleteListenerSystem(std::function<void()> delete_callback)
       : LeafSystem<T>(),
-=======
-class DeleteListenerSystem : public ConstantVectorSource<T> {
- public:
-  explicit DeleteListenerSystem(std::function<void()> delete_callback)
-    : ConstantVectorSource(VectorX<T>::Constant(1, 0.)),
->>>>>>> intial
       delete_callback_(delete_callback) {}
 
   ~DeleteListenerSystem() override {
@@ -105,11 +89,7 @@ PYBIND11_MODULE(test_util, m) {
   py::module::import("pydrake.systems.framework");
   py::module::import("pydrake.systems.primitives");
 
-<<<<<<< HEAD
   py::class_<DeleteListenerSystem, LeafSystem<T>>(
-=======
-  py::class_<DeleteListenerSystem, ConstantVectorSource<T>>(
->>>>>>> intial
       m, "DeleteListenerSystem")
     .def(py::init<std::function<void()>>());
   py::class_<DeleteListenerVector, BasicVector<T>>(
@@ -154,15 +134,12 @@ PYBIND11_MODULE(test_util, m) {
       results["has_direct_feedthrough"] = system.HasDirectFeedthrough(0, 0);
     }
     {
-<<<<<<< HEAD
       // Call `CalcTimeDerivatives` to test `DoCalcTimeDerivatives`
       auto& state = context->get_mutable_continuous_state();
       ContinuousState<T> state_copy(clone_vector(state.get_vector()));
       system.CalcTimeDerivatives(*context, &state_copy);
     }
     {
-=======
->>>>>>> intial
       // Call `CalcDiscreteVariableUpdates` to test
       // `DoCalcDiscreteVariableUpdates`.
       auto& state = context->get_mutable_discrete_state();
@@ -203,11 +180,7 @@ PYBIND11_MODULE(test_util, m) {
           state.CopyToVector() + dt * state_dot.CopyToVector());
     }
     // Calculate output.
-<<<<<<< HEAD
     auto output = system.AllocateOutput();
-=======
-    auto output = system.AllocateOutput(*context);
->>>>>>> intial
     system.CalcOutput(*context, output.get());
     return output;
   });

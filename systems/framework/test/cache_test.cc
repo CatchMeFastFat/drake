@@ -160,17 +160,13 @@ class CacheTest : public ::testing::Test {
   const DependencyTicket time_ticket_{internal::kTimeTicket};
   const DependencyTicket z_ticket_{internal::kZTicket};
   const DependencyTicket xc_ticket_{internal::kXcTicket};
-<<<<<<< HEAD
   const DependencyTicket xcdot_ticket_{internal::kXcdotTicket};
-=======
->>>>>>> intial
   const DependencyTicket all_sources_ticket_{internal::kAllSourcesTicket};
   DependencyTicket next_ticket_{internal::kNextAvailableTicket};
 
   CacheIndex next_cache_index_{cache().cache_size()};
 };
 
-<<<<<<< HEAD
 // Normally creating a new CacheEntryValue creates a new DependencyTracker to
 // manage it. However, for well-known cached objects like the time derivatives
 // cache entry xcdot, the tracker is created during Context construction and
@@ -203,8 +199,6 @@ TEST_F(CacheTest, CanAssociateExistingTrackerWithNewCacheEntry) {
             &xcdot_value);
 }
 
-=======
->>>>>>> intial
 // Check that SetInitialValue works and fails properly.
 TEST_F(CacheTest, SetInitialValueWorks) {
   // Check that a value got set properly. (Others are checked below.)

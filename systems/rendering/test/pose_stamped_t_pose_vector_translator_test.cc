@@ -24,11 +24,7 @@ class PoseStampedTPoseVectorTranslatorTest : public ::testing::Test {
         dut_(frame_name_),
         actual_pose_vector_(new PoseVector<double>()) {
     const Eigen::Translation<double, 3> position(1., 2., 3.);
-<<<<<<< HEAD
     // This is from RollPitchYaw(PI / 3, PI / 2, PI / 4)::ToQuaternion().
-=======
-    // This is from rpy2quat(PI / 3, PI / 2, PI / 4).
->>>>>>> intial
     const Eigen::Quaterniond orientation(
         0.70105738464997791048, 0.09229595564125714358,
         0.70105738464997791048, -0.09229595564125722684);

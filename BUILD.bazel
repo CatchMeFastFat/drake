@@ -40,7 +40,6 @@ py_library(
     srcs = ["__init__.py"],
 )
 
-<<<<<<< HEAD
 # Expose shared library for (a) installed binaries, (b) Drake Python bindings,
 # and (c) downstream C++ libraries which will also provide Python bindings.
 alias(
@@ -49,8 +48,6 @@ alias(
     visibility = ["//visibility:public"],
 )
 
-=======
->>>>>>> intial
 _INSTALL_TEST_COMMANDS = "install_test_commands"
 
 install(

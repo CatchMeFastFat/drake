@@ -15,11 +15,7 @@ namespace internal {
 /// For internal use only of the MultibodyTree implementation.
 /// While all code that is common to any node can be placed in the BodyNode
 /// class, %BodyNodeImpl provides compile-time fixed-size BodyNode
-<<<<<<< HEAD
 /// implementations so that all operations can be performed with fixed-size
-=======
-/// implementations so that all operations can be perfomed with fixed-size
->>>>>>> intial
 /// stack-allocated Eigen variables.
 /// In particular, most of the across mobilizer code for velocity kinematics
 /// lives in this class since the across mobilizer Jacobian matrices `H_FM(q)`

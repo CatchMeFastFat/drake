@@ -22,12 +22,8 @@ namespace acrobot {
 ///
 /// Instantiated templates for the following kinds of T's are provided:
 /// - double
-<<<<<<< HEAD
 /// - drake::AutoDiffXd
 /// - symbolic::Expression
-=======
-/// - AutoDiffXd
->>>>>>> intial
 template <typename T>
 class AcrobotPlant : public systems::LeafSystem<T> {
  public:

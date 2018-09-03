@@ -1,10 +1,7 @@
 #include "drake/solvers/constraint.h"
 
 #include <cmath>
-<<<<<<< HEAD
 #include <limits>
-=======
->>>>>>> intial
 #include <unordered_map>
 
 #include "drake/math/matrix_util.h"
@@ -15,7 +12,6 @@ using std::abs;
 namespace drake {
 namespace solvers {
 
-<<<<<<< HEAD
 namespace {
 // Returns `True` if lb is -∞. Otherwise returns a symbolic formula `lb <= e`.
 symbolic::Formula MakeLowerBound(const double lb,
@@ -199,115 +195,18 @@ bool LinearComplementarityConstraint::DoCheckSatisfied(
   // Check: x >= 0 && Mx + q >= 0 && x'(Mx + q) == 0
   Eigen::VectorXd y(num_constraints());
   DoEval(x, &y);
-=======
-void QuadraticConstraint::DoEval(const Eigen::Ref<const Eigen::VectorXd> &x,
-                                 Eigen::VectorXd &y) const {
-  y.resize(num_constraints());
-  y = .5 * x.transpose() * Q_ * x + b_.transpose() * x;
-}
-
-void QuadraticConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd> &x,
-                                 AutoDiffVecXd &y) const {
-  y.resize(num_constraints());
-  y = .5 * x.transpose() * Q_.cast<AutoDiffXd>() * x +
-      b_.cast<AutoDiffXd>().transpose() * x;
-}
-
-void LorentzConeConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
-  Eigen::VectorXd z = A_ * x + b_;
-  y.resize(num_constraints());
-  y(0) = z(0);
-  y(1) = pow(z(0), 2) - z.tail(z.size() - 1).squaredNorm();
-}
-
-void LorentzConeConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd> &x,
-                                   AutoDiffVecXd &y) const {
-  AutoDiffVecXd z = A_.cast<AutoDiffXd>() * x + b_.cast<AutoDiffXd>();
-  y.resize(num_constraints());
-  y(0) = z(0);
-  y(1) = pow(z(0), 2) - z.tail(z.size() - 1).squaredNorm();
-}
-
-void RotatedLorentzConeConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
-  Eigen::VectorXd z = A_ * x + b_;
-  y.resize(num_constraints());
-  y(0) = z(0);
-  y(1) = z(1);
-  y(2) = z(0) * z(1) - z.tail(z.size() - 2).squaredNorm();
-}
-
-void RotatedLorentzConeConstraint::DoEval(
-    const Eigen::Ref<const AutoDiffVecXd> &x, AutoDiffVecXd &y) const {
-  AutoDiffVecXd z = A_.cast<AutoDiffXd>() * x + b_.cast<AutoDiffXd>();
-  y.resize(num_constraints());
-  y(0) = z(0);
-  y(1) = z(1);
-  y(2) = z(0) * z(1) - z.tail(z.size() - 2).squaredNorm();
-}
-
-void LinearConstraint::DoEval(const Eigen::Ref<const Eigen::VectorXd> &x,
-                              Eigen::VectorXd &y) const {
-  y.resize(num_constraints());
-  y = A_ * x;
-}
-void LinearConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd> &x,
-                              AutoDiffVecXd &y) const {
-  y.resize(num_constraints());
-  y = A_.cast<AutoDiffXd>() * x;
-}
-
-void BoundingBoxConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
-  y.resize(num_constraints());
-  y = x;
-}
-void BoundingBoxConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd> &x,
-                                   AutoDiffVecXd &y) const {
-  y.resize(num_constraints());
-  y = x;
-}
-
-void LinearComplementarityConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
-  y.resize(num_constraints());
-  y = (M_ * x) + q_;
-}
-
-void LinearComplementarityConstraint::DoEval(
-    const Eigen::Ref<const AutoDiffVecXd> &x, AutoDiffVecXd &y) const {
-  y.resize(num_constraints());
-  y = (M_.cast<AutoDiffXd>() * x) + q_.cast<AutoDiffXd>();
-}
-
-bool LinearComplementarityConstraint::DoCheckSatisfied(
-    const Eigen::Ref<const Eigen::VectorXd> &x,
-    const double tol) const {
-  // Check: x >= 0 && Mx + q >= 0 && x'(Mx + q) == 0
-  Eigen::VectorXd y(num_constraints());
-  DoEval(x, y);
->>>>>>> intial
   return (x.array() > -tol).all() && (y.array() > -tol).all() &&
          (abs(x.dot(y)) < tol);
 }
 
 bool LinearComplementarityConstraint::DoCheckSatisfied(
-<<<<<<< HEAD
     const Eigen::Ref<const AutoDiffVecXd>& x, const double tol) const {
   AutoDiffVecXd y(num_constraints());
   DoEval(x, &y);
-=======
-    const Eigen::Ref<const AutoDiffVecXd> &x,
-    const double tol) const {
-  AutoDiffVecXd y(num_constraints());
-  DoEval(x, y);
->>>>>>> intial
   return (x.array() > -tol).all() && (y.array() > -tol).all() &&
          (abs(x.dot(y)) < tol);
 }
 
-<<<<<<< HEAD
 symbolic::Formula LinearComplementarityConstraint::DoCheckSatisfied(
     const Eigen::Ref<const VectorX<symbolic::Variable>>& x) const {
   VectorX<symbolic::Expression> y(num_constraints());
@@ -329,10 +228,6 @@ symbolic::Formula LinearComplementarityConstraint::DoCheckSatisfied(
 
 void PositiveSemidefiniteConstraint::DoEval(
     const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::VectorXd* y) const {
-=======
-void PositiveSemidefiniteConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
->>>>>>> intial
   DRAKE_ASSERT(x.rows() == num_constraints() * num_constraints());
   Eigen::MatrixXd S(num_constraints(), num_constraints());
 
@@ -344,26 +239,16 @@ void PositiveSemidefiniteConstraint::DoEval(
 
   // This uses the lower diagonal part of S to compute the eigen values.
   Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> eigen_solver(S);
-<<<<<<< HEAD
   *y = eigen_solver.eigenvalues();
 }
 
 void PositiveSemidefiniteConstraint::DoEval(
     const Eigen::Ref<const AutoDiffVecXd>&, AutoDiffVecXd*) const {
   throw std::logic_error(
-=======
-  y = eigen_solver.eigenvalues();
-}
-
-void PositiveSemidefiniteConstraint::DoEval(
-    const Eigen::Ref<const AutoDiffVecXd>&, AutoDiffVecXd&) const {
-  throw std::runtime_error(
->>>>>>> intial
       "The Eval function for positive semidefinite constraint is not defined, "
       "since the eigen solver does not work for AutoDiffScalar.");
 }
 
-<<<<<<< HEAD
 void PositiveSemidefiniteConstraint::DoEval(
     const Eigen::Ref<const VectorX<symbolic::Variable>>&,
     VectorX<symbolic::Expression>*) const {
@@ -374,36 +259,22 @@ void PositiveSemidefiniteConstraint::DoEval(
 
 void LinearMatrixInequalityConstraint::DoEval(
     const Eigen::Ref<const Eigen::VectorXd>& x, Eigen::VectorXd* y) const {
-=======
-void LinearMatrixInequalityConstraint::DoEval(
-    const Eigen::Ref<const Eigen::VectorXd> &x, Eigen::VectorXd &y) const {
->>>>>>> intial
   DRAKE_ASSERT(x.rows() == static_cast<int>(F_.size()) - 1);
   Eigen::MatrixXd S = F_[0];
   for (int i = 1; i < static_cast<int>(F_.size()); ++i) {
     S += x(i - 1) * F_[i];
   }
   Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> eigen_solver(S);
-<<<<<<< HEAD
   *y = eigen_solver.eigenvalues();
 }
 
 void LinearMatrixInequalityConstraint::DoEval(
     const Eigen::Ref<const AutoDiffVecXd>&, AutoDiffVecXd*) const {
   throw std::logic_error(
-=======
-  y = eigen_solver.eigenvalues();
-}
-
-void LinearMatrixInequalityConstraint::DoEval(
-    const Eigen::Ref<const AutoDiffVecXd>&, AutoDiffVecXd&) const {
-  throw std::runtime_error(
->>>>>>> intial
       "The Eval function for positive semidefinite constraint is not defined, "
       "since the eigen solver does not work for AutoDiffScalar.");
 }
 
-<<<<<<< HEAD
 void LinearMatrixInequalityConstraint::DoEval(
     const Eigen::Ref<const VectorX<symbolic::Variable>>&,
     VectorX<symbolic::Expression>*) const {
@@ -412,8 +283,6 @@ void LinearMatrixInequalityConstraint::DoEval(
       "since the eigen solver does not work for symbolic::Expression.");
 }
 
-=======
->>>>>>> intial
 LinearMatrixInequalityConstraint::LinearMatrixInequalityConstraint(
     const std::vector<Eigen::Ref<const Eigen::MatrixXd>>& F,
     double symmetry_tolerance)
@@ -453,11 +322,7 @@ ExpressionConstraint::ExpressionConstraint(
 }
 
 void ExpressionConstraint::DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
                                   Eigen::VectorXd* y) const {
-=======
-                                  Eigen::VectorXd& y) const {
->>>>>>> intial
   DRAKE_DEMAND(x.rows() == vars_.rows());
 
   // Set environment with current x values.
@@ -466,24 +331,14 @@ void ExpressionConstraint::DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
   }
 
   // Evaluate into the output, y.
-<<<<<<< HEAD
   y->resize(num_constraints());
   for (int i = 0; i < num_constraints(); i++) {
     (*y)[i] = expressions_[i].Evaluate(environment_);
-=======
-  y.resize(num_constraints());
-  for (int i = 0; i < num_constraints(); i++) {
-    y[i] = expressions_[i].Evaluate(environment_);
->>>>>>> intial
   }
 }
 
 void ExpressionConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-<<<<<<< HEAD
                                   AutoDiffVecXd* y) const {
-=======
-                                  AutoDiffVecXd& y) const {
->>>>>>> intial
   DRAKE_DEMAND(x.rows() == vars_.rows());
 
   // Set environment with current x values.
@@ -493,40 +348,24 @@ void ExpressionConstraint::DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
 
   // Evaluate value and derivatives into the output, y.
   // Using ∂yᵢ/∂zⱼ = ∑ₖ ∂fᵢ/∂xₖ ∂xₖ/∂zⱼ.
-<<<<<<< HEAD
   y->resize(num_constraints());
   Eigen::VectorXd dyidx(x.size());
   for (int i = 0; i < num_constraints(); i++) {
     (*y)[i].value() = expressions_[i].Evaluate(environment_);
-=======
-  y.resize(num_constraints());
-  Eigen::VectorXd dyidx(x.size());
-  for (int i = 0; i < num_constraints(); i++) {
-    y[i].value() = expressions_[i].Evaluate(environment_);
->>>>>>> intial
     for (int k = 0; k < x.size(); k++) {
       dyidx[k] = derivatives_(i, k).Evaluate(environment_);
     }
 
-<<<<<<< HEAD
     (*y)[i].derivatives().resize(x(0).derivatives().size());
     for (int j = 0; j < x(0).derivatives().size(); j++) {
       (*y)[i].derivatives()[j] = 0.0;
       for (int k = 0; k < x.size(); k++) {
         (*y)[i].derivatives()[j] += dyidx[k] * x(k).derivatives()[j];
-=======
-    y[i].derivatives().resize(x(0).derivatives().size());
-    for (int j = 0; j < x(0).derivatives().size(); j++) {
-      y[i].derivatives()[j] = 0.0;
-      for (int k = 0; k < x.size(); k++) {
-        y[i].derivatives()[j] += dyidx[k] * x(k).derivatives()[j];
->>>>>>> intial
       }
     }
   }
 }
 
-<<<<<<< HEAD
 void ExpressionConstraint::DoEval(
     const Eigen::Ref<const VectorX<symbolic::Variable>>& x,
     VectorX<symbolic::Expression>* y) const {
@@ -547,7 +386,5 @@ void ExpressionConstraint::DoEval(
   }
 }
 
-=======
->>>>>>> intial
 }  // namespace solvers
 }  // namespace drake

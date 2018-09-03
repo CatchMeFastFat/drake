@@ -7,11 +7,7 @@ namespace maliput {
 namespace monolane {
 
 BranchPoint::BranchPoint(const api::BranchPointId& id,
-<<<<<<< HEAD
                          const api::RoadGeometry* road_geometry)
-=======
-                         api::RoadGeometry* road_geometry)
->>>>>>> intial
     : id_(id), road_geometry_(road_geometry) {}
 
 const api::RoadGeometry* BranchPoint::do_road_geometry() const {

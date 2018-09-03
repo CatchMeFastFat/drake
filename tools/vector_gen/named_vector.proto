@@ -27,12 +27,8 @@ message NamedVectorElement {
     // comments.
     optional string doc = 2;
 
-<<<<<<< HEAD
     // A default value for this element.  Use the magic value "dummy" to
     // initialize with a drake::dummy_value<T> (i.e., NAN).
-=======
-    // An optional default value for this element.
->>>>>>> intial
     optional string default_value = 3;
 
     // An optional documentation string stating the units of this element.

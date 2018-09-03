@@ -2,15 +2,9 @@
 
 load(
     "//tools:drake.bzl",
-<<<<<<< HEAD
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
-=======
-    "drake_cc_googletest",
-    "drake_cc_library",
-    "drake_cc_binary",
->>>>>>> intial
 )
 load(
     "@drake//tools/vector_gen:vector_gen.bzl",
@@ -38,11 +32,7 @@ drake_cc_binary(
         "//lcmtypes:viewer",
         "//systems/analysis",
         "//systems/framework",
-<<<<<<< HEAD
         "//systems/lcm:lcm_pubsub_system",
-=======
-        "//systems/lcm",
->>>>>>> intial
         "//systems/rendering:drake_visualizer_client",
         "//systems/rendering:pose_aggregator",
         "//systems/rendering:pose_bundle_to_draw_message",
@@ -61,10 +51,6 @@ drake_cc_library(
         ":rod2d_state_vector",
         "//common:essential",
         "//multibody/constraint",
-<<<<<<< HEAD
-=======
-        "//multibody/constraint:constraint_solver",
->>>>>>> intial
         "//solvers:mathematical_program",
         "//systems/framework:leaf_system",
         "//systems/rendering:pose_vector",
@@ -79,11 +65,7 @@ drake_cc_googletest(
         ":rod2d",
         "//common:essential",
         "//common/test_utilities:eigen_matrix_compare",
-<<<<<<< HEAD
         "//multibody/constraint",
-=======
-        "//multibody/constraint:constraint_solver",
->>>>>>> intial
         "//systems/analysis",
     ],
 )

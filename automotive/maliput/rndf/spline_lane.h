@@ -13,11 +13,7 @@
 #include "drake/automotive/maliput/rndf/spline_helpers.h"
 #include "drake/common/drake_copyable.h"
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw_not_using_quaternion.h"
->>>>>>> intial
 
 namespace drake {
 namespace maliput {
@@ -132,11 +128,7 @@ class SplineLane : public Lane {
   // Provides a rotation matrix in terms of Euler angles, with only
   // yaw angle set as RNDF is defined without any change in elevation.
   // See heading_of_s for more information.
-<<<<<<< HEAD
   math::RotationMatrix<double> Rabg_of_s(double s) const;
-=======
-  Matrix3<double> Rabg_of_s(double s) const;
->>>>>>> intial
 
   // Returns the length of the curve.
   double do_length() const override {

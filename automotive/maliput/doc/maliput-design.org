@@ -1,6 +1,5 @@
 # How to generate a proper PDF of this document:
 #
-<<<<<<< HEAD
 # 1. Install "org-mode" (along with all of its recommended support packages)
 #    and an additional LaTeX package.
 #
@@ -9,12 +8,6 @@
 #    Note that emacs already comes with a version of org-mode, but installing
 #    it specifically will get you a more up-to-date version, along with all
 #    the LaTeX dependencies required to generate PDF's.
-=======
-# 1. Install "org-mode" and all of its recommended support packages.
-#     apt install org-mode
-#    (emacs ships with org-mode, installing it specifically will get you a
-#    more up-to-date version, along with all the important LaTeX dependencies.)
->>>>>>> intial
 #
 # 2. Edit this file in emacs.
 #
@@ -23,11 +16,7 @@
 
 #+TITLE: maliput: Modeling Road Networks for Simulation
 #+AUTHOR: Matt Marjanović (maddog@tri.global)
-<<<<<<< HEAD
 #+DATE: June 14, 2018
-=======
-#+DATE: March 21, 2017
->>>>>>> intial
 
 This document describes =maliput=, a model of road networks for use in
 agent and traffic simulations.  At the core of =maliput= is a
@@ -81,14 +70,9 @@ fragments of very large, complex road networks on-demand and disposing
 of fragments that are no longer immediately necessary.
 
 
-<<<<<<< HEAD
 * Road Network Geometry
 ** Geometry Model
 *** Overview
-=======
-* Mathematical Model
-** Overview
->>>>>>> intial
 At the core of =maliput= is a mathematical model for the geometry of
 the space around a road network; it is a model of both the road
 surface (of course) and the volume proximal to that surface.  In the
@@ -104,15 +88,9 @@ able to describe objects and events which are not glued to the surface
 trucks.
 
 In super-mathy terms:
-<<<<<<< HEAD
  * The world containing the road network is approximated by an inertial,
    locally (if not globally) flat, 3-dimensional Cartesian coordinate
    system referred to as the /world frame/.
-=======
- * The surface of the Earth (and the volume around it) is generally
-   approximated by locally flat 3-dimensional Cartesian space referred to
-   as the /world frame/.
->>>>>>> intial
  * The road surface is a bounded compact orientable 2-dimensional manifold
    embedded in the $\mathbb{R}^3$ world frame via a $G^1$ continuous map from
    $\mathbb{R}^2 \to \mathbb{R}^3$.
@@ -145,16 +123,11 @@ surface.  The routing graph (=Lanes= are joined end-to-end via
 =BranchPoints=) describes how one can get from one region of the road
 network to another.
 
-<<<<<<< HEAD
 *** =World= Frame versus =Lane= Frame
-=======
-** =World= Frame versus =Lane= Frame
->>>>>>> intial
 Two types of coordinate frames are used in this model: the (single)
 =World=-frame and the (multiple) =Lane=-frames.  In both, distances
 are typically measured in units of meters.
 
-<<<<<<< HEAD
 The =World=-frame is any right-handed 3D inertial Cartesian coordinate
 system, with orthonormal basis $(\hat{x},\hat{y},\hat{z})$ and
 positions expressed as triples $(x,y,z)$.  This could be a
@@ -175,17 +148,6 @@ description of the geographic coordinate system (if any) used by a
 =RoadGeometry=, as well as a local gravity vector as a function of
 position.
 #+END_QUOTE
-=======
-The =World=-frame corresponds to a locally-flat projection of the
-Earth's surface, e.g., via UTM projection (although no specific
-projection is currently mandated by =maliput=).  The =World=-frame is
-a right-handed orthonormal inertial coordinate system, with basis
-$(\hat{x},\hat{y},\hat{z})$ and positions expressed as triples
-$(x,y,z)$.  $\hat{z}$ is /up/, with $z$ representing an altitude or
-elevation.  $\hat{x}$ and $\hat{y}$ span the horizontal plane.  Typically,
-the "ENU" convention is used:  $\hat{x}$ points /East/ and $\hat{y}$
-points /North/.
->>>>>>> intial
 
 A =Lane=-frame is a right-handed orthonormal coordinate system, with
 basis $(\hat{s},\hat{r},\hat{h})$ and positions expressed as
@@ -242,11 +204,7 @@ some regions of the =RoadGeometry= manifold may not be covered by the
 surface/volume parameterizations in the future to complete the picture.
 #+END_QUOTE
 
-<<<<<<< HEAD
 *** Lanes as =Lanes=
-=======
-** Lanes as =Lanes=
->>>>>>> intial
 
 A =Lane= represents a lane of travel in a road network.  As discussed above,
 it defines a map from curvilinear coordinates to the =World=-frame:
@@ -311,19 +269,11 @@ $H_\text{driveable}$ conflate the bounds of the /driveable/ volume
 (e.g., pavement and free space under bridges) with the bounds of the
 /modelled/ volume (e.g., the bounds on $r$ and $h$ which maintain
 $G^1$ continuity, avoiding cusps).  Hence, the road surface may continue
-<<<<<<< HEAD
 into regions that cannot be properly represented by the parameterization
 of a given =Lane=.
 #+END_QUOTE
 
 *** Lanes Joined End-to-End via =BranchPoints=
-=======
-into regions that cannot be properly represented by a =Lane='s
-parameterization.
-#+END_QUOTE
-
-** Lanes Joined End-to-End via =BranchPoints=
->>>>>>> intial
 
 =BranchPoints= are the points where =Lanes= are connected end-to-end.
 They are so named because they are the branch-points in the decision
@@ -383,11 +333,7 @@ be considered the same highway, whereas the other is considered an exit.
 (Also, note that default-branch relationships between =Lanes= need not
 be symmetric.)
 
-<<<<<<< HEAD
 *** Adjacent Lanes Grouped into =Segments=
-=======
-** Adjacent Lanes Grouped into =Segments=
->>>>>>> intial
 
 In real roads, the pavement is often divided into multiple adjacent
 lanes of travel; in =maliput=, adjacent =Lanes= are grouped together
@@ -397,11 +343,7 @@ presents a different $(s,r,h)$ parameterization of that same pavement.
 
 We would like for the driveable-bounds of each =Lane= to map to the
 same extent of physical space in the World frame, but that isn't always
-<<<<<<< HEAD
 possible due to the geometric constraints of parallel curves.  However,
-=======
-possible due to the geometric contraints of parallel curves.  However,
->>>>>>> intial
 we do require that the union of the driveable-bounds of all =Lanes=
 in a =Segment= is simply-connected.  This means that:
  * a =Segment= doesn't have any "holes" in its driveable space (e.g.,
@@ -419,11 +361,7 @@ increasing $r$.  In other words:
  * A =Lane= $K$ is considered "left of" =Lane= $J$ if and only if
    there exists a point on the centerline $C_{LK}$ of $K$ that has a
    position with $r > 0$ in the =Lane=-frame of $J$.  $K$ is "right
-<<<<<<< HEAD
    of" $J$ if and only if a point exists on $C_{LK}$ with position
-=======
-   of" $J$ if and only if a point exist on $C_{LK}$ with position
->>>>>>> intial
    $r < 0$ in the frame of $J$.
  * If =Lane= $K$ is to the left of =Lane= $J$, then $J$ must be to
    the right of $K$.
@@ -432,11 +370,7 @@ Given the consistent ordering, we index the =Lanes= in a =Segment=
 with unique integers, beginning with zero for the rightmost =Lane= and
 increasing leftward.
 
-<<<<<<< HEAD
 *** Intersecting =Segments= Grouped into =Junctions=
-=======
-** Intersecting =Segments= Grouped into =Junctions=
->>>>>>> intial
 
 It is possible for multiple =Segments= to cover the same pavement.
 In fact, that how intersections are represented, by criss-crossing
@@ -449,11 +383,7 @@ to go around an impassable monument.
 terms of the union of the driveable-bounds of their =Lanes=) are
 grouped together into a =Junction=.  The primary (sole?) purpose of a
 =Junction= is to indicate that objects in its component =Segments= may
-<<<<<<< HEAD
 spatially interact with each other (e.g., collide!).  Conversely, if
-=======
-spatially interact with eachother (e.g., collide!).  Conversely, if
->>>>>>> intial
 two =Segments= belong to two distinct =Junctions=, then objects within
 their respective driveable-bounds should /not/ be touching.  (Note
 that in considering intersection, we ignore the measure-zero overlap
@@ -471,41 +401,7 @@ to the same =Junction=.  It would be better split that single =Segment=
 into three:  one crossing each intersection, and one in between that
 joins those two end-to-end (resulting in three independent =Junctions=).
 
-<<<<<<< HEAD
 ** Abstract Geometry API: =RoadGeometry=
-=======
-* Annotations Database /(TODO)/
-  * (Rules may have time-of-day component.)
-** Lane-wide rules
-   * allowed travel direction
-     * single-direction (increasing $s$, decreasing $s$)
-     * bi-directional turning lane
-     * (time-of-day restrictions)
-   * use restrictions
-     * parking
-     * high-occupancy vehicles (HOV)
-     * pedestrian
-     * emergency vehicle
-   * speed limits
-   * passing rules
-** Physical features (features with spatial location and extent)
-   * linear features
-     * striping
-   * areal features
-     * crosswalks
-     * restricted medians
-     * do-not-block zones
-   * signage
-     * stop lights, stop signs
-     * turn restrictions
-   * other (volumetric) furniture
-     * traffic cones
-     * refrigerator that fell off a truck
-   * potholes
-
-* C++ Abstract API and Concrete Implementations
-** Generic =maliput::api=
->>>>>>> intial
  * /TODO:/  Explain semantics of object ID's.  (cross-referencing, tiling,
    debugging, visualization)
  * /TODO:/  Reference to =maliput::api= doxygen.
@@ -517,13 +413,10 @@ joins those two end-to-end (resulting in three independent =Junctions=).
 *** =RoadGeometry=
     * accessors for component =Junctions=
     * accessors for component =BranchPoints=
-<<<<<<< HEAD
     * accessors for tolerances
       * =linear_tolerance=
       * =angular_tolerance=
       * /TODO/ =scale_length=
-=======
->>>>>>> intial
 *** =Junction=
     * accessors for parent =RoadGeometry=, component =Junctions=
 *** =Segment=
@@ -550,17 +443,12 @@ joins those two end-to-end (resulting in three independent =Junctions=).
     * accessor for the set of ongoing =Lanes= for a given =Lane=
     * accessor for the default branch (ongoing =Lane=) for a given =Lane=
     * accessor for parent =RoadGeometry=
-<<<<<<< HEAD
 ** Concrete Implementation: =maliput::monolane=
-=======
-** =maliput::monolane= Implementation
->>>>>>> intial
  * /TODO:/  Reference to =maliput::api= doxygen.
  * /TODO:/  Basics of geometric primitives
  * /TODO:/  Basics of Builder
  * /TODO:/  Basics of yaml format
 
-<<<<<<< HEAD
 * Rules and Features Databases
 ** Rules of the Road: =RoadRulebook=
 
@@ -1043,10 +931,6 @@ and stripes are indicators for rules of the road).
 
 * Formatting                                                       :noexport:
 #+OPTIONS: toc:2
-=======
-* Formatting                                                       :noexport:
-#+OPTIONS: toc:1
->>>>>>> intial
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt]
 #+LATEX_HEADER: \usepackage[scaled=0.85]{helvet}
@@ -1054,11 +938,8 @@ and stripes are indicators for rules of the road).
 #+LATEX_HEADER: \usepackage[margin=1.0in]{geometry}
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \setlength{\parskip}{0.5em}
-<<<<<<< HEAD
 #+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \setlist[itemize]{itemsep=0.1em,parsep=0.1em,topsep=0.1em,partopsep=0.1em}
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER: \renewcommand\floatpagefraction{0.8}
 #+LATEX_HEADER: \renewcommand\topfraction{0.8}
-=======
->>>>>>> intial

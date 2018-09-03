@@ -1,6 +1,5 @@
 #include "drake/systems/analysis/initial_value_problem.h"
 
-<<<<<<< HEAD
 #include <algorithm>
 
 #include <gtest/gtest.h>
@@ -8,11 +7,6 @@
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/common/test_utilities/expect_throws_message.h"
 #include "drake/systems/analysis/initial_value_problem-inl.h"
-=======
-#include <gtest/gtest.h>
-
-#include "drake/common/test_utilities/eigen_matrix_compare.h"
->>>>>>> intial
 #include "drake/systems/analysis/integrator_base.h"
 #include "drake/systems/analysis/runge_kutta2_integrator.h"
 #include "drake/systems/framework/basic_vector.h"
@@ -20,18 +14,11 @@
 
 namespace drake {
 namespace systems {
-<<<<<<< HEAD
 namespace analysis {
 namespace {
 
 // Checks IVP solver usage with multiple integrators.
 GTEST_TEST(InitialValueProblemTest, SolutionUsingMultipleIntegrators) {
-=======
-namespace {
-
-// Checks IVP solver usage with multiple integrators.
-GTEST_TEST(InitialValueProblemTest, UsingMultipleIntegrators) {
->>>>>>> intial
   // Accuracy upper bound, as not all the integrators used below support
   // error control.
   const double kAccuracy = 1e-2;
@@ -88,11 +75,7 @@ GTEST_TEST(InitialValueProblemTest, UsingMultipleIntegrators) {
 }
 
 // Validates preconditions when constructing any given IVP.
-<<<<<<< HEAD
 GTEST_TEST(InitialValueProblemTest, ConstructionPreconditionsValidation) {
-=======
-GTEST_TEST(InitialValueProblemTest, ConstructorPreconditionValidation) {
->>>>>>> intial
   // Defines a generic ODE d𝐱/dt = -𝐱 + 𝐤, that does not
   // model (nor attempts to model) any physical process.
   const InitialValueProblem<double>::ODEFunction dummy_ode_function =
@@ -102,73 +85,43 @@ GTEST_TEST(InitialValueProblemTest, ConstructorPreconditionValidation) {
     return -x * t;
   };
 
-<<<<<<< HEAD
   DRAKE_EXPECT_THROWS_MESSAGE({
-=======
-  EXPECT_THROW({
->>>>>>> intial
       const InitialValueProblem<double>::
           SpecifiedValues no_values;
       const InitialValueProblem<double> ivp(
           dummy_ode_function, no_values);
-<<<<<<< HEAD
     }, std::logic_error, "No default.*");
 
   DRAKE_EXPECT_THROWS_MESSAGE({
-=======
-    }, std::logic_error);
-
-  EXPECT_THROW({
->>>>>>> intial
       InitialValueProblem<double>::
           SpecifiedValues values_without_t0;
       values_without_t0.k = VectorX<double>();
       values_without_t0.x0 = VectorX<double>::Zero(2).eval();
       const InitialValueProblem<double> ivp(
           dummy_ode_function, values_without_t0);
-<<<<<<< HEAD
     }, std::logic_error, "No default initial time.*");
 
   DRAKE_EXPECT_THROWS_MESSAGE({
-=======
-    }, std::logic_error);
-
-  EXPECT_THROW({
->>>>>>> intial
       InitialValueProblem<double>::
           SpecifiedValues values_without_x0;
       values_without_x0.t0 = 0.0;
       values_without_x0.k = VectorX<double>();
       const InitialValueProblem<double> ivp(
           dummy_ode_function, values_without_x0);
-<<<<<<< HEAD
     }, std::logic_error, "No default initial state.*");
 
   DRAKE_EXPECT_THROWS_MESSAGE({
-=======
-    }, std::logic_error);
-
-  EXPECT_THROW({
->>>>>>> intial
       InitialValueProblem<double>::
           SpecifiedValues values_without_k;
       values_without_k.t0 = 0.0;
       values_without_k.x0 = VectorX<double>();
       const InitialValueProblem<double> ivp(
           dummy_ode_function, values_without_k);
-<<<<<<< HEAD
     }, std::logic_error, "No default parameters.*");
 }
 
 // Validates preconditions when solving any given IVP.
 GTEST_TEST(InitialValueProblemTest, ComputationPreconditionsValidation) {
-=======
-    }, std::logic_error);
-}
-
-// Validates preconditions when solving any given IVP.
-GTEST_TEST(InitialValueProblemTest, SolvePreconditionValidation) {
->>>>>>> intial
   // The initial time t₀, for IVP definition.
   const double kDefaultInitialTime = 0.0;
   // The initial state 𝐱₀, for IVP definition.
@@ -209,7 +162,6 @@ GTEST_TEST(InitialValueProblemTest, SolvePreconditionValidation) {
   // state vector of the expected dimension.
   const VectorX<double> kValidState = VectorX<double>::Constant(2, 1.0);
 
-<<<<<<< HEAD
   // Instantiates error message patterns for testing.
   const std::string kInvalidTimeErrorMessage{
     "Cannot solve IVP for.*time.*"};
@@ -231,73 +183,49 @@ GTEST_TEST(InitialValueProblemTest, SolvePreconditionValidation) {
     DRAKE_EXPECT_THROWS_MESSAGE(
         ivp.DenseSolve(kValidTime, values), std::logic_error,
         kInvalidParametersErrorMessage);
-=======
-  EXPECT_THROW(ivp.Solve(kInvalidTime), std::logic_error);
-
-  {
-    InitialValueProblem<double>::SpecifiedValues values;
-    values.k = kInvalidParameters;
-    EXPECT_THROW(ivp.Solve(kValidTime, values), std::logic_error);
->>>>>>> intial
   }
 
   {
     InitialValueProblem<double>::SpecifiedValues values;
     values.k = kValidParameters;
-<<<<<<< HEAD
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.Solve(kInvalidTime, values),
                                 std::logic_error,
                                 kInvalidTimeErrorMessage);
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.DenseSolve(kInvalidTime, values),
                                 std::logic_error,
                                 kInvalidTimeErrorMessage);
-=======
-    EXPECT_THROW(ivp.Solve(kInvalidTime, values), std::logic_error);
->>>>>>> intial
   }
 
   {
     InitialValueProblem<double>::SpecifiedValues values;
     values.x0 = kInvalidState;
     values.k = kValidParameters;
-<<<<<<< HEAD
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.Solve(kValidTime, values), std::logic_error,
                                 kInvalidInitialStateErrorMessage);
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.DenseSolve(kValidTime, values),
                                 std::logic_error,
                                 kInvalidInitialStateErrorMessage);
-=======
-    EXPECT_THROW(ivp.Solve(kValidTime, values), std::logic_error);
->>>>>>> intial
   }
 
   {
     InitialValueProblem<double>::SpecifiedValues values;
     values.x0 = kValidState;
     values.k = kInvalidParameters;
-<<<<<<< HEAD
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.Solve(kValidTime, values), std::logic_error,
                                 kInvalidParametersErrorMessage);
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.DenseSolve(kValidTime, values),
                                 std::logic_error,
                                 kInvalidParametersErrorMessage);
-=======
-    EXPECT_THROW(ivp.Solve(kValidTime, values), std::logic_error);
->>>>>>> intial
   }
 
   {
     InitialValueProblem<double>::SpecifiedValues values;
     values.x0 = kValidState;
     values.k = kValidParameters;
-<<<<<<< HEAD
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.Solve(kInvalidTime, values),
                                 std::logic_error, kInvalidTimeErrorMessage);
     DRAKE_EXPECT_THROWS_MESSAGE(ivp.DenseSolve(kInvalidTime, values),
                                 std::logic_error, kInvalidTimeErrorMessage);
-=======
-    EXPECT_THROW(ivp.Solve(kInvalidTime, values), std::logic_error);
->>>>>>> intial
   }
 }
 
@@ -311,11 +239,7 @@ class InitialValueProblemAccuracyTest
 
   // Expected accuracy for numerical integral
   // evaluation in the relative tolerance sense.
-<<<<<<< HEAD
   double integration_accuracy_{0.};
-=======
-  double integration_accuracy_;
->>>>>>> intial
 };
 
 // Accuracy test of the solution for the momentum 𝐩 of a particle
@@ -324,14 +248,9 @@ class InitialValueProblemAccuracyTest
 TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasMomentum) {
   // The initial time t₀.
   const double kInitialTime = 0.0;
-<<<<<<< HEAD
   // The initial momentum 𝐩₀ of the particle at time t₀.
   const VectorX<double> kInitialParticleMomentum = (
       VectorX<double>(3) << -3.0, 1.0, 2.0).finished();
-=======
-  // The initial velocity 𝐯₀ of the particle at time t₀.
-  const VectorX<double> kInitialParticleMomentum = VectorX<double>::Zero(3);
->>>>>>> intial
   // The mass m of the particle and the dynamic viscosity μ
   // of the gas.
   const double kDefaultGasViscosity = 0.1;
@@ -368,10 +287,7 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasMomentum) {
   const double kTimeStep = 0.1;
 
   const double t0 = kInitialTime;
-<<<<<<< HEAD
   const double tf = kTotalTime;
-=======
->>>>>>> intial
   const VectorX<double>& p0 = kInitialParticleMomentum;
   for (double mu = kLowestGasViscosity; mu <= kHighestGasViscosity;
        mu += kGasViscosityStep) {
@@ -379,36 +295,23 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasMomentum) {
          m += kParticleMassStep) {
       InitialValueProblem<double>::SpecifiedValues values;
       values.k = (VectorX<double>(2) << mu, m).finished();
-<<<<<<< HEAD
 
       const std::unique_ptr<DenseOutput<double>> particle_momentum_approx =
           particle_momentum_ivp.DenseSolve(tf, values);
 
-=======
->>>>>>> intial
       for (double t = kInitialTime; t <= kTotalTime; t += kTimeStep) {
         // Tests are performed against the closed form
         // solution for the IVP described above, which is
         // 𝐩(t; [μ, m]) = 𝐩₀ * e^(-μ * (t - t₀) / m).
-<<<<<<< HEAD
         const VectorX<double> solution = p0 * std::exp(-mu * (t - t0) / m);
 
         EXPECT_TRUE(CompareMatrices(particle_momentum_ivp.Solve(t, values),
                                     solution, integration_accuracy_))
-=======
-        const VectorX<double> exact_solution =
-            p0 * std::exp(-mu * (t - t0) / m);
-        const VectorX<double> approximate_solution =
-            particle_momentum_ivp.Solve(t, values);
-        EXPECT_TRUE(CompareMatrices(
-            approximate_solution, exact_solution, integration_accuracy_))
->>>>>>> intial
             << "Failure solving d𝐩/dt = -μ * 𝐩/m"
             << " using 𝐩(" << t0 << "; [μ, m]) = " << p0
             << " for t = " << t << ", μ = " << mu
             << " and m = " << m << " to an accuracy of "
             << integration_accuracy_;
-<<<<<<< HEAD
 
         EXPECT_TRUE(CompareMatrices(particle_momentum_approx->Evaluate(t),
                                     solution, integration_accuracy_))
@@ -417,8 +320,6 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasMomentum) {
             << " for t = " << t << ", μ = " << mu
             << " and m = " << m << " to an accuracy of "
             << integration_accuracy_ << " with solver's continuous extension.";
-=======
->>>>>>> intial
       }
     }
   }
@@ -426,11 +327,7 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasMomentum) {
 
 // Accuracy test of the solution for the velocity 𝐯 of a particle
 // with mass m travelling through a gas with dynamic viscosity μ
-<<<<<<< HEAD
 // and being pushed by a constant force 𝐅, where
-=======
-// and being pushed by constant force 𝐅, where
->>>>>>> intial
 // d𝐯/dt = (𝐅 - μ * 𝐯) / m and 𝐯(t₀; [m, μ]) = 𝐯₀.
 TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasForcedVelocity) {
   // The initial time t₀.
@@ -452,11 +349,7 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasForcedVelocity) {
   // Instantiates the particle velocity IVP.
   InitialValueProblem<double> particle_velocity_ivp(
       [&kPushingForce](const double& t, const VectorX<double>& v,
-<<<<<<< HEAD
                        const VectorX<double>& k) -> VectorX<double> {
-=======
-         const VectorX<double>& k) -> VectorX<double> {
->>>>>>> intial
         const double mu = k[0];
         const double m = k[1];
         const VectorX<double>& F = kPushingForce;
@@ -479,34 +372,25 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasForcedVelocity) {
   const double kTimeStep = 0.1;
 
   const double t0 = kInitialTime;
-<<<<<<< HEAD
   const double tf = kTotalTime;
 
   const VectorX<double>& F = kPushingForce;
   const VectorX<double>& v0 = kInitialParticleVelocity;
 
-=======
-  const VectorX<double>& F = kPushingForce;
-  const VectorX<double>& v0 = kInitialParticleVelocity;
->>>>>>> intial
   for (double mu = kLowestGasViscosity; mu <= kHighestGasViscosity;
        mu += kGasViscosityStep) {
     for (double m = kLowestParticleMass; m <= kHighestParticleMass;
          m += kParticleMassStep) {
       InitialValueProblem<double>::SpecifiedValues values;
       values.k = (VectorX<double>(2) << mu, m).finished();
-<<<<<<< HEAD
 
       const std::unique_ptr<DenseOutput<double>> particle_velocity_approx =
           particle_velocity_ivp.DenseSolve(tf, values);
 
-=======
->>>>>>> intial
       for (double t = kInitialTime; t <= kTotalTime; t += kTimeStep) {
         // Tests are performed against the closed form
         // solution for the IVP described above, which is
         // 𝐯(t; [μ, m]) = 𝐯₀ * e^(-μ * (t - t₀) / m) +
-<<<<<<< HEAD
         //                𝐅 / μ * (1 - e^(-μ * (t - t₀) / m))
         // with 𝐅 = (0., 1., 0.).
         const VectorX<double> solution =
@@ -514,22 +398,11 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasForcedVelocity) {
             F / mu * (1. - std::exp(-mu * (t - t0) / m));
         EXPECT_TRUE(CompareMatrices(particle_velocity_ivp.Solve(t, values),
                                     solution, integration_accuracy_))
-=======
-        //                𝐅 / μ * (1 - e^(-μ * (t - t₀) / m)).
-        const VectorX<double> exact_solution =
-            v0 * std::exp(-mu * (t - t0) / m) +
-            F / mu * (1. - std::exp(-mu * (t - t0) / m));
-        const VectorX<double> approximate_solution =
-            particle_velocity_ivp.Solve(t, values);
-        EXPECT_TRUE(CompareMatrices(
-            approximate_solution, exact_solution, integration_accuracy_))
->>>>>>> intial
             << "Failure solving d𝐯/dt = (-μ * 𝐯 + 𝐅) / m"
             << " using 𝐯(" << t0 << "; [μ, m]) = " << v0
             << " for t = " << t << ", μ = " << mu
             << ", m = " << m << "and 𝐅 = " << F
             << " to an accuracy of " << integration_accuracy_;
-<<<<<<< HEAD
 
         EXPECT_TRUE(CompareMatrices(particle_velocity_approx->Evaluate(t),
                                     solution, integration_accuracy_))
@@ -538,8 +411,6 @@ TEST_P(InitialValueProblemAccuracyTest, ParticleInAGasForcedVelocity) {
             << ", μ = " << mu << ", m = " << m << "and 𝐅 = " << F
             << " to an accuracy of " << integration_accuracy_
             << " with solver's continuous extension.";
-=======
->>>>>>> intial
       }
     }
   }
@@ -550,9 +421,6 @@ INSTANTIATE_TEST_CASE_P(IncreasingAccuracyInitialValueProblemTests,
                         ::testing::Values(1e-1, 1e-2, 1e-3, 1e-4, 1e-5));
 
 }  // namespace
-<<<<<<< HEAD
 }  // namespace analysis
-=======
->>>>>>> intial
 }  // namespace systems
 }  // namespace drake

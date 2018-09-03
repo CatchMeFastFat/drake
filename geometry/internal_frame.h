@@ -16,13 +16,8 @@ namespace internal {
  data, and then includes topology data.
 
  It is not intended to be used outside of the geometry library. To instantiate
-<<<<<<< HEAD
  frames in SceneGraph, use the drake::geometry::GeometryFrame class in
  conjunction with the SceneGraph::RegisterFrame() methods. */
-=======
- frames in GeometrySystem, use the drake::geometry::GeometryFrame class in
- conjunction with the GeometrySystem::RegisterFrame() methods. */
->>>>>>> intial
 class InternalFrame {
  public:
   DRAKE_DEFAULT_COPY_AND_MOVE_AND_ASSIGN(InternalFrame)
@@ -39,18 +34,12 @@ class InternalFrame {
    @param pose_index    The position in the pose vector of this frame's last
                         known pose.
    @param parent_id     The id of the parent frame.
-<<<<<<< HEAD
    @param clique        The clique that will be used to prevent self-collision
                         among geomtries rigidly affixed to this frame.
    */
   InternalFrame(SourceId source_id, FrameId frame_id, const std::string &name,
                 int frame_group, PoseIndex pose_index, FrameId parent_id,
                 int clique);
-=======
-   */
-  InternalFrame(SourceId source_id, FrameId frame_id, const std::string &name,
-                int frame_group, PoseIndex pose_index, FrameId parent_id);
->>>>>>> intial
 
   /** Compares two %InternalFrame instances for "equality". Two internal frames
    are considered equal if they have the same frame identifier. */
@@ -62,11 +51,7 @@ class InternalFrame {
 
   SourceId get_source_id() const { return source_id_; }
   FrameId get_id() const { return id_; }
-<<<<<<< HEAD
   const std::string& get_name() const { return name_; }
-=======
-  const std::string &get_name() const { return name_; }
->>>>>>> intial
   int get_frame_group() const { return frame_group_; }
   PoseIndex get_pose_index() const { return pose_index_; }
   void set_pose_index(PoseIndex index) { pose_index_ = index; }
@@ -122,12 +107,9 @@ class InternalFrame {
     child_geometries_.erase(geometry_id);
   }
 
-<<<<<<< HEAD
   /** Returns the clique associated with this frame. */
   int clique() const { return clique_; }
 
-=======
->>>>>>> intial
   static FrameId get_world_frame_id() { return kWorldFrame; }
 
  private:
@@ -163,13 +145,10 @@ class InternalFrame {
   // It does *not* include geometries hung on child frames.
   std::unordered_set<GeometryId> child_geometries_;
 
-<<<<<<< HEAD
   // The clique used to prevent self-collision among the geometries affixed to
   // this frame.
   int clique_{};
 
-=======
->>>>>>> intial
   // The frame identifier of the world frame.
   static const FrameId kWorldFrame;
 };

@@ -11,11 +11,7 @@
 #include "drake/automotive/car_vis.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/lcmt_viewer_link_data.hpp"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw_not_using_quaternion.h"
->>>>>>> intial
 #include "drake/systems/framework/value.h"
 #include "drake/systems/rendering/pose_bundle.h"
 #include "drake/systems/rendering/pose_vector.h"
@@ -43,11 +39,7 @@ class CarVisApplicatorTest : public ::testing::Test {
 
   void CreateOutputAndContext() {
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
   }
 
   void SetInput(const PoseBundle<double>& pose_bundle) {
@@ -73,13 +65,8 @@ class CarVisApplicatorTest : public ::testing::Test {
 
 TEST_F(CarVisApplicatorTest, Topology) {
   ASSERT_EQ(dut_->get_num_input_ports(), 1);
-<<<<<<< HEAD
   const auto& pose_port = dut_->get_car_poses_input_port();
   EXPECT_EQ(pose_port.get_data_type(), systems::kAbstractValued);
-=======
-  const auto& pose_port_descriptor = dut_->get_car_poses_input_port();
-  EXPECT_EQ(pose_port_descriptor.get_data_type(), systems::kAbstractValued);
->>>>>>> intial
 
   ASSERT_EQ(dut_->get_num_output_ports(), 1);
   const auto& lane_output_port =
@@ -126,15 +113,9 @@ TEST_F(CarVisApplicatorTest, InputOutput) {
   CreateOutputAndContext();
   Eigen::Isometry3d test_pose = Eigen::Isometry3d::Identity();
   {
-<<<<<<< HEAD
     const drake::math::RollPitchYaw<double> rpy(0.1, 0.5, 1.57);
     const Eigen::Vector3d xyz(4, -5, 6);
     test_pose.matrix() << rpy.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
-=======
-    const Eigen::Vector3d rpy(0.1, 0.5, 1.57);
-    const Eigen::Vector3d xyz(4, -5, 6);
-    test_pose.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
   }
 
   PoseBundle<double> input_poses(1 /* num poses */);
@@ -161,15 +142,9 @@ TEST_F(CarVisApplicatorTest, BadInput) {
   CreateOutputAndContext();
   Eigen::Isometry3d test_pose = Eigen::Isometry3d::Identity();
   {
-<<<<<<< HEAD
     const drake::math::RollPitchYaw<double> rpy(0.1, 0.5, 1.57);
     const Eigen::Vector3d xyz(4, -5, 6);
     test_pose.matrix() << rpy.ToMatrix3ViaRotationMatrix(), xyz, 0, 0, 0, 1;
-=======
-    const Eigen::Vector3d rpy(0.1, 0.5, 1.57);
-    const Eigen::Vector3d xyz(4, -5, 6);
-    test_pose.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
   }
 
   // Use a model instance ID that doesn't match the visualizer's ID.

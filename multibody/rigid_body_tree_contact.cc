@@ -82,11 +82,7 @@ void getUniqueBodiesSorted(
   sort(bodyIndsSorted.begin(), bodyIndsSorted.end());
 }
 
-<<<<<<< HEAD
 // Finds the n occurrences of the body index in the original list of m contact
-=======
-// Finds the n occurences of the body index in the original list of m contact
->>>>>>> intial
 // indexes
 // INPUTS:
 //   idxList: (m x 1) Indexes of m bodies for possible contact pairs

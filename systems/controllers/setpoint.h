@@ -4,10 +4,7 @@
 
 #include "drake/common/drake_copyable.h"
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/math/rigid_transform.h"
-=======
->>>>>>> intial
 #include "drake/math/rotation_matrix.h"
 
 namespace drake {
@@ -150,16 +147,10 @@ class CartesianSetpoint {
 template <typename Scalar>
 inline std::ostream& operator<<(std::ostream& out,
                                 const CartesianSetpoint<Scalar>& setpoint) {
-<<<<<<< HEAD
   const math::RigidTransform<Scalar> X(setpoint.desired_pose());
   const math::RollPitchYaw<Scalar> rpy(X.rotation());
   out << "pose: (" << X.translation().transpose()
       << "), (" << rpy.vector().transpose() << ")"
-=======
-  Vector3<Scalar> rpy = math::rotmat2rpy(setpoint.desired_pose().linear());
-  out << "pose: (" << setpoint.desired_pose().translation().transpose()
-      << "), (" << rpy.transpose() << ")"
->>>>>>> intial
       << "\n";
   out << "velocity: " << setpoint.desired_velocity().transpose() << "\n";
   out << "acceleration: " << setpoint.desired_acceleration().transpose()

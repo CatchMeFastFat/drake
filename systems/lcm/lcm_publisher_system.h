@@ -106,11 +106,7 @@ class LcmPublisherSystem : public LeafSystem<double> {
 
   /**
    * Sets the publishing period of this system. See
-<<<<<<< HEAD
    * LeafSystem::DeclarePeriodicPublish() for details about the semantics of
-=======
-   * LeafSystem::DeclarePublishPeriodSec() for details about the semantics of
->>>>>>> intial
    * parameter `period`.
    */
   void set_publish_period(double period);
@@ -134,21 +130,13 @@ class LcmPublisherSystem : public LeafSystem<double> {
   const LcmAndVectorBaseTranslator& get_translator() const;
 
   /// Returns the sole input port.
-<<<<<<< HEAD
   const InputPort<double>& get_input_port() const {
-=======
-  const InputPortDescriptor<double>& get_input_port() const {
->>>>>>> intial
     DRAKE_THROW_UNLESS(this->get_num_input_ports() == 1);
     return LeafSystem<double>::get_input_port(0);
   }
 
   DRAKE_DEPRECATED("Don't use the indexed overload; use the no-arg overload.")
-<<<<<<< HEAD
   const InputPort<double>& get_input_port(int index) const {
-=======
-  const InputPortDescriptor<double>& get_input_port(int index) const {
->>>>>>> intial
     DRAKE_THROW_UNLESS(index == 0);
     return get_input_port();
   }

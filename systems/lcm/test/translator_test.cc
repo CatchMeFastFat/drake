@@ -199,11 +199,7 @@ GTEST_TEST(TranslatorTest, EncodeBasicVectorVersion) {
   LcmEncoderSystem<TestVector<double>, lcmt_drake_signal> dut(
       std::make_unique<TestVectorTranslator>(kVecSize));
   auto context = dut.CreateDefaultContext();
-<<<<<<< HEAD
   auto output = dut.AllocateOutput();
-=======
-  auto output = dut.AllocateOutput(*context);
->>>>>>> intial
   context->FixInputPort(0, vec.Clone());
   context->set_time(233);
 
@@ -227,11 +223,7 @@ GTEST_TEST(TranslatorTest, EncodeAbstractValVersion) {
   LcmEncoderSystem<TestData, lcmt_drake_signal> dut(
       std::make_unique<TestDataTranslator>(kVecSize));
   auto context = dut.CreateDefaultContext();
-<<<<<<< HEAD
   auto output = dut.AllocateOutput();
-=======
-  auto output = dut.AllocateOutput(*context);
->>>>>>> intial
   context->FixInputPort(0, AbstractValue::Make<TestData>(data));
   context->set_time(233);
 
@@ -251,11 +243,7 @@ GTEST_TEST(TranslatorTest, DecodeAbstractValVersion) {
       std::make_unique<TestDataTranslator>(kVecSize));
 
   auto context = dut.CreateDefaultContext();
-<<<<<<< HEAD
   auto output = dut.AllocateOutput();
-=======
-  auto output = dut.AllocateOutput(*context);
->>>>>>> intial
   lcmt_drake_signal msg = MakeTestMessage(kVecSize);
   context->FixInputPort(0, AbstractValue::Make<lcmt_drake_signal>(msg));
 
@@ -279,11 +267,7 @@ GTEST_TEST(TranslatorTest, FromLcmMessageBasicVectorVersion) {
       std::make_unique<TestVectorTranslator>(kVecSize));
 
   auto context = dut.CreateDefaultContext();
-<<<<<<< HEAD
   auto output = dut.AllocateOutput();
-=======
-  auto output = dut.AllocateOutput(*context);
->>>>>>> intial
   lcmt_drake_signal msg = MakeTestMessage(kVecSize);
   context->FixInputPort(0, AbstractValue::Make<lcmt_drake_signal>(msg));
 

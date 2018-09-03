@@ -1,13 +1,9 @@
 #include "drake/common/find_resource.h"
 
-<<<<<<< HEAD
 #include <cstdlib>
 #include <fstream>
 #include <functional>
 #include <memory>
-=======
-#include <fstream>
->>>>>>> intial
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -15,13 +11,9 @@
 #include <gtest/gtest.h>
 #include <spruce.hh>
 
-<<<<<<< HEAD
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_path.h"
 #include "drake/common/drake_throw.h"
-=======
-#include "drake/common/drake_path.h"
->>>>>>> intial
 
 using std::string;
 
@@ -100,7 +92,6 @@ GTEST_TEST(FindResourceTest, FoundDeclaredData) {
   EXPECT_EQ(FindResourceOrThrow(relpath), absolute_path);
 }
 
-<<<<<<< HEAD
 // Check that adding a relative resource path fails on purpose.
 GTEST_TEST(FindResourceTest, RelativeResourcePathShouldFail) {
   // Test `AddResourceSearchPath()` with a relative path. It is expected to
@@ -167,8 +158,6 @@ GTEST_TEST(FindResourceTest, FindUsingTestSrcdir) {
   EXPECT_TRUE(FindResource(relpath).get_absolute_path());
 }
 
-=======
->>>>>>> intial
 GTEST_TEST(GetDrakePathTest, BasicTest) {
   // Just test that we find a path, without any exceptions.
   const auto& result = MaybeGetDrakePath();
@@ -198,12 +187,8 @@ GTEST_TEST(ZZZ_FindResourceTest, ZZZ_AlternativeDirectory) {
   // Test `AddResourceSearchPath()` and `GetResourceSearchPaths()` by creating
   // an empty file in a scratch directory with a sentinel file. Bazel tests are
   // run in a scratch directory, so we don't need to remove anything manually.
-<<<<<<< HEAD
   const std::string test_directory = spruce::dir::getcwd().getStr() +
                                      "/find_resource_test_scratch";
-=======
-  const std::string test_directory = "find_resource_test_scratch";
->>>>>>> intial
   const std::string candidate_filename = "drake/candidate.ext";
   spruce::dir::mkdir(test_directory);
   spruce::dir::mkdir(test_directory + "/drake");

@@ -4,7 +4,6 @@
 #include "drake/automotive/calc_ongoing_road_position.h"
 #include "drake/automotive/gen/driving_command.h"
 #include "drake/automotive/idm_controller.h"
-<<<<<<< HEAD
 #include "drake/automotive/maliput/api/lane_data.h"
 #include "drake/automotive/maliput/api/road_geometry.h"
 #include "drake/automotive/pose_selector.h"
@@ -14,13 +13,6 @@
 #include "drake/bindings/pydrake/pydrake_pybind.h"
 #include "drake/bindings/pydrake/systems/systems_pybind.h"
 #include "drake/bindings/pydrake/util/wrap_pybind.h"
-=======
-#include "drake/automotive/maliput/api/road_geometry.h"
-#include "drake/automotive/pure_pursuit_controller.h"
-#include "drake/automotive/simple_car.h"
-#include "drake/bindings/pydrake/pydrake_pybind.h"
-#include "drake/bindings/pydrake/systems/systems_pybind.h"
->>>>>>> intial
 #include "drake/systems/framework/basic_vector.h"
 
 namespace drake {
@@ -39,13 +31,10 @@ PYBIND11_MODULE(automotive, m) {
 
   using T = double;
 
-<<<<<<< HEAD
   py::enum_<AheadOrBehind>(m, "AheadOrBehind")
       .value("kAhead", AheadOrBehind::kAhead)
       .value("kBehind", AheadOrBehind::kBehind);
 
-=======
->>>>>>> intial
   py::enum_<RoadPositionStrategy>(m, "RoadPositionStrategy")
       .value("kCache", RoadPositionStrategy::kCache)
       .value("kExhaustiveSearch", RoadPositionStrategy::kExhaustiveSearch);
@@ -54,7 +43,6 @@ PYBIND11_MODULE(automotive, m) {
       .value("kPath", ScanStrategy::kPath)
       .value("kBranches", ScanStrategy::kBranches);
 
-<<<<<<< HEAD
   py::class_<ClosestPose<T>>(m, "ClosestPose")
       .def(py::init<>())
       .def(py::init<const RoadOdometry<T>&, const T&>(), py::arg("odom"),
@@ -89,12 +77,6 @@ PYBIND11_MODULE(automotive, m) {
       .def(py::init<const maliput::api::Lane*, bool>(), py::arg("lane"),
            py::arg("with_s"))
       .def_readwrite("lane", &LaneDirection::lane, py_reference_internal)
-=======
-  py::class_<LaneDirection>(m, "LaneDirection")
-      .def(py::init<const maliput::api::Lane*, bool>(), py::arg("lane"),
-           py::arg("with_s"))
-      .def_readwrite("lane", &LaneDirection::lane)
->>>>>>> intial
       .def_readwrite("with_s", &LaneDirection::with_s);
   pysystems::AddValueInstantiation<LaneDirection>(m);
 
@@ -107,17 +89,10 @@ PYBIND11_MODULE(automotive, m) {
       .def("set_acceleration", &DrivingCommand<T>::set_acceleration);
 
   py::class_<IdmController<T>, LeafSystem<T>>(m, "IdmController")
-<<<<<<< HEAD
       .def(py::init<const maliput::api::RoadGeometry&, ScanStrategy,
                     RoadPositionStrategy, double>(),
            py::arg("road"), py::arg("path_or_branches"),
            py::arg("road_position_strategy"), py::arg("period_sec"))
-=======
-      .def(py::init<const maliput::api::RoadGeometry&,
-           ScanStrategy, RoadPositionStrategy, double>(), py::arg("road"),
-           py::arg("path_or_branches"), py::arg("road_position_strategy"),
-           py::arg("period_sec"))
->>>>>>> intial
       .def("ego_pose_input", &IdmController<T>::ego_pose_input,
            py_reference_internal)
       .def("ego_velocity_input", &IdmController<T>::ego_velocity_input,
@@ -127,7 +102,6 @@ PYBIND11_MODULE(automotive, m) {
       .def("acceleration_output", &IdmController<T>::acceleration_output,
            py_reference_internal);
 
-<<<<<<< HEAD
   py::class_<PoseSelector<T>>(m, "PoseSelector")
       .def_static(
           "FindClosestPair",
@@ -157,10 +131,6 @@ PYBIND11_MODULE(automotive, m) {
 
   py::class_<PurePursuitController<T>, LeafSystem<T>>(m,
                                                       "PurePursuitController")
-=======
-  py::class_<PurePursuitController<T>, LeafSystem<T>>(
-      m, "PurePursuitController")
->>>>>>> intial
       .def(py::init<>())
       .def("ego_pose_input", &PurePursuitController<T>::ego_pose_input,
            py_reference_internal)
@@ -171,7 +141,6 @@ PYBIND11_MODULE(automotive, m) {
            py_reference_internal);
 
   // TODO(eric.cousineau) Bind this named vector automatically (see #8096).
-<<<<<<< HEAD
   py::class_<SimpleCarState<T>, BasicVector<T>>(m, "SimpleCarState")
       .def(py::init<>())
       .def("x", &SimpleCarState<T>::x)
@@ -182,9 +151,6 @@ PYBIND11_MODULE(automotive, m) {
       .def("set_y", &SimpleCarState<T>::set_y)
       .def("set_heading", &SimpleCarState<T>::set_heading)
       .def("set_velocity", &SimpleCarState<T>::set_velocity);
-=======
-  py::class_<SimpleCarState<T>, BasicVector<T>>(m, "SimpleCarState");
->>>>>>> intial
 
   py::class_<SimpleCar<T>, LeafSystem<T>>(m, "SimpleCar")
       .def(py::init<>())

@@ -9,10 +9,7 @@ load(
 )
 load(
     "//tools/skylark:drake_py.bzl",
-<<<<<<< HEAD
     "drake_py_binary",
-=======
->>>>>>> intial
     "drake_py_library",
     "drake_py_test",
     "drake_py_unittest",
@@ -25,11 +22,7 @@ load(
 )
 
 package(default_visibility = [
-<<<<<<< HEAD
     "//bindings:__subpackages__",
-=======
-    "//bindings/pydrake:__subpackages__",
->>>>>>> intial
 ])
 
 # This determines how `PYTHONPATH` is configured, and how to install the
@@ -42,10 +35,7 @@ drake_cc_library(
     # NOTE: We must violate IWYU and not list any Drake libraries in "deps"
     # here because we do not want these dependencies violating ODR (at both
     # development and install time).
-<<<<<<< HEAD
     visibility = ["//visibility:public"],
-=======
->>>>>>> intial
 )
 
 drake_pybind_library(
@@ -54,10 +44,7 @@ drake_pybind_library(
     package_info = PACKAGE_INFO,
     py_deps = [
         "//bindings/pydrake/util:deprecation_py",
-<<<<<<< HEAD
         "//bindings:bazel_workaround_4594_libdrake_py",
-=======
->>>>>>> intial
     ],
     py_srcs = [
         "__init__.py",
@@ -68,10 +55,7 @@ drake_pybind_library(
 drake_cc_library(
     name = "autodiff_types_pybind",
     hdrs = ["autodiff_types_pybind.h"],
-<<<<<<< HEAD
     visibility = ["//visibility:public"],
-=======
->>>>>>> intial
 )
 
 drake_pybind_library(
@@ -97,10 +81,7 @@ drake_pybind_library(
     name = "automotive_py",
     cc_deps = [
         "//bindings/pydrake/systems:systems_pybind",
-<<<<<<< HEAD
         "//bindings/pydrake/util:wrap_pybind",
-=======
->>>>>>> intial
     ],
     cc_so_name = "automotive",
     cc_srcs = ["automotive_py.cc"],
@@ -120,7 +101,6 @@ drake_py_library(
 )
 
 drake_pybind_library(
-<<<<<<< HEAD
     name = "geometry_py",
     cc_deps = [
         "//lcmtypes:viewer",
@@ -139,9 +119,6 @@ drake_pybind_library(
     cc_deps = [
         "//bindings/pydrake/util:drake_optional_pybind",
     ],
-=======
-    name = "lcm_py",
->>>>>>> intial
     cc_so_name = "lcm",
     cc_srcs = ["lcm_py.cc"],
     package_info = PACKAGE_INFO,
@@ -157,7 +134,6 @@ drake_pybind_library(
     package_info = PACKAGE_INFO,
     py_deps = [
         ":common_py",
-<<<<<<< HEAD
         "//bindings/pydrake/util:eigen_geometry_py",
     ],
 )
@@ -166,15 +142,6 @@ drake_cc_library(
     name = "symbolic_types_pybind",
     hdrs = ["symbolic_types_pybind.h"],
     visibility = ["//visibility:public"],
-=======
-    ],
-)
-
-# TODO(eric.cousineau): Make private.
-drake_cc_library(
-    name = "symbolic_types_pybind",
-    hdrs = ["symbolic_types_pybind.h"],
->>>>>>> intial
 )
 
 drake_pybind_library(
@@ -182,20 +149,13 @@ drake_pybind_library(
     cc_deps = [
         ":symbolic_types_pybind",
         "//bindings/pydrake/util:wrap_pybind",
-<<<<<<< HEAD
-=======
-        "@fmt",
->>>>>>> intial
     ],
     cc_srcs = ["symbolic_py.cc"],
     package_info = PACKAGE_INFO,
     py_deps = [
         ":common_py",
         ":math_py",
-<<<<<<< HEAD
         "//bindings/pydrake/util:compatibility_py",
-=======
->>>>>>> intial
         "//bindings/pydrake/util:deprecation_py",
     ],
     py_srcs = ["symbolic.py"],
@@ -215,20 +175,14 @@ PY_LIBRARIES_WITH_INSTALL = [
     ":autodiffutils_py",
     ":automotive_py",
     ":common_py",
-<<<<<<< HEAD
     ":geometry_py",
-=======
->>>>>>> intial
     ":lcm_py",
     ":math_py",
     ":symbolic_py",
     ":trajectories_py",
     "//bindings/pydrake/examples",
     "//bindings/pydrake/maliput",
-<<<<<<< HEAD
     "//bindings/pydrake/manipulation",
-=======
->>>>>>> intial
     "//bindings/pydrake/multibody",
     "//bindings/pydrake/solvers",
     "//bindings/pydrake/systems",
@@ -278,7 +232,6 @@ drake_py_library(
     srcs = ["test/algebra_test_util.py"],
 )
 
-<<<<<<< HEAD
 # Test ODR (One Definition Rule).
 drake_pybind_library(
     name = "autodiffutils_test_util_py",
@@ -292,17 +245,12 @@ drake_pybind_library(
     package_info = PACKAGE_INFO,
 )
 
-=======
->>>>>>> intial
 drake_py_unittest(
     name = "autodiffutils_test",
     deps = [
         ":algebra_test_util_py",
         ":autodiffutils_py",
-<<<<<<< HEAD
         ":autodiffutils_test_util_py",
-=======
->>>>>>> intial
     ],
 )
 
@@ -321,10 +269,6 @@ drake_pybind_library(
 
 drake_py_unittest(
     name = "odr_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":odr_test_module_py",
         ":symbolic_py",
@@ -333,43 +277,25 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "common_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     data = ["//examples/atlas:models"],
     deps = [":common_py"],
 )
 
 drake_py_unittest(
     name = "forward_diff_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [":autodiffutils_py"],
 )
 
 drake_py_unittest(
     name = "lcm_test",
-<<<<<<< HEAD
     deps = [
         ":lcm_py",
         "@lcmtypes_robotlocomotion//:lcmtypes_robotlocomotion_py",
-=======
-    size = "small",
-    deps = [
-        ":lcm_py",
->>>>>>> intial
     ],
 )
 
 drake_py_unittest(
     name = "math_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":math_py",
     ],
@@ -377,10 +303,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "math_overloads_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":autodiffutils_py",
         ":math_py",
@@ -390,10 +312,6 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "symbolic_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":algebra_test_util_py",
         ":symbolic_py",
@@ -403,19 +321,11 @@ drake_py_unittest(
 
 drake_py_unittest(
     name = "trajectories_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [":trajectories_py"],
 )
 
 drake_py_unittest(
     name = "automotive_test",
-<<<<<<< HEAD
-=======
-    size = "small",
->>>>>>> intial
     deps = [
         ":automotive_py",
         "//bindings/pydrake/maliput:api_py",
@@ -438,7 +348,6 @@ add_lint_tests(
         ":test/common_install_test.py",
     ],
 )
-<<<<<<< HEAD
 
 drake_py_binary(
     name = "math_example",
@@ -448,5 +357,3 @@ drake_py_binary(
         ":math_py",
     ],
 )
-=======
->>>>>>> intial

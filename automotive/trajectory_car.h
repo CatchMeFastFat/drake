@@ -88,11 +88,7 @@ class TrajectoryCar final : public systems::LeafSystem<T> {
       : TrajectoryCar<T>(Curve2<double>(other.curve_.waypoints())) {}
 
   /// The command input port (optional).
-<<<<<<< HEAD
   const systems::InputPort<T>& command_input() const {
-=======
-  const systems::InputPortDescriptor<T>& command_input() const {
->>>>>>> intial
     return this->get_input_port(0);
   }
   /// See class description for details about the following ports.

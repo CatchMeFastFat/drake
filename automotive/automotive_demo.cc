@@ -11,10 +11,7 @@
 #include "drake/automotive/maliput/api/lane_data.h"
 #include "drake/automotive/maliput/dragway/road_geometry.h"
 #include "drake/automotive/monolane_onramp_merge.h"
-<<<<<<< HEAD
 #include "drake/automotive/multilane_onramp_merge.h"
-=======
->>>>>>> intial
 #include "drake/common/drake_assert.h"
 #include "drake/common/text_logging_gflags.h"
 #include "drake/lcm/drake_lcm.h"
@@ -82,7 +79,6 @@ DEFINE_double(dragway_vehicle_spacing, 10,
 DEFINE_bool(with_onramp, false, "Loads the onramp road network. Only one road "
             "network can be enabled. Thus, if this option is enabled, no other "
             "road network can be enabled.");
-<<<<<<< HEAD
 DEFINE_bool(with_multilane_onramp, false,
             "Loads the onramp road network. Only one road "
             "network can be enabled. Thus, if this option is enabled, no other "
@@ -101,12 +97,6 @@ DEFINE_bool(onramp_swap_start, false, "Whether to swap the starting lanes of "
             "the vehicles on the onramp or multilane_onramp scenarios, i.e. "
             " this option is only valid when either `with_onramp` or "
             "`with_multilane_onramp` options are used.");
-=======
-DEFINE_double(onramp_base_speed, 25, "The speed of the vehicles added to the "
-              "onramp.");
-DEFINE_bool(onramp_swap_start, false, "Whether to swap the starting lanes of "
-            "the vehicles on the onramp.");
->>>>>>> intial
 
 DEFINE_bool(with_stalled_cars, false, "Places a stalled vehicle at the end of "
             "each lane of a dragway. This option is only enabled when the "
@@ -128,12 +118,8 @@ constexpr double kControlledCarRowSpacing{5};
 enum class RoadNetworkType {
   flat = 0,
   dragway = 1,
-<<<<<<< HEAD
   onramp = 2,
   multilane_onramp = 3,
-=======
-  onramp = 2
->>>>>>> intial
 };
 
 std::string MakeChannelName(const std::string& name) {
@@ -192,7 +178,6 @@ void AddMaliputRailcar(int num_cars, bool idm_controlled, int initial_s_offset,
   }
 }
 
-<<<<<<< HEAD
 // Adds a MaliputRailcar to the simulation involving an onramp RoadGeometry.
 // It throws a std::runtime_error if there is insufficient lane length for
 // adding the vehicle (it may happen when @p idm_controlled is true).
@@ -266,8 +251,6 @@ void AddOnrampMaliputRailcars(int num_cars, bool idm_controlled,
   }
 }
 
-=======
->>>>>>> intial
 // Adds SimpleCar instances to the simulator. It uses FLAGS_num_simple_car or
 // FLAGS_simple_car_names to determine the number and names of SimpleCar
 // instances to add. If both are specified, an exception will be thrown. The
@@ -379,32 +362,12 @@ void AddVehicles(RoadNetworkType road_network_type,
 
   } else if (road_network_type == RoadNetworkType::onramp) {
     DRAKE_DEMAND(road_geometry != nullptr);
-<<<<<<< HEAD
     AddOnrampMaliputRailcars(FLAGS_num_maliput_railcar,
         false /* IDM controlled */, road_network_type, simulator);
   } else if (road_network_type == RoadNetworkType::multilane_onramp) {
     DRAKE_DEMAND(road_geometry != nullptr);
     AddOnrampMaliputRailcars(FLAGS_num_maliput_railcar,
         false /* IDM controlled */, road_network_type, simulator);
-=======
-    for (int i = 0; i < FLAGS_num_maliput_railcar; ++i) {
-      // Alternate starting the MaliputRailcar vehicles between the two possible
-      // starting locations.
-      const int n = FLAGS_onramp_swap_start ? (i + 1) : i;
-      const std::string lane_name = (n % 2 == 0) ? "l:onramp0" : "l:pre0";
-      const bool with_s = false;
-
-      LaneDirection lane_direction(simulator->FindLane(lane_name), with_s);
-      MaliputRailcarParams<double> params;
-      params.set_r(0);
-      params.set_h(0);
-      MaliputRailcarState<double> state;
-      state.set_s(with_s ? 0 : lane_direction.lane->length());
-      state.set_speed(FLAGS_onramp_base_speed);
-      simulator->AddPriusMaliputRailcar("MaliputRailcar" + std::to_string(i),
-          lane_direction, params, state);
-    }
->>>>>>> intial
   } else {
     for (int i = 0; i < FLAGS_num_trajectory_car; ++i) {
       const auto& params = CreateTrajectoryParams(i);
@@ -418,11 +381,7 @@ void AddVehicles(RoadNetworkType road_network_type,
 
 // Adds a flat terrain to the provided simulator.
 void AddFlatTerrain(AutomotiveSimulator<double>*) {
-<<<<<<< HEAD
   // Intentionally do nothing. This is possible since only non-physics-based
-=======
-  // Intentially do nothing. This is possible since only non-physics-based
->>>>>>> intial
   // vehicles are supported and they will not fall through the "ground" when no
   // flat terrain is present.
   //
@@ -459,7 +418,6 @@ const maliput::api::RoadGeometry* AddOnramp(
   return simulator->SetRoadGeometry(onramp_generator->BuildOnramp());
 }
 
-<<<<<<< HEAD
 // Adds a multilane-based onramp road network to the provided `simulator`.
 const maliput::api::RoadGeometry* AddMultilaneOnramp(
     AutomotiveSimulator<double>* simulator) {
@@ -470,8 +428,6 @@ const maliput::api::RoadGeometry* AddMultilaneOnramp(
   return simulator->SetRoadGeometry(onramp_generator->BuildOnramp());
 }
 
-=======
->>>>>>> intial
 // Adds a terrain to the simulated world. The type of terrain added depends on
 // the provided `road_network_type` parameter. A pointer to the road network is
 // returned. A return value of `nullptr` is possible if no road network is
@@ -492,13 +448,10 @@ const maliput::api::RoadGeometry* AddTerrain(RoadNetworkType road_network_type,
       road_geometry = AddOnramp(simulator);
       break;
     }
-<<<<<<< HEAD
     case RoadNetworkType::multilane_onramp: {
       road_geometry = AddMultilaneOnramp(simulator);
       break;
     }
-=======
->>>>>>> intial
   }
   return road_geometry;
 }
@@ -508,10 +461,7 @@ const maliput::api::RoadGeometry* AddTerrain(RoadNetworkType road_network_type,
 RoadNetworkType DetermineRoadNetworkType() {
   int num_environments_selected{0};
   if (FLAGS_with_onramp) ++num_environments_selected;
-<<<<<<< HEAD
   if (FLAGS_with_multilane_onramp) ++num_environments_selected;
-=======
->>>>>>> intial
   if (FLAGS_num_dragway_lanes) ++num_environments_selected;
   if (num_environments_selected > 1) {
     throw std::runtime_error("ERROR: More than one road network selected. Only "
@@ -522,11 +472,8 @@ RoadNetworkType DetermineRoadNetworkType() {
     return RoadNetworkType::dragway;
   } else if (FLAGS_with_onramp) {
     return RoadNetworkType::onramp;
-<<<<<<< HEAD
   } else if (FLAGS_with_multilane_onramp) {
     return RoadNetworkType::multilane_onramp;
-=======
->>>>>>> intial
   } else {
     return RoadNetworkType::flat;
   }

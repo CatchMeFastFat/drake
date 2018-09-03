@@ -1,9 +1,6 @@
 #include "drake/automotive/maliput/multilane/line_road_curve.h"
 
-<<<<<<< HEAD
 #include "drake/common/unused.h"
-=======
->>>>>>> intial
 #include "drake/math/saturate.h"
 
 namespace drake {
@@ -12,30 +9,12 @@ namespace multilane {
 
 const double LineRoadCurve::kMinimumNorm = 1e-12;
 
-<<<<<<< HEAD
 double LineRoadCurve::FastCalcPFromS(double s, double r) const {
-=======
-double LineRoadCurve::p_from_s(double s, double r) const {
-  // TODO(@maddog-tri) We should take care of the superelevation() scale that
-  //                   will modify curve's path length.
-  DRAKE_DEMAND(r == 0. || (superelevation().a() == 0. &&
-               superelevation().b() == 0. && superelevation().c() == 0. &&
-               superelevation().d() == 0.));
->>>>>>> intial
   unused(r);
   return elevation().p_s(s / p_scale());
 }
 
-<<<<<<< HEAD
 double LineRoadCurve::FastCalcSFromP(double p, double r) const {
-=======
-double LineRoadCurve::s_from_p(double p, double r) const {
-  // TODO(@maddog-tri) We should take care of the superelevation() scale that
-  //                   will modify curve's path length.
-  DRAKE_DEMAND(r == 0. || (superelevation().a() == 0. &&
-               superelevation().b() == 0. && superelevation().c() == 0. &&
-               superelevation().d() == 0.));
->>>>>>> intial
   unused(r);
   return p_scale() * elevation().s_p(p);
 }

@@ -3,15 +3,11 @@
 #include <string>
 #include <vector>
 
-<<<<<<< HEAD
 #include "drake/automotive/maliput/api/branch_point.h"
 #include "drake/automotive/maliput/api/junction.h"
 #include "drake/automotive/maliput/api/lane.h"
 #include "drake/automotive/maliput/api/lane_data.h"
 #include "drake/automotive/maliput/api/segment.h"
-=======
-#include "drake/automotive/maliput/api/lane_data.h"
->>>>>>> intial
 #include "drake/automotive/maliput/api/type_specific_identifier.h"
 #include "drake/common/drake_copyable.h"
 
@@ -33,13 +29,9 @@ using RoadGeometryId = TypeSpecificIdentifier<class RoadGeometry>;
 //                          scalar type T like everything else in drake.
 class RoadGeometry {
  public:
-<<<<<<< HEAD
   class IdIndex;
 
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(RoadGeometry);
-=======
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(RoadGeometry)
->>>>>>> intial
 
   virtual ~RoadGeometry() = default;
 
@@ -72,13 +64,10 @@ class RoadGeometry {
     return do_branch_point(index);
   }
 
-<<<<<<< HEAD
   /// Accesses the IdIndex interface, which allows getting elements of
   /// the RoadGeometry's object graph by their unique id's.
   const IdIndex& ById() const { return DoById(); }
 
-=======
->>>>>>> intial
   /// Determines the RoadPosition corresponding to GeoPosition @p geo_position.
   ///
   /// If @p hint is non-null, its value is used to help determine the result.
@@ -161,11 +150,8 @@ class RoadGeometry {
 
   virtual const BranchPoint* do_branch_point(int index) const = 0;
 
-<<<<<<< HEAD
   virtual const IdIndex& DoById() const = 0;
 
-=======
->>>>>>> intial
   virtual RoadPosition DoToRoadPosition(const GeoPosition& geo_pos,
                                         const RoadPosition* hint,
                                         GeoPosition* nearest_position,
@@ -178,7 +164,6 @@ class RoadGeometry {
 };
 
 
-<<<<<<< HEAD
 /// Abstract interface for a collection of methods which allow accessing
 /// objects in a RoadGeometry's object graph (Lanes, Segments, Junctions,
 /// BranchPoints) by their unique id's.
@@ -220,8 +205,6 @@ class RoadGeometry::IdIndex {
 };
 
 
-=======
->>>>>>> intial
 }  // namespace api
 }  // namespace maliput
 }  // namespace drake

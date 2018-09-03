@@ -7,22 +7,16 @@
 #include <utility>
 #include <vector>
 
-<<<<<<< HEAD
 #include "drake/common/reset_on_copy.h"
 #include "drake/common/unused.h"
 #include "drake/systems/framework/cache.h"
 #include "drake/systems/framework/dependency_tracker.h"
 #include "drake/systems/framework/fixed_input_port_value.h"
 #include "drake/systems/framework/value.h"
-=======
-#include "drake/systems/framework/cache.h"
-#include "drake/systems/framework/dependency_tracker.h"
->>>>>>> intial
 
 namespace drake {
 namespace systems {
 
-<<<<<<< HEAD
 #ifndef DRAKE_DOXYGEN_CXX
 namespace detail {
 // This provides SystemBase limited "friend" access to ContextBase.
@@ -33,11 +27,6 @@ class SystemBaseContextBaseAttorney;
 /** Provides non-templatized Context functionality shared by the templatized
 derived classes. That includes caching, dependency tracking, and management
 of local values for fixed input ports.
-=======
-/** Provides non-templatized functionality shared by the templatized derived
-classes. That includes caching and dependency tracking, and management of
-local values for fixed input ports.
->>>>>>> intial
 
 Terminology: in general a Drake System is a tree structure composed of
 "subsystems", which are themselves System objects. The corresponding Context is
@@ -71,13 +60,9 @@ class ContextBase : public internal::ContextMessageInterface {
   modifications from the caching system, or (c) a bug in the caching system. The
   `is_disabled` flags are independent of the `out_of_date` flags, which continue
   to be maintained even when caching is disabled (though they are ignored). */
-<<<<<<< HEAD
   void DisableCaching() const {
     PropagateCachingChange(*this, &Cache::DisableCaching);
   }
-=======
-  void DisableCaching() const;
->>>>>>> intial
 
   /** (Debugging) Re-enables caching recursively for this context and all its
   subcontexts. The `is_disabled` flags are independent of the `out_of_date`
@@ -88,13 +73,9 @@ class ContextBase : public internal::ContextMessageInterface {
   everything out of date. You might want to do that, for example, for
   repeatability or because you modified something in the debugger and want to
   make sure it gets used. */
-<<<<<<< HEAD
   void EnableCaching() const {
     PropagateCachingChange(*this, &Cache::EnableCaching);
   }
-=======
-  void EnableCaching() const;
->>>>>>> intial
 
   /** (Debugging) Marks all cache entries out of date, recursively for this
   context and all its subcontexts. This forces the next `Eval()` request for
@@ -104,7 +85,6 @@ class ContextBase : public internal::ContextMessageInterface {
   is called or not, since the caching system should be maintaining this flag
   correctly. If they are not, see the documentation for SetIsCacheDisabled() for
   suggestions. */
-<<<<<<< HEAD
   void SetAllCacheEntriesOutOfDate() const {
     PropagateCachingChange(*this, &Cache::SetAllEntriesOutOfDate);
   }
@@ -121,20 +101,6 @@ class ContextBase : public internal::ContextMessageInterface {
   /** Returns the full pathname of the subsystem for which this is the Context.
   This is intended primarily for error messages and logging.
   @see SystemBase::GetSystemPathname() for details. */
-=======
-  void SetAllCacheEntriesOutOfDate() const;
-
-  /** (Debugging) Returns the local name of the subsystem for which this is the
-  Context. See GetSystemPathname() if you want the full name. */
-  // TODO(sherm1) Replace with the real name.
-  const std::string& GetSystemName() const final {
-    static const never_destroyed<std::string> name("dummy");
-    return name.access();
-  }
-
-  /** (Debugging) Returns the full pathname of the subsystem for which this is
-  the Context. See get_system_pathname() if you want to the full name. */
->>>>>>> intial
   std::string GetSystemPathname() const final;
 
   /** Returns a const reference to this subcontext's cache. */
@@ -179,7 +145,6 @@ class ContextBase : public internal::ContextMessageInterface {
     return graph_;
   }
 
-<<<<<<< HEAD
   /** Returns the number of input ports in this context. */
   int get_num_input_ports() const {
     DRAKE_ASSERT(input_port_tickets_.size() == input_port_values_.size());
@@ -257,8 +222,6 @@ class ContextBase : public internal::ContextMessageInterface {
     return ++context->current_change_event_;
   }
 
-=======
->>>>>>> intial
  protected:
   /** Default constructor creates an empty ContextBase but initializes all the
   built-in dependency trackers that are the same in every System (like time,
@@ -276,7 +239,6 @@ class ContextBase : public internal::ContextMessageInterface {
   contained in the source are left null in the copy. */
   ContextBase(const ContextBase&) = default;
 
-<<<<<<< HEAD
   /** @name      Add dependency tracking resources (Internal use only)
   Methods in this group are used by SystemBase and unit testing while creating
   a Context that can track dependencies for a given System. Although these
@@ -436,10 +398,6 @@ class ContextBase : public internal::ContextMessageInterface {
 
   /** (Internal use only) Clones a context but without copying any of its
   internal pointers; the clone's pointers are set to null. */
-=======
-  /** Clones a context but without copying any of its internal pointers; the
-  clone's pointers are set to null. */
->>>>>>> intial
   // Structuring this as a static method allows DiagramContext to invoke this
   // protected function on its children.
   static std::unique_ptr<ContextBase> CloneWithoutPointers(
@@ -447,7 +405,6 @@ class ContextBase : public internal::ContextMessageInterface {
     return source.DoCloneWithoutPointers();
   }
 
-<<<<<<< HEAD
   /** (Internal use only) Given a new context `clone` containing an
   identically-structured dependency graph as the one in `source`, creates a
   mapping of all tracker memory addresses from `source` to `clone`. This must be
@@ -516,8 +473,6 @@ class ContextBase : public internal::ContextMessageInterface {
     child->current_change_event_ = -1;
   }
 
-=======
->>>>>>> intial
   /** Derived classes must implement this so that it performs the complete
   deep copy of the context, including all base class members but not fixing
   up base class pointers. To do that, implement a protected copy constructor
@@ -526,7 +481,6 @@ class ContextBase : public internal::ContextMessageInterface {
   `return unique_ptr<ContextBase>(new DerivedType(*this));`. */
   virtual std::unique_ptr<ContextBase> DoCloneWithoutPointers() const = 0;
 
-<<<<<<< HEAD
   /** DiagramContext must implement this to invoke BuildTrackerPointerMap() on
   each of its subcontexts. The default implementation does nothing which is
   fine for a LeafContext. */
@@ -583,14 +537,10 @@ class ContextBase : public internal::ContextMessageInterface {
       InputPortIndex index,
       std::unique_ptr<FixedInputPortValue> port_value);
 
-=======
- private:
->>>>>>> intial
   // Fills in the dependency graph with the built-in trackers that are common
   // to every Context (and every System).
   void CreateBuiltInTrackers();
 
-<<<<<<< HEAD
   // We record tickets so we can reconstruct the dependency graph when cloning
   // or transmogrifying a Context without a System present.
 
@@ -615,28 +565,12 @@ class ContextBase : public internal::ContextMessageInterface {
   // Index with InputPortIndex.
   std::vector<copyable_unique_ptr<FixedInputPortValue>>
       input_port_values_;
-=======
-  // Given a new context `clone` with the same dependency graph as this one,
-  // create a mapping of all tracker memory addresses from `this` to `clone`.
-  // This must be done for the whole Context tree because pointers can point
-  // outside of their containing subcontext.
-  void BuildTrackerPointerMap(
-      const ContextBase& clone,
-      DependencyTracker::PointerMap* tracker_map) const;
-
-  // Assuming `this` is a recently-cloned Context containing stale references
-  // to the source Context's trackers, repair those pointers using the given
-  // map.
-  void FixTrackerPointers(const ContextBase& source,
-                          const DependencyTracker::PointerMap& tracker_map);
->>>>>>> intial
 
   // The cache of pre-computed values owned by this subcontext.
   mutable Cache cache_;
 
   // This is the dependency graph for values within this subcontext.
   DependencyGraph graph_;
-<<<<<<< HEAD
 
   // This is used only when this subcontext is serving as the root of a context
   // tree, in which case it will be initialized to zero as shown. In any
@@ -734,9 +668,5 @@ class SystemBaseContextBaseAttorney {
 }  // namespace detail
 #endif
 
-=======
-};
-
->>>>>>> intial
 }  // namespace systems
 }  // namespace drake

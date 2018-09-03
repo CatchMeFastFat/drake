@@ -68,29 +68,8 @@ void RigidBody<T>::setJoint(std::unique_ptr<DrakeJoint> joint) {
 }
 
 template <typename T>
-<<<<<<< HEAD
 void RigidBody<T>::set_parent(RigidBody* parent) { parent_ = parent; }
 
-=======
-const DrakeJoint& RigidBody<T>::getJoint() const {
-  if (joint_) {
-    return (*joint_);
-  } else {
-    throw runtime_error("ERROR: RigidBody<T>::getJoint(): Rigid body \"" +
-                        name_ + "\" in model " + model_name_ +
-                        " does not have a joint!");
-  }
-}
-
-template <typename T>
-void RigidBody<T>::set_parent(RigidBody* parent) { parent_ = parent; }
-
-template <typename T>
-const RigidBody<T>* RigidBody<T>::get_parent() const { return parent_; }
-
-template <typename T>
-bool RigidBody<T>::has_parent_body() const { return parent_ != nullptr; }
->>>>>>> intial
 
 // TODO(liang.fok): Remove this deprecated method prior to Release 1.0.
 template <typename T>
@@ -100,36 +79,15 @@ template <typename T>
 void RigidBody<T>::set_body_index(int body_index) { body_index_ = body_index; }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-int RigidBody<T>::get_body_index() const { return body_index_; }
-
-template <typename T>
->>>>>>> intial
 void RigidBody<T>::set_position_start_index(int position_start_index) {
   position_start_index_ = position_start_index;
 }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-int RigidBody<T>::get_position_start_index() const {
-  return position_start_index_;
-}
-
-template <typename T>
->>>>>>> intial
 void RigidBody<T>::set_velocity_start_index(int velocity_start_index) {
   velocity_start_index_ = velocity_start_index;
 }
 
-<<<<<<< HEAD
-=======
-template <typename T>
-int RigidBody<T>::get_velocity_start_index() const {
-  return velocity_start_index_;
-}
->>>>>>> intial
 
 template <typename T>
 void RigidBody<T>::AddVisualElement(const DrakeShapes::VisualElement& element) {
@@ -153,15 +111,6 @@ void RigidBody<T>::AddCollisionElement(
 }
 
 template <typename T>
-<<<<<<< HEAD
-=======
-const std::vector<drake::multibody::collision::ElementId>&
-RigidBody<T>::get_collision_element_ids() const {
-  return collision_element_ids_;
-}
-
-template <typename T>
->>>>>>> intial
 std::vector<drake::multibody::collision::ElementId>&
 RigidBody<T>::get_mutable_collision_element_ids() {
   return collision_element_ids_;
@@ -307,15 +256,6 @@ void RigidBody<T>::set_spatial_inertia(const drake::SquareTwistMatrix<double>&
   spatial_inertia_ = spatial_inertia;
 }
 
-<<<<<<< HEAD
-=======
-template <typename T>
-const drake::SquareTwistMatrix<double>& RigidBody<T>::get_spatial_inertia()
-    const {
-  return spatial_inertia_;
-}
-
->>>>>>> intial
 ostream& operator<<(ostream& out, const RigidBody<double>& b) {
   std::string parent_joint_name =
       b.has_parent_body() ? b.getJoint().get_name() : "no parent joint";

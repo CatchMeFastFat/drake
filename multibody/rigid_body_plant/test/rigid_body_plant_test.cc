@@ -10,11 +10,7 @@
 #include "drake/common/find_resource.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/examples/pendulum/gen/pendulum_params.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/prismatic_joint.h"
 #include "drake/multibody/joints/quaternion_floating_joint.h"
 #include "drake/multibody/parsers/model_instance_id_table.h"
@@ -231,11 +227,7 @@ class KukaArmTest : public ::testing::TestWithParam<double> {
                                                       this->GetParam());
 
     context_ = kuka_plant_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = kuka_plant_->AllocateOutput();
-=======
-    output_ = kuka_plant_->AllocateOutput(*context_);
->>>>>>> intial
     derivatives_ = kuka_plant_->AllocateTimeDerivatives();
   }
 

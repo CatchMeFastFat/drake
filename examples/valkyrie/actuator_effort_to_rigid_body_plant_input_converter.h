@@ -25,14 +25,8 @@ class ActuatorEffortToRigidBodyPlantInputConverter : public LeafSystem<T> {
       const ActuatorEffortToRigidBodyPlantInputConverter&) = delete;
 
 
-<<<<<<< HEAD
   /// Returns the effort input port corresponding to @param actuator.
   const InputPort<T>& effort_input_port(
-=======
-  /// Returns the descriptor of the effort input port corresponding for
-  /// @param actuator
-  const InputPortDescriptor<T>& effort_input_port(
->>>>>>> intial
       const RigidBodyActuator& actuator);
 
  private:

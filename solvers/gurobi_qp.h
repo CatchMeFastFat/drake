@@ -4,11 +4,7 @@
 #include <vector>
 
 #include <Eigen/Dense>
-<<<<<<< HEAD
 #include <gurobi_c.h>
-=======
-#include <gurobi_c++.h>
->>>>>>> intial
 
 #define CGE(call, env)                                                  \
   {                                                                     \

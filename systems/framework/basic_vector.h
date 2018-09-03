@@ -29,12 +29,9 @@ class BasicVector : public VectorBase<T> {
   // assignment of a BasicVector could change its size.)
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(BasicVector)
 
-<<<<<<< HEAD
   /// Constructs an empty BasicVector.
   BasicVector() = default;
 
-=======
->>>>>>> intial
   /// Initializes with the given @p size using the drake::dummy_value<T>, which
   /// is NaN when T = double.
   explicit BasicVector(int size)
@@ -44,7 +41,6 @@ class BasicVector : public VectorBase<T> {
   explicit BasicVector(const VectorX<T>& data) : values_(data) {}
 
   /// Constructs a BasicVector whose elements are the elements of @p data.
-<<<<<<< HEAD
   BasicVector(const std::initializer_list<T>& data)
       : BasicVector<T>(data.size()) {
     int i = 0;
@@ -57,16 +53,6 @@ class BasicVector : public VectorBase<T> {
   static std::unique_ptr<BasicVector<T>> Make(
       const std::initializer_list<T>& data) {
     return std::make_unique<BasicVector<T>>(data);
-=======
-  static std::unique_ptr<BasicVector<T>> Make(
-      const std::initializer_list<T>& data) {
-    auto vec = std::make_unique<BasicVector<T>>(data.size());
-    int i = 0;
-    for (const T& datum : data) {
-      vec->SetAtIndex(i++, datum);
-    }
-    return vec;
->>>>>>> intial
   }
 
   /// Constructs a BasicVector where each element is constructed using the
@@ -77,11 +63,7 @@ class BasicVector : public VectorBase<T> {
   static std::unique_ptr<BasicVector<T>> Make(Fargs&&... args) {
     auto data = std::make_unique<BasicVector<T>>(sizeof...(args));
     BasicVector<T>::MakeRecursive(data.get(), 0, args...);
-<<<<<<< HEAD
     return data;
-=======
-    return std::move(data);
->>>>>>> intial
   }
 
   int size() const override { return static_cast<int>(values_.rows()); }

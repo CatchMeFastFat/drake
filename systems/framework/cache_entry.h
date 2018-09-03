@@ -2,15 +2,9 @@
 
 #include <functional>
 #include <memory>
-<<<<<<< HEAD
 #include <set>
 #include <string>
 #include <utility>
-=======
-#include <string>
-#include <utility>
-#include <vector>
->>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 #include "drake/systems/framework/context_base.h"
@@ -49,12 +43,9 @@ class CacheEntry {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(CacheEntry)
 
-<<<<<<< HEAD
   // TODO(sherm1) These callbacks should not be specific to this class. Move
   // elsewhere, e.g. framework_common.h so they can be shared with output port.
 
-=======
->>>>>>> intial
   /** Signature of a function suitable for allocating an object that can hold
   a value of a particular cache entry. The result is always returned as an
   AbstractValue but must contain the correct concrete type. */
@@ -94,26 +85,15 @@ class CacheEntry {
   @see drake::systems::SystemBase::DeclareCacheEntry() */
   // All the nontrivial parameters here are moved to the CacheEntry which is
   // why they aren't references.
-<<<<<<< HEAD
   CacheEntry(const internal::SystemMessageInterface* owning_system,
              CacheIndex index, DependencyTicket ticket, std::string description,
              AllocCallback alloc_function, CalcCallback calc_function,
              std::set<DependencyTicket> prerequisites_of_calc);
-=======
-  CacheEntry(const internal::SystemMessageInterface* owning_subsystem,
-             CacheIndex index, DependencyTicket ticket, std::string description,
-             AllocCallback alloc_function, CalcCallback calc_function,
-             std::vector<DependencyTicket> prerequisites_of_calc);
->>>>>>> intial
 
   /** Returns a reference to the list of prerequisites needed by this cache
   entry's Calc() function. These are all within the same subsystem that
   owns this %CacheEntry. */
-<<<<<<< HEAD
   const std::set<DependencyTicket>& prerequisites() const {
-=======
-  const std::vector<DependencyTicket>& prerequisites() const {
->>>>>>> intial
     return prerequisites_of_calc_;
   }
 
@@ -317,11 +297,7 @@ class CacheEntry {
   // Provides an identifying prefix for error messages.
   std::string FormatName(const char* api) const;
 
-<<<<<<< HEAD
   const internal::SystemMessageInterface* const owning_system_;
-=======
-  const internal::SystemMessageInterface* const owning_subsystem_;
->>>>>>> intial
   const CacheIndex cache_index_;
   const DependencyTicket ticket_;
 
@@ -336,11 +312,7 @@ class CacheEntry {
   // changes, the cache value must be recalculated. Note that all possible
   // prerequisites are internal to the containing subsystem, so the ticket
   // alone is a unique specification of a prerequisite.
-<<<<<<< HEAD
   const std::set<DependencyTicket> prerequisites_of_calc_;
-=======
-  const std::vector<DependencyTicket> prerequisites_of_calc_;
->>>>>>> intial
 };
 
 }  // namespace systems

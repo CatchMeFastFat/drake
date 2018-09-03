@@ -14,11 +14,7 @@
 #include "drake/common/find_resource.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/common/unused.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/parsers/sdf_parser.h"
 #include "drake/multibody/rigid_body_plant/rigid_body_plant.h"
 #include "drake/multibody/rigid_body_tree.h"
@@ -28,10 +24,7 @@
 #include "drake/systems/framework/diagram_builder.h"
 #include "drake/systems/rendering/pose_vector.h"
 #include "drake/systems/sensors/image.h"
-<<<<<<< HEAD
 #include "drake/systems/sensors/rgbd_renderer_vtk.h"
-=======
->>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -53,7 +46,6 @@ constexpr double kFovY = M_PI_4;
 constexpr bool kShowWindow = RenderingConfig::kDefaultShowWindow;
 constexpr double kDepthRangeNear = 0.5;
 constexpr double kDepthRangeFar = 5.;
-<<<<<<< HEAD
 
 struct Size {
   int width{};
@@ -73,20 +65,6 @@ void VerifyCameraInfo(const CameraInfo& camera_info, Size size) {
   EXPECT_NEAR(size.height * 0.5, camera_info.center_y(), kTolerance);
 
   const double kExpectedFocal = 0.5 * size.height / tan(kFovY / 2);
-=======
-constexpr int kWidth = 640;
-constexpr int kHeight = 480;
-
-void VerifyCameraInfo(const CameraInfo& camera_info) {
-  EXPECT_EQ(kWidth, camera_info.width());
-  EXPECT_EQ(kHeight, camera_info.height());
-  EXPECT_NEAR(kWidth * 0.5, camera_info.center_x(), kTolerance);
-  EXPECT_NEAR(kHeight * 0.5, camera_info.center_y(), kTolerance);
-
-  // The expected focal value is calculated by the equation here:
-  // https://github.com/RobotLocomotion/drake/blob/master/drake/systems/sensors/camera_info.h
-  constexpr double kExpectedFocal = 579.41125496954282;
->>>>>>> intial
   EXPECT_NEAR(kExpectedFocal, camera_info.focal_x(), kTolerance);
   EXPECT_NEAR(kExpectedFocal, camera_info.focal_y(), kTolerance);
 }
@@ -106,15 +84,9 @@ void VerifyCameraPose(const Eigen::Isometry3d camera_optical_pose) {
 }
 
 GTEST_TEST(RgbdCamera, TestInstantiation) {
-<<<<<<< HEAD
   auto Verify = [](const RgbdCamera& camera, Size size) {
     VerifyCameraInfo(camera.color_camera_info(), size);
     VerifyCameraInfo(camera.depth_camera_info(), size);
-=======
-  auto Verify = [](const RgbdCamera& camera) {
-    VerifyCameraInfo(camera.color_camera_info());
-    VerifyCameraInfo(camera.depth_camera_info());
->>>>>>> intial
     VerifyCameraPose(camera.color_camera_optical_pose());
     VerifyCameraPose(camera.depth_camera_optical_pose());
     EXPECT_NO_THROW(camera.tree());
@@ -126,11 +98,7 @@ GTEST_TEST(RgbdCamera, TestInstantiation) {
                           Eigen::Vector3d(0.1, 0.2, 0.3),
                           kDepthRangeNear, kDepthRangeFar,
                           kFovY, kShowWindow);
-<<<<<<< HEAD
   Verify(fixed_camera, kSizeVga);
-=======
-  Verify(fixed_camera);
->>>>>>> intial
   // With the fixed camera use case, RgbdCamera doesn't hold a frame, thus
   // throws an exception.
   EXPECT_THROW(fixed_camera.frame(), std::logic_error);
@@ -140,7 +108,6 @@ GTEST_TEST(RgbdCamera, TestInstantiation) {
                             RigidBodyFrame<double>(),
                             kDepthRangeNear, kDepthRangeFar,
                             kFovY, kShowWindow);
-<<<<<<< HEAD
   Verify(movable_camera, kSizeVga);
   EXPECT_NO_THROW(movable_camera.frame());
 
@@ -187,12 +154,6 @@ GTEST_TEST(RgbdCamera, TestInstantiationRenderer) {
   Verify(movable_camera, kSizeVga);
   EXPECT_NO_THROW(movable_camera.frame());
 }
-=======
-  Verify(movable_camera);
-  EXPECT_NO_THROW(movable_camera.frame());
-}
-
->>>>>>> intial
 
 class RgbdCameraDiagram : public systems::Diagram<double> {
  public:
@@ -213,28 +174,17 @@ class RgbdCameraDiagram : public systems::Diagram<double> {
 
   // For fixed camera base.
   void Init(const Eigen::Vector3d& position,
-<<<<<<< HEAD
             const Eigen::Vector3d& orientation, int width, int height) {
     rgbd_camera_ = builder_.AddSystem<RgbdCamera>(
         "rgbd_camera", plant_->get_rigid_body_tree(), position, orientation,
         kDepthRangeNear, kDepthRangeFar, kFovY, kShowWindow,
         width, height);
-=======
-            const Eigen::Vector3d& orientation) {
-    rgbd_camera_ = builder_.AddSystem<RgbdCamera>(
-        "rgbd_camera", plant_->get_rigid_body_tree(), position, orientation,
-        kDepthRangeNear, kDepthRangeFar, kFovY, kShowWindow);
->>>>>>> intial
     rgbd_camera_->set_name("rgbd_camera");
     Connect();
   }
 
   // For movable camera base.
-<<<<<<< HEAD
   void Init(const Eigen::Isometry3d& transformation, int width, int height) {
-=======
-  void Init(const Eigen::Isometry3d& transformation) {
->>>>>>> intial
     rgbd_camera_frame_ = std::allocate_shared<RigidBodyFrame<double>>(
         Eigen::aligned_allocator<RigidBodyFrame<double>>(),
         "rgbd camera frame", plant_->get_rigid_body_tree().FindBody("link"),
@@ -242,21 +192,14 @@ class RgbdCameraDiagram : public systems::Diagram<double> {
 
     rgbd_camera_ = builder_.AddSystem<RgbdCamera>(
         "rgbd_camera", plant_->get_rigid_body_tree(), *rgbd_camera_frame_.get(),
-<<<<<<< HEAD
         kDepthRangeNear, kDepthRangeFar, kFovY, kShowWindow,
         width, height);
-=======
-        kDepthRangeNear, kDepthRangeFar, kFovY, kShowWindow);
->>>>>>> intial
     rgbd_camera_->set_name("rgbd_camera");
     Connect();
   }
 
-<<<<<<< HEAD
   RgbdCamera& camera() { return *rgbd_camera_; }
 
-=======
->>>>>>> intial
  private:
   void Connect() {
     builder_.Connect(plant_->state_output_port(),
@@ -285,33 +228,19 @@ class RgbdCameraDiagramTest : public ::testing::Test {
     auto label = output_->GetMutableData(2)->GetMutableValue<
       sensors::ImageLabel16I>();
 
-<<<<<<< HEAD
     EXPECT_EQ(color.width(), size_.width);
     EXPECT_EQ(color.height(), size_.height);
     EXPECT_EQ(depth.width(), size_.width);
     EXPECT_EQ(depth.height(), size_.height);
     EXPECT_EQ(label.width(), size_.width);
     EXPECT_EQ(label.height(), size_.height);
-=======
-    EXPECT_EQ(color.width(), kWidth);
-    EXPECT_EQ(color.height(), kHeight);
-    EXPECT_EQ(depth.width(), kWidth);
-    EXPECT_EQ(depth.height(), kHeight);
-    EXPECT_EQ(label.width(), kWidth);
-    EXPECT_EQ(label.height(), kHeight);
->>>>>>> intial
 
     // Verifying all the pixel has the same values in each images.
     const auto& kColor = color.at(0, 0);
     const auto& kDepth = depth.at(0, 0);
     const auto& kLabel = label.at(0, 0);
-<<<<<<< HEAD
     for (int v = 0; v < size_.height; ++v) {
       for (int u = 0; u < size_.width; ++u) {
-=======
-    for (int v = 0; v < kHeight; ++v) {
-      for (int u = 0; u < kWidth; ++u) {
->>>>>>> intial
         for (int ch = 0; ch < color.kNumChannels; ++ch) {
           ASSERT_EQ(kColor[ch], color.at(u, v)[ch]);
         }
@@ -324,7 +253,6 @@ class RgbdCameraDiagramTest : public ::testing::Test {
  protected:
   // For fixed camera base.
   void Init(const std::string& sdf, const Eigen::Vector3d& position,
-<<<<<<< HEAD
             const Eigen::Vector3d& orientation,
             Size size) {
     diagram_ = std::make_unique<RgbdCameraDiagram>(
@@ -333,19 +261,10 @@ class RgbdCameraDiagramTest : public ::testing::Test {
     diagram_->Init(position, orientation, size_.width, size_.height);
     context_ = diagram_->CreateDefaultContext();
     output_ = diagram_->AllocateOutput();
-=======
-            const Eigen::Vector3d& orientation) {
-    diagram_ = std::make_unique<RgbdCameraDiagram>(
-        FindResourceOrThrow("drake/systems/sensors/test/models/" + sdf));
-    diagram_->Init(position, orientation);
-    context_ = diagram_->CreateDefaultContext();
-    output_ = diagram_->AllocateOutput(*context_);
->>>>>>> intial
   }
 
   // For moving camera base.
   void Init(const std::string& sdf,
-<<<<<<< HEAD
             const Eigen::Isometry3d& transformation,
             Size size) {
     diagram_ = std::make_unique<RgbdCameraDiagram>(
@@ -365,20 +284,6 @@ class RgbdCameraDiagramTest : public ::testing::Test {
   Size size_;
 
  private:
-=======
-            const Eigen::Isometry3d& transformation) {
-    diagram_ = std::make_unique<RgbdCameraDiagram>(
-        FindResourceOrThrow("drake/systems/sensors/test/models/" + sdf));
-    diagram_->Init(transformation);
-    context_ = diagram_->CreateDefaultContext();
-    output_ = diagram_->AllocateOutput(*context_);
-  }
-
-  std::unique_ptr<systems::SystemOutput<double>> output_;
-
- private:
-  std::unique_ptr<RgbdCameraDiagram> diagram_;
->>>>>>> intial
   std::unique_ptr<systems::Context<double>> context_;
 };
 
@@ -390,7 +295,6 @@ TEST_F(RgbdCameraDiagramTest, FixedCameraOutputTest) {
   const Eigen::Vector3d position(0., 0., 1.);
   const Eigen::Vector3d orientation(0., M_PI_2, 0.);
 
-<<<<<<< HEAD
   for (auto size : kSizes) {
     Init("nothing.sdf", position, orientation, size);
     Verify();
@@ -406,20 +310,6 @@ TEST_F(RgbdCameraDiagramTest, FixedCameraOutputTest) {
     EXPECT_TRUE(CompareMatrices(rpy.ToMatrix3ViaRotationMatrix(),
                                 actual.linear().matrix(), kTolerance));
   }
-=======
-  Init("nothing.sdf", position, orientation);
-  Verify();
-
-  rendering::PoseVector<double>* const camera_base_pose =
-      dynamic_cast<rendering::PoseVector<double>*>(
-          output_->GetMutableVectorData(3));
-
-  const Eigen::Isometry3d actual = camera_base_pose->get_isometry();
-  EXPECT_TRUE(CompareMatrices(position.matrix(),
-                              actual.translation().matrix(), kTolerance));
-  EXPECT_TRUE(CompareMatrices(math::rpy2rotmat(orientation).matrix(),
-                              actual.linear().matrix(), kTolerance));
->>>>>>> intial
 }
 
 TEST_F(RgbdCameraDiagramTest, MovableCameraOutputTest) {
@@ -427,7 +317,6 @@ TEST_F(RgbdCameraDiagramTest, MovableCameraOutputTest) {
   const Eigen::Isometry3d X_WB = Eigen::Translation3d(0., 0., 1.) *
       Eigen::AngleAxisd(M_PI_2, Eigen::Vector3d::UnitY());
 
-<<<<<<< HEAD
   for (auto size : kSizes) {
     Init("nothing.sdf", X_WB, size);
     Verify();
@@ -485,18 +374,6 @@ TEST_F(RgbdCameraDiagramTest, ResetRendererTest) {
       }
     }
   }
-=======
-  Init("nothing.sdf", X_WB);
-  Verify();
-
-  rendering::PoseVector<double>* const camera_base_pose =
-      dynamic_cast<rendering::PoseVector<double>*>(
-          output_->GetMutableVectorData(3));
-
-  const Eigen::Isometry3d actual = camera_base_pose->get_isometry();
-  EXPECT_TRUE(CompareMatrices(X_WB.matrix(),
-                              actual.matrix(), kTolerance));
->>>>>>> intial
 }
 
 class DepthImageToPointCloudConversionTest : public ::testing::Test {

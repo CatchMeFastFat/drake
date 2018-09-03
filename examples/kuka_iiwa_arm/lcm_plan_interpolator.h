@@ -14,20 +14,12 @@ class LcmPlanInterpolator : public systems::Diagram<double> {
       const std::string& model_path,
       manipulation::planner::InterpolatorType interpolator_type);
 
-<<<<<<< HEAD
   const systems::InputPort<double>& get_input_port_iiwa_status()
-=======
-  const systems::InputPortDescriptor<double>& get_input_port_iiwa_status()
->>>>>>> intial
       const {
     return get_input_port(input_port_iiwa_status_);
   }
 
-<<<<<<< HEAD
   const systems::InputPort<double>& get_input_port_iiwa_plan() const {
-=======
-  const systems::InputPortDescriptor<double>& get_input_port_iiwa_plan() const {
->>>>>>> intial
     return get_input_port(input_port_iiwa_plan_);
   }
 
@@ -50,11 +42,7 @@ class LcmPlanInterpolator : public systems::Diagram<double> {
   int input_port_iiwa_status_{-1};
   int input_port_iiwa_plan_{-1};
 
-<<<<<<< HEAD
   // Output ports.
-=======
-  // Ouptut ports.
->>>>>>> intial
   int output_port_iiwa_command_{-1};
 
   manipulation::planner::RobotPlanInterpolator* robot_plan_interpolator_{};

@@ -10,14 +10,9 @@ namespace drake {
 namespace multibody {
 
 template <typename T>
-<<<<<<< HEAD
 UniformGravityFieldElement<T>::UniformGravityFieldElement(Vector3<double> g_W)
     : ForceElement<T>(world_model_instance()),
       g_W_(g_W) {}
-=======
-UniformGravityFieldElement<T>::UniformGravityFieldElement(Vector3<double> g_W) :
-    g_W_(g_W) {}
->>>>>>> intial
 
 template <typename T>
 VectorX<T> UniformGravityFieldElement<T>::CalcGravityGeneralizedForces(
@@ -47,11 +42,7 @@ VectorX<T> UniformGravityFieldElement<T>::CalcGravityGeneralizedForces(
   // Temporary array for body accelerations.
   std::vector<SpatialAcceleration<T>> A_WB_array(model.num_bodies());
 
-<<<<<<< HEAD
   // Output vector of generalized forces:
-=======
-  // Ouput vector of generalized forces:
->>>>>>> intial
   VectorX<T> tau_g(model.num_velocities());
 
   // Compute inverse dynamics with zero generalized velocities and zero

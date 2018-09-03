@@ -1,21 +1,16 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
->>>>>>> intial
 load("//tools/skylark:drake_py.bzl", "drake_py_test")
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "lcm",
     deps = [
@@ -27,8 +22,6 @@ drake_cc_package_library(
     ],
 )
 
-=======
->>>>>>> intial
 drake_cc_library(
     name = "interface",
     hdrs = [
@@ -50,11 +43,7 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "real",
-=======
-    name = "lcm",
->>>>>>> intial
     srcs = [
         "drake_lcm.cc",
         "lcm_receive_thread.cc",
@@ -122,25 +111,14 @@ drake_cc_googletest(
     name = "drake_lcm_test",
     # Flaky because LCM self-test can fail (PR #7311)
     flaky = 1,
-<<<<<<< HEAD
     deps = [
         ":lcmt_drake_signal_utils",
         ":real",
-=======
-    local = 1,
-    deps = [
-        ":lcm",
-        ":lcmt_drake_signal_utils",
->>>>>>> intial
     ],
 )
 
 drake_cc_googletest(
     name = "drake_lcm_log_test",
-<<<<<<< HEAD
-=======
-    local = 1,
->>>>>>> intial
     deps = [
         ":lcm_log",
         ":lcmt_drake_signal_utils",

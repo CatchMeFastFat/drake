@@ -7,11 +7,7 @@
 namespace drake {
 namespace geometry {
 
-<<<<<<< HEAD
 /** The custom leaf context type for SceneGraph.
-=======
-/** The custom leaf context type for GeometrySystem.
->>>>>>> intial
 
  @tparam T The scalar type. Must be a valid Eigen scalar.
 

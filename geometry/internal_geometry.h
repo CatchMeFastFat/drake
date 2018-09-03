@@ -37,43 +37,26 @@ class InternalGeometryBase {
   /** Default material, full constructor.
    @param shape         The shape specification for this instance.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
    @param X_PG          The pose of the geometry G in the parent frame P. */
   InternalGeometryBase(std::unique_ptr<Shape> shape, GeometryId geometry_id,
                        const std::string& name, const Isometry3<double>& X_PG)
       : InternalGeometryBase(std::move(shape), geometry_id, name, X_PG,
-=======
-   @param X_PG          The pose of the geometry G in the parent frame P. */
-  InternalGeometryBase(std::unique_ptr<Shape> shape, GeometryId geometry_id,
-                       const Isometry3<double>& X_PG)
-      : InternalGeometryBase(std::move(shape), geometry_id, X_PG,
->>>>>>> intial
                              VisualMaterial()) {}
 
   /** Full constructor.
    @param shape         The shape specification for this instance.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
-=======
->>>>>>> intial
    @param X_PG          The pose of the geometry G in the parent frame P.
    @param engine_index  The position in the geometry engine of this geometry.
    @param vis_material  The visual material for this geometry. */
   InternalGeometryBase(std::unique_ptr<Shape> shape, GeometryId geometry_id,
-<<<<<<< HEAD
                        const std::string& name, const Isometry3<double>& X_PG,
                        const VisualMaterial& vis_material)
       : shape_spec_(std::move(shape)),
         id_(geometry_id),
         name_(name),
-=======
-                       const Isometry3<double>& X_PG,
-                       const VisualMaterial& vis_material)
-      : shape_spec_(std::move(shape)),
-        id_(geometry_id),
->>>>>>> intial
         X_PG_(X_PG),
         visual_material_(vis_material) {}
 
@@ -93,11 +76,8 @@ class InternalGeometryBase {
 
   GeometryId get_id() const { return id_; }
 
-<<<<<<< HEAD
   const std::string& get_name() const { return name_; }
 
-=======
->>>>>>> intial
   const Isometry3<double>& get_pose_in_parent() const { return X_PG_; }
 
   const VisualMaterial& get_visual_material() const { return visual_material_; }
@@ -109,13 +89,10 @@ class InternalGeometryBase {
   // The identifier for this frame.
   GeometryId id_;
 
-<<<<<<< HEAD
   // The name of the geometry. Must be unique among geometries attached to the
   // same frame.
   std::string name_;
 
-=======
->>>>>>> intial
   // The pose of this geometry in the parent frame. The parent may be a frame or
   // another registered geometry.
   Isometry3<double> X_PG_;
@@ -141,20 +118,13 @@ class InternalGeometry : public InternalGeometryBase {
    @param shape         The shape specification for this instance.
    @param frame_id      The identifier of the frame this belongs to.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
-=======
->>>>>>> intial
    @param X_PG          The pose of the geometry G in the parent frame P. The
                         parent may be a frame, or another registered geometry.
    @param engine_index  The position in the geometry engine of this geometry.
    @param parent_id     The optional id of the parent geometry. */
   InternalGeometry(std::unique_ptr<Shape> shape, FrameId frame_id,
-<<<<<<< HEAD
                    GeometryId geometry_id, const std::string& name,
-=======
-                   GeometryId geometry_id,
->>>>>>> intial
                    const Isometry3<double>& X_PG, GeometryIndex engine_index,
                    const optional<GeometryId>& parent_id = {});
 
@@ -162,21 +132,14 @@ class InternalGeometry : public InternalGeometryBase {
    @param shape         The shape specification for this instance.
    @param frame_id      The identifier of the frame this belongs to.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
-=======
->>>>>>> intial
    @param X_PG          The pose of the geometry G in the parent frame P. The
                         parent may be a frame, or another registered geometry.
    @param engine_index  The position in the geometry engine of this geometry.
    @param vis_material  The visual material for this geometry.
    @param parent_id     The optional id of the parent geometry. */
   InternalGeometry(std::unique_ptr<Shape> shape, FrameId frame_id,
-<<<<<<< HEAD
                    GeometryId geometry_id, const std::string& name,
-=======
-                   GeometryId geometry_id,
->>>>>>> intial
                    const Isometry3<double>& X_PG, GeometryIndex engine_index,
                    const VisualMaterial& vis_material,
                    const optional<GeometryId>& parent_id = {});
@@ -256,38 +219,24 @@ class InternalAnchoredGeometry : public InternalGeometryBase {
   /** Default material, full constructor.
    @param shape         The shape specification for this instance.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
    @param X_WG          The pose of the geometry G in the world frame W.
    @param engine_index  The position in the geometry engine of this geometry. */
   InternalAnchoredGeometry(std::unique_ptr<Shape> shape, GeometryId geometry_id,
                            const std::string& name,
                            const Isometry3<double> X_WG,
-=======
-   @param X_WG          The pose of the geometry G in the world frame W.
-   @param engine_index  The position in the geometry engine of this geometry. */
-  InternalAnchoredGeometry(std::unique_ptr<Shape> shape, GeometryId geometry_id,
-                           const Isometry3<double>& X_WG,
->>>>>>> intial
                            AnchoredGeometryIndex engine_index);
 
   /** Full constructor.
    @param shape         The shape specification for this instance.
    @param geometry_id   The identifier for _this_ geometry.
-<<<<<<< HEAD
    @param name          The name of the geometry.
-=======
->>>>>>> intial
    @param X_WG          The pose of the geometry G in the world frame W.
    @param engine_index  The position in the geometry engine of this geometry.
    @param vis_material  The visual material for this geometry. */
   InternalAnchoredGeometry(std::unique_ptr<Shape> shape, GeometryId geometry_id,
-<<<<<<< HEAD
                            const std::string& name,
                            const Isometry3<double> X_WG,
-=======
-                           const Isometry3<double>& X_WG,
->>>>>>> intial
                            AnchoredGeometryIndex engine_index,
                            const VisualMaterial& vis_material);
 

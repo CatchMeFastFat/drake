@@ -1,14 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<<<<<<< HEAD
   <!-- Provide additional material for the silver logo band. -->
   <material name="Silver">
     <color rgba="0.6 0.6 0.6 1.0"/>
   </material>
 
-=======
->>>>>>> intial
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find iiwa_description)/urdf/iiwa.gazebo.xacro" />
   <!-- Import Transmissions -->
@@ -150,7 +147,6 @@
       </inertial>
 
       <visual>
-<<<<<<< HEAD
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="../meshes/visual/link_2_orange.obj"/>
@@ -164,14 +160,6 @@
         </geometry>
         <material name="Grey"/>
       </visual>
-=======
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="../meshes/visual/link_2.obj"/>
-        </geometry>
-        <material name="Orange"/>
-      </visual>
->>>>>>> intial
 
       <xacro:if value="${collision_type == 'mesh'}">
         <collision>
@@ -184,11 +172,7 @@
       </xacro:if>
       <xacro:if value="${collision_type == 'primitive'}">
         <collision>
-<<<<<<< HEAD
           <origin rpy="1.570796326794897 0 0" xyz="0 0.056 0.035"/>
-=======
-          <origin rpy="1.57079632679 0 0" xyz="0 0.056 0.035"/>
->>>>>>> intial
           <geometry>
             <cylinder radius="0.101" length="0.29"/>
           </geometry>
@@ -227,7 +211,6 @@
         </geometry>
         <material name="Grey"/>
       </visual>
-<<<<<<< HEAD
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
@@ -242,8 +225,6 @@
         </geometry>
         <material name="Silver"/>
       </visual>
-=======
->>>>>>> intial
 
       <xacro:if value="${collision_type == 'mesh'}">
         <collision>
@@ -289,7 +270,6 @@
       </inertial>
 
       <visual>
-<<<<<<< HEAD
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="../meshes/visual/link_4_orange.obj"/>
@@ -303,14 +283,6 @@
         </geometry>
         <material name="Grey"/>
       </visual>
-=======
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="../meshes/visual/link_4.obj"/>
-        </geometry>
-        <material name="Orange"/>
-      </visual>
->>>>>>> intial
 
       <xacro:if value="${collision_type == 'mesh'}">
         <collision>
@@ -323,11 +295,7 @@
       </xacro:if>
       <xacro:if value="${collision_type == 'primitive'}">
         <collision>
-<<<<<<< HEAD
           <origin rpy="1.570796326794897 0 0" xyz="0 0.056 0.025"/>
-=======
-          <origin rpy="1.57079632679 0 0" xyz="0 0.056 0.025"/>
->>>>>>> intial
           <geometry>
             <cylinder radius="0.092" length="0.25"/>
           </geometry>
@@ -366,7 +334,6 @@
         </geometry>
         <material name="Grey"/>
       </visual>
-<<<<<<< HEAD
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
@@ -381,8 +348,6 @@
         </geometry>
         <material name="Silver"/>
       </visual>
-=======
->>>>>>> intial
 
       <xacro:if value="${collision_type == 'mesh'}">
         <collision>
@@ -428,7 +393,6 @@
       </inertial>
 
       <visual>
-<<<<<<< HEAD
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="../meshes/visual/link_6_grey.obj"/>
@@ -439,11 +403,6 @@
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="../meshes/visual/link_6_orange.obj"/>
-=======
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <mesh filename="../meshes/visual/link_6.obj"/>
->>>>>>> intial
         </geometry>
         <material name="Orange"/>
       </visual>
@@ -545,20 +504,12 @@
     <joint name="tool0_joint" type="fixed">
       <parent link="${robot_name}_link_7"/>
       <child link="${robot_name}_link_ee"/>
-<<<<<<< HEAD
       <origin rpy="0 -1.570796326794897 0" xyz="0 0 0.045"/>
-=======
-      <origin rpy="0 -1.57079632679 0" xyz="0 0 0.045"/>
->>>>>>> intial
     </joint>
     <link name="${robot_name}_link_ee">
     </link>
     <frame name="${robot_name}_frame_ee" link="${robot_name}_link_ee"
-<<<<<<< HEAD
            xyz="0.09 0 0" rpy="3.141592653589793 0 1.570796326794897"/>
-=======
-           xyz="0.09 0 0" rpy="3.14159265359 0 1.57079632679"/>
->>>>>>> intial
     <!--Extensions -->
     <xacro:iiwa_gazebo robot_name="${robot_name}" />
     <xacro:iiwa_transmission hardware_interface="${hardware_interface}"

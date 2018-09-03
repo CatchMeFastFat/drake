@@ -16,27 +16,16 @@ drake_cc_binary(
     data = ["sliding_brick.urdf"],
     test_rule_args = [
         " --sim_duration=0.01",
-<<<<<<< HEAD
     ],
     deps = [
         "//common:find_resource",
         "//geometry:geometry_visualization",
         "//geometry:scene_graph",
-=======
-        " --playback=false",
-    ],
-    deps = [
-        "//common:find_resource",
->>>>>>> intial
         "//lcm",
         "//multibody:rigid_body_tree_construction",
         "//multibody/parsers",
         "//multibody/rigid_body_plant",
-<<<<<<< HEAD
         "//multibody/rigid_body_plant:rigid_body_plant_bridge",
-=======
-        "//multibody/rigid_body_plant:drake_visualizer",
->>>>>>> intial
         "//systems/analysis",
         "//systems/primitives:constant_vector_source",
         "@gflags",
@@ -80,27 +69,14 @@ drake_cc_binary(
     ],
     deps = [
         "//common:find_resource",
-<<<<<<< HEAD
         "//geometry:geometry_visualization",
         "//geometry:scene_graph",
-=======
-        "//geometry:geometry_system",
-        "//geometry:geometry_visualization",
->>>>>>> intial
         "//lcm",
         "//multibody:rigid_body_tree_construction",
         "//multibody/parsers",
         "//multibody/rigid_body_plant",
-<<<<<<< HEAD
         "//multibody/rigid_body_plant:rigid_body_plant_bridge",
         "//systems/analysis",
-=======
-        "//multibody/rigid_body_plant:drake_visualizer",
-        "//multibody/rigid_body_plant:rigid_body_plant_bridge",
-        "//systems/analysis",
-        "//systems/lcm",
-        "//systems/rendering:pose_bundle_to_draw_message",
->>>>>>> intial
         "@gflags",
     ],
 )

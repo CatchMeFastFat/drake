@@ -4,10 +4,6 @@
 
 #include "drake/common/proto/call_matlab.h"
 #include "drake/solvers/rotation_constraint.h"
-<<<<<<< HEAD
-=======
-#include "drake/solvers/rotation_constraint_internal.h"
->>>>>>> intial
 
 // Plot the McCormick Envelope on the unit sphere, to help developers to
 // visualize the McCormick Envelope relaxation.

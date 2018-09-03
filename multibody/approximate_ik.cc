@@ -2,11 +2,7 @@
 
 #include <set>
 
-<<<<<<< HEAD
 #include <gurobi_c.h>
-=======
-#include <gurobi_c++.h>
->>>>>>> intial
 
 #include "drake/multibody/ik_options.h"
 #include "drake/multibody/rigid_body_constraint.h"

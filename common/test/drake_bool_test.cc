@@ -108,7 +108,6 @@ TEST_F(BoolTestDouble, Cond) {
 }
 
 TEST_F(BoolTestDouble, LogicalOperators) {
-<<<<<<< HEAD
   EXPECT_TRUE(b_true_ && b_true_);
   EXPECT_FALSE(b_false_ && b_true_);
   EXPECT_FALSE(b_true_ && b_false_);
@@ -125,24 +124,6 @@ TEST_F(BoolTestDouble, LogicalOperators) {
 
   EXPECT_FALSE(!b_true_);
   EXPECT_TRUE(!b_false_);
-=======
-  EXPECT_TRUE((b_true_ && b_true_).value());
-  EXPECT_FALSE((b_false_ && b_true_).value());
-  EXPECT_FALSE((b_true_ && b_false_).value());
-  EXPECT_FALSE((b_false_ && b_false_).value());
-  EXPECT_FALSE((b_true_ && false).value());
-  EXPECT_FALSE((false && b_true_).value());
-
-  EXPECT_TRUE((b_true_ || b_true_).value());
-  EXPECT_TRUE((b_false_ || b_true_).value());
-  EXPECT_TRUE((b_true_ || b_false_).value());
-  EXPECT_FALSE((b_false_ || b_false_).value());
-  EXPECT_TRUE((b_false_ || true).value());
-  EXPECT_TRUE((true || b_false_).value());
-
-  EXPECT_FALSE((!b_true_).value());
-  EXPECT_TRUE((!b_false_).value());
->>>>>>> intial
 }
 
 TEST_F(BoolTestDouble, AllOf) {
@@ -228,7 +209,6 @@ TEST_F(BoolTestAutoDiffXd, Cond) {
 }
 
 TEST_F(BoolTestAutoDiffXd, LogicalOperators) {
-<<<<<<< HEAD
   EXPECT_TRUE(b_true_ && b_true_);
   EXPECT_FALSE(b_false_ && b_true_);
   EXPECT_FALSE(b_true_ && b_false_);
@@ -245,24 +225,6 @@ TEST_F(BoolTestAutoDiffXd, LogicalOperators) {
 
   EXPECT_FALSE(!b_true_);
   EXPECT_TRUE(!b_false_);
-=======
-  EXPECT_TRUE((b_true_ && b_true_).value());
-  EXPECT_FALSE((b_false_ && b_true_).value());
-  EXPECT_FALSE((b_true_ && b_false_).value());
-  EXPECT_FALSE((b_false_ && b_false_).value());
-  EXPECT_FALSE((b_true_ && (x_ > y_)).value());
-  EXPECT_FALSE(((x_ > y_) && b_true_).value());
-
-  EXPECT_TRUE((b_true_ || b_true_).value());
-  EXPECT_TRUE((b_false_ || b_true_).value());
-  EXPECT_TRUE((b_true_ || b_false_).value());
-  EXPECT_FALSE((b_false_ || b_false_).value());
-  EXPECT_TRUE((b_false_ || (x_ < y_)).value());
-  EXPECT_TRUE(((x_ < y_) || b_false_).value());
-
-  EXPECT_FALSE((!b_true_).value());
-  EXPECT_TRUE((!b_false_).value());
->>>>>>> intial
 }
 
 TEST_F(BoolTestAutoDiffXd, AllOf) {
@@ -373,7 +335,6 @@ TEST_F(BoolTestSymbolic, ExtractBoolOrThrowException) {
   EXPECT_THROW(ExtractBoolOrThrow(b), std::exception);
 }
 
-<<<<<<< HEAD
 // Check if ExtractBoolOrThrow works consistently across the relational
 // operators (here, we only check == and <=).
 // See https://github.com/RobotLocomotion/drake/issues/9117.
@@ -403,8 +364,6 @@ TEST_F(BoolTestSymbolic, ExtractBoolOrThrowConsistency) {
   EXPECT_THROW(ExtractBoolOrThrow(test_less_than_equal), std::runtime_error);
 }
 
-=======
->>>>>>> intial
 TEST_F(BoolTestSymbolic, Value) {
   EXPECT_PRED2(FormulaEqual, b_true_.value(), Formula::True());
   EXPECT_PRED2(FormulaEqual, b_false_.value(), Formula::False());

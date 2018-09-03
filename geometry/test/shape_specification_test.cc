@@ -17,7 +17,6 @@ using std::unique_ptr;
 
 class ReifierTest : public ShapeReifier, public ::testing::Test {
  public:
-<<<<<<< HEAD
   void ImplementGeometry(const Sphere&, void* data) override {
     received_user_data_ = data;
     sphere_made_ = true;
@@ -34,20 +33,6 @@ class ReifierTest : public ShapeReifier, public ::testing::Test {
     received_user_data_ = data;
     box_made_ = true;
   }
-=======
-  void ImplementGeometry(const Sphere& sphere, void* data) override {
-    received_user_data_ = data;
-    sphere_made_ = true;
-  }
-  void ImplementGeometry(const Cylinder& cylinder, void* data) override {
-    received_user_data_ = data;
-    cylinder_made_ = true;
-  }
-  void ImplementGeometry(const HalfSpace& half_space, void* data) override {
-    received_user_data_ = data;
-    half_space_made_ = true;
-  }
->>>>>>> intial
   void ImplementGeometry(const Mesh&, void*) override {
     // TODO(SeanCurtis-TRI): Provide body when meshes are meaningfully
     // supported.
@@ -61,10 +46,7 @@ class ReifierTest : public ShapeReifier, public ::testing::Test {
   }
 
  protected:
-<<<<<<< HEAD
   bool box_made_{false};
-=======
->>>>>>> intial
   bool sphere_made_{false};
   bool cylinder_made_{false};
   bool half_space_made_{false};
@@ -84,22 +66,15 @@ TEST_F(ReifierTest, UserData) {
 TEST_F(ReifierTest, ReificationDifferentiation) {
   Sphere s(1.0);
   s.Reify(this);
-<<<<<<< HEAD
   EXPECT_TRUE(sphere_made_);
   EXPECT_FALSE(half_space_made_);
   EXPECT_FALSE(cylinder_made_);
   EXPECT_FALSE(box_made_);
-=======
-  ASSERT_TRUE(sphere_made_);
-  ASSERT_FALSE(half_space_made_);
-  ASSERT_FALSE(cylinder_made_);
->>>>>>> intial
 
   Reset();
 
   HalfSpace hs{};
   hs.Reify(this);
-<<<<<<< HEAD
   EXPECT_FALSE(sphere_made_);
   EXPECT_TRUE(half_space_made_);
   EXPECT_FALSE(cylinder_made_);
@@ -122,16 +97,6 @@ TEST_F(ReifierTest, ReificationDifferentiation) {
   EXPECT_FALSE(half_space_made_);
   EXPECT_FALSE(cylinder_made_);
   EXPECT_TRUE(box_made_);
-=======
-  ASSERT_FALSE(sphere_made_);
-  ASSERT_TRUE(half_space_made_);
-  ASSERT_FALSE(cylinder_made_);
-
-  // NOTE: Because of the implementation of the Shape class, as long as new
-  // shape specifications inherit from Shape, this test does *not* need to
-  // be extended. The template functionality has already been sufficiently
-  // tested.
->>>>>>> intial
 }
 
 // Confirms that the ReifiableShape properly clones the right types.
@@ -158,10 +123,7 @@ TEST_F(ReifierTest, CloningShapes) {
   ASSERT_TRUE(sphere_made_);
   ASSERT_FALSE(half_space_made_);
   ASSERT_FALSE(cylinder_made_);
-<<<<<<< HEAD
   ASSERT_FALSE(box_made_);
-=======
->>>>>>> intial
 }
 
 

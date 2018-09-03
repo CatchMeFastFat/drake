@@ -59,16 +59,9 @@ struct GenericTrivialFunctor {
   int numOutputs() const { return 3; }
 
   template <typename T>
-<<<<<<< HEAD
   void eval(const detail::VecIn<T>& x, detail::VecOut<T>* y) const {
     Eigen::Vector3d c(1, 2, 3);
     *y = c * x.transpose() * c;
-=======
-  // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-  void eval(const detail::VecIn<T>& x, detail::VecOut<T>& y) const {
-    Eigen::Vector3d c(1, 2, 3);
-    y = c * x.transpose() * c;
->>>>>>> intial
   }
 };
 
@@ -104,17 +97,10 @@ void VerifyFunctionEvaluator(F&& f, const VectorXd& x) {
   // Manually specialize the call to `eval` because compiler may have issues
   // inferring T from Eigen::Ref<VectorX<T>>. It works in FunctionEvaluator
   // because Ref<VectorX<T>> is already determined by the function signature.
-<<<<<<< HEAD
   deref(f).template eval<double>(x, &y_expected);
   const AutoDiffVecXd tx = math::initializeAutoDiff(x);
   AutoDiffVecXd ty_expected(3);
   deref(f).template eval<AutoDiffXd>(tx, &ty_expected);
-=======
-  deref(f).template eval<double>(x, y_expected);
-  const AutoDiffVecXd tx = math::initializeAutoDiff(x);
-  AutoDiffVecXd ty_expected(3);
-  deref(f).template eval<AutoDiffXd>(tx, ty_expected);
->>>>>>> intial
   Eigen::MatrixXd dy_expected = math::autoDiffToGradientMatrix(ty_expected);
 
   // Construct evaluator, moving `f` if applicable.
@@ -124,19 +110,11 @@ void VerifyFunctionEvaluator(F&& f, const VectorXd& x) {
 
   // Compare double.
   Eigen::VectorXd y(3);
-<<<<<<< HEAD
   evaluator->Eval(x, &y);
   EXPECT_TRUE(CompareMatrices(y, y_expected));
   // Check AutoDif.
   AutoDiffVecXd ty(3);
   evaluator->Eval(tx, &ty);
-=======
-  evaluator->Eval(x, y);
-  EXPECT_TRUE(CompareMatrices(y, y_expected));
-  // Check AutoDif.
-  AutoDiffVecXd ty(3);
-  evaluator->Eval(tx, ty);
->>>>>>> intial
   EXPECT_TRUE(CompareAutodiff(ty, ty_expected));
 }
 
@@ -155,12 +133,7 @@ class FunctionWrapper {
   int numOutputs() const { return num_outputs_; }
 
   template <typename T>
-<<<<<<< HEAD
   void eval(const detail::VecIn<T>& x, detail::VecOut<T>* y) const {
-=======
-  // TODO(#2274) Fix NOLINTNEXTLINE(runtime/references).
-  void eval(const detail::VecIn<T>& x, detail::VecOut<T>& y) const {
->>>>>>> intial
     callable_(x, y);
   }
 
@@ -186,15 +159,9 @@ GTEST_TEST(EvaluatorBaseTest, FunctionEvaluatorTest) {
   VerifyFunctionEvaluator(make_shared<GenericTrivialFunctor>(), x);
   VerifyFunctionEvaluator(make_unique<GenericTrivialFunctor>(), x);
 
-<<<<<<< HEAD
   auto callable = [](const auto& x1, auto* y1) {
     Eigen::Vector3d c(1, 2, 3);
     *y1 = c * x1.transpose() * c;
-=======
-  auto callable = [](const auto& x1, auto& y1) {
-    Eigen::Vector3d c(1, 2, 3);
-    y1 = c * x1.transpose() * c;
->>>>>>> intial
   };
   VerifyFunctionEvaluator(MakeFunctionWrapped(callable, 3, 3), x);
 }

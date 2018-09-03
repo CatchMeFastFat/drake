@@ -152,11 +152,7 @@ void ComputeCorrespondences(const SceneState& scene_state,
   vector<BodyIndex> body_indices(num_points);
 
   const bool use_margins = false;
-<<<<<<< HEAD
   // TODO(eric.cousineau): Figure out better access.
-=======
-  // TOOD(eric.cousineau): Figure out better access.
->>>>>>> intial
   // TODO(eric.cousineau): Tie this directly to the visuals, rather than the
   // collision geometry.
   RigidBodyTreed& mutable_tree = const_cast<RigidBodyTreed&>(scene.tree());

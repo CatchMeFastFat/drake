@@ -4,17 +4,10 @@
 
 load("@drake//tools/workspace:os.bzl", "determine_os")
 
-<<<<<<< HEAD
 # Ubuntu only: GUROBI_PATH should be the linux64 directory in the Gurobi 8.0.0
 # release.
 #
 # TODO(jwnimmer-tri) The Gurobi docs use /opt/gurobi800/linux64, so we should
-=======
-# Ubuntu only: GUROBI_PATH should be the linux64 directory in the Gurobi 7.5.2
-# release.
-#
-# TODO(jwnimmer-tri) The Gurobi docs use /opt/gurobi752/linux64, so we should
->>>>>>> intial
 # probably look in that location as a reasonable default guess.
 def _gurobi_impl(repo_ctx):
     os_result = determine_os(repo_ctx)
@@ -23,11 +16,7 @@ def _gurobi_impl(repo_ctx):
 
     if os_result.is_macos:
         # Gurobi must be installed into its standard location.
-<<<<<<< HEAD
         gurobi_path = "/Library/gurobi800/mac64"
-=======
-        gurobi_path = "/Library/gurobi752/mac64"
->>>>>>> intial
         repo_ctx.symlink(gurobi_path, "gurobi-distro")
     else:
         # Locate Gurobi using an environment variable.  If GUROBI_PATH is

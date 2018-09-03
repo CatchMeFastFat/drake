@@ -150,7 +150,6 @@ class DependencyTracker {
   DependencyGraph. The ticket is unique within the containing subcontext. */
   DependencyTicket ticket() const { return ticket_; }
 
-<<<<<<< HEAD
   /** (Internal use only) Sets the cache entry value to be marked out-of-date
   when this tracker's prerequisites change.
   @pre The supplied cache entry value is non-null.
@@ -176,8 +175,6 @@ class DependencyTracker {
     return cache_value_;
   }
 
-=======
->>>>>>> intial
   /** Notifies `this` %DependencyTracker that its managed value was directly
   modified or made available for mutable access. That is, this is the
   _initiating_ event of a value modification. All of our downstream
@@ -325,7 +322,6 @@ class DependencyTracker {
       : ticket_(ticket),
         description_(std::move(description)),
         owning_subcontext_(owning_subcontext),
-<<<<<<< HEAD
         has_associated_cache_entry_(cache_value != nullptr),
         cache_value_(cache_value ? cache_value : &CacheEntryValue::dummy()) {
     DRAKE_SPDLOG_DEBUG(
@@ -335,15 +331,6 @@ class DependencyTracker {
         has_associated_cache_entry_
             ? " cache entry " + std::to_string(cache_value->cache_index())
             : "");
-=======
-        cache_value_(cache_value ? cache_value : &CacheEntryValue::dummy()) {
-    DRAKE_SPDLOG_DEBUG(
-        log(), "Tracker #{} '{}' constructed {} invalidation {:#x}{}.", ticket_,
-        description_, cache_value ? "with" : "without", size_t(cache_value),
-        cache_value
-        ? " cache entry " + std::to_string(cache_value->cache_index())
-        : "");
->>>>>>> intial
   }
 
   // Copies the current tracker but with all pointers set to null, and all
@@ -353,17 +340,11 @@ class DependencyTracker {
     // Can't use make_unique here because constructor is private.
     std::unique_ptr<DependencyTracker> clone(
         new DependencyTracker(ticket(), description(), nullptr, nullptr));
-<<<<<<< HEAD
     clone->has_associated_cache_entry_ = has_associated_cache_entry_;
     // The constructor sets cache_value_ to dummy by default, but that's wrong
     // if there is an associated cache entry. In that case we'll set it later.
     if (has_associated_cache_entry_)
       clone->cache_value_ = nullptr;
-=======
-    // cache_value_ is set to dummy by default; must reset to null now so we
-    // can fix it up later.
-    clone->cache_value_ = nullptr;
->>>>>>> intial
     clone->subscribers_.resize(num_subscribers(), nullptr);
     clone->prerequisites_.resize(num_prerequisites(), nullptr);
     return clone;
@@ -415,13 +396,9 @@ class DependencyTracker {
   // Pointer to the system name service of the owning subcontext.
   const internal::ContextMessageInterface* owning_subcontext_{nullptr};
 
-<<<<<<< HEAD
   // If false, cache_value_ will be set to point to CacheEntryValue::dummy() so
   // we don't need to check during invalidation sweeps.
   bool has_associated_cache_entry_{false};
-=======
-  // Points to CacheEntryValue::dummy() if we're not told otherwise.
->>>>>>> intial
   CacheEntryValue* cache_value_{nullptr};
 
   std::vector<const DependencyTracker*> subscribers_;

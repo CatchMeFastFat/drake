@@ -9,10 +9,7 @@
 #include <string>
 #include <tuple>
 
-<<<<<<< HEAD
 #include <fmt/format.h>
-=======
->>>>>>> intial
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -36,11 +33,8 @@ using ::testing::Return;
 using ::testing::Sequence;
 using ::testing::Truly;
 
-<<<<<<< HEAD
 using drake::maliput::multilane::test::Matches;
 
-=======
->>>>>>> intial
 namespace drake {
 namespace maliput {
 namespace multilane {
@@ -49,28 +43,17 @@ namespace {
 // TODO(agalbachicar)    Missing tests for non-zero EndpointZ and multi-lane
 //                       segments.
 
-<<<<<<< HEAD
 // TODO(agalbachicar)    Missing tests for ".reverse" semantic in
 //                       "explicit_end".
-=======
-// TODO(agalbachicar)    Missing tests for ".reverse" semantic in "start",
-//                       "explicit_end" and "z_end".
->>>>>>> intial
 
 // Mocks a Builder object acting as a proxy for later method testing.
 class BuilderMock : public BuilderBase {
  public:
   BuilderMock(double lane_width, const api::HBounds& elevation_bounds,
-<<<<<<< HEAD
               double linear_tolerance, double angular_tolerance,
               double scale_length, ComputationPolicy computation_policy)
       : builder_(lane_width, elevation_bounds, linear_tolerance,
                  angular_tolerance, scale_length, computation_policy) {
-=======
-              double linear_tolerance, double angular_tolerance)
-      : builder_(lane_width, elevation_bounds, linear_tolerance,
-                 angular_tolerance) {
->>>>>>> intial
     ON_CALL(*this, get_lane_width())
         .WillByDefault(Invoke(&builder_, &Builder::get_lane_width));
 
@@ -83,7 +66,6 @@ class BuilderMock : public BuilderBase {
     ON_CALL(*this, get_angular_tolerance())
         .WillByDefault(Invoke(&builder_, &Builder::get_angular_tolerance));
 
-<<<<<<< HEAD
     ON_CALL(*this, get_scale_length())
         .WillByDefault(Invoke(&builder_, &Builder::get_scale_length));
 
@@ -119,19 +101,6 @@ class BuilderMock : public BuilderBase {
     ON_CALL(*this, Connect(_, _, An<const StartLane::Spec&>(),
                            An<const ArcOffset&>(), An<const EndLane::Spec&>()))
         .WillByDefault(Invoke(&builder_, connect_arc_lane));
-=======
-    const Connection* (Builder::*connect_ref_line)(
-        const std::string&, int, double, double, double, const Endpoint&,
-        double, const EndpointZ&) = &Builder::Connect;
-    ON_CALL(*this, Connect(_, _, _, _, _, _, An<double>(), _))
-        .WillByDefault(Invoke(&builder_, connect_ref_line));
-
-    const Connection* (Builder::*connect_ref_arc)(
-        const std::string&, int, double, double, double, const Endpoint&,
-        const ArcOffset&, const EndpointZ&) = &Builder::Connect;
-    ON_CALL(*this, Connect(_, _, _, _, _, _, An<const ArcOffset&>(), _))
-        .WillByDefault(Invoke(&builder_, connect_ref_arc));
->>>>>>> intial
 
     ON_CALL(*this, SetDefaultBranch(_, _, _, _, _, _))
         .WillByDefault(Invoke(&builder_, &Builder::SetDefaultBranch));
@@ -158,7 +127,6 @@ class BuilderMock : public BuilderBase {
 
   MOCK_CONST_METHOD0(get_angular_tolerance, double());
 
-<<<<<<< HEAD
   MOCK_CONST_METHOD0(get_scale_length, double());
 
   MOCK_CONST_METHOD0(get_computation_policy, ComputationPolicy());
@@ -182,15 +150,6 @@ class BuilderMock : public BuilderBase {
                const Connection*(const std::string&, const LaneLayout&,
                                  const StartLane::Spec&, const ArcOffset&,
                                  const EndLane::Spec&));
-=======
-  MOCK_METHOD8(Connect, const Connection*(const std::string&, int, double,
-                                          double, double, const Endpoint&,
-                                          double, const EndpointZ&));
-
-  MOCK_METHOD8(Connect, const Connection*(const std::string&, int, double,
-                                          double, double, const Endpoint&,
-                                          const ArcOffset&, const EndpointZ&));
->>>>>>> intial
 
   MOCK_METHOD6(SetDefaultBranch,
                void(const Connection*, int, const api::LaneEnd::Which,
@@ -217,7 +176,6 @@ class BuilderFactoryMock : public BuilderFactoryBase {
  public:
   explicit BuilderFactoryMock(std::unique_ptr<BuilderBase> builder_mock)
       : builder_mock_(std::move(builder_mock)) {
-<<<<<<< HEAD
     ON_CALL(*this, Make(_, _, _, _, _, _))
         .WillByDefault(Invoke(this, &BuilderFactoryMock::InternalMake));
   }
@@ -228,19 +186,6 @@ class BuilderFactoryMock : public BuilderFactoryBase {
   // Wraps GMock Return(value) given that std::unique_ptr is non-copiable.
   std::unique_ptr<BuilderBase> InternalMake(double, const api::HBounds&, double,
                                             double, double, ComputationPolicy) {
-=======
-    ON_CALL(*this, Make(_, _, _, _))
-        .WillByDefault(Invoke(this, &BuilderFactoryMock::InternalMake));
-  }
-
-  MOCK_CONST_METHOD4(Make,
-                     std::unique_ptr<BuilderBase>(double, const api::HBounds&,
-                                                  double, double));
-
-  // Wraps GMock Return(value) given that std::unique_ptr is non-copiable.
-  std::unique_ptr<BuilderBase> InternalMake(double, const api::HBounds&, double,
-                                            double) {
->>>>>>> intial
     return std::move(builder_mock_);
   }
 
@@ -250,7 +195,6 @@ class BuilderFactoryMock : public BuilderFactoryBase {
 
 // Checks that the minimal YAML passes with an empty RoadGeometry.
 GTEST_TEST(MultilaneLoaderTest, MinimalCorrectYaml) {
-<<<<<<< HEAD
   const std::string kRoadName{"empty_road_geometry"};
   const double kLaneWidth{4.};
   const double kScaleLength{1.0};
@@ -292,48 +236,13 @@ GTEST_TEST(MultilaneLoaderTest, MinimalCorrectYaml) {
                    kComputationPolicy));
 
   EXPECT_CALL(*builder_mock, Build(api::RoadGeometryId(kRoadName)));
-=======
-  const char* kMultilaneYaml = R"R(maliput_multilane_builder:
-  id: "empty_road_geometry"
-  lane_width: 4
-  left_shoulder: 1
-  right_shoulder: 2
-  elevation_bounds: [0, 5]
-  linear_tolerance: 0.01
-  angular_tolerance: 0.5
-  points: {}
-  connections: {}
-  groups: {}
-)R";
-
-  const double kLaneWidth{4.};
-  const double kLinearTolerance{0.01};
-  const double kAngularTolerance{0.5 * M_PI / 180.};
-  const api::HBounds kElevationBounds{0., 5.};
-
-  auto local_builder_mock = std::make_unique<BuilderMock>(
-      kLaneWidth, kElevationBounds, kLinearTolerance, kAngularTolerance);
-  BuilderMock* builder_mock = local_builder_mock.get();
-  BuilderFactoryMock builder_factory_mock(std::move(local_builder_mock));
-
-  Matcher<const api::HBounds&> hbounds_matcher =
-      MakeMatcher(new test::HBoundsMatcher({0., 5.}, 0.));
-  EXPECT_CALL(builder_factory_mock, Make(kLaneWidth, hbounds_matcher,
-                                         kLinearTolerance, kAngularTolerance));
-
-  EXPECT_CALL(*builder_mock, Build(api::RoadGeometryId("empty_road_geometry")));
->>>>>>> intial
 
   // At some point inside this function, `builder_factory_mock.Make()` will
   // be called. That will transfer ownership of `builder_mock` to a local scope
   // variable inside `Load()`. As a consequence, that memory will be freed and
   // `builder_mock` must not be used anymore.
   std::unique_ptr<const api::RoadGeometry> rg =
-<<<<<<< HEAD
       Load(builder_factory_mock, kMultilaneYaml);
-=======
-      Load(builder_factory_mock, std::string(kMultilaneYaml));
->>>>>>> intial
   EXPECT_NE(rg, nullptr);
 }
 
@@ -348,15 +257,9 @@ const api::Junction* GetJunctionById(const api::RoadGeometry& rg,
       return rg.junction(i);
     }
   }
-<<<<<<< HEAD
   throw std::runtime_error(
       fmt::format("No matching junction whose ID is: {} in the road network.",
                   junction_id.string()));
-=======
-  throw std::runtime_error(std::string("No matching junction whose ID is: ") +
-                           junction_id.string() +
-                           std::string(" in the road network"));
->>>>>>> intial
 }
 
 // These tests exercise the following RoadGeometry:
@@ -387,7 +290,6 @@ const api::Junction* GetJunctionById(const api::RoadGeometry& rg,
 // reach z=0. s12 is flat and elevated too and goes over s6 at 10 meters. s13
 // goes down and hits the ground at the end Endpoint in between s6 and s1.
 GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
-<<<<<<< HEAD
   const EndpointZ kFlatZ{0., 0., 0., 0.};
   const EndpointZ kFlatZWithoutThetaDot{0., 0., 0., {}};
   const EndpointZ kEndpointZElevated{10., 0., 0., 0.};
@@ -425,26 +327,13 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
   linear_tolerance: {}
   angular_tolerance: {}
   computation_policy: {}
-=======
-  const std::string kMultilaneYaml = R"R(maliput_multilane_builder:
-  id: "circuit"
-  lane_width: 5
-  left_shoulder: 1
-  right_shoulder: 1.5
-  elevation_bounds: [0, 5]
-  linear_tolerance: 0.01
-  angular_tolerance: 0.5
->>>>>>> intial
   points:
     a:
       xypoint: [0, 0, 0]
       zpoint: [0, 0, 0, 0]
-<<<<<<< HEAD
     b:
       xypoint: [50, 5, 0]
       zpoint: [0, 0, 0]
-=======
->>>>>>> intial
   connections:
     s1:
       lanes: [3, 0, 0]
@@ -452,7 +341,6 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
       length: 50
       z_end: ["ref", [0, 0, 0, 0]]
     s2:
-<<<<<<< HEAD
       lanes: [1, 0, 0]
       left_shoulder: {}
       start: ["lane.0", "connections.s1.end.2.forward"]
@@ -499,74 +387,18 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
       start: ["lane.0", "connections.s9.end.0.forward"]
       arc: [20, 90]
       z_end: ["lane.0", [10, 0, 0]]
-=======
-      lanes: [1, 0, 5]
-      left_shoulder: 1.2
-      start: ["ref", "connections.s1.end.1.forward"]
-      arc: [15, 180]
-      z_end: ["ref", [0, 0, 0, 0]]
-    s3:
-      lanes: [1, 0, 5]
-      right_shoulder: 0.8
-      start: ["ref", "connections.s2.end.ref.forward"]
-      length: 50
-      z_end: ["ref", [0, 0, 0, 0]]
-    s4:
-      lanes: [1, 0, 5]
-      start: ["ref", "connections.s3.end.ref.forward"]
-      arc: [15, 180]
-      explicit_end: ["ref", "connections.s1.start.ref.forward"]
-    s5:
-      lanes: [2, 0, 0]
-      start: ["ref", "connections.s1.end.0.forward"]
-      arc: [20, -180]
-      z_end: ["ref", [0, 0, 0, 0]]
-    s6:
-      lanes: [2, 0, 0]
-      start: ["ref", "connections.s5.end.0.forward"]
-      length: 50
-      z_end: ["ref", [0, 0, 0, 0]]
-    s7:
-      lanes: [2, 0, 0]
-      start: ["ref", "connections.s6.end.0.forward"]
-      arc: [20, -180]
-      explicit_end: ["ref", "connections.s1.start.ref.forward"]
-    s8:
-      lanes: [1, 0, 0]
-      start: ["ref", "connections.s6.end.1.forward"]
-      arc: [20, 90]
-      z_end: ["ref", [0, 0, 0, 0]]
-    s9:
-      lanes: [1, 0, 0]
-      start: ["ref", "connections.s8.end.ref.forward"]
-      arc: [20, 90]
-      z_end: ["ref", [10, 0, 0, 0]]
-    s10:
-      lanes: [1, 0, 0]
-      start: ["ref", "connections.s9.end.ref.forward"]
-      arc: [20, 90]
-      explicit_end: ["ref", "connections.s9.end.ref.forward"]
->>>>>>> intial
     s11:
       lanes: [1, 0, 0]
       start: ["ref", "connections.s10.end.ref.forward"]
       arc: [20, 90]
-<<<<<<< HEAD
       explicit_end: ["ref", "connections.s6.end.ref.reverse"]
     s12:
       lanes: [1, 0, 0]
       start: ["ref", "connections.s10.end.ref.forward"]
-=======
-      explicit_end: ["ref", "connections.s6.end.1.forward"]
-    s12:
-      lanes: [1, 0, 0]
-      start: ["ref", "connections.s10.end.0.forward"]
->>>>>>> intial
       length: 30
       explicit_end: ["ref", "connections.s10.end.ref.forward"]
     s13:
       lanes: [1, 0, 0]
-<<<<<<< HEAD
       start: ["lane.0", "connections.s12.end.0.forward"]
       length: 15
       z_end: ["lane.0", [0, 0, 0]]
@@ -582,41 +414,12 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
   auto local_builder_mock = std::make_unique<BuilderMock>(
       kLaneWidth, kElevationBounds, kLinearTolerance,
       kAngularTolerance, kScaleLength, kComputationPolicy);
-=======
-      start: ["ref", "connections.s12.end.0.forward"]
-      length: 15
-      z_end: ["ref", [0, 0, 0, 0]]
-  groups:
-    g1: [s2, s5]
-    g2: [s4, s8, s10]
-)R";
-  const EndpointZ kEndpointZZero{0., 0., 0., 0.};
-  const EndpointZ kEndpointZElevated{10., 0., 0., 0.};
-  const Endpoint kEndpointA{{0., 0., 0.}, kEndpointZZero};
-  const double kZeroTolerance{0.};
-  const double kLinearTolerance{0.01};
-  const double kAngularTolerance{0.5 * M_PI / 180.};
-  const api::HBounds kElevationBounds{0., 5.};
-  const int kOneLane{1};
-  const int kTwoLanes{2};
-  const int kThreeLanes{3};
-  const double kLaneWidth{5.};
-  const double kZeroRRef{0.};
-  const double kDefaultLeftShoulder{1.0};
-  const double kDefaultRightShoulder{1.5};
-  const double kCustomLeftShoulder{1.2};
-  const double kCustomRightShoulder{0.8};
-
-  auto local_builder_mock = std::make_unique<BuilderMock>(
-      kLaneWidth, kElevationBounds, kLinearTolerance, kAngularTolerance);
->>>>>>> intial
   BuilderMock* builder_mock = local_builder_mock.get();
 
   BuilderFactoryMock builder_factory_mock(std::move(local_builder_mock));
 
   ExpectationSet prebuild_expectations;
 
-<<<<<<< HEAD
   prebuild_expectations +=
       EXPECT_CALL(builder_factory_mock,
                   Make(kLaneWidth, Matches(kElevationBounds, kZeroTolerance),
@@ -809,174 +612,6 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
           Matches(
               EndLane(0).z_at(kFlatZWithoutThetaDot, Direction::kForward),
               kLinearTolerance)));
-=======
-  Matcher<const api::HBounds&> hbounds_matcher =
-      MakeMatcher(new test::HBoundsMatcher(kElevationBounds, kZeroTolerance));
-  prebuild_expectations += EXPECT_CALL(
-      builder_factory_mock,
-      Make(kLaneWidth, hbounds_matcher, kLinearTolerance, kAngularTolerance));
-
-  Matcher<const EndpointZ&> endpoint_z_zero_matcher =
-      MakeMatcher(new test::EndpointZMatcher(kEndpointZZero, kLinearTolerance));
-  Matcher<const EndpointZ&> endpoint_z_elevated_matcher = MakeMatcher(
-      new test::EndpointZMatcher(kEndpointZElevated, kLinearTolerance));
-
-  // Connection expectations.
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(kEndpointA, kLinearTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s1", kThreeLanes, kZeroRRef,
-                               kDefaultLeftShoulder, kDefaultRightShoulder,
-                               endpoint_matcher, 50., endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher({{50., 5., 0.}, kEndpointZZero},
-                                              kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher({15., M_PI}, kLinearTolerance,
-                                               kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock,
-        Connect("s2", kOneLane, 5., kCustomLeftShoulder, kDefaultRightShoulder,
-                endpoint_matcher, arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{50., 35., M_PI}, kEndpointZZero}, kLinearTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock,
-        Connect("s3", kOneLane, 5., kDefaultLeftShoulder, kCustomRightShoulder,
-                endpoint_matcher, 50., endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher({{0., 35., M_PI}, kEndpointZZero},
-                                              kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher({15., M_PI}, kLinearTolerance,
-                                               kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock,
-        Connect("s4", kOneLane, 5., kDefaultLeftShoulder, kDefaultRightShoulder,
-                endpoint_matcher, arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher({{50., 0., 0.}, kEndpointZZero},
-                                              kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher({20., -M_PI}, kLinearTolerance,
-                                               kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s5", kTwoLanes, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher,
-                               arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{50., -40., -M_PI}, kEndpointZZero}, kLinearTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s6", kTwoLanes, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher, 50.,
-                               endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{0., -40., -M_PI}, kEndpointZZero}, kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher({20., -M_PI}, kLinearTolerance,
-                                               kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s7", kTwoLanes, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher,
-                               arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{0., -45., -M_PI}, kEndpointZZero}, kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher(
-            {20., M_PI / 2.}, kLinearTolerance, kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s8", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher,
-                               arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{-20., -65., -M_PI / 2.}, kEndpointZZero}, kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher(
-            {20., M_PI / 2.}, kLinearTolerance, kAngularTolerance));
-    prebuild_expectations +=
-        EXPECT_CALL(*builder_mock,
-                    Connect("s9", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                            kDefaultRightShoulder, endpoint_matcher,
-                            arc_offset_matcher, endpoint_z_elevated_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{0, -85., 0}, kEndpointZElevated}, kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher(
-            {20., M_PI / 2.}, kLinearTolerance, kAngularTolerance));
-    prebuild_expectations +=
-        EXPECT_CALL(*builder_mock,
-                    Connect("s10", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                            kDefaultRightShoulder, endpoint_matcher,
-                            arc_offset_matcher, endpoint_z_elevated_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{20., -65., M_PI / 2.}, {10., 0., 0., 0.}}, kLinearTolerance));
-    Matcher<const ArcOffset&> arc_offset_matcher =
-        MakeMatcher(new test::ArcOffsetMatcher(
-            {20., M_PI / 2.}, kLinearTolerance, kAngularTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s11", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher,
-                               arc_offset_matcher, endpoint_z_zero_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{20., -65., M_PI / 2.}, kEndpointZElevated}, kLinearTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s12", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher, 30.,
-                               endpoint_z_elevated_matcher));
-  }
-
-  {
-    Matcher<const Endpoint&> endpoint_matcher =
-        MakeMatcher(new test::EndpointMatcher(
-            {{20., -35., M_PI / 2.}, kEndpointZElevated}, kLinearTolerance));
-    prebuild_expectations += EXPECT_CALL(
-        *builder_mock, Connect("s13", kOneLane, kZeroRRef, kDefaultLeftShoulder,
-                               kDefaultRightShoulder, endpoint_matcher, 15.,
-                               endpoint_z_zero_matcher));
-  }
->>>>>>> intial
 
   // Group expectations.
   {
@@ -989,11 +624,7 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
     //                      must be removed.
   }
 
-<<<<<<< HEAD
   EXPECT_CALL(*builder_mock, Build(api::RoadGeometryId(kRoadName)))
-=======
-  EXPECT_CALL(*builder_mock, Build(api::RoadGeometryId("circuit")))
->>>>>>> intial
       .After(prebuild_expectations);
 
   // At some point inside this function, `builder_factory_mock.Make()` will
@@ -1027,7 +658,6 @@ GTEST_TEST(MultilaneLoaderTest, RoadCircuit) {
   }
 }
 
-<<<<<<< HEAD
 GTEST_TEST(MultilaneLoaderTest, ContinuityConstraintOnReference) {
   const EndpointZ kZOrigin{0., 0.75, -30. * M_PI / 180., -3.4 * M_PI / 180.};
   const EndpointXy kXYOrigin{0., 0., 0.};
@@ -1137,8 +767,6 @@ GTEST_TEST(MultilaneLoaderTest, ContinuityConstraintOnReference) {
   EXPECT_NE(rg, nullptr);
 }
 
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace multilane
 }  // namespace maliput

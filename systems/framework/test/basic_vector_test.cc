@@ -15,7 +15,6 @@ namespace drake {
 namespace systems {
 namespace {
 
-<<<<<<< HEAD
 // Tests the initializer_list functionality.
 GTEST_TEST(BasicVectorTest, InitializerList) {
   const BasicVector<double> empty1;  // Default constructor.
@@ -45,14 +44,6 @@ GTEST_TEST(BasicVectorTest, SetZero) {
   EXPECT_EQ(Eigen::Vector3d(1.0, 2.0, 3.0), vec.get_value());
   vec.SetZero();
   EXPECT_EQ(Eigen::Vector3d(0, 0, 0), vec.get_value());
-=======
-// Tests SetZero functionality.
-GTEST_TEST(BasicVectorTest, SetZero) {
-  auto vec = BasicVector<double>::Make(1.0, 2.0, 3.0);
-  EXPECT_EQ(Eigen::Vector3d(1.0, 2.0, 3.0), vec->get_value());
-  vec->SetZero();
-  EXPECT_EQ(Eigen::Vector3d(0, 0, 0), vec->get_value());
->>>>>>> intial
 }
 
 // Tests that the BasicVector<double> is initialized to NaN.
@@ -78,7 +69,6 @@ GTEST_TEST(BasicVectorTest, SymbolicInitiallyNaN) {
   EXPECT_TRUE(symbolic::is_nan(vec.get_value()[0]));
 }
 
-<<<<<<< HEAD
 // Tests BasicVector<T>::Make.
 GTEST_TEST(BasicVectorTest, Make) {
   auto dut1 = BasicVector<double>::Make(1.0, 2.0);
@@ -87,8 +77,6 @@ GTEST_TEST(BasicVectorTest, Make) {
   EXPECT_TRUE(CompareMatrices(dut2->get_value(), Eigen::Vector2d(3.0, 4.0)));
 }
 
-=======
->>>>>>> intial
 // Tests that BasicVector<symbolic::Expression>::Make does what it says on
 // the tin.
 GTEST_TEST(BasicVectorTest, MakeSymbolic) {
@@ -178,11 +166,7 @@ GTEST_TEST(BasicVectorTest, NormInfAutodiff) {
   AutoDiffXd element1;
   element1.value() = 22.5;
   element1.derivatives() = Vector1d(3.5);
-<<<<<<< HEAD
   BasicVector<AutoDiffXd> dut{element0, element1};
-=======
-  auto dut = BasicVector<AutoDiffXd>::Make({element0, element1});
->>>>>>> intial
 
   // The norminf(DUT) is 22.5 and the ∂/∂t of norminf(DUT) is 3.5.
   // The element1 has the max absolute value of the AutoDiffScalar's scalar.
@@ -190,31 +174,18 @@ GTEST_TEST(BasicVectorTest, NormInfAutodiff) {
   AutoDiffXd expected_norminf;
   expected_norminf.value() = 22.5;
   expected_norminf.derivatives() = Vector1d(3.5);
-<<<<<<< HEAD
   EXPECT_EQ(dut.NormInf().value(), expected_norminf.value());
   EXPECT_EQ(dut.NormInf().derivatives(), expected_norminf.derivatives());
-=======
-  EXPECT_EQ(dut->NormInf().value(), expected_norminf.value());
-  EXPECT_EQ(dut->NormInf().derivatives(), expected_norminf.derivatives());
->>>>>>> intial
 
   // We change the DUT to two values [-11.5, -33.5] with ∂/∂t of [1.5, 3.5].
   // The norminf(DUT) is now 33.5 and the ∂/∂t of norminf(DUT) is -3.5.
   // The element0 has the max absolute value of the AutoDiffScalar's scalar.
   // It is negative, so the sign of its derivatives gets flipped.
-<<<<<<< HEAD
   dut.GetAtIndex(0).value() = -33.5;
   expected_norminf.value() = 33.5;
   expected_norminf.derivatives() = Vector1d(-1.5);
   EXPECT_EQ(dut.NormInf().value(), expected_norminf.value());
   EXPECT_EQ(dut.NormInf().derivatives(), expected_norminf.derivatives());
-=======
-  dut->GetAtIndex(0).value() = -33.5;
-  expected_norminf.value() = 33.5;
-  expected_norminf.derivatives() = Vector1d(-1.5);
-  EXPECT_EQ(dut->NormInf().value(), expected_norminf.value());
-  EXPECT_EQ(dut->NormInf().derivatives(), expected_norminf.derivatives());
->>>>>>> intial
 }
 
 // Tests all += * operations for BasicVector.

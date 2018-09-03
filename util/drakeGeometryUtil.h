@@ -151,7 +151,6 @@ Eigen::Matrix<typename Derived::Scalar, 3, 4> quatdot2angularvelMatrix(
   return ret;
 }
 
-<<<<<<< HEAD
 /*
  * spatial transform functions
  */
@@ -167,49 +166,6 @@ decltype(auto) transformSpatialMotion(
                 DerivedM::ColsAtCompileTime, 0, drake::kTwistSize,
                 DerivedM::ColsAtCompileTime == Eigen::Dynamic
                   ? 6 : DerivedM::ColsAtCompileTime>
-=======
-template <typename DerivedRPY, typename DerivedRPYdot, typename DerivedOMEGA>
-void rpydot2angularvel(
-    const Eigen::MatrixBase<DerivedRPY>& rpy,
-    const Eigen::MatrixBase<DerivedRPYdot>& rpydot,
-    Eigen::MatrixBase<DerivedOMEGA>& omega,
-    typename drake::math::Gradient<DerivedOMEGA, drake::kRpySize, 1>::type*
-        domega = nullptr) {
-  EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Eigen::MatrixBase<DerivedRPY>,
-                                           drake::kRpySize);
-  EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Eigen::MatrixBase<DerivedRPYdot>,
-                                           drake::kRpySize);
-  EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE(Eigen::MatrixBase<DerivedOMEGA>,
-                                           drake::kRpySize, 1);
-
-  Eigen::Matrix<typename DerivedOMEGA::Scalar, 3, 3> E;
-  if (domega) {
-    Eigen::Matrix<typename DerivedOMEGA::Scalar, 9, 3> dE;
-    rpydot2angularvelMatrix(rpy, E, &dE);
-    (*domega) << drake::math::matGradMult(dE, rpydot), E;
-  } else {
-    rpydot2angularvelMatrix(rpy, E);
-  }
-  omega = E * rpydot;
-}
-
-/*
- * spatial transform functions
- */
-template <typename Derived>
-struct TransformSpatial {
-  typedef typename Eigen::Matrix<typename Derived::Scalar, drake::kTwistSize,
-                                 Derived::ColsAtCompileTime>
-      type;
-};
-
-template <typename DerivedM>
-typename TransformSpatial<DerivedM>::type transformSpatialMotion(
-    const Eigen::Transform<typename DerivedM::Scalar, 3, Eigen::Isometry>& T,
-    const Eigen::MatrixBase<DerivedM>& M) {
-  Eigen::Matrix<typename DerivedM::Scalar, drake::kTwistSize,
-                DerivedM::ColsAtCompileTime>
->>>>>>> intial
       ret(drake::kTwistSize, M.cols());
   ret.template topRows<3>().noalias() = T.linear() * M.template topRows<3>();
   ret.template bottomRows<3>().noalias() =
@@ -273,20 +229,11 @@ dTransformSpatialMotion(const Eigen::Transform<Scalar, 3, Eigen::Isometry>& T,
 }
 
 template <typename DerivedF>
-<<<<<<< HEAD
 decltype(auto) transformSpatialForce(
     const Eigen::Transform<typename DerivedF::Scalar, 3, Eigen::Isometry>& T,
     const Eigen::MatrixBase<DerivedF>& F) {
   Eigen::Matrix<typename DerivedF::Scalar, drake::kTwistSize,
                 DerivedF::ColsAtCompileTime> ret(drake::kTwistSize, F.cols());
-=======
-typename TransformSpatial<DerivedF>::type transformSpatialForce(
-    const Eigen::Transform<typename DerivedF::Scalar, 3, Eigen::Isometry>& T,
-    const Eigen::MatrixBase<DerivedF>& F) {
-  Eigen::Matrix<typename DerivedF::Scalar, drake::kTwistSize,
-                DerivedF::ColsAtCompileTime>
-      ret(drake::kTwistSize, F.cols());
->>>>>>> intial
   ret.template bottomRows<3>().noalias() =
       T.linear() * F.template bottomRows<3>().eval();
   ret.template topRows<3>() =
@@ -445,18 +392,11 @@ drake::SquareTwistMatrix<typename DerivedI::Scalar> transformSpatialInertia(
 }
 
 template <typename DerivedA, typename DerivedB>
-<<<<<<< HEAD
 decltype(auto) crossSpatialMotion(
     const Eigen::MatrixBase<DerivedA>& a,
     const Eigen::MatrixBase<DerivedB>& b) {
   Eigen::Matrix<typename DerivedB::Scalar, drake::kTwistSize,
                 DerivedB::ColsAtCompileTime> ret(drake::kTwistSize, b.cols());
-=======
-typename TransformSpatial<DerivedB>::type crossSpatialMotion(
-    const Eigen::MatrixBase<DerivedA>& a,
-    const Eigen::MatrixBase<DerivedB>& b) {
-  typename TransformSpatial<DerivedB>::type ret(drake::kTwistSize, b.cols());
->>>>>>> intial
   ret.template topRows<3>() =
       -b.template topRows<3>().colwise().cross(a.template topRows<3>());
   ret.template bottomRows<3>() =
@@ -467,18 +407,11 @@ typename TransformSpatial<DerivedB>::type crossSpatialMotion(
 }
 
 template <typename DerivedA, typename DerivedB>
-<<<<<<< HEAD
 decltype(auto) crossSpatialForce(
     const Eigen::MatrixBase<DerivedA>& a,
     const Eigen::MatrixBase<DerivedB>& b) {
   Eigen::Matrix<typename DerivedB::Scalar, drake::kTwistSize,
                 DerivedB::ColsAtCompileTime> ret(drake::kTwistSize, b.cols());
-=======
-typename TransformSpatial<DerivedB>::type crossSpatialForce(
-    const Eigen::MatrixBase<DerivedA>& a,
-    const Eigen::MatrixBase<DerivedB>& b) {
-  typename TransformSpatial<DerivedB>::type ret(drake::kTwistSize, b.cols());
->>>>>>> intial
   ret.template topRows<3>() =
       -b.template topRows<3>().colwise().cross(a.template topRows<3>());
   ret.template topRows<3>() -=

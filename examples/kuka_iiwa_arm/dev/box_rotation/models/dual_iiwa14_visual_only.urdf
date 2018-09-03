@@ -20,12 +20,9 @@
   <material name="Grey">
     <color rgba="0.4 0.4 0.4 1.0"/>
   </material>
-<<<<<<< HEAD
   <material name="Silver">
     <color rgba="0.6 0.6 0.6 1.0"/>
   </material>
-=======
->>>>>>> intial
   <material name="Orange">
     <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
   </material>
@@ -56,11 +53,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_0.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_0.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -90,11 +83,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_1.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_1.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -120,7 +109,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -132,12 +120,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_2.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_2 and link_3 -->
   <joint name="left_iiwa_joint_3" type="revolute">
@@ -160,7 +142,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_3.obj"/>
       </geometry>
       <material name="Grey"/>
@@ -179,12 +160,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_3.obj"/>
-      </geometry>
-      <material name="Grey"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_3 and link_4 -->
   <joint name="left_iiwa_joint_4" type="revolute">
@@ -207,7 +182,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_4_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -219,12 +193,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_4.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_4 and link_5 -->
   <joint name="left_iiwa_joint_5" type="revolute">
@@ -247,7 +215,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_5.obj"/>
       </geometry>
       <material name="Grey"/>
@@ -266,12 +233,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_5.obj"/>
-      </geometry>
-      <material name="Grey"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_5 and link_6 -->
   <joint name="left_iiwa_joint_6" type="revolute">
@@ -294,7 +255,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_6_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -306,12 +266,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_6.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_6 and link_7 -->
   <joint name="left_iiwa_joint_7" type="revolute">
@@ -334,11 +288,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_7.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_7.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -505,11 +455,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_0.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_0.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -539,11 +485,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_1.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_1.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>
@@ -569,7 +511,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -581,12 +522,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_2.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_2 and link_3 -->
   <joint name="right_iiwa_joint_3" type="revolute">
@@ -609,7 +544,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_3.obj"/>
       </geometry>
       <material name="Grey"/>
@@ -628,12 +562,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_3.obj"/>
-      </geometry>
-      <material name="Grey"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_3 and link_4 -->
   <joint name="right_iiwa_joint_4" type="revolute">
@@ -656,7 +584,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_4_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -668,12 +595,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_4.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_4 and link_5 -->
   <joint name="right_iiwa_joint_5" type="revolute">
@@ -696,7 +617,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_5.obj"/>
       </geometry>
       <material name="Grey"/>
@@ -715,12 +635,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_5.obj"/>
-      </geometry>
-      <material name="Grey"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_5 and link_6 -->
   <joint name="right_iiwa_joint_6" type="revolute">
@@ -743,7 +657,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_6_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -755,12 +668,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_6.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_6 and link_7 -->
   <joint name="right_iiwa_joint_7" type="revolute">
@@ -783,11 +690,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_7.obj"/>
-=======
-        <mesh filename="../meshes/visual/link_7.obj"/>
->>>>>>> intial
       </geometry>
       <material name="Grey"/>
     </visual>

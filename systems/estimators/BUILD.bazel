@@ -1,22 +1,15 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "estimators",
     deps = [
@@ -25,8 +18,6 @@ drake_cc_package_library(
     ],
 )
 
-=======
->>>>>>> intial
 drake_cc_library(
     name = "kalman_filter",
     srcs = ["kalman_filter.cc"],

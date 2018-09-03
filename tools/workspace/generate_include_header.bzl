@@ -7,11 +7,7 @@ def _generate_include_header_impl(ctx):
     # Collect list of headers
     hdrs = []
     for h in ctx.attr.hdrs:
-<<<<<<< HEAD
         for f in h.files.to_list():
-=======
-        for f in h.files:
->>>>>>> intial
             hdrs.append(output_path(ctx, f, ctx.attr.strip_prefix))
 
     # Generate include header

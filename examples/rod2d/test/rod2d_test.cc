@@ -38,11 +38,7 @@ class Rod2DDAETest : public ::testing::Test {
     dut_ = std::make_unique<Rod2D<double>>(
         Rod2D<double>::SystemType::kPiecewiseDAE, 0.0);
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
     derivatives_ = dut_->AllocateTimeDerivatives();
 
     // Use a non-unit mass.
@@ -302,11 +298,7 @@ TEST_F(Rod2DDAETest, ExpectedIndices) {
 TEST_F(Rod2DDAETest, Output) {
   const ContinuousState<double>& xc = context_->get_continuous_state();
   std::unique_ptr<SystemOutput<double>> output =
-<<<<<<< HEAD
       dut_->AllocateOutput();
-=======
-      dut_->AllocateOutput(*context_);
->>>>>>> intial
   dut_->CalcOutput(*context_, output.get());
   for (int i = 0; i < xc.size(); ++i)
     EXPECT_EQ(xc[i], output->get_vector_data(0)->get_value()(i));
@@ -774,11 +766,7 @@ class Rod2DDiscretizedTest : public ::testing::Test {
     dut_ = std::make_unique<Rod2D<double>>(
         Rod2D<double>::SystemType::kDiscretized, dt);
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
 
     // Use a non-unit mass.
     dut_->set_rod_mass(2.0);
@@ -986,11 +974,7 @@ class Rod2DContinuousTest : public ::testing::Test {
     dut_ = std::make_unique<Rod2D<double>>(
         Rod2D<double>::SystemType::kContinuous, 0.0);
     context_ = dut_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = dut_->AllocateOutput();
-=======
-    output_ = dut_->AllocateOutput(*context_);
->>>>>>> intial
     derivatives_ = dut_->AllocateTimeDerivatives();
 
     // Use a non-unit mass.
@@ -1167,13 +1151,8 @@ GTEST_TEST(Rod2DCrossValidationTest, Outputs) {
   std::unique_ptr<Context<double>> context_pdae = pdae.CreateDefaultContext();
 
   // Allocate outputs for both.
-<<<<<<< HEAD
   auto output_ts = ts.AllocateOutput();
   auto output_pdae = pdae.AllocateOutput();
-=======
-  auto output_ts = ts.AllocateOutput(*context_ts);
-  auto output_pdae = pdae.AllocateOutput(*context_pdae);
->>>>>>> intial
 
   // Compute outputs.
   ts.CalcOutput(*context_ts, output_ts.get());

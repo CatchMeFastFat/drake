@@ -6,25 +6,16 @@ import copy
 import unittest
 import numpy as np
 
-<<<<<<< HEAD
 from pydrake.autodiffutils import AutoDiffXd
 from pydrake.symbolic import Expression
-=======
->>>>>>> intial
 from pydrake.systems.analysis import (
     Simulator,
     )
 from pydrake.systems.framework import (
     AbstractValue,
-<<<<<<< HEAD
     BasicVector, BasicVector_,
     DiagramBuilder,
     LeafSystem, LeafSystem_,
-=======
-    BasicVector,
-    DiagramBuilder,
-    LeafSystem,
->>>>>>> intial
     PortDataType,
     VectorSystem,
     )
@@ -61,15 +52,12 @@ class CustomAdder(LeafSystem):
             sum += input_vector.get_value()
 
 
-<<<<<<< HEAD
 # TODO(eric.cousineau): Make this class work with custom scalar types once
 # referencing with custom dtypes lands.
 # WARNING: At present, dtype=object matrices are NOT well supported, and may
 # produce unexpected results (e.g. references not actually being respected).
 
 
-=======
->>>>>>> intial
 class CustomVectorSystem(VectorSystem):
     def __init__(self, is_discrete):
         # VectorSystem only supports pure Continuous or pure Discrete.
@@ -107,11 +95,7 @@ class TestCustom(unittest.TestCase):
         return system
 
     def _fix_adder_inputs(self, context):
-<<<<<<< HEAD
         self.assertEqual(context.get_num_input_ports(), 2)
-=======
-        self.assertEquals(context.get_num_input_ports(), 2)
->>>>>>> intial
         context.FixInputPort(0, BasicVector([1, 2, 3]))
         context.FixInputPort(1, BasicVector([4, 5, 6]))
 
@@ -119,13 +103,8 @@ class TestCustom(unittest.TestCase):
         system = self._create_adder_system()
         context = system.CreateDefaultContext()
         self._fix_adder_inputs(context)
-<<<<<<< HEAD
         output = system.AllocateOutput()
         self.assertEqual(output.get_num_ports(), 1)
-=======
-        output = system.AllocateOutput(context)
-        self.assertEquals(output.get_num_ports(), 1)
->>>>>>> intial
         system.CalcOutput(context, output)
         value = output.get_vector_data(0).get_value()
         self.assertTrue(np.allclose([5, 7, 9], value))
@@ -161,10 +140,7 @@ class TestCustom(unittest.TestCase):
                 LeafSystem.__init__(self)
                 self.called_publish = False
                 self.called_feedthrough = False
-<<<<<<< HEAD
                 self.called_continuous = False
-=======
->>>>>>> intial
                 self.called_discrete = False
                 # Ensure we have desired overloads.
                 self._DeclarePeriodicPublish(0.1)
@@ -172,10 +148,7 @@ class TestCustom(unittest.TestCase):
                 self._DeclarePeriodicPublish(period_sec=0.1, offset_sec=0.)
                 self._DeclarePeriodicDiscreteUpdate(
                     period_sec=0.1, offset_sec=0.)
-<<<<<<< HEAD
                 self._DeclareContinuousState(2)
-=======
->>>>>>> intial
                 self._DeclareDiscreteState(1)
                 # Ensure that we have inputs / outputs to call direct
                 # feedthrough.
@@ -189,13 +162,8 @@ class TestCustom(unittest.TestCase):
 
             def _DoHasDirectFeedthrough(self, input_port, output_port):
                 # Test inputs.
-<<<<<<< HEAD
                 test.assertEqual(input_port, 0)
                 test.assertEqual(output_port, 0)
-=======
-                test.assertEquals(input_port, 0)
-                test.assertEquals(output_port, 0)
->>>>>>> intial
                 # Call base method to ensure we do not get recursion.
                 base_return = LeafSystem._DoHasDirectFeedthrough(
                     self, input_port, output_port)
@@ -204,15 +172,12 @@ class TestCustom(unittest.TestCase):
                 self.called_feedthrough = True
                 return False
 
-<<<<<<< HEAD
             def _DoCalcTimeDerivatives(self, context, derivatives):
                 # Note:  Don't call base method here; it would abort because
                 # derivatives.size() != 0.
                 test.assertEqual(derivatives.get_vector().size(), 2)
                 self.called_continuous = True
 
-=======
->>>>>>> intial
             def _DoCalcDiscreteVariableUpdates(
                     self, context, events, discrete_state):
                 # Call base method to ensure we do not get recursion.
@@ -223,30 +188,21 @@ class TestCustom(unittest.TestCase):
         system = TrivialSystem()
         self.assertFalse(system.called_publish)
         self.assertFalse(system.called_feedthrough)
-<<<<<<< HEAD
         self.assertFalse(system.called_continuous)
-=======
->>>>>>> intial
         self.assertFalse(system.called_discrete)
         results = call_leaf_system_overrides(system)
         self.assertTrue(system.called_publish)
         self.assertTrue(system.called_feedthrough)
         self.assertFalse(results["has_direct_feedthrough"])
-<<<<<<< HEAD
         self.assertTrue(system.called_continuous)
         self.assertTrue(system.called_discrete)
         self.assertEqual(results["discrete_next_t"], 0.1)
-=======
-        self.assertTrue(system.called_discrete)
-        self.assertEquals(results["discrete_next_t"], 0.1)
->>>>>>> intial
 
         self.assertFalse(system.HasAnyDirectFeedthrough())
         self.assertFalse(system.HasDirectFeedthrough(output_port=0))
         self.assertFalse(
             system.HasDirectFeedthrough(input_port=0, output_port=0))
 
-<<<<<<< HEAD
         # Test explicit calls.
         system = TrivialSystem()
         context = system.CreateDefaultContext()
@@ -257,8 +213,6 @@ class TestCustom(unittest.TestCase):
             context, context_update.get_mutable_continuous_state())
         self.assertTrue(system.called_continuous)
 
-=======
->>>>>>> intial
     def test_vector_system_overrides(self):
         dt = 0.5
         for is_discrete in [False, True]:
@@ -275,11 +229,7 @@ class TestCustom(unittest.TestCase):
 
             # Check call order.
             update_type = is_discrete and "discrete" or "continuous"
-<<<<<<< HEAD
             self.assertEqual(
-=======
-            self.assertEquals(
->>>>>>> intial
                 system.has_called,
                 [update_type, "feedthrough", "output", "feedthrough"])
 
@@ -319,37 +269,22 @@ class TestCustom(unittest.TestCase):
         self.assertTrue(
             context.get_discrete_state_vector() is
             context.get_mutable_discrete_state_vector())
-<<<<<<< HEAD
         self.assertEqual(context.get_num_abstract_states(), 1)
-=======
-        self.assertEquals(context.get_num_abstract_states(), 1)
->>>>>>> intial
         self.assertTrue(
             context.get_abstract_state() is
             context.get_mutable_abstract_state())
         self.assertTrue(
             context.get_abstract_state(0) is
             context.get_mutable_abstract_state(0))
-<<<<<<< HEAD
         self.assertEqual(
-=======
-        self.assertEquals(
->>>>>>> intial
             context.get_abstract_state(0).get_value(), model_value.get_value())
 
         # Check AbstractValues API.
         values = context.get_abstract_state()
-<<<<<<< HEAD
         self.assertEqual(values.size(), 1)
         self.assertEqual(
             values.get_value(0).get_value(), model_value.get_value())
         self.assertEqual(
-=======
-        self.assertEquals(values.size(), 1)
-        self.assertEquals(
-            values.get_value(0).get_value(), model_value.get_value())
-        self.assertEquals(
->>>>>>> intial
             values.get_mutable_value(0).get_value(), model_value.get_value())
         values.CopyFrom(values.Clone())
 
@@ -365,7 +300,6 @@ class TestCustom(unittest.TestCase):
             diagram.GetMutableSubsystemContext(system, context) is not None)
 
     def test_continuous_state_api(self):
-<<<<<<< HEAD
         # N.B. Since this has trivial operations, we can test all scalar types.
         for T in [float, AutoDiffXd, Expression]:
 
@@ -435,29 +369,3 @@ class TestCustom(unittest.TestCase):
             system.CalcOutput(context, output)
             value = output.get_data(0)
             self.assertEqual(value.get_value(), expected_output_value)
-=======
-
-        class TrivialSystem(LeafSystem):
-            def __init__(self, index):
-                LeafSystem.__init__(self)
-                num_q = 2
-                num_v = 1
-                num_z = 3
-                num_state = num_q + num_v + num_z
-                if index == 0:
-                    self._DeclareContinuousState(num_state_variables=num_state)
-                elif index == 1:
-                    self._DeclareContinuousState(
-                        num_q=num_q, num_v=num_v, num_z=num_z)
-                elif index == 2:
-                    self._DeclareContinuousState(BasicVector(num_state))
-                elif index == 3:
-                    self._DeclareContinuousState(
-                        BasicVector(num_state),
-                        num_q=num_q, num_v=num_v, num_z=num_z)
-
-        for index in range(4):
-            system = TrivialSystem(index)
-            context = system.CreateDefaultContext()
-            self.assertEquals(context.get_continuous_state_vector().size(), 6)
->>>>>>> intial

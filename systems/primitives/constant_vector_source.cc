@@ -1,6 +1,5 @@
 #include "drake/systems/primitives/constant_vector_source.h"
 
-<<<<<<< HEAD
 #include <utility>
 
 #include "drake/common/default_scalars.h"
@@ -71,28 +70,6 @@ ConstantVectorSource<T>::ConstantVectorSource(
   DRAKE_DEMAND(this->get_system_scalar_converter().empty() ||
                typeid(source_value) == typeid(BasicVector<T>));
 }
-=======
-#include "drake/common/default_scalars.h"
-
-namespace drake {
-namespace systems {
-
-template <typename T>
-ConstantVectorSource<T>::ConstantVectorSource(
-    const Eigen::Ref<const VectorX<T>>& source_value)
-    : ConstantVectorSource(BasicVector<T>(source_value)) {}
-
-template <typename T>
-ConstantVectorSource<T>::ConstantVectorSource(
-    const BasicVector<T>& source_value)
-    : SingleOutputVectorSource<T>(source_value) {
-  source_value_index_ = this->DeclareNumericParameter(source_value);
-}
-
-template <typename T>
-ConstantVectorSource<T>::ConstantVectorSource(const T& source_value)
-    : ConstantVectorSource(Vector1<T>::Constant(source_value)) {}
->>>>>>> intial
 
 template <typename T>
 ConstantVectorSource<T>::~ConstantVectorSource() = default;

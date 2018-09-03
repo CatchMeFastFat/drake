@@ -47,11 +47,7 @@ GTEST_TEST(LuenbergerObserverTest, ErrorDynamics) {
 
   auto context = observer->CreateDefaultContext();
   auto derivatives = observer->AllocateTimeDerivatives();
-<<<<<<< HEAD
   auto output = observer->AllocateOutput();
-=======
-  auto output = observer->AllocateOutput(*context);
->>>>>>> intial
 
   EXPECT_FALSE(observer->HasAnyDirectFeedthrough());
 

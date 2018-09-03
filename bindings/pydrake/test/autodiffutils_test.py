@@ -10,13 +10,10 @@ import numpy as np
 import pydrake.math as drake_math
 
 from pydrake.test.algebra_test_util import ScalarAlgebra, VectorizedAlgebra
-<<<<<<< HEAD
 from pydrake.test.autodiffutils_test_util import (
     autodiff_scalar_pass_through,
     autodiff_vector_pass_through,
 )
-=======
->>>>>>> intial
 
 # Use convenience abbreviation.
 AD = AutoDiffXd
@@ -26,34 +23,20 @@ class TestAutoDiffXd(unittest.TestCase):
     def _check_scalar(self, actual, expected):
         if isinstance(actual, bool):
             self.assertTrue(isinstance(expected, bool))
-<<<<<<< HEAD
             self.assertEqual(actual, expected)
         elif isinstance(actual, float):
             self.assertTrue(isinstance(expected, float))
             self.assertEqual(actual, expected)
         else:
             self.assertAlmostEqual(actual.value(), expected.value())
-=======
-            self.assertEquals(actual, expected)
-        elif isinstance(actual, float):
-            self.assertTrue(isinstance(expected, float))
-            self.assertEquals(actual, expected)
-        else:
-            self.assertAlmostEquals(actual.value(), expected.value())
->>>>>>> intial
             self.assertTrue(
                 (actual.derivatives() == expected.derivatives()).all(),
                 (actual.derivatives(), expected.derivatives()))
 
     def _check_array(self, actual, expected):
         expected = np.array(expected)
-<<<<<<< HEAD
         self.assertEqual(actual.dtype, expected.dtype)
         self.assertEqual(actual.shape, expected.shape)
-=======
-        self.assertEquals(actual.dtype, expected.dtype)
-        self.assertEquals(actual.shape, expected.shape)
->>>>>>> intial
         if actual.dtype == object:
             for a, b in zip(actual.flat, expected.flat):
                 self._check_scalar(a, b)
@@ -62,7 +45,6 @@ class TestAutoDiffXd(unittest.TestCase):
 
     def test_scalar_api(self):
         a = AD(1, [1., 0])
-<<<<<<< HEAD
         self.assertEqual(a.value(), 1.)
         self.assertTrue((a.derivatives() == [1., 0]).all())
         self.assertEqual(str(a), "AD{1.0, nderiv=2}")
@@ -78,23 +60,12 @@ class TestAutoDiffXd(unittest.TestCase):
         self._check_scalar(
             autodiff_scalar_pass_through(1.),  # float
             AD(1., []))
-=======
-        self.assertEquals(a.value(), 1.)
-        self.assertTrue((a.derivatives() == [1., 0]).all())
-        self.assertEquals(str(a), "AD{1.0, nderiv=2}")
-        self.assertEquals(repr(a), "<AutoDiffXd 1.0 nderiv=2>")
-        self._check_scalar(a, a)
->>>>>>> intial
 
     def test_array_api(self):
         a = AD(1, [1., 0])
         b = AD(2, [0, 1.])
         x = np.array([a, b])
-<<<<<<< HEAD
         self.assertEqual(x.dtype, object)
-=======
-        self.assertEquals(x.dtype, object)
->>>>>>> intial
         # Idempotent check.
         self._check_array(x, x)
         # Conversion.
@@ -111,7 +82,6 @@ class TestAutoDiffXd(unittest.TestCase):
         self.assertFalse(isinstance(x[0, 0], AD))
         x = np.eye(3).astype(AD)
         self.assertFalse(isinstance(x[0, 0], AD))
-<<<<<<< HEAD
         # Test implicit conversion.
         self._check_array(
             autodiff_vector_pass_through([1, 2]),  # int
@@ -119,8 +89,6 @@ class TestAutoDiffXd(unittest.TestCase):
         self._check_array(
             autodiff_vector_pass_through([1., 2.]),  # float
             [AD(1., []), AD(2., [])])
-=======
->>>>>>> intial
 
     def _check_algebra(self, algebra):
         a_scalar = AD(1, [1., 0])
@@ -178,11 +146,7 @@ class TestAutoDiffXd(unittest.TestCase):
         ceil_a = algebra.ceil(a)
         floor_a = algebra.floor(a)
         if isinstance(algebra, VectorizedAlgebra):
-<<<<<<< HEAD
             self.assertEqual(ceil_a.dtype, object)
-=======
-            self.assertEquals(ceil_a.dtype, object)
->>>>>>> intial
             self.assertIsInstance(ceil_a[0], float)
             ceil_a = ceil_a.astype(float)
             floor_a = floor_a.astype(float)
@@ -195,21 +159,12 @@ class TestAutoDiffXd(unittest.TestCase):
         a = self._check_algebra(
             ScalarAlgebra(
                 self._check_scalar, scalar_to_float=lambda x: x.value()))
-<<<<<<< HEAD
         self.assertEqual(type(a), AD)
-=======
-        self.assertEquals(type(a), AD)
->>>>>>> intial
 
     def test_array_algebra(self):
         a = self._check_algebra(
             VectorizedAlgebra(
                 self._check_array,
                 scalar_to_float=lambda x: x.value()))
-<<<<<<< HEAD
         self.assertEqual(type(a), np.ndarray)
         self.assertEqual(a.shape, (2,))
-=======
-        self.assertEquals(type(a), np.ndarray)
-        self.assertEquals(a.shape, (2,))
->>>>>>> intial

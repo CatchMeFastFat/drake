@@ -1,5 +1,4 @@
 def _recursive_filegroup_impl(ctx):
-<<<<<<< HEAD
     files = depset([], transitive = [
         d.data_runfiles.files
         for d in ctx.attr.data
@@ -8,15 +7,6 @@ def _recursive_filegroup_impl(ctx):
         files = files,
         data_runfiles = ctx.runfiles(
             files = files.to_list(),
-=======
-    files = depset()
-    for d in ctx.attr.data:
-        files += d.data_runfiles.files
-    return [DefaultInfo(
-        files = files,
-        data_runfiles = ctx.runfiles(
-            files = list(files),
->>>>>>> intial
         ),
     )]
 
@@ -75,10 +65,7 @@ def expose_all_files(
     @param sub_dirs
         Any directories that are not packages.
     """
-<<<<<<< HEAD
 
-=======
->>>>>>> intial
     # @note It'd be nice if this could respect *ignore files, but meh.
     # Also, it'd be **super** nice if Bazel did not let `**` globs leak into
     # other packages and then error out.
@@ -91,13 +78,9 @@ def expose_all_files(
         srcs = native.glob(patterns)
         for sub_dir in sub_dirs:
             srcs += native.glob([
-<<<<<<< HEAD
                 sub_dir + "/" + pattern
                 for pattern in patterns
             ])
-=======
-                sub_dir + "/" + pattern for pattern in patterns])
->>>>>>> intial
         native.filegroup(
             name = name,
             srcs = srcs,
@@ -105,18 +88,12 @@ def expose_all_files(
             # runfiles, but not for expansion via `$(locations...)`.
             visibility = visibility,
         )
-<<<<<<< HEAD
 
         # Expose all files recursively (from one level).
         deps = [
             package_prefix + sub_package + ":" + name + "_recursive"
             for sub_package in sub_packages
         ]
-=======
-        # Expose all files recursively (from one level).
-        deps = [package_prefix + sub_package + ":" + name + "_recursive"
-                for sub_package in sub_packages]
->>>>>>> intial
         recursive_filegroup(
             name = name + "_recursive",
             data = [name] + deps,

@@ -22,21 +22,13 @@ class TestBackwardsCompatibility(unittest.TestCase):
             warnings.simplefilter("default", DrakeDeprecationWarning)
             self.assertTrue(pydrake.rbtree is not None)
             self.assertTrue(pydrake.rbtree.RigidBodyTree is not None)
-<<<<<<< HEAD
             self.assertEqual(len(w), 1)
-=======
-            self.assertEquals(len(w), 1)
->>>>>>> intial
 
     def test_rbtree_import(self):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("default", DrakeDeprecationWarning)
             import pydrake.rbtree
-<<<<<<< HEAD
             self.assertEqual(len(w), 1)
-=======
-            self.assertEquals(len(w), 1)
->>>>>>> intial
 
     def test_rbtree_deprecated(self):
         with warnings.catch_warnings(record=True) as w:
@@ -54,11 +46,7 @@ class TestBackwardsCompatibility(unittest.TestCase):
                 kQuaternion,
             )
             self.assertTrue(RigidBodyTree is not None)
-<<<<<<< HEAD
             self.assertEqual(len(w), 1)
-=======
-            self.assertEquals(len(w), 1)
->>>>>>> intial
 
     def test_parsers_deprecated(self):
         # Test symbol forwarding.
@@ -66,8 +54,4 @@ class TestBackwardsCompatibility(unittest.TestCase):
             warnings.simplefilter("default", DrakeDeprecationWarning)
             from pydrake.parsers import PackageMap
             self.assertTrue(PackageMap is not None)
-<<<<<<< HEAD
             self.assertEqual(len(w), 1)
-=======
-            self.assertEquals(len(w), 1)
->>>>>>> intial

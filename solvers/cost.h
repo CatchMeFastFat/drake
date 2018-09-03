@@ -78,7 +78,6 @@ class LinearCost : public Cost {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
               Eigen::VectorXd* y) const override;
 
   void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
@@ -91,14 +90,6 @@ class LinearCost : public Cost {
   template <typename DerivedX, typename U>
   void DoEvalGeneric(const Eigen::MatrixBase<DerivedX>& x, VectorX<U>* y) const;
 
-=======
-              Eigen::VectorXd& y) const override;
-
-  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-              AutoDiffVecXd& y) const override;
-
- private:
->>>>>>> intial
   Eigen::VectorXd a_;
   double b_{};
 };
@@ -159,7 +150,6 @@ class QuadraticCost : public Cost {
   }
 
  private:
-<<<<<<< HEAD
   template <typename DerivedX, typename U>
   void DoEvalGeneric(const Eigen::MatrixBase<DerivedX>& x, VectorX<U>* y) const;
 
@@ -171,13 +161,6 @@ class QuadraticCost : public Cost {
 
   void DoEval(const Eigen::Ref<const VectorX<symbolic::Variable>>& x,
               VectorX<symbolic::Expression>* y) const override;
-=======
-  void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-              Eigen::VectorXd& y) const override;
-
-  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-              AutoDiffVecXd& y) const override;
->>>>>>> intial
 
   Eigen::MatrixXd Q_;
   Eigen::VectorXd b_;
@@ -216,7 +199,6 @@ class EvaluatorCost : public Cost {
  protected:
   const EvaluatorType& evaluator() const { return *evaluator_; }
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
               Eigen::VectorXd* y) const override {
     evaluator_->Eval(x, y);
   }
@@ -227,13 +209,6 @@ class EvaluatorCost : public Cost {
 
   void DoEval(const Eigen::Ref<const VectorX<symbolic::Variable>>& x,
               VectorX<symbolic::Expression>* y) const override {
-=======
-              Eigen::VectorXd& y) const override {
-    evaluator_->Eval(x, y);
-  }
-  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-              AutoDiffVecXd& y) const override {
->>>>>>> intial
     evaluator_->Eval(x, y);
   }
 

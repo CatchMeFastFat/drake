@@ -19,7 +19,6 @@ def _remove_dev(components):
     return [x for x in components if not _is_dev(x)]
 
 
-<<<<<<< HEAD
 def _label_sort_key(label):
     # How to compare labels (lexicographically by subpackage names).
     return label.split("/")
@@ -68,25 +67,6 @@ kind("cc_library", visible("//tools/install/libdrake:libdrake.so", "//..."))
     misc_libs = _remove_dev(misc_libs)
     # Sort the result for consistency.
     return sorted(package_libs + misc_libs, key=_label_sort_key)
-=======
-def _find_libdrake_components():
-    query_string = """
-kind("cc_library", visible("//tools/install/libdrake:libdrake.so", "//..."))
-    except(attr("testonly", "1", "//..."))
-    except("//:*")
-    except("//common:text_logging_gflags")
-    except("//common/proto:protobuf_ubsan_fixup")
-    except("//examples/...")
-    except("//lcmtypes/...")
-    except("//tools/install/libdrake:*")
-"""
-    command = ["bazel", "query", query_string]
-    components = [x for x in subprocess.check_output(command).split('\n') if x]
-    components = _remove_dev(components)
-    def _key(x):
-        return x.split('/')
-    return sorted(components, key=_key)
->>>>>>> intial
 
 
 def main():
@@ -143,11 +123,8 @@ def main():
             new.write(one_line)
         for one_label in component_labels:
             line = '    "{}",'.format(one_label)
-<<<<<<< HEAD
             if ":" in one_label:
                 line += '  # unpackaged'
-=======
->>>>>>> intial
             new.write(line)
             if len(line) > 79:
                 new.write('  # noqa')

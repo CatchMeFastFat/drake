@@ -1,10 +1,7 @@
 #include "drake/solvers/snopt_solver.h"
 
-<<<<<<< HEAD
 #include <iostream>
 
-=======
->>>>>>> intial
 #include <gtest/gtest.h>
 #include <spruce.hh>
 
@@ -92,7 +89,6 @@ GTEST_TEST(SnoptTest, TestSetOption) {
   prog.SetSolverOption(SnoptSolver::id(), "Major iterations limit", 1);
   result = solver.Solve(prog);
   EXPECT_EQ(result, SolutionResult::kIterationLimit);
-<<<<<<< HEAD
 }
 
 GTEST_TEST(SnoptTest, TestPrintFile) {
@@ -122,15 +118,6 @@ GTEST_TEST(SnoptTest, TestPrintFile) {
   const SnoptSolver solver;
   const SolutionResult result = solver.Solve(prog);
   EXPECT_EQ(result, SolutionResult::kSolutionFound);
-=======
-
-  // This is to verify we can set the print out file.
-  std::string print_file = temp_directory() + "/snopt.out";
-  std::cout << print_file << std::endl;
-  EXPECT_FALSE(spruce::path(print_file).exists());
-  prog.SetSolverOption(SnoptSolver::id(), "Print file", print_file);
-  result = solver.Solve(prog);
->>>>>>> intial
   EXPECT_TRUE(spruce::path(print_file).exists());
 }
 

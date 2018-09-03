@@ -9,11 +9,7 @@ The Issue
 
 We want to prevent developers from accidentally pushing changes into RobotLocomotion/drake. This is accomplished by:
 
-<<<<<<< HEAD
    1. Everybody agreeing on a naming convention for the repositories.
-=======
-   1. Everybody agreeing in a naming convention for the respositories.
->>>>>>> intial
    2. Providing a dummy url for the repository we want to protect.
 
 
@@ -39,11 +35,7 @@ If a push to the master repository is attempted issuing a ``git push upstream my
 
    fatal: 'no_push' does not appear to be a git repository
    fatal: Could not read from remote repository.
-<<<<<<< HEAD
 
-=======
-   
->>>>>>> intial
    Please make sure you have the correct access rights
    and the repository exists.
 

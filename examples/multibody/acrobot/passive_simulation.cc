@@ -4,16 +4,9 @@
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/text_logging_gflags.h"
-<<<<<<< HEAD
 #include "drake/geometry/geometry_visualization.h"
 #include "drake/geometry/scene_graph.h"
 #include "drake/lcm/drake_lcm.h"
-=======
-#include "drake/geometry/geometry_system.h"
-#include "drake/geometry/geometry_visualization.h"
-#include "drake/lcm/drake_lcm.h"
-#include "drake/lcmt_viewer_draw.hpp"
->>>>>>> intial
 #include "drake/multibody/benchmarks/acrobot/make_acrobot_plant.h"
 #include "drake/multibody/multibody_tree/joints/revolute_joint.h"
 #include "drake/systems/analysis/implicit_euler_integrator.h"
@@ -21,22 +14,11 @@
 #include "drake/systems/analysis/semi_explicit_euler_integrator.h"
 #include "drake/systems/analysis/simulator.h"
 #include "drake/systems/framework/diagram_builder.h"
-<<<<<<< HEAD
 #include "drake/systems/primitives/constant_vector_source.h"
 
 namespace drake {
 
 using geometry::SceneGraph;
-=======
-#include "drake/systems/lcm/lcm_publisher_system.h"
-#include "drake/systems/lcm/serializer.h"
-#include "drake/systems/primitives/constant_vector_source.h"
-#include "drake/systems/rendering/pose_bundle_to_draw_message.h"
-
-namespace drake {
-
-using geometry::GeometrySystem;
->>>>>>> intial
 using geometry::SourceId;
 using lcm::DrakeLcm;
 using multibody::benchmarks::acrobot::AcrobotParameters;
@@ -44,12 +26,6 @@ using multibody::benchmarks::acrobot::MakeAcrobotPlant;
 using multibody::multibody_plant::MultibodyPlant;
 using multibody::RevoluteJoint;
 using systems::ImplicitEulerIntegrator;
-<<<<<<< HEAD
-=======
-using systems::lcm::LcmPublisherSystem;
-using systems::lcm::Serializer;
-using systems::rendering::PoseBundleToDrawMessage;
->>>>>>> intial
 using systems::RungeKutta3Integrator;
 using systems::SemiExplicitEulerIntegrator;
 
@@ -72,14 +48,8 @@ DEFINE_double(simulation_time, 10.0,
 int do_main() {
   systems::DiagramBuilder<double> builder;
 
-<<<<<<< HEAD
   SceneGraph<double>& scene_graph = *builder.AddSystem<SceneGraph>();
   scene_graph.set_name("scene_graph");
-=======
-  GeometrySystem<double>& geometry_system =
-      *builder.AddSystem<GeometrySystem>();
-  geometry_system.set_name("geometry_system");
->>>>>>> intial
 
   const double simulation_time = FLAGS_simulation_time;
 
@@ -92,16 +62,8 @@ int do_main() {
 
   // Make and add the acrobot model.
   const AcrobotParameters acrobot_parameters;
-<<<<<<< HEAD
   const MultibodyPlant<double>& acrobot = *builder.AddSystem(MakeAcrobotPlant(
       acrobot_parameters, true /* Finalize the plant */, &scene_graph));
-=======
-  const MultibodyPlant<double>& acrobot =
-      *builder.AddSystem(
-          MakeAcrobotPlant(
-              acrobot_parameters, true /* Finalize the plant */,
-              &geometry_system));
->>>>>>> intial
   const RevoluteJoint<double>& shoulder =
       acrobot.GetJointByName<RevoluteJoint>(
           acrobot_parameters.shoulder_joint_name());
@@ -117,25 +79,10 @@ int do_main() {
   builder.Connect(torque_source->get_output_port(),
                   acrobot.get_actuation_input_port());
 
-<<<<<<< HEAD
-=======
-  // Boilerplate used to connect the plant to a GeometrySystem for
-  // visualization.
-  DrakeLcm lcm;
-  const PoseBundleToDrawMessage& converter =
-      *builder.template AddSystem<PoseBundleToDrawMessage>();
-  LcmPublisherSystem& publisher =
-      *builder.template AddSystem<LcmPublisherSystem>(
-          "DRAKE_VIEWER_DRAW",
-          std::make_unique<Serializer<drake::lcmt_viewer_draw>>(), &lcm);
-  publisher.set_publish_period(1 / 60.0);
-
->>>>>>> intial
   // Sanity check on the availability of the optional source id before using it.
   DRAKE_DEMAND(!!acrobot.get_source_id());
 
   builder.Connect(
-<<<<<<< HEAD
       acrobot.get_geometry_poses_output_port(),
       scene_graph.get_source_pose_port(acrobot.get_source_id().value()));
 
@@ -147,25 +94,6 @@ int do_main() {
 
   // Load message must be sent before creating a Context.
   geometry::DispatchLoadMessage(scene_graph, &lcm);
-=======
-      acrobot.get_geometry_ids_output_port(),
-      geometry_system.get_source_frame_id_port(
-          acrobot.get_source_id().value()));
-  builder.Connect(
-      acrobot.get_geometry_poses_output_port(),
-      geometry_system.get_source_pose_port(acrobot.get_source_id().value()));
-
-  builder.Connect(geometry_system.get_pose_bundle_output_port(),
-                  converter.get_input_port(0));
-  builder.Connect(converter, publisher);
-
-  // Last thing before building the diagram; dispatch the message to load
-  // geometry.
-  geometry::DispatchLoadMessage(geometry_system);
-
-  // And build the Diagram:
-  std::unique_ptr<systems::Diagram<double>> diagram = builder.Build();
->>>>>>> intial
 
   // Create a context for this system:
   std::unique_ptr<systems::Context<double>> diagram_context =
@@ -253,11 +181,7 @@ int do_main() {
 int main(int argc, char* argv[]) {
   gflags::SetUsageMessage(
       "A simple acrobot demo using Drake's MultibodyTree,"
-<<<<<<< HEAD
       "with SceneGraph visualization. "
-=======
-      "with GeometrySystem visualization. "
->>>>>>> intial
       "Launch drake-visualizer before running this example.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   drake::logging::HandleSpdlogGflags();

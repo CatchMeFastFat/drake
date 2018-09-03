@@ -5,10 +5,7 @@ import numpy as np
 
 import pydrake
 from pydrake.multibody import shapes
-<<<<<<< HEAD
 from pydrake.util.eigen_geometry import Isometry3
-=======
->>>>>>> intial
 
 
 class TestShapes(unittest.TestCase):
@@ -48,7 +45,6 @@ class TestShapes(unittest.TestCase):
         self.assertTrue(np.allclose(mesh.scale, [1., 1., 1.]))
         self.assertEqual(mesh.uri, obj_mesh_uri)
         self.assertEqual(mesh.resolved_filename, obj_mesh_path)
-<<<<<<< HEAD
 
     def test_visual_element_api(self):
         material_in = [0.3, 0.4, 0.5, 0.6]
@@ -62,5 +58,3 @@ class TestShapes(unittest.TestCase):
         visual_element_np.setMaterial(material_in_2)
         self.assertTrue(np.allclose(visual_element_np.getMaterial(),
                                     material_in_2))
-=======
->>>>>>> intial

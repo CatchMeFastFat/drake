@@ -8,11 +8,7 @@
 #include "drake/common/trajectories/piecewise_polynomial.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/context.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 
 using Eigen::Matrix;
 using Eigen::MatrixXd;
@@ -34,11 +30,7 @@ class TrajectorySourceTest : public ::testing::Test {
     source_ = make_unique<TrajectorySource<double>>(*kppTraj_, kDerivativeOrder,
                                                     true);
     context_ = source_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = source_->AllocateOutput();
-=======
-    output_ = source_->AllocateOutput(*context_);
->>>>>>> intial
     input_ = make_unique<BasicVector<double>>(3 /* length */);
   }
 

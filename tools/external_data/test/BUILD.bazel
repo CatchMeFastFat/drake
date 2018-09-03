@@ -7,11 +7,8 @@ load(
 
 external_data_workspace_test(
     name = "external_data_pkg_test",
-<<<<<<< HEAD
     timeout = "moderate",
     tags = ["manual"],
-=======
->>>>>>> intial
 )
 
 exports_files(

@@ -25,12 +25,9 @@
   <material name="Grey">
     <color rgba="0.4 0.4 0.4 1.0"/>
   </material>
-<<<<<<< HEAD
   <material name="Silver">
     <color rgba="0.6 0.6 0.6 1.0"/>
   </material>
-=======
->>>>>>> intial
   <material name="Orange">
     <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
   </material>
@@ -117,7 +114,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -129,12 +125,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_2 and link_3 -->
   <joint name="left_iiwa_joint_3" type="revolute">
@@ -161,7 +151,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-<<<<<<< HEAD
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -176,8 +165,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
->>>>>>> intial
   </link>
   <!-- joint between link_3 and link_4 -->
   <joint name="left_iiwa_joint_4" type="revolute">
@@ -529,7 +516,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -541,12 +527,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../../../../../manipulation/models/iiwa_description/meshes/visual/link_2.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
   </link>
   <!-- joint between link_2 and link_3 -->
   <joint name="right_iiwa_joint_3" type="revolute">
@@ -573,7 +553,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-<<<<<<< HEAD
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -588,8 +567,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
->>>>>>> intial
   </link>
   <!-- joint between link_3 and link_4 -->
   <joint name="right_iiwa_joint_4" type="revolute">

@@ -97,11 +97,7 @@ GTEST_TEST(IdmControllerTest, ConstructOpposingSegments) {
   const LaneDirection initial_lane_dir =
       LaneDirection(GetLaneById(*road_opposing, "j:0_fwd"), /* lane */
                     true);                                  /* with_s */
-<<<<<<< HEAD
   // Create a finely-discretized path with a sufficient number of segments to
-=======
-  // Create a finely-discretized path with a sufficent number of segments to
->>>>>>> intial
   // cover the full length.
   const auto path =
       RoadPath<double>(initial_lane_dir, /* initial_lane_direction */
@@ -155,11 +151,7 @@ GTEST_TEST(IdmControllerTest, ConstructConfluentSegments) {
   const LaneDirection initial_lane_dir =
       LaneDirection(GetLaneById(*road_confluent, "j:1_fwd"), /* lane */
                     false);                                  /* with_s */
-<<<<<<< HEAD
   // Create a finely-discretized path with a sufficient number of segments to
-=======
-  // Create a finely-discretized path with a sufficent number of segments to
->>>>>>> intial
   // cover the full length.
   const auto path =
       RoadPath<double>(initial_lane_dir, /* initial_lane_direction */

@@ -3,13 +3,8 @@
 # Load the relevant upstream methods.
 load(
     "@intellij_aspect//:intellij_info_impl.bzl",
-<<<<<<< HEAD
     "intellij_info_aspect_impl",
     "make_intellij_info_aspect",
-=======
-    "make_intellij_info_aspect",
-    "intellij_info_aspect_impl",
->>>>>>> intial
 )
 load(
     "@intellij_aspect//:intellij_info_bundled.bzl",
@@ -45,10 +40,7 @@ def _extra_ide_info(target, ctx, ide_info, ide_info_file, output_groups):
     if includes == None:
         # No includes exist, so we don't need to override them.
         return False
-<<<<<<< HEAD
 
-=======
->>>>>>> intial
     # Place Drake's parent directory on CLion's include path.
     includes.insert(0, additional_transitive_quote_include_directory)
     return False

@@ -3,20 +3,13 @@
 /// @file
 /// Template method implementations for kinematics_cache.h.
 /// Most users should only include that file, not this one.
-<<<<<<< HEAD
 /// For background, see https://drake.mit.edu/cxx_inl.html.
-=======
-/// For background, see http://drake.mit.edu/cxx_inl.html.
->>>>>>> intial
 
 /* clang-format off to disable clang-format-includes */
 #include "drake/multibody/kinematics_cache.h"
 /* clang-format on */
 
-<<<<<<< HEAD
 #include <algorithm>
-=======
->>>>>>> intial
 #include <string>
 #include <vector>
 
@@ -52,7 +45,6 @@ KinematicsCache<T>::KinematicsCache(
     elements_.emplace_back(num_joint_positions[body_id],
                            num_joint_velocities[body_id]);
   }
-<<<<<<< HEAD
 
 
   geometric_jacobian_temp.kinematic_path.joint_path.reserve(num_positions_);
@@ -66,8 +58,6 @@ KinematicsCache<T>::KinematicsCache(
   spatial_velocity_jacobian_temp.
     v_or_q_indices.reserve(std::max(num_positions_, num_velocities_));
 
-=======
->>>>>>> intial
   invalidate();
 }
 
@@ -89,11 +79,7 @@ void KinematicsCache<T>::initialize(const Eigen::MatrixBase<Derived>& q_in) {
   static_assert(Derived::ColsAtCompileTime == 1, "q must be a vector");
   static_assert(std::is_same<typename Derived::Scalar, T>::value,
                 "T type of q must match T type of KinematicsCache");
-<<<<<<< HEAD
   DRAKE_DEMAND(q.rows() == q_in.rows());
-=======
-  DRAKE_ASSERT(q.rows() == q_in.rows());
->>>>>>> intial
   q = q_in;
   invalidate();
   velocity_vector_valid = false;
@@ -107,11 +93,7 @@ void KinematicsCache<T>::initialize(const Eigen::MatrixBase<DerivedQ>& q_in,
   static_assert(DerivedV::ColsAtCompileTime == 1, "v must be a vector");
   static_assert(std::is_same<typename DerivedV::Scalar, T>::value,
                 "T type of v must match T type of KinematicsCache");
-<<<<<<< HEAD
   DRAKE_DEMAND(v.rows() == v_in.rows());
-=======
-  DRAKE_ASSERT(v.rows() == v_in.rows());
->>>>>>> intial
   v = v_in;
   velocity_vector_valid = true;
 }
@@ -119,34 +101,20 @@ void KinematicsCache<T>::initialize(const Eigen::MatrixBase<DerivedQ>& q_in,
 template <typename T>
 void KinematicsCache<T>::checkCachedKinematicsSettings(
     bool velocity_kinematics_required, bool jdot_times_v_required,
-<<<<<<< HEAD
     const char* method_name) const {
   if (!position_kinematics_cached) {
     throw std::runtime_error(std::string(method_name) +
-=======
-    const std::string& method_name) const {
-  if (!position_kinematics_cached) {
-    throw std::runtime_error(method_name +
->>>>>>> intial
         " requires position kinematics, which have not "
             "been cached. Please call doKinematics.");
   }
   if (velocity_kinematics_required && !hasV()) {
-<<<<<<< HEAD
     throw std::runtime_error(std::string(method_name) +
-=======
-    throw std::runtime_error(method_name +
->>>>>>> intial
         " requires velocity kinematics, which have not "
             "been cached. Please call doKinematics with a "
             "velocity vector.");
   }
   if (jdot_times_v_required && !jdotV_cached) {
-<<<<<<< HEAD
     throw std::runtime_error(std::string(method_name) +
-=======
-    throw std::runtime_error(method_name +
->>>>>>> intial
         " requires Jdot times v, which has not been cached. Please call "
         "doKinematics with a velocity vector and compute_JdotV set to true.");
   }

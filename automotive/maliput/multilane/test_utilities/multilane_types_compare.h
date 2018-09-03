@@ -4,10 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "drake/automotive/maliput/api/test_utilities/maliput_types_compare.h"
-<<<<<<< HEAD
 #include "drake/automotive/maliput/multilane/builder.h"
-=======
->>>>>>> intial
 #include "drake/automotive/maliput/multilane/connection.h"
 
 namespace drake {
@@ -15,10 +12,7 @@ namespace maliput {
 namespace multilane {
 namespace test {
 
-<<<<<<< HEAD
 using ::testing::Matcher;
-=======
->>>>>>> intial
 using ::testing::MatcherInterface;
 using ::testing::MatchResultListener;
 
@@ -86,7 +80,6 @@ using ::testing::MatchResultListener;
                                             double linear_tolerance,
                                             double angular_tolerance);
 
-<<<<<<< HEAD
 // Compares equality within @p tolerance of @p cubic1 and @p cubic2
 // coefficients.
 // @param cubic1 A CubicPolynomial object to compare.
@@ -100,8 +93,6 @@ using ::testing::MatchResultListener;
                                                   const CubicPolynomial& cubic2,
                                                   double tolerance);
 
-=======
->>>>>>> intial
 /// Wraps api::HBounds comparison into a MatcherInterface.
 class HBoundsMatcher : public MatcherInterface<const api::HBounds&> {
  public:
@@ -123,7 +114,6 @@ class HBoundsMatcher : public MatcherInterface<const api::HBounds&> {
   const double tolerance_{};
 };
 
-<<<<<<< HEAD
 /// @return A Matcher<const api::HBounds&> of type HBoundsMatcher.
 Matcher<const api::HBounds&> Matches(const api::HBounds& elevation_bounds,
                                      double tolerance);
@@ -340,77 +330,6 @@ class EndLaneSpecMatcher : public MatcherInterface<const EndLane::Spec&> {
 Matcher<const EndLane::Spec&> Matches(
     const EndLane::Spec& end_lane, double tolerance);
 
-=======
-/// Wraps Endpoint comparison into a MatcherInterface.
-class EndpointMatcher : public MatcherInterface<const Endpoint&> {
- public:
-  EndpointMatcher(const Endpoint& endpoint, double tolerance)
-      : endpoint_(endpoint), tolerance_(tolerance) {}
-
-  bool MatchAndExplain(const Endpoint& other,
-                       MatchResultListener*) const override {
-    return IsEndpointClose(endpoint_, other, tolerance_);
-  }
-
-  void DescribeTo(std::ostream* os) const override  {
-    *os << "is within tolerance [" << tolerance_ << "] of endpoint: ["
-        << endpoint_ << "].";
-  }
-
- private:
-  const Endpoint endpoint_;
-  const double tolerance_{};
-};
-
-/// Wraps EndpointZ comparison into a MatcherInterface.
-class EndpointZMatcher : public MatcherInterface<const EndpointZ&> {
- public:
-  EndpointZMatcher(const EndpointZ& endpoint_z, double tolerance)
-      : endpoint_z_(endpoint_z), tolerance_(tolerance) {}
-
-  bool MatchAndExplain(const EndpointZ& other,
-                       MatchResultListener*) const override {
-    return IsEndpointZClose(endpoint_z_, other, tolerance_);
-  }
-
-  void DescribeTo(std::ostream* os) const override {
-    *os << "is within tolerance [" << tolerance_ << "] of endpoint_z: ["
-        << endpoint_z_ << "].";
-  }
-
- private:
-  const EndpointZ endpoint_z_;
-  const double tolerance_{};
-};
-
-/// Wraps an ArcOffset comparison into a MatcherInterface.
-class ArcOffsetMatcher : public MatcherInterface<const ArcOffset&> {
- public:
-  ArcOffsetMatcher(const ArcOffset& arc_offset, double linear_tolerance,
-                   double angular_tolerance)
-      : arc_offset_(arc_offset),
-        linear_tolerance_(linear_tolerance),
-        angular_tolerance_(angular_tolerance) {}
-
-  bool MatchAndExplain(const ArcOffset& other,
-                       MatchResultListener*) const override {
-    return IsArcOffsetClose(arc_offset_, other, linear_tolerance_,
-                            angular_tolerance_);
-  }
-
-  void DescribeTo(std::ostream* os) const override {
-    *os << "is within linear and angular tolerance: [" << linear_tolerance_
-        << ", " << angular_tolerance_ << "] of arc_offset: ["
-        << arc_offset_.radius() << ", " << arc_offset_.d_theta() << "].";
-  }
-
- private:
-  const ArcOffset arc_offset_;
-  const double linear_tolerance_{};
-  const double angular_tolerance_{};
-};
-
->>>>>>> intial
 }  // namespace test
 }  // namespace multilane
 }  // namespace maliput

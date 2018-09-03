@@ -8,22 +8,16 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/text_logging.h"
 #include "drake/lcm/drake_lcm.h"
-<<<<<<< HEAD
 #include "drake/manipulation/schunk_wsg/schunk_wsg_plain_controller.h"
-=======
->>>>>>> intial
 #include "drake/multibody/rigid_body_plant/drake_visualizer.h"
 #include "drake/multibody/rigid_body_plant/rigid_body_plant.h"
 #include "drake/systems/analysis/simulator.h"
 #include "drake/systems/framework/diagram_builder.h"
 #include "drake/systems/primitives/constant_vector_source.h"
 
-<<<<<<< HEAD
 using drake::manipulation::schunk_wsg::ControlMode;
 using drake::manipulation::schunk_wsg::SchunkWsgPlainController;
 
-=======
->>>>>>> intial
 namespace drake {
 namespace examples {
 namespace schunk_wsg {
@@ -40,22 +34,12 @@ GTEST_TEST(SimulatedSchunkWsgSystemTest, OpenGripper) {
   ASSERT_NE(schunk, nullptr);
   const RigidBodyTree<double>& tree = schunk->get_rigid_body_tree();
 
-<<<<<<< HEAD
   // The simulated Schunk plant has four links (the gripper body, two fingers,
   // and the world link).
   const int num_links = 4;
 
   // Of these only two are actuated (the fingers).
   const int num_actuators = 2;
-=======
-  // The simulated Schunk plant has seven links (the gripper body, two
-  // fingers, a nonphysical rotor, two nonphysical pushers, and the world
-  // link).
-  const int num_links = 7;
-
-  // Of these only one is actuated (the left finger).
-  const int num_actuators = 1;
->>>>>>> intial
 
   // Number of movable bodies: num_links minus world and body links.
   const int num_movable_links = num_links - 2;
@@ -90,19 +74,13 @@ GTEST_TEST(SimulatedSchunkWsgSystemTest, OpenGripper) {
   DRAKE_DEMAND(left_finger_actuator_index >= 0);
 
   // Set the input to a constant force.
-<<<<<<< HEAD
   Vector1<double> input;
   input << -1.0;  // Force, in Newtons.
   Vector1<double> max_force{40};  // Max force, in Newtons.
-=======
-  Vector1d input;
-  input << -1.0;  // Force, in Newtons.
->>>>>>> intial
   const auto source =
       builder.template AddSystem<systems::ConstantVectorSource<double>>(
           input);
   source->set_name("source");
-<<<<<<< HEAD
   const auto max_force_source =
       builder.template AddSystem<systems::ConstantVectorSource<double>>(
           max_force);
@@ -117,9 +95,6 @@ GTEST_TEST(SimulatedSchunkWsgSystemTest, OpenGripper) {
                   wsg_controller->get_input_port_max_force());
   builder.Connect(wsg_controller->get_output_port_control(),
                   schunk->get_input_port(0));
-=======
-  builder.Connect(source->get_output_port(), schunk->get_input_port(0));
->>>>>>> intial
 
   // Creates and adds LCM publisher for visualization.  The test doesn't
   // require `drake_visualizer` but it is convenient to have when debugging.
@@ -139,11 +114,7 @@ GTEST_TEST(SimulatedSchunkWsgSystemTest, OpenGripper) {
   simulator.Initialize();
 
   // Verify that the robot starts in the correct (zero) configuration.
-<<<<<<< HEAD
   auto initial_output = model->AllocateOutput();
-=======
-  auto initial_output = model->AllocateOutput(simulator.get_context());
->>>>>>> intial
   model->CalcOutput(simulator.get_context(), initial_output.get());
   const auto initial_output_data =
       initial_output->get_vector_data(0)->get_value();
@@ -155,11 +126,7 @@ GTEST_TEST(SimulatedSchunkWsgSystemTest, OpenGripper) {
   simulator.StepTo(1.0);
 
   // Extract and log the final state of the robot.
-<<<<<<< HEAD
   auto final_output = model->AllocateOutput();
-=======
-  auto final_output = model->AllocateOutput(simulator.get_context());
->>>>>>> intial
   model->CalcOutput(simulator.get_context(), final_output.get());
   const auto final_output_data =
       final_output->get_vector_data(0)->get_value();

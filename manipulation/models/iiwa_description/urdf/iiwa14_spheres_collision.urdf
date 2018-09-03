@@ -1,15 +1,8 @@
 <?xml version="1.0" ?>
-<<<<<<< HEAD
 <!-- ===================================================================== -->
 <!-- |    This model is a hand edited version of the original model (see | -->
 <!-- |    iiwa14_primitive_collision.urdf).                              | -->
 <!-- ===================================================================== -->
-=======
-<!-- =================================================================================== -->
-<!-- |    This model is a hand edited version of the original model (see               | -->
-<!-- |    iiwa14_primitive_collision.urdf).                                            | -->
-<!-- =================================================================================== -->
->>>>>>> intial
 <!-- ===================================================================== -->
 <!-- Collision models: complex meshes can drastically affect run time.
      Therefore some collision models are represented as simple spheres
@@ -32,12 +25,9 @@
   <material name="Grey">
     <color rgba="0.4 0.4 0.4 1.0"/>
   </material>
-<<<<<<< HEAD
   <material name="Silver">
     <color rgba="0.6 0.6 0.6 1.0"/>
   </material>
-=======
->>>>>>> intial
   <material name="Orange">
     <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
   </material>
@@ -120,11 +110,7 @@
   <joint name="iiwa_joint_2" type="revolute">
     <parent link="iiwa_link_1"/>
     <child link="iiwa_link_2"/>
-<<<<<<< HEAD
     <origin rpy="1.570796326794897   0 3.141592653589793" xyz="0 0 0.2025"/>
-=======
-    <origin rpy="1.57079632679   0 3.14159265359" xyz="0 0 0.2025"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-2.09439510239" upper="2.09439510239" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-2.05948851735" soft_upper_limit="2.05948851735"/>
@@ -141,7 +127,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../meshes/visual/link_2_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -153,12 +138,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_2.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
     <collision>
       <origin rpy="0 0 0" xyz="-2.488800594e-017 0.203225991 -0.002065464272"/>
       <geometry>
@@ -178,11 +157,7 @@
   <joint name="iiwa_joint_3" type="revolute">
     <parent link="iiwa_link_2"/>
     <child link="iiwa_link_3"/>
-<<<<<<< HEAD
     <origin rpy="1.570796326794897 0 3.141592653589793" xyz="0 0.2045 0"/>
-=======
-    <origin rpy="1.57079632679 0 3.14159265359" xyz="0 0.2045 0"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-2.96705972839" upper="2.96705972839" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-2.05948851735" soft_upper_limit="2.05948851735"/>
@@ -203,7 +178,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-<<<<<<< HEAD
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -218,8 +192,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
->>>>>>> intial
     <collision>
       <origin rpy="0 0 0" xyz="7.416339176e-017 0.05241123123 0.213459395"/>
       <geometry>
@@ -246,11 +218,7 @@
   <joint name="iiwa_joint_4" type="revolute">
     <parent link="iiwa_link_3"/>
     <child link="iiwa_link_4"/>
-<<<<<<< HEAD
     <origin rpy="1.570796326794897 0 0" xyz="0 0 0.2155"/>
-=======
-    <origin rpy="1.57079632679 0 0" xyz="0 0 0.2155"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-2.09439510239" upper="2.09439510239" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-2.05948851735" soft_upper_limit="2.05948851735"/>
@@ -267,7 +235,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../meshes/visual/link_4_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -279,12 +246,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_4.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
     <collision>
       <origin rpy="0 0 0" xyz="2.212061137e-017 0.1787589211 -0.001869578351"/>
       <geometry>
@@ -304,11 +265,7 @@
   <joint name="iiwa_joint_5" type="revolute">
     <parent link="iiwa_link_4"/>
     <child link="iiwa_link_5"/>
-<<<<<<< HEAD
     <origin rpy="-1.570796326794897 3.141592653589793 0" xyz="0 0.1845 0"/>
-=======
-    <origin rpy="-1.57079632679 3.14159265359 0" xyz="0 0.1845 0"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-2.96705972839" upper="2.96705972839" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-2.05948851735" soft_upper_limit="2.05948851735"/>
@@ -329,7 +286,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-<<<<<<< HEAD
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -344,8 +300,6 @@
       </geometry>
       <material name="Black"/>
     </visual>
-=======
->>>>>>> intial
     <collision>
       <origin rpy="0 0 0" xyz="3.178830537e-017 0.0445161559 0.2150550559"/>
       <geometry>
@@ -365,11 +319,7 @@
   <joint name="iiwa_joint_6" type="revolute">
     <parent link="iiwa_link_5"/>
     <child link="iiwa_link_6"/>
-<<<<<<< HEAD
     <origin rpy="1.570796326794897 0 0" xyz="0 0 0.2155"/>
-=======
-    <origin rpy="1.57079632679 0 0" xyz="0 0 0.2155"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-2.09439510239" upper="2.09439510239" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-2.05948851735" soft_upper_limit="2.05948851735"/>
@@ -386,7 +336,6 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-<<<<<<< HEAD
         <mesh filename="../meshes/visual/link_6_orange.obj"/>
       </geometry>
       <material name="Orange"/>
@@ -398,12 +347,6 @@
       </geometry>
       <material name="Grey"/>
     </visual>
-=======
-        <mesh filename="../meshes/visual/link_6.obj"/>
-      </geometry>
-      <material name="Orange"/>
-    </visual>
->>>>>>> intial
     <collision>
       <origin rpy="0 0 0" xyz="-2.904627567e-018 -0.01623589495 0.00748218906"/>
       <geometry>
@@ -416,11 +359,7 @@
   <joint name="iiwa_joint_7" type="revolute">
     <parent link="iiwa_link_6"/>
     <child link="iiwa_link_7"/>
-<<<<<<< HEAD
     <origin rpy="-1.570796326794897 3.141592653589793 0" xyz="0 0.081 0"/>
-=======
-    <origin rpy="-1.57079632679 3.14159265359 0" xyz="0 0.081 0"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
     <limit effort="300" lower="-3.05432619099" upper="3.05432619099" velocity="10"/>
     <safety_controller k_position="100" k_velocity="2" soft_lower_limit="-3.01941960595" soft_upper_limit="3.01941960595"/>
@@ -452,11 +391,7 @@
   <joint name="iiwa_joint_ee" type="fixed">
     <parent link="iiwa_link_7"/>
     <child link="iiwa_link_ee_kuka"/>
-<<<<<<< HEAD
     <origin rpy="3.141592653589793 3.141592653589793 3.141592653589793" xyz="0 0 0.045"/>
-=======
-    <origin rpy="3.14159265359 3.14159265359 3.14159265359" xyz="0 0 0.045"/>
->>>>>>> intial
     <axis xyz="0 0 1"/>
   </joint>
   <link name="iiwa_link_ee_kuka">
@@ -464,19 +399,11 @@
   <joint name="tool0_joint" type="fixed">
     <parent link="iiwa_link_7"/>
     <child link="iiwa_link_ee"/>
-<<<<<<< HEAD
     <origin rpy="0 -1.570796326794897 0" xyz="0 0 0.045"/>
   </joint>
   <link name="iiwa_link_ee">
     </link>
   <frame link="iiwa_link_ee" name="iiwa_frame_ee" rpy="3.141592653589793 0 1.570796326794897" xyz="0.09 0 0"/>
-=======
-    <origin rpy="0 -1.57079632679 0" xyz="0 0 0.045"/>
-  </joint>
-  <link name="iiwa_link_ee">
-    </link>
-  <frame link="iiwa_link_ee" name="iiwa_frame_ee" rpy="3.14159265359 0 1.57079632679" xyz="0.09 0 0"/>
->>>>>>> intial
   <!-- Load Gazebo lib and set the robot namespace -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_controller">

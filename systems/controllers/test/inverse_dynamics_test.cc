@@ -15,11 +15,7 @@
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/systems/framework/basic_vector.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 
 using Eigen::AutoDiffScalar;
 using Eigen::VectorXd;
@@ -49,11 +45,7 @@ class InverseDynamicsTest : public ::testing::Test {
     inverse_dynamics_ = make_unique<InverseDynamics<double>>(
         *tree_, pure_gravity_compensation /* pure gravity compensation mode */);
     context_ = inverse_dynamics_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = inverse_dynamics_->AllocateOutput();
-=======
-    output_ = inverse_dynamics_->AllocateOutput(*context_);
->>>>>>> intial
 
     // Checks that the number of input ports in the Gravity Compensator system
     // and the Context are consistent.

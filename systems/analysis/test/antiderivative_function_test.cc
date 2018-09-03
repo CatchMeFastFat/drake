@@ -3,19 +3,13 @@
 #include <gtest/gtest.h>
 
 #include "drake/common/eigen_types.h"
-<<<<<<< HEAD
 #include "drake/common/test_utilities/expect_throws_message.h"
-=======
->>>>>>> intial
 #include "drake/systems/analysis/integrator_base.h"
 #include "drake/systems/analysis/runge_kutta2_integrator.h"
 
 namespace drake {
 namespace systems {
-<<<<<<< HEAD
 namespace analysis {
-=======
->>>>>>> intial
 namespace {
 
 // Checks antiderivative function usage with multiple integrators.
@@ -34,11 +28,7 @@ GTEST_TEST(AntiderivativeFunctionTest, UsingMultipleIntegrators) {
       kDefaultLowerIntegrationBound, kDefaultParameters);
 
   // Defines an antiderivative function for f(x; 𝐤) = k₁ * x + k₂.
-<<<<<<< HEAD
   AntiderivativeFunction<double> antiderivative_function(
-=======
-  AntiderivativeFunction<double> antiderivative_f(
->>>>>>> intial
       [](const double& x, const VectorX<double>& k) -> double {
         return k[0] * x + k[1];
       }, kDefaultValues);
@@ -48,32 +38,19 @@ GTEST_TEST(AntiderivativeFunctionTest, UsingMultipleIntegrators) {
   // integration lower bound.
   const double u1 = kDefaultLowerIntegrationBound + 10.0;
   const VectorX<double>& k1 = kDefaultParameters;
-<<<<<<< HEAD
   EXPECT_NEAR(antiderivative_function.Evaluate(u1),
-=======
-  EXPECT_NEAR(antiderivative_f.Evaluate(u1),
->>>>>>> intial
               k1[0]/2 * std::pow(u1, 2.0) + k1[1] * u1,
               kAccuracy);
 
   // Replaces default integrator.
   const double kMaximumStep = 0.1;
   const IntegratorBase<double>* default_integrator =
-<<<<<<< HEAD
       antiderivative_function.get_integrator();
   using RK2 = RungeKutta2Integrator<double>;
   IntegratorBase<double>* configured_integrator =
       antiderivative_function.reset_integrator<RK2>(kMaximumStep);
   EXPECT_NE(configured_integrator, default_integrator);
   EXPECT_EQ(configured_integrator, antiderivative_function.get_integrator());
-=======
-      antiderivative_f.get_integrator();
-  using RK2 = RungeKutta2Integrator<double>;
-  IntegratorBase<double>* configured_integrator =
-      antiderivative_f.reset_integrator<RK2>(kMaximumStep);
-  EXPECT_NE(configured_integrator, default_integrator);
-  EXPECT_EQ(configured_integrator, antiderivative_f.get_integrator());
->>>>>>> intial
 
   // Specifies a different parameter vector, but leaves the default
   // integration lower bound.
@@ -85,11 +62,7 @@ GTEST_TEST(AntiderivativeFunctionTest, UsingMultipleIntegrators) {
   // can be written as F(u; 𝐤) = k₀/2 * u^2 + k₁ * u for the specified
   // integration lower bound.
   EXPECT_NEAR(
-<<<<<<< HEAD
       antiderivative_function.Evaluate(u2, values),
-=======
-      antiderivative_f.Evaluate(u2, values),
->>>>>>> intial
       k2[0]/2 * std::pow(u2, 2.0) + k2[1] * u2,
       kAccuracy);
 }
@@ -106,11 +79,7 @@ GTEST_TEST(AntiderivativeFunctionTest, EvaluatePreconditionValidation) {
       kDefaultLowerIntegrationBound, kDefaultParameters);
 
   // Defines a antiderivative function for f(x; 𝐤) = k₀ * x + k₁.
-<<<<<<< HEAD
   const AntiderivativeFunction<double> antiderivative_function(
-=======
-  const AntiderivativeFunction<double> antiderivative_f(
->>>>>>> intial
       [](const double& x, const VectorX<double>& k) -> double {
         return k[0] * x + k[1];
       }, kDefaultValues);
@@ -130,7 +99,6 @@ GTEST_TEST(AntiderivativeFunctionTest, EvaluatePreconditionValidation) {
   // parameter vector of the expected dimension.
   const VectorX<double> kValidParameters = VectorX<double>::Constant(2, 5.0);
 
-<<<<<<< HEAD
   const std::string kInvalidIntegrationBoundErrorMessage{
     "Cannot solve IVP for.*time.*"};
   const std::string kInvalidParametersErrorMessage{
@@ -173,22 +141,6 @@ GTEST_TEST(AntiderivativeFunctionTest, EvaluatePreconditionValidation) {
     antiderivative_function.MakeDenseEvalFunction(
         kInvalidUpperIntegrationBound, values);
     }, std::logic_error, kInvalidIntegrationBoundErrorMessage);
-=======
-  EXPECT_THROW(antiderivative_f.Evaluate(kInvalidUpperIntegrationBound),
-               std::logic_error);
-
-  EXPECT_THROW({
-      AntiderivativeFunction<double>::SpecifiedValues values;
-      values.k = kInvalidParameters;
-      antiderivative_f.Evaluate(kValidUpperIntegrationBound, values);
-    }, std::logic_error);
-
-  EXPECT_THROW({
-    AntiderivativeFunction<double>::SpecifiedValues values;
-    values.k = kValidParameters;
-    antiderivative_f.Evaluate(kInvalidUpperIntegrationBound, values);
-  }, std::logic_error);
->>>>>>> intial
 }
 
 class AntiderivativeFunctionAccuracyTest
@@ -233,20 +185,16 @@ TEST_P(AntiderivativeFunctionAccuracyTest, NthPowerMonomialTestCase) {
   for (int n = kLowestOrder; n <= kHighestOrder; ++n) {
     AntiderivativeFunction<double>::SpecifiedValues values;
     values.k = VectorX<double>::Constant(1, static_cast<double>(n)).eval();
-<<<<<<< HEAD
 
     const std::unique_ptr<ScalarDenseOutput<double>>
         antiderivative_function_approx =
         antiderivative_function.MakeDenseEvalFunction(
             kArgIntervalUBound, values);
 
-=======
->>>>>>> intial
     for (double u = kArgIntervalLBound; u <= kArgIntervalUBound;
          u += kArgStep) {
       // Tests are performed against the closed form solution of
       // the definite integral, which is (n + 1)⁻¹ uⁿ⁺¹.
-<<<<<<< HEAD
       const double solution = std::pow(u, n + 1.) / (n + 1.);
 
       EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
@@ -260,14 +208,6 @@ TEST_P(AntiderivativeFunctionAccuracyTest, NthPowerMonomialTestCase) {
           << "Failure approximating ∫₀ᵘ xⁿ dx for u = "
           << u << " and n = " << n << " to an accuracy of "
           << integration_accuracy_ << " with solver's continuous extension.";
-=======
-      const double exact_solution = std::pow(u, n + 1.) / (n + 1.);
-      EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
-                  exact_solution, integration_accuracy_)
-          << "Failure integrating ∫₀ᵘ xⁿ dx for u = "
-          << u << " and n = " << n << " to an accuracy of "
-          << integration_accuracy_;
->>>>>>> intial
     }
   }
 }
@@ -304,20 +244,16 @@ TEST_P(AntiderivativeFunctionAccuracyTest, HyperbolicTangentTestCase) {
        a += kParamStep) {
     AntiderivativeFunction<double>::SpecifiedValues values;
     values.k = VectorX<double>::Constant(1, a).eval();
-<<<<<<< HEAD
 
     const std::unique_ptr<ScalarDenseOutput<double>>
         antiderivative_function_approx =
         antiderivative_function.MakeDenseEvalFunction(
             kArgIntervalUBound, values);
 
-=======
->>>>>>> intial
     for (double u = kArgIntervalLBound; u <= kArgIntervalUBound;
          u += kArgStep) {
       // Tests are performed against the closed form solution of
       // the definite integral, which is a⁻¹ ln(cosh(a ⋅ u)).
-<<<<<<< HEAD
       const double solution = std::log(std::cosh(a * u)) / a;
 
       EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
@@ -331,14 +267,6 @@ TEST_P(AntiderivativeFunctionAccuracyTest, HyperbolicTangentTestCase) {
           << "Failure approximating ∫₀ᵘ tanh(a⋅x) dx for"
           << " u = " << u << " and a = " << a << " to an accuracy of "
           << integration_accuracy_ << " with solver's continuous extension.";
-=======
-      const double exact_solution = std::log(std::cosh(a * u)) / a;
-      EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
-                  exact_solution, integration_accuracy_)
-          << "Failure integrating ∫₀ᵘ tanh(a⋅x) dx for"
-          << " u = " << u << " and a = " << a << " to an accuracy of "
-          << integration_accuracy_;
->>>>>>> intial
     }
   }
 }
@@ -382,20 +310,16 @@ TEST_P(AntiderivativeFunctionAccuracyTest,
          b += k2ndPoleStep) {
       AntiderivativeFunction<double>::SpecifiedValues values;
       values.k = (VectorX<double>(2) << a, b).finished();
-<<<<<<< HEAD
 
     const std::unique_ptr<ScalarDenseOutput<double>>
         antiderivative_function_approx =
         antiderivative_function.MakeDenseEvalFunction(
             kArgIntervalUBound, values);
 
-=======
->>>>>>> intial
       for (double u = kArgIntervalLBound; u <= kArgIntervalUBound;
            u += kArgStep) {
         // Tests are performed against the closed form solution of the definite
         // integral, which is (b - a)⁻¹ ln [(b / a) ⋅ (u + a) / (u + b)].
-<<<<<<< HEAD
         const double solution =
             std::log((b / a) * ((u + a) / (u + b))) / (b - a);
 
@@ -411,15 +335,6 @@ TEST_P(AntiderivativeFunctionAccuracyTest,
             << " u = " << u << ", a = " << a << "and b = " << b
             << " to an accuracy of " << integration_accuracy_
             << " with solver's continuous extension.";
-=======
-        const double exact_solution =
-            std::log((b / a) * ((u + a) / (u + b))) / (b - a);
-        EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
-                    exact_solution, integration_accuracy_)
-            << "Failure integrating ∫₀ᵘ [(x + a)⋅(x + b)]⁻¹ dx for"
-            << " u = " << u << ", a = " << a << "and b = " << b
-            << " to an accuracy of " << integration_accuracy_;
->>>>>>> intial
       }
     }
   }
@@ -456,20 +371,16 @@ TEST_P(AntiderivativeFunctionAccuracyTest, ExponentialFunctionTestCase) {
        n += kParamStep) {
     AntiderivativeFunction<double>::SpecifiedValues values;
     values.k = VectorX<double>::Constant(1, n).eval();
-<<<<<<< HEAD
 
     const std::unique_ptr<ScalarDenseOutput<double>>
         antiderivative_function_approx =
         antiderivative_function.MakeDenseEvalFunction(
             kArgIntervalUBound, values);
 
-=======
->>>>>>> intial
     for (double u = kArgIntervalLBound; u <= kArgIntervalUBound;
          u += kArgStep) {
       // Tests are performed against the closed form solution of the definite
       // integral, which is (u / n - 1 / n²) ⋅ e^(n ⋅ u) + 1 / n².
-<<<<<<< HEAD
       const double solution =
           (u / n - 1. / (n * n)) * std::exp(n * u) + 1. / (n * n);
 
@@ -485,15 +396,6 @@ TEST_P(AntiderivativeFunctionAccuracyTest, ExponentialFunctionTestCase) {
           << " u = " << u << " and n = " << n
           << " to an accuracy of " << integration_accuracy_
           << " with solver's continuous extension.";
-=======
-      const double exact_solution =
-          (u / n - 1. / (n * n)) * std::exp(n * u) + 1. / (n * n);
-      EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
-                  exact_solution, integration_accuracy_)
-          << "Failure integrating ∫₀ᵘ x eⁿˣ dx for"
-          << " u = " << u << " and n = " << n
-          << " to an accuracy of " << integration_accuracy_;
->>>>>>> intial
     }
   }
 }
@@ -529,20 +431,16 @@ TEST_P(AntiderivativeFunctionAccuracyTest, TrigonometricFunctionTestCase) {
        a += kParamStep) {
     AntiderivativeFunction<double>::SpecifiedValues values;
     values.k = VectorX<double>::Constant(1, a).eval();
-<<<<<<< HEAD
 
     const std::unique_ptr<ScalarDenseOutput<double>>
         antiderivative_function_approx =
         antiderivative_function.MakeDenseEvalFunction(
             kArgIntervalUBound, values);
 
-=======
->>>>>>> intial
     for (double u = kArgIntervalLBound; u <= kArgIntervalUBound;
          u += kArgStep) {
       // Tests are performed against the closed form solution of the definite
       // integral, which is -u ⋅ cos(a ⋅ u) / a + sin(a ⋅ u) / a².
-<<<<<<< HEAD
       const double solution =
           -u * std::cos(a * u) / a + std::sin(a * u) / (a * a);
 
@@ -557,15 +455,6 @@ TEST_P(AntiderivativeFunctionAccuracyTest, TrigonometricFunctionTestCase) {
           << "Failure approximating ∫₀ᵘ x⋅sin(a⋅x) dx for"
           << " u = " << u << " and a = " << a << " to an accuracy of "
           << integration_accuracy_ << "with solver's continuous extension.";;
-=======
-      const double exact_solution =
-          -u * std::cos(a * u) / a + std::sin(a * u) / (a * a);
-      EXPECT_NEAR(antiderivative_function.Evaluate(u, values),
-                  exact_solution, integration_accuracy_)
-          << "Failure integrating ∫₀ᵘ x⋅sin(a⋅x) dx for"
-          << " u = " << u << " and a = " << a << " to an accuracy of "
-          << integration_accuracy_;
->>>>>>> intial
     }
   }
 }
@@ -575,9 +464,6 @@ INSTANTIATE_TEST_CASE_P(IncreasingAccuracyAntiderivativeFunctionTests,
                         ::testing::Values(1e-1, 1e-2, 1e-3, 1e-4));
 
 }  // namespace
-<<<<<<< HEAD
 }  // namespace analysis
-=======
->>>>>>> intial
 }  // namespace systems
 }  // namespace drake

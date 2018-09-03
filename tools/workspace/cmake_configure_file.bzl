@@ -8,15 +8,10 @@ load(
 # Defines the implementation actions to cmake_configure_file.
 def _cmake_configure_file_impl(ctx):
     arguments = [
-<<<<<<< HEAD
         "--input",
         ctx.file.src.path,
         "--output",
         ctx.outputs.out.path,
-=======
-        "--input", ctx.file.src.path,
-        "--output", ctx.outputs.out.path,
->>>>>>> intial
     ]
     for item in ctx.attr.defines:
         arguments += ["-D" + item]
@@ -87,9 +82,5 @@ def cmake_configure_file(
         defines = defines,
         cmakelists = cmakelists,
         env = hermetic_python_env(),
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial

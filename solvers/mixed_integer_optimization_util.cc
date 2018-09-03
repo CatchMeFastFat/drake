@@ -1,7 +1,6 @@
 #include "drake/solvers/mixed_integer_optimization_util.h"
 
 #include "drake/math/gray_code.h"
-<<<<<<< HEAD
 #include "drake/solvers/integer_optimization_util.h"
 
 using drake::symbolic::Expression;
@@ -27,11 +26,6 @@ std::ostream& operator<<(std::ostream& os, const IntervalBinning& binning) {
   return os;
 }
 
-=======
-
-namespace drake {
-namespace solvers {
->>>>>>> intial
 void AddLogarithmicSos2Constraint(
     MathematicalProgram* prog,
     const Eigen::Ref<const VectorX<symbolic::Expression>>& lambda,
@@ -79,12 +73,8 @@ void AddSos2Constraint(
   for (int i = 1; i < y.rows(); ++i) {
     prog->AddLinearConstraint(lambda(i) <= y(i - 1) + y(i) && lambda(i) >= 0);
   }
-<<<<<<< HEAD
   prog->AddLinearConstraint(lambda.tail<1>()(0) >= 0 &&
                             lambda.tail<1>()(0) <= y.tail<1>()(0));
-=======
-  prog->AddLinearConstraint(lambda.tail<1>()(0) <= y.tail<1>()(0));
->>>>>>> intial
   prog->AddLinearConstraint(y.sum() == 1);
 }
 
@@ -120,7 +110,6 @@ void AddLogarithmicSos1Constraint(
     prog->AddLinearConstraint(lambda_sum2 <= 1 - y(j));
   }
 }
-<<<<<<< HEAD
 
 void AddBilinearProductMcCormickEnvelopeMultipleChoice(
     MathematicalProgram* prog, const symbolic::Variable& x,
@@ -188,7 +177,5 @@ void AddBilinearProductMcCormickEnvelopeMultipleChoice(
   prog->AddLinearConstraint(w <= w_constraint_rhs(2));
   prog->AddLinearConstraint(w <= w_constraint_rhs(3));
 }
-=======
->>>>>>> intial
 }  // namespace solvers
 }  // namespace drake

@@ -58,17 +58,10 @@ bool Element::CanCollideWith(const Element* other) const {
     // Group filtering didn't exclude the pair, try cliques.
     // If collision_cliques_.size() = N and other->collision_cliques_.size() = M
     // The worst case (overlapping elements without intersection) is O(N+M).
-<<<<<<< HEAD
     excluded = SortedVectorsHaveIntersection(collision_cliques_,
                                              other->collision_cliques_);
   }
   return !excluded;
-=======
-    return !SortedVectorsHaveIntersection(collision_cliques_,
-                                          other->collision_cliques_);
-  }
-  return false;
->>>>>>> intial
 }
 
 void Element::AddToCollisionClique(int clique_id) {
@@ -80,24 +73,18 @@ void Element::AddToCollisionClique(int clique_id) {
   // explanation.
   auto it = std::lower_bound(collision_cliques_.begin(),
                              collision_cliques_.end(), clique_id);
-<<<<<<< HEAD
 
   // This test precludes duplicate clique id values.
-=======
->>>>>>> intial
   if (it == collision_cliques_.end() || clique_id < *it)
     collision_cliques_.insert(it, clique_id);
 }
 
-<<<<<<< HEAD
 void Element::AddCliquesFromElement(const Element& element) {
   for (int clique_id : element.collision_cliques()) {
     this->AddToCollisionClique(clique_id);
   }
 }
 
-=======
->>>>>>> intial
 int Element::get_num_cliques() const {
   return static_cast<int>(collision_cliques_.size());
 }
@@ -106,27 +93,18 @@ const std::vector<int>& Element::collision_cliques() const {
   return collision_cliques_;
 }
 
-<<<<<<< HEAD
 void Element::set_collision_filter(const bitmask& group,
                                    const bitmask& ignores) {
-=======
-void Element::set_collision_filter(
-    const drake::multibody::collision::bitmask& group,
-    const drake::multibody::collision::bitmask& ignores) {
->>>>>>> intial
   collision_filter_group_ = group;
   collision_filter_ignores_ = ignores;
 }
 
-<<<<<<< HEAD
 void Element::merge_collision_filter(const bitmask& group,
                                      const bitmask& ignores) {
   collision_filter_group_ |= group;
   collision_filter_ignores_ |= ignores;
 }
 
-=======
->>>>>>> intial
 ostream& operator<<(ostream& out, const Element& ee) {
   out << "drake::multibody::collision::Element:\n"
       << "  - id = " << ee.getId() << "\n"

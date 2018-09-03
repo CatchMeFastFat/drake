@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 import numpy as np
 import os
-<<<<<<< HEAD
 from os.path import join
 import unittest
 
@@ -14,14 +13,6 @@ from pydrake.multibody.collision import CollisionElement
 from pydrake.multibody.joints import PrismaticJoint, RevoluteJoint
 from pydrake.multibody.parsers import PackageMap
 from pydrake.multibody.rigid_body import RigidBody
-=======
-import unittest
-
-import pydrake
-from pydrake.common import FindResourceOrThrow
-from pydrake.forwarddiff import jacobian
-from pydrake.multibody.parsers import PackageMap
->>>>>>> intial
 from pydrake.multibody.rigid_body_tree import (
     AddFlatTerrainToWorld,
     RigidBodyFrame,
@@ -50,7 +41,6 @@ class TestRigidBodyTree(unittest.TestCase):
         p = tree.transformPoints(kinsol, np.zeros(3), 0, 1)
         self.assertTrue(np.allclose(p, np.zeros(3)))
 
-<<<<<<< HEAD
         # Ensure mismatched sizes throw an error.
         q_bad = np.zeros(num_q + 1)
         v_bad = np.zeros(num_v + 1)
@@ -63,8 +53,6 @@ class TestRigidBodyTree(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 tree.doKinematics(*bad_args)
 
-=======
->>>>>>> intial
         # AutoDiff jacobians.
 
         def do_transform(q):
@@ -107,7 +95,6 @@ class TestRigidBodyTree(unittest.TestCase):
             [0, 0, 0, 1]])
         self.assertTrue(np.allclose(T, T_expected))
 
-<<<<<<< HEAD
         # Geometric Jacobian.
         # Construct a new tree with a quaternion floating base.
         tree = RigidBodyTree(FindResourceOrThrow(
@@ -260,8 +247,6 @@ class TestRigidBodyTree(unittest.TestCase):
         self.assertEqual(J_ad.shape, (num_con, num_q))
         self.assertEqual(JdotV_ad.shape, (num_con,))
 
-=======
->>>>>>> intial
     def test_frame_api(self):
         tree = RigidBodyTree(FindResourceOrThrow(
             "drake/examples/pendulum/Pendulum.urdf"))
@@ -303,12 +288,9 @@ class TestRigidBodyTree(unittest.TestCase):
             [0., 1., 0., 0.2425, 0., 0., 0.],
             [0., 0., 1., 0., 0., 0., 0.]])
         self.assertTrue(np.allclose(Jc, Jc_expected))
-<<<<<<< HEAD
         # - JacobianDotTimesV
         JcDotV = tree.centerOfMassJacobianDotTimesV(kinsol)
         self.assertEqual(JcDotV.shape, (3,))
-=======
->>>>>>> intial
 
         # Specific body.
         arm_com = tree.FindBody("arm_com")
@@ -328,16 +310,11 @@ class TestRigidBodyTree(unittest.TestCase):
 
         num_q = num_v = 7
         num_u = tree.get_num_actuators()
-<<<<<<< HEAD
         self.assertEqual(num_u, 1)
-=======
-        self.assertEquals(num_u, 1)
->>>>>>> intial
         q = np.zeros(num_q)
         v = np.zeros(num_v)
         # Update kinematics.
         kinsol = tree.doKinematics(q, v)
-<<<<<<< HEAD
         # AutoDiff
         q_ad = np.array(map(AutoDiffXd, q))
         v_ad = np.array(map(AutoDiffXd, v))
@@ -345,44 +322,28 @@ class TestRigidBodyTree(unittest.TestCase):
         # Sanity checks:
         # - Actuator map.
         self.assertEqual(tree.B.shape, (num_v, num_u))
-=======
-        # Sanity checks:
-        # - Actuator map.
-        self.assertEquals(tree.B.shape, (num_v, num_u))
->>>>>>> intial
         B_expected = np.zeros((num_v, num_u))
         B_expected[-1] = 1
         self.assertTrue(np.allclose(tree.B, B_expected))
         # - Mass matrix.
         H = tree.massMatrix(kinsol)
-<<<<<<< HEAD
         H_ad = tree.massMatrix(kinsol_ad)
         self.assertEqual(H.shape, (num_v, num_v))
         self.assertEqual(H_ad.shape, (num_v, num_v))
-=======
-        self.assertEquals(H.shape, (num_v, num_v))
->>>>>>> intial
         assert_sane(H)
         self.assertTrue(np.allclose(H[-1, -1], 0.25))
         # - Bias terms.
         C = tree.dynamicsBiasTerm(kinsol, {})
-<<<<<<< HEAD
         C_ad = tree.dynamicsBiasTerm(kinsol_ad, {})
         self.assertEqual(C.shape, (num_v,))
         self.assertEqual(C_ad.shape, (num_v,))
-=======
-        self.assertEquals(C.shape, (num_v,))
->>>>>>> intial
         assert_sane(C)
         # - Inverse dynamics.
         vd = np.zeros(num_v)
         tau = tree.inverseDynamics(kinsol, {}, vd)
-<<<<<<< HEAD
         tau_ad = tree.inverseDynamics(kinsol_ad, {}, vd)
         self.assertEqual(tau.shape, (num_v,))
         self.assertEqual(tau_ad.shape, (num_v,))
-=======
->>>>>>> intial
         assert_sane(tau)
         # - Friction torques.
         friction_torques = tree.frictionTorques(v)
@@ -466,7 +427,6 @@ class TestRigidBodyTree(unittest.TestCase):
         #    the floating-base joints, as they are not present in the URDF.
         self.assertAlmostEqual(np.min(tree.joint_limit_min[6:]), -3.011)
         self.assertAlmostEqual(np.max(tree.joint_limit_max[6:]), 3.14159)
-<<<<<<< HEAD
 
     def test_rigid_body_api(self):
         # Tests as much of the RigidBody API as is possible in isolation.
@@ -580,5 +540,3 @@ class TestRigidBodyTree(unittest.TestCase):
         self.assertIsNotNone(
             rbt.FindCollisionElement(
                 body_2.get_collision_element_ids()[0]))
-=======
->>>>>>> intial

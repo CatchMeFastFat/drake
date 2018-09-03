@@ -213,11 +213,7 @@ Fixed input ports are treated identically to Parameters -- they may have
 numerical or abstract value types; they may be changed with downstream
 invalidation handled automatically; and their values do not change during a
 time-advancing simulation. The values for fixed input ports are represented by
-<<<<<<< HEAD
 FixedInputPortValue objects, which have their own ticket and tracker to
-=======
-FreestandingInputPortValue objects, which have their own ticket and tracker to
->>>>>>> intial
 which the corresponding input port subscribes.
 
 Every input port has an associated dependency ticket and tracker. The tracker
@@ -369,19 +365,10 @@ for the Context half that stores the runtime values. Here are some examples:
 :------------------|:--------------------|:------------------
 System             | System              | Context
 Output port        | OutputPort          | (cache entry)
-<<<<<<< HEAD
 Input port         | InputPort           | FixedInputPortValue
 Cache entry        | CacheEntry          | CacheEntryValue
 Dependency tracker | (ticket only)       | DependencyTracker
 
-=======
-Input port         | InputPortDescriptor | FreestandingInputPortValue
-Cache entry        | CacheEntry          | CacheEntryValue
-Dependency tracker | (ticket only)       | DependencyTracker
-
-(The names are as they exist now; some clearly need changing!)
-
->>>>>>> intial
 The System-side objects are used for declaring the computational structure of
 a System; the Context-side objects are used to maintain correct current values.
 For example, the necessary allocation and calculation methods for a cache entry

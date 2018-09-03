@@ -115,11 +115,7 @@ void Accelerometer::CalcAccelerationOutput(
   // an "a" denotes "linear acceleration". For more details about this
   // nomenclature, see the website linked to below.
   //
-<<<<<<< HEAD
   // https://drake.mit.edu/doxygen_cxx/group__multibody__spatial__vectors.html
-=======
-  // http://drake.mit.edu/doxygen_cxx/group__multibody__spatial__vectors.html
->>>>>>> intial
   //
   const auto A_WF = Jdot_WF_times_v + J_WF * vdot;
 

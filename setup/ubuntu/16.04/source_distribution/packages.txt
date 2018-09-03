@@ -5,19 +5,12 @@ coinor-libclp-dev
 coinor-libipopt-dev
 diffstat
 doxygen
-<<<<<<< HEAD
 file
 gdb
 gfortran
 git
 graphviz
 kcov-35
-=======
-gdb
-git
-graphviz
-kcov-34
->>>>>>> intial
 libblas-dev
 libbz2-dev
 libexpat1-dev
@@ -51,18 +44,10 @@ pkg-config
 protobuf-compiler
 python-dev
 python-gtk2
-<<<<<<< HEAD
 python-protobuf
 python-pygame
 python-sphinx
 ruby
-=======
-python-matplotlib
-python-protobuf
-python-pygame
-python-sphinx
-python-tk
->>>>>>> intial
 unzip
 valgrind
 zip

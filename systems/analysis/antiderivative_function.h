@@ -2,19 +2,13 @@
 
 #include <memory>
 #include <utility>
-<<<<<<< HEAD
 #include <vector>
-=======
->>>>>>> intial
 
 #include "drake/common/drake_copyable.h"
 #include "drake/common/drake_optional.h"
 #include "drake/common/eigen_types.h"
 #include "drake/common/unused.h"
-<<<<<<< HEAD
 #include "drake/systems/analysis/scalar_dense_output.h"
-=======
->>>>>>> intial
 #include "drake/systems/analysis/scalar_initial_value_problem.h"
 
 namespace drake {
@@ -24,23 +18,16 @@ namespace systems {
 /// Drake's ODE initial value problem solvers ("integrators"), provide the
 /// ability to perform quadrature on an arbitrary scalar integrable function.
 /// That is, it allows the evaluation of an antiderivative function F(u; 𝐤),
-<<<<<<< HEAD
 /// such that F(u; 𝐤) = ∫ᵥᵘ f(x; 𝐤) dx where f : ℝ  →  ℝ , u ∈ ℝ, v ∈ ℝ,
-=======
-/// such that F(u; 𝐤) =∫ᵥᵘ f(x; 𝐤) dx where f : ℝ  →  ℝ , u ∈ ℝ, v ∈ ℝ,
->>>>>>> intial
 /// 𝐤 ∈ ℝᵐ. The parameter vector 𝐤 allows for generic function definitions,
 /// which can later be evaluated for any instance of said vector. Also, note
 /// that 𝐤 can be understood as an m-tuple or as an element of ℝᵐ, the vector
 /// space, depending on how it is used by the integrable function.
 ///
-<<<<<<< HEAD
 /// See ScalarInitialValueProblem class documentation for information
 /// on caching support and dense output usage for improved efficiency in
 /// antiderivative function F evaluation.
 ///
-=======
->>>>>>> intial
 /// For further insight into its use, consider the following examples.
 ///
 /// - Solving the elliptic integral of the first kind
@@ -73,11 +60,7 @@ class AntiderivativeFunction {
   /// @param x The variable of integration x ∈ ℝ .
   /// @param k The parameter vector 𝐤 ∈ ℝᵐ.
   /// @return The function value f(@p x; @p k).
-<<<<<<< HEAD
   using IntegrableFunction = std::function<T(const T& x, const VectorX<T>& k)>;
-=======
-  typedef std::function<T(const T& x, const VectorX<T>& k)> IntegrableFunction;
->>>>>>> intial
 
   /// The set of values that, along with the function being integrated,
   /// partially specify the definite integral i.e. providing the lower
@@ -134,7 +117,6 @@ class AntiderivativeFunction {
         scalar_ode_function, scalar_ivp_default_values);
   }
 
-<<<<<<< HEAD
   /// Evaluates the definite integral F(u; 𝐤) = ∫ᵥᵘ f(x; 𝐤) dx from the lower
   /// integration bound v (see definition in class documentation) to @p u using
   /// the parameter vector 𝐤 (see definition in class documentation) if present
@@ -143,33 +125,18 @@ class AntiderivativeFunction {
   /// @param u The upper integration bound.
   /// @param values The specified values for the integration.
   /// @returns The value of the definite integral.
-=======
-  /// Evaluates the definite integral over the lower integration bound v (see
-  /// definition in class documentation) to @p u using the parameter vector 𝐤
-  /// (see definition in class documentation) if present in @p values, falling
-  /// back to the ones given on construction if not given.
-  ///
-  /// @param u The upper integration bound.
-  /// @param values The specified values for the integration.
-  /// @return The value of the definite integral.
->>>>>>> intial
   /// @pre The given upper integration bound @p u must be larger than or equal
   ///      to the lower integration bound v.
   /// @pre If given, the dimension of the parameter vector @p values.k
   ///      must match that of the parameter vector 𝐤 in the default specified
   ///      values given on construction.
-<<<<<<< HEAD
   /// @throws std::logic_error if any of the preconditions is not met.
-=======
-  /// @throw std::logic_error if preconditions are not met.
->>>>>>> intial
   T Evaluate(const T& u, const SpecifiedValues& values = {}) const {
     typename ScalarInitialValueProblem<T>::SpecifiedValues
         scalar_ivp_values(values.v, {}, values.k);
     return scalar_ivp_->Solve(u, scalar_ivp_values);
   }
 
-<<<<<<< HEAD
   /// Evaluates and yields an approximation of the definite integral
   /// F(u; 𝐤) = ∫ᵥᵘ f(x; 𝐤) dx for v ≤ u ≤ w, i.e. the closed interval
   /// that goes from the lower integration bound v (see definition in
@@ -207,8 +174,6 @@ class AntiderivativeFunction {
     return this->scalar_ivp_->DenseSolve(w, scalar_ivp_values);
   }
 
-=======
->>>>>>> intial
   /// Resets the internal integrator instance.
   ///
   /// A usage example is shown below.
@@ -217,11 +182,7 @@ class AntiderivativeFunction {
   /// @endcode
   ///
   /// @param args The integrator type-specific arguments.
-<<<<<<< HEAD
   /// @returns The new integrator instance.
-=======
-  /// @return The new integrator instance.
->>>>>>> intial
   /// @tparam Integrator The integrator type, which must be an
   ///                    IntegratorBase subclass.
   /// @tparam Args The integrator specific argument types.

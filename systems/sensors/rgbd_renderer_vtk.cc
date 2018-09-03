@@ -31,10 +31,6 @@
 #include <vtkSphereSource.h>
 #include <vtkTransform.h>
 #include <vtkTransformPolyDataFilter.h>
-<<<<<<< HEAD
-=======
-#include <vtkVersion.h>
->>>>>>> intial
 #include <vtkWindowToImageFilter.h>
 
 #include "drake/common/drake_assert.h"
@@ -46,11 +42,7 @@
 // ModuleInitVtkRenderingOpenGL2.
 VTK_AUTOINIT_DECLARE(vtkRenderingOpenGL2)
 
-<<<<<<< HEAD
 // TODO(kunimatsu-tri) Refactor RgbdRenderer with SceneGraph when it's
-=======
-// TODO(kunimatsu-tri) Refactor RgbdRenderer with GeometrySystem when it's
->>>>>>> intial
 // ready, so that other VTK dependent sensor simulators can share the world
 // without duplicating it.
 
@@ -93,11 +85,7 @@ struct ModuleInitVtkRenderingOpenGL2 {
 std::string RemoveFileExtension(const std::string& filepath) {
   const size_t last_dot = filepath.find_last_of(".");
   if (last_dot == std::string::npos) {
-<<<<<<< HEAD
     DRAKE_ABORT_MSG("File has no extension.");
-=======
-    DRAKE_ABORT_MSG("File has no extention.");
->>>>>>> intial
   }
   return filepath.substr(0, last_dot);
 }
@@ -136,25 +124,11 @@ class ShaderCallback : public vtkCommand {
 
   // NOLINTNEXTLINE(runtime/int): To match pre-existing APIs.
   void Execute(vtkObject*, unsigned long, void* callback_object) VTK_OVERRIDE {
-<<<<<<< HEAD
-=======
-#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION == 0
-    vtkOpenGLHelper* cell_bo =
-        reinterpret_cast<vtkOpenGLHelper*>(callback_object);
-    cell_bo->Program->SetUniformf("z_near", z_near_);
-    cell_bo->Program->SetUniformf("z_far", z_far_);
-    cell_bo = nullptr;
-#else
->>>>>>> intial
     vtkShaderProgram* program =
         reinterpret_cast<vtkShaderProgram*>(callback_object);
     program->SetUniformf("z_near", z_near_);
     program->SetUniformf("z_far", z_far_);
     program = nullptr;
-<<<<<<< HEAD
-=======
-#endif
->>>>>>> intial
   }
 
   void set_renderer(vtkRenderer* renderer) { renderer_ = renderer; }
@@ -392,7 +366,6 @@ RgbdRendererVTK::Impl::Impl(RgbdRendererVTK* parent,
   const vtkSmartPointer<vtkTransform> vtk_X_WC = ConvertToVtkTransform(X_WC);
 
   pipelines_[ImageType::kLabel]->window->SetMultiSamples(0);
-<<<<<<< HEAD
   // Disable multi sampling that has a bug with on-screen rendering
   // with NVidia drivers on Ubuntu 16.04: In certain very specific
   // cases (camera position, scene, triangle drawing order, normal
@@ -403,8 +376,6 @@ RgbdRendererVTK::Impl::Impl(RgbdRendererVTK* parent,
   // tests. Alternatively, find other way to resolve the driver bug.
   pipelines_[ImageType::kColor]->window->SetMultiSamples(0);
   pipelines_[ImageType::kDepth]->window->SetMultiSamples(0);
-=======
->>>>>>> intial
 
   for (auto& pipeline : pipelines_) {
     pipeline->renderer->SetBackground(sky_color.r, sky_color.g, sky_color.b);
@@ -417,15 +388,7 @@ RgbdRendererVTK::Impl::Impl(RgbdRendererVTK* parent,
                               parent_->config().height);
     pipeline->window->AddRenderer(pipeline->renderer.GetPointer());
     pipeline->filter->SetInput(pipeline->window.GetPointer());
-<<<<<<< HEAD
     pipeline->filter->SetScale(1);
-=======
-#if VTK_MAJOR_VERSION == 8 && VTK_MINOR_VERSION == 0
-    pipeline->filter->SetMagnification(1);
-#else
-    pipeline->filter->SetScale(1);
-#endif
->>>>>>> intial
     pipeline->filter->ReadFrontBufferOff();
     pipeline->filter->SetInputBufferTypeToRGBA();
     pipeline->filter->Update();

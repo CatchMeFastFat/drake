@@ -7,12 +7,8 @@ Director, https://git.io/vNKjq) and makes it available to be used as a
 dependency of shell scripts.
 
 Archive naming convention:
-<<<<<<< HEAD
     dv-<version>-g<commit>-python-<python version>-qt-<qt version>
         -vtk-<vtk version>-<platform>-<arch>[-<rebuild>]
-=======
-    dv-<version>-g<commit>-qt-<qt version>-vtk-<vtk version>-<platform>-<arch>
->>>>>>> intial
 
 Build configuration:
     BUILD_SHARED_LIBS=OFF
@@ -20,13 +16,10 @@ Build configuration:
     DD_QT_VERSION=5
     USE_EXTERNAL_INSTALL=ON
     USE_LCM=ON
-<<<<<<< HEAD
     USE_LCMGL=ON
     USE_SYSTEM_EIGEN=ON
     USE_SYSTEM_LCM=ON
     USE_SYSTEM_LIBBOT=ON
-=======
->>>>>>> intial
     USE_SYSTEM_VTK=ON
 
 Example:
@@ -58,7 +51,6 @@ def _impl(repository_ctx):
         fail(os_result.error)
 
     if os_result.is_macos:
-<<<<<<< HEAD
         archive = "dv-0.1.0-314-ga5a6f6f-python-2.7.15-qt-5.11.1-vtk-8.1.1-mac-x86_64.tar.gz"  # noqa
         sha256 = "02f321cf6068068f1aa9747b6b7834c41cd5ccf53aef90ad58229f2c1bfa963c"  # noqa
     elif os_result.ubuntu_release == "16.04":
@@ -67,13 +59,6 @@ def _impl(repository_ctx):
     elif os_result.ubuntu_release == "18.04":
         archive = "dv-0.1.0-314-ga5a6f6f-python-2.7.15-qt-5.9.5-vtk-8.1.1-bionic-x86_64.tar.gz"  # noqa
         sha256 = "49d4fe29285ebbc420d19bf91511e36e8b1eb03d23bc7912d982ae12c4b2b36c"  # noqa
-=======
-        archive = "dv-0.1.0-286-g10f57e8-qt-5.10.1-vtk-8.0.1-mac-x86_64.tar.gz"
-        sha256 = "daf55d0966bb1b82fa6214214c203c20da61a5a97d1beb2d449e433141553dee"  # noqa
-    elif os_result.ubuntu_release == "16.04":
-        archive = "dv-0.1.0-286-g10f57e8-qt-5.5.1-vtk-8.0.1-xenial-x86_64.tar.gz"  # noqa
-        sha256 = "66fb82efa163ce10e665319c2628dbce2aac7698e0bd53965bdc05bbc5abe7b5"  # noqa
->>>>>>> intial
     else:
         fail("Operating system is NOT supported", attr = os_result)
 
@@ -92,17 +77,12 @@ def _impl(repository_ctx):
 licenses([
     "notice",  # Apache-2.0 AND BSD-3-Clause AND Python-2.0
     "reciprocal",  # MPL-2.0
-<<<<<<< HEAD
     "restricted",  # LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-or-later
-=======
-    "restricted",  # LGPL-2.1 AND LGPL-2.1+
->>>>>>> intial
     "unencumbered",  # Public-Domain
 ])
 
 # drake-visualizer has the following non-system dependencies in addition to
 # those declared in deps:
-<<<<<<< HEAD
 #   bot2-lcmgl: LGPL-3.0-or-later
 #   ctkPythonConsole: Apache-2.0
 #   Eigen: BSD-3-Clause AND MPL-2.0 AND Public-Domain
@@ -110,14 +90,6 @@ licenses([
 #   Python: Python-2.0
 #   PythonQt: LGPL-2.1-only
 #   QtPropertyBrowser: LGPL-2.1-only
-=======
-#   ctkPythonConsole: Apache-2.0
-#   Eigen: BSD-3-Clause AND MPL-2.0 AND Public-Domain
-#   LCM: BSD-3-Clause AND LGPL-2.1 AND LGPL-2.1+
-#   Python: Python-2.0
-#   PythonQt: LGPL-2.1
-#   QtPropertyBrowser: LGPL-2.1
->>>>>>> intial
 # TODO(jamiesnape): Enumerate system dependencies.
 
 py_library(
@@ -136,10 +108,7 @@ filegroup(
     srcs = glob([
         "lib/libPythonQt.*",
         "lib/libddApp.*",
-<<<<<<< HEAD
         "lib/python2.7/site-packages/bot_lcmgl/**/*.py",
-=======
->>>>>>> intial
         "lib/python2.7/site-packages/director/**/*.py",
         "lib/python2.7/site-packages/director/**/*.so",
         "lib/python2.7/site-packages/urdf_parser_py/**/*.py",
@@ -149,10 +118,7 @@ filegroup(
     ],
     data = [
         ":drake_visualizer_python_deps",
-<<<<<<< HEAD
         "@lcm//:libdrake_lcm.so",
-=======
->>>>>>> intial
         "@vtk",
     ],
     visibility = ["//visibility:public"],
@@ -167,16 +133,11 @@ install_files(
 )
 """
 
-<<<<<<< HEAD
     repository_ctx.file(
         "BUILD.bazel",
         content = file_content,
         executable = False,
     )
-=======
-    repository_ctx.file("BUILD.bazel", content = file_content,
-                        executable = False)
->>>>>>> intial
 
 drake_visualizer_repository = repository_rule(
     attrs = {

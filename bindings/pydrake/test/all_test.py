@@ -70,13 +70,10 @@ class TestAll(unittest.TestCase):
             "jacobian",
             "sin",
             "cos",
-<<<<<<< HEAD
             # geometry
             "SceneGraph",
             # lcm
             "DrakeLcm",
-=======
->>>>>>> intial
             # symbolic
             "Variable",
             "Expression",
@@ -85,7 +82,6 @@ class TestAll(unittest.TestCase):
             "RoadGeometry",
             # - dragway
             "create_dragway",
-<<<<<<< HEAD
             # manipulation
             # - planner
             "DoDifferentialInverseKinematics",
@@ -95,9 +91,6 @@ class TestAll(unittest.TestCase):
             # - multibody_tree
             "MultibodyPlant",
             "SpatialVelocity",
-=======
-            # multibody
->>>>>>> intial
             # - parsers
             "PackageMap",
             # - rigid_body_plant
@@ -108,11 +101,6 @@ class TestAll(unittest.TestCase):
             # TODO(eric.cousineau): Avoid collision with `collision.Element`.
             # Import modules, since these names are generic.
             "Element",
-<<<<<<< HEAD
-=======
-            # - multibody_tree
-            "SpatialVelocity",
->>>>>>> intial
             # solvers
             # - gurobi
             "GurobiSolver",
@@ -130,11 +118,8 @@ class TestAll(unittest.TestCase):
             "LeafSystem",
             # - analysis
             "Simulator",
-<<<<<<< HEAD
             # - lcm
             "PySerializer",
-=======
->>>>>>> intial
             # - primitives
             "Adder",
             # - rendering

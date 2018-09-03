@@ -25,11 +25,7 @@ bool operator<(FormulaKind k1, FormulaKind k2) {
   return static_cast<int>(k1) < static_cast<int>(k2);
 }
 
-<<<<<<< HEAD
 Formula::Formula(std::shared_ptr<FormulaCell> ptr) : ptr_{std::move(ptr)} {}
-=======
-Formula::Formula(shared_ptr<FormulaCell> ptr) : ptr_{std::move(ptr)} {}
->>>>>>> intial
 
 Formula::Formula(const Variable& var) : ptr_{make_shared<FormulaVar>(var)} {}
 

@@ -1,20 +1,15 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
->>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "controllers",
     deps = [
@@ -38,16 +33,10 @@ drake_cc_package_library(
     ],
 )
 
-=======
->>>>>>> intial
 drake_cc_library(
     name = "state_feedback_controller_interface",
     hdrs = ["state_feedback_controller_interface.h"],
     deps = [
-<<<<<<< HEAD
-=======
-        "//systems/framework:input_port_descriptor",
->>>>>>> intial
         "//systems/framework:system",
     ],
 )
@@ -277,13 +266,8 @@ drake_cc_library(
 
 drake_cc_googletest(
     name = "dynamic_programming_test",
-<<<<<<< HEAD
     # Test timeout increased to not timeout when run with Valgrind.
     timeout = "long",
-=======
-    # Test size increased to not timeout when run with Valgrind.
-    size = "medium",
->>>>>>> intial
     deps = [
         ":dynamic_programming",
         ":linear_quadratic_regulator",

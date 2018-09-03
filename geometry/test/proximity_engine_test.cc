@@ -2,22 +2,15 @@
 
 #include <utility>
 
-<<<<<<< HEAD
 #include <fcl/fcl.h>
 #include <gtest/gtest.h>
 
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/geometry/shape_specification.h"
-=======
-#include <gtest/gtest.h>
-
-#include "drake/common/test_utilities/eigen_matrix_compare.h"
->>>>>>> intial
 
 namespace drake {
 namespace geometry {
 namespace internal {
-<<<<<<< HEAD
 // Compare witness pair. Note that we can switch body A with body B in one pair,
 // and the comparison result would be the same.
 void CompareSignedDistancePair(const SignedDistancePair<double>& pair,
@@ -31,8 +24,6 @@ void CompareSignedDistancePair(const SignedDistancePair<double>& pair,
   EXPECT_TRUE(CompareMatrices(pair.p_BCb, pair_expected.p_BCb, tol,
                               MatrixCompareType::absolute));
 }
-=======
->>>>>>> intial
 
 class ProximityEngineTester {
  public:
@@ -43,19 +34,15 @@ class ProximityEngineTester {
                          const ProximityEngine<T>& ref_engine) {
     return ref_engine.IsDeepCopy(test_engine);
   }
-<<<<<<< HEAD
 
   template <typename T>
   static int peek_next_clique(const ProximityEngine<T>& engine) {
     return engine.peek_next_clique();
   }
-=======
->>>>>>> intial
 };
 
 namespace {
 
-<<<<<<< HEAD
 using Eigen::AngleAxisd;
 using Eigen::Isometry3d;
 using Eigen::Translation3d;
@@ -65,11 +52,6 @@ using std::move;
 
 // Tests for manipulating the population of the proximity engine.
 
-=======
-using Eigen::Translation3d;
-using std::move;
-
->>>>>>> intial
 // Test simple addition of dynamic geometry.
 GTEST_TEST(ProximityEngineTests, AddDynamicGeometry) {
   ProximityEngine<double> engine;
@@ -107,11 +89,8 @@ GTEST_TEST(ProximityEngineTests, AddMixedGeometry) {
   EXPECT_EQ(engine.num_dynamic(), 1);
 }
 
-<<<<<<< HEAD
 // Tests for copy/move semantics.  ---------------------------------------------
 
-=======
->>>>>>> intial
 // Tests the copy semantics of the ProximityEngine -- the copy is a complete,
 // deep copy.
 GTEST_TEST(ProximityEngineTests, CopySemantics) {
@@ -160,7 +139,6 @@ GTEST_TEST(ProximityEngineTests, MoveSemantics) {
   EXPECT_EQ(move_construct.num_dynamic(), 0);
 }
 
-<<<<<<< HEAD
 // Signed distance tests -- testing data flow; not testing the value of the
 // query.
 
@@ -212,10 +190,6 @@ GTEST_TEST(ProximityEngineTests, SignedDistanceClosestPointsMultipleAnchored) {
 }
 
 // Penetration tests -- testing data flow; not testing the value of the query.
-=======
-
-// Penetration tests
->>>>>>> intial
 
 // A scene with no geometry reports no penetrations.
 GTEST_TEST(ProximityEngineTests, PenetrationOnEmptyScene) {
@@ -262,7 +236,6 @@ GTEST_TEST(ProximityEngineTests, PenetrationMultipleAnchored) {
   EXPECT_EQ(results.size(), 0);
 }
 
-<<<<<<< HEAD
 // These tests validate collisions/distance between spheres. This does *not*
 // test against other geometry types because we assume FCL works. This merely
 // confirms that the ProximityEngine functions provide the correct mapping.
@@ -277,14 +250,6 @@ GTEST_TEST(ProximityEngineTests, PenetrationMultipleAnchored) {
 // right.
 // NOTE: FCL does not document the case where two spheres have coincident
 // centers; therefore it is not tested here.
-=======
-// These tests validate collisions between spheres. This does *not* test against
-// other geometry types because we assume FCL works. This merely confirms that
-// the ProximityEngine functions provide the correct mapping.
-
-// Common class for evaluating a simple penetration case between two spheres.
-// The variations are in sphere *ownership* (see below).
->>>>>>> intial
 class SimplePenetrationTest : public ::testing::Test {
  protected:
   // Moves the dynamic sphere to either a penetrating or non-penetrating
@@ -329,7 +294,6 @@ class SimplePenetrationTest : public ::testing::Test {
   template <typename T>
   void ExpectPenetration(GeometryId origin_sphere, GeometryId colliding_sphere,
                          ProximityEngine<T>* engine) {
-<<<<<<< HEAD
     std::vector<PenetrationAsPointPair<double>> penetration_results =
         engine->ComputePointPairPenetration(dynamic_map_, anchored_map_);
     ASSERT_EQ(penetration_results.size(), 1);
@@ -340,12 +304,6 @@ class SimplePenetrationTest : public ::testing::Test {
                                                            anchored_map_);
     ASSERT_EQ(distance_results.size(), 1);
     const SignedDistancePair<double>& distance = distance_results[0];
-=======
-    std::vector<PenetrationAsPointPair<double>> results =
-        engine->ComputePointPairPenetration(dynamic_map_, anchored_map_);
-    EXPECT_EQ(results.size(), 1);
-    const PenetrationAsPointPair<double> penetration = results[0];
->>>>>>> intial
 
     // There are no guarantees as to the ordering of which element is A and
     // which is B. This test enforces an order for validation.
@@ -356,7 +314,6 @@ class SimplePenetrationTest : public ::testing::Test {
                 (penetration.id_A == colliding_sphere &&
                  penetration.id_B == origin_sphere));
 
-<<<<<<< HEAD
     EXPECT_TRUE(
         (distance.id_A == origin_sphere && distance.id_B == colliding_sphere) ||
         (distance.id_A == colliding_sphere && distance.id_B == origin_sphere));
@@ -378,32 +335,6 @@ class SimplePenetrationTest : public ::testing::Test {
     expected.p_WCb = origin_is_A ? p_WCc : p_WCo;
     Vector3<double> norm_into_B = Vector3<double>::UnitX();
     expected.nhat_BA_W = origin_is_A ? -norm_into_B : norm_into_B;
-=======
-    // Assume A => origin_sphere and b => colliding_sphere
-    // NOTE: In this current version, penetration is only reported in double.
-    PenetrationAsPointPair<double> expected;
-    expected.id_A = origin_sphere;  // located at origin
-    expected.id_B = colliding_sphere;  // located at [1.5R, 0, 0]
-    expected.depth = 2 * radius_ - colliding_x_;
-    expected.p_WCa = Vector3<double>{radius_, 0, 0};
-    expected.p_WCb = Vector3<double>{colliding_x_ - radius_, 0, 0};
-    expected.nhat_BA_W = -Vector3<double>::UnitX();
-
-    // Reverse if previous order assumption is false
-    if (penetration.id_A == colliding_sphere) {
-      Vector3<double> temp;
-      // Swap the indices
-      expected.id_A = colliding_sphere;
-      expected.id_B = origin_sphere;
-      // Swap the points
-      temp = expected.p_WCa;
-      expected.p_WCa = expected.p_WCb;
-      expected.p_WCb = temp;
-      // Reverse the normal
-      expected.nhat_BA_W = -expected.nhat_BA_W;
-      // Penetration depth is same either way; do nothing.
-    }
->>>>>>> intial
 
     EXPECT_EQ(penetration.id_A, expected.id_A);
     EXPECT_EQ(penetration.id_B, expected.id_B);
@@ -414,7 +345,6 @@ class SimplePenetrationTest : public ::testing::Test {
                                 MatrixCompareType::absolute));
     EXPECT_TRUE(CompareMatrices(penetration.nhat_BA_W, expected.nhat_BA_W,
                                 1e-13, MatrixCompareType::absolute));
-<<<<<<< HEAD
 
     // Should return the penetration depth here.
     SignedDistancePair<double> expected_distance;
@@ -485,16 +415,6 @@ class SimplePenetrationTest : public ::testing::Test {
     expected_distance.p_BCb = origin_is_A ? p_CCc : p_OCo;
 
     CompareSignedDistancePair(distance, expected_distance, 2e-3);
-=======
-  }
-
-  // Compute penetration and confirm that none were found.
-  void ExpectNoPenetration(ProximityEngine<double>* engine = nullptr) {
-    engine = engine == nullptr ? &engine_ : engine;
-    std::vector<PenetrationAsPointPair<double>> results =
-        engine->ComputePointPairPenetration(dynamic_map_, anchored_map_);
-    EXPECT_EQ(results.size(), 0);
->>>>>>> intial
   }
 
   ProximityEngine<double> engine_;
@@ -526,11 +446,7 @@ TEST_F(SimplePenetrationTest, PenetrationDynamicAndAnchored) {
 
   // Non-colliding case
   MoveDynamicSphere(dynamic_index, false /* not colliding */);
-<<<<<<< HEAD
   ExpectNoPenetration(origin_id, dynamic_id, &engine_);
-=======
-  ExpectNoPenetration();
->>>>>>> intial
 
   // Colliding case
   MoveDynamicSphere(dynamic_index, true /* colliding */);
@@ -564,11 +480,7 @@ TEST_F(SimplePenetrationTest, PenetrationDynamicAndDynamicSingleSource) {
 
   // Non-colliding case
   MoveDynamicSphere(collide_index, false /* not colliding */);
-<<<<<<< HEAD
   ExpectNoPenetration(origin_id, collide_id, &engine_);
-=======
-  ExpectNoPenetration();
->>>>>>> intial
 
   // Colliding case
   MoveDynamicSphere(collide_index, true /* colliding */);
@@ -584,7 +496,6 @@ TEST_F(SimplePenetrationTest, PenetrationDynamicAndDynamicSingleSource) {
   ExpectPenetration(origin_id, collide_id, ad_engine.get());
 }
 
-<<<<<<< HEAD
 // Invokes ExcludeCollisionsWithin in various scenarios which will and won't
 // generate cliques.
 TEST_F(SimplePenetrationTest, ExcludeCollisionsWithinCliqueGeneration) {
@@ -1219,8 +1130,6 @@ TEST_F(BoxPenetrationTest, TangentProneCylinder2) {
   TestCollision2(TangentProneCylinder, 1e-4);
 }
 
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace internal
 }  // namespace geometry

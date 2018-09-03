@@ -9,11 +9,7 @@
 #include "drake/common/eigen_types.h"
 #include "drake/common/find_resource.h"
 #include "drake/common/test_utilities/eigen_geometry_compare.h"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/floating_base_types.h"
 #include "drake/multibody/joints/quaternion_floating_joint.h"
 #include "drake/multibody/joints/revolute_joint.h"
@@ -125,15 +121,9 @@ TEST_F(RigidBodyTreeTest, TestAddFloatingJointWithOffset) {
   // world at offset x = 1, y = 1, z = 1.
   Eigen::Isometry3d T_r1and2_to_world;
   {
-<<<<<<< HEAD
     const drake::math::RotationMatrix<double> R_identity;
     const Eigen::Vector3d xyz = Eigen::Vector3d::Ones();
     T_r1and2_to_world.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-    Eigen::Vector3d xyz = Eigen::Vector3d::Ones();
-    Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-    T_r1and2_to_world.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
   }
 
   r1b1->add_joint(&tree_->world(),
@@ -171,15 +161,9 @@ TEST_F(RigidBodyTreeTest, TestAddFloatingJointWeldToLink) {
 
   Eigen::Isometry3d T_r2_to_r1;
   {
-<<<<<<< HEAD
     const drake::math::RotationMatrix<double> R_identity;
     const Eigen::Vector3d xyz = Eigen::Vector3d::Ones();
     T_r2_to_r1.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-    Eigen::Vector3d xyz = Eigen::Vector3d::Ones();
-    Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-    T_r2_to_r1.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
   }
 
   r2b1->add_joint(&tree_->world(),
@@ -193,15 +177,9 @@ TEST_F(RigidBodyTreeTest, TestAddFloatingJointWeldToLink) {
 
   Eigen::Isometry3d T_r3_and_r4_to_r2;
   {
-<<<<<<< HEAD
     const drake::math::RotationMatrix<double> R_identity;
     const Eigen::Vector3d xyz(2, 2, 2);
     T_r3_and_r4_to_r2.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-    Eigen::Vector3d xyz(2, 2, 2);
-    Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-    T_r3_and_r4_to_r2.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
   }
 
   auto r3b1_and_r4b1_weld = std::allocate_shared<RigidBodyFrame<double>>(

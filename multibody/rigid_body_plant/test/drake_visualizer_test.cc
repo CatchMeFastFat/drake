@@ -9,11 +9,7 @@
 #include "drake/common/find_resource.h"
 #include "drake/lcm/drake_mock_lcm.h"
 #include "drake/lcmt_viewer_draw.hpp"
-<<<<<<< HEAD
 #include "drake/math/rotation_matrix.h"
-=======
-#include "drake/math/roll_pitch_yaw.h"
->>>>>>> intial
 #include "drake/multibody/joints/roll_pitch_yaw_floating_joint.h"
 #include "drake/multibody/shapes/geometry.h"
 #include "drake/systems/analysis/simulator.h"
@@ -314,15 +310,9 @@ unique_ptr<RigidBodyTree<double>> CreateRigidBodyTree() {
 
     Eigen::Isometry3d joint_transform;
     {
-<<<<<<< HEAD
       const drake::math::RotationMatrix<double> R_identity;
       const Eigen::Vector3d xyz(1, 0, 0);
       joint_transform.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-      const Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-      const Eigen::Vector3d xyz(1, 0, 0);
-      joint_transform.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
     }
 
     auto joint = make_unique<RollPitchYawFloatingJoint>(
@@ -351,15 +341,9 @@ unique_ptr<RigidBodyTree<double>> CreateRigidBodyTree() {
 
     Eigen::Isometry3d joint_transform;
     {
-<<<<<<< HEAD
       const drake::math::RotationMatrix<double> R_identity;
       const Eigen::Vector3d xyz(2, 0, 0);
       joint_transform.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-      const Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-      const Eigen::Vector3d xyz(2, 0, 0);
-      joint_transform.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
     }
 
     auto joint = make_unique<RollPitchYawFloatingJoint>(
@@ -388,15 +372,9 @@ unique_ptr<RigidBodyTree<double>> CreateRigidBodyTree() {
 
     Eigen::Isometry3d joint_transform;
     {
-<<<<<<< HEAD
       const drake::math::RotationMatrix<double> R_identity;
       Eigen::Vector3d xyz(-1, 0, 0);
       joint_transform.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-      Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-      Eigen::Vector3d xyz(-1, 0, 0);
-      joint_transform.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
     }
 
     auto joint = make_unique<RollPitchYawFloatingJoint>(
@@ -427,15 +405,9 @@ unique_ptr<RigidBodyTree<double>> CreateRigidBodyTree() {
 
     Eigen::Isometry3d joint_transform;
     {
-<<<<<<< HEAD
       const drake::math::RotationMatrix<double> R_identity;
       const Eigen::Vector3d xyz(0, -2, 0);
       joint_transform.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-      const Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-      const Eigen::Vector3d xyz(0, -2, 0);
-      joint_transform.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
     }
 
     auto joint = make_unique<RollPitchYawFloatingJoint>(
@@ -464,15 +436,9 @@ unique_ptr<RigidBodyTree<double>> CreateRigidBodyTree() {
 
     Eigen::Isometry3d joint_transform;
     {
-<<<<<<< HEAD
       const drake::math::RotationMatrix<double> R_identity;
       const Eigen::Vector3d xyz = Eigen::Vector3d::Zero();
       joint_transform.matrix() << R_identity.matrix(), xyz, 0, 0, 0, 1;
-=======
-      const Eigen::Vector3d rpy = Eigen::Vector3d::Zero();
-      const Eigen::Vector3d xyz = Eigen::Vector3d::Zero();
-      joint_transform.matrix() << drake::math::rpy2rotmat(rpy), xyz, 0, 0, 0, 1;
->>>>>>> intial
     }
 
     auto joint = make_unique<RollPitchYawFloatingJoint>(
@@ -557,7 +523,6 @@ GTEST_TEST(DrakeVisualizerTests, TestPublishPeriod) {
   }
 }
 
-<<<<<<< HEAD
 // Tests that PlaybackTrajectory() works with both num_position and num_position
 // + num_velocity trajectories.
 GTEST_TEST(DrakeVisualizerTests, TestPlaybackTrajectory) {
@@ -584,8 +549,6 @@ GTEST_TEST(DrakeVisualizerTests, TestPlaybackTrajectory) {
   EXPECT_NO_THROW(dut.PlaybackTrajectory(state_trajectory));
 }
 
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace systems
 }  // namespace drake

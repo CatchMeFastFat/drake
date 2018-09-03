@@ -3,13 +3,8 @@
 load(
     "//tools:drake.bzl",
     "drake_cc_binary",
-<<<<<<< HEAD
     "drake_cc_googletest",
     "drake_cc_library",
-=======
-    "drake_cc_library",
-    "drake_cc_googletest",
->>>>>>> intial
 )
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
@@ -36,10 +31,6 @@ drake_cc_library(
         "//manipulation/util:world_sim_tree_builder",
         "//multibody/rigid_body_plant",
         "//systems/framework:diagram_builder",
-<<<<<<< HEAD
-=======
-        "//systems/sensors:optitrack_encoder",
->>>>>>> intial
         "//systems/sensors:optitrack_sender",
         "@optitrack_driver//lcmtypes:optitrack_lcmtypes",
     ],
@@ -92,11 +83,7 @@ drake_cc_library(
         "//lcmtypes:schunk",
         "//manipulation/perception:optitrack_pose_extractor",
         "//systems/framework:leaf_system",
-<<<<<<< HEAD
         "//systems/lcm:lcm_pubsub_system",
-=======
-        "//systems/lcm",
->>>>>>> intial
         "//systems/primitives:pass_through",
         "@gflags",
         "@lcmtypes_bot2_core",
@@ -139,13 +126,8 @@ drake_cc_binary(
         "//lcmtypes:schunk",
         "//manipulation/perception:optitrack_pose_extractor",
         "//systems/framework:leaf_system",
-<<<<<<< HEAD
         "//systems/lcm:lcm_driven_loop",
         "//systems/lcm:lcm_pubsub_system",
-=======
-        "//systems/lcm",
-        "//systems/lcm:lcm_driven_loop",
->>>>>>> intial
         "@gflags",
         "@lcmtypes_bot2_core",
         "@lcmtypes_robotlocomotion",

@@ -11,14 +11,7 @@
 #include "drake/common/find_resource.h"
 #include "drake/common/text_logging.h"
 #include "drake/common/trajectories/piecewise_polynomial.h"
-<<<<<<< HEAD
 #include "drake/multibody/parsers/urdf_parser.h"
-=======
-#include "drake/multibody/ik_options.h"
-#include "drake/multibody/parsers/urdf_parser.h"
-#include "drake/multibody/rigid_body_constraint.h"
-#include "drake/multibody/rigid_body_ik.h"
->>>>>>> intial
 #include "drake/multibody/rigid_body_tree.h"
 #include "drake/util/drakeGeometryUtil.h"
 
@@ -140,7 +133,6 @@ void SetPositionControlledIiwaGains(Eigen::VectorXd* Kp,
   *Ki = Eigen::VectorXd::Zero(7);
 }
 
-<<<<<<< HEAD
 void SetTorqueControlledIiwaGains(Eigen::VectorXd* stiffness,
                                   Eigen::VectorXd* damping_ratio) {
   // All the gains are for directly generating torques. These gains are set
@@ -156,8 +148,6 @@ void SetTorqueControlledIiwaGains(Eigen::VectorXd* stiffness,
   damping_ratio->setConstant(1.0);
 }
 
-=======
->>>>>>> intial
 void ApplyJointVelocityLimits(const MatrixX<double>& keyframes,
                               std::vector<double>* time) {
   DRAKE_DEMAND(keyframes.cols() == static_cast<int>(time->size()));

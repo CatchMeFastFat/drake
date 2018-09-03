@@ -33,11 +33,7 @@ class VectorSystem : public LeafSystem<T> {
   ~VectorSystem() override = default;
 
   /// Returns the sole input port.
-<<<<<<< HEAD
   const InputPort<T>& get_input_port() const {
-=======
-  const InputPortDescriptor<T>& get_input_port() const {
->>>>>>> intial
     DRAKE_DEMAND(this->get_num_input_ports() == 1);
     return LeafSystem<T>::get_input_port(0);
   }
@@ -187,7 +183,6 @@ class VectorSystem : public LeafSystem<T> {
     // Should only get here if we've declared an output.
     DRAKE_ASSERT(this->get_num_output_ports() > 0);
 
-<<<<<<< HEAD
     // Decide whether we should evaluate our input port and pass its value to
     // our subclass's DoCalcVectorOutput method.  When should_eval_input is
     // false, we will pass an empty vector instead of pulling on our input.
@@ -227,17 +222,11 @@ class VectorSystem : public LeafSystem<T> {
       }
     }
 
-=======
->>>>>>> intial
     // Only provide input when direct feedthrough occurs; otherwise, we might
     // create a computational loop.
     static const never_destroyed<VectorX<T>> empty_vector(0);
     Eigen::VectorBlock<const VectorX<T>> input_block =
-<<<<<<< HEAD
         should_eval_input ? EvalVectorInput(context) :
-=======
-        this->HasAnyDirectFeedthrough() ? EvalVectorInput(context) :
->>>>>>> intial
         empty_vector.access().segment(0, 0);
 
     // Obtain the block form of xc or xd.

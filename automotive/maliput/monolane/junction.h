@@ -1,9 +1,6 @@
 #pragma once
 
-<<<<<<< HEAD
 #include <functional>
-=======
->>>>>>> intial
 #include <memory>
 #include <vector>
 
@@ -20,18 +17,13 @@ namespace monolane {
 /// An api::Junction implementation.
 class Junction : public api::Junction {
  public:
-<<<<<<< HEAD
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Junction);
-=======
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Junction)
->>>>>>> intial
 
   /// Constructs an empty Junction.
   ///
   /// @p road_geometry must remain valid for the lifetime of this class,
   /// and must refer to the RoadGeometry which will contain the newly
   /// constructed Junction instance.
-<<<<<<< HEAD
   /// @p register_segment and @p register_lane will be called on any new
   /// Segment or Lane instances created as children of the Junction.
   Junction(const api::JunctionId& id, const api::RoadGeometry* road_geometry,
@@ -40,10 +32,6 @@ class Junction : public api::Junction {
       : id_(id), road_geometry_(road_geometry),
         register_segment_(register_segment),
         register_lane_(register_lane) {}
-=======
-  Junction(const api::JunctionId& id, api::RoadGeometry* road_geometry)
-      : id_(id), road_geometry_(road_geometry) {}
->>>>>>> intial
 
   /// Creates and adds a new Segment with the specified @p id.
   Segment* NewSegment(api::SegmentId id);
@@ -62,13 +50,9 @@ class Junction : public api::Junction {
   }
 
   api::JunctionId id_;
-<<<<<<< HEAD
   const api::RoadGeometry* road_geometry_{};
   std::function<void(const api::Segment*)> register_segment_;
   std::function<void(const api::Lane*)> register_lane_;
-=======
-  api::RoadGeometry* road_geometry_{};
->>>>>>> intial
   std::vector<std::unique_ptr<Segment>> segments_;
 };
 

@@ -1,6 +1,5 @@
 /// @file yaml_to_obj.cc
 ///
-<<<<<<< HEAD
 /// Take a yaml file as input, build the resulting monolane or multilane road
 /// geometry, and render the road surface to a WaveFront OBJ output file.
 #include <string>
@@ -11,20 +10,10 @@
 #include "drake/automotive/maliput/monolane/loader.h"
 #include "drake/automotive/maliput/multilane/builder.h"
 #include "drake/automotive/maliput/multilane/loader.h"
-=======
-/// Take a yaml file as input, build the resulting monolane road geometry, and
-/// render the road surface to a WaveFront OBJ output file.
-#include <string>
-
-#include <gflags/gflags.h>
-
-#include "drake/automotive/maliput/monolane/loader.h"
->>>>>>> intial
 #include "drake/automotive/maliput/utility/generate_obj.h"
 #include "drake/common/text_logging.h"
 #include "drake/common/text_logging_gflags.h"
 
-<<<<<<< HEAD
 DEFINE_string(yaml_file, "",
               "yaml input file defining a monolane or multilane road geometry");
 DEFINE_string(obj_dir, ".", "Directory to contain rendered road surface");
@@ -71,23 +60,6 @@ MaliputImplementation GetMaliputImplementation(const std::string& filename) {
 }
 
 // Generates an OBJ file from a YAML file path given as CLI argument.
-=======
-namespace mono = drake::maliput::monolane;
-namespace utility = drake::maliput::utility;
-
-DEFINE_string(yaml_file, "",
-              "yaml input file defining a monolane road geometry");
-DEFINE_string(obj_dir, ".", "Directory to contain rendered road surface");
-DEFINE_string(obj_file, "",
-              "Basename for output Wavefront OBJ and MTL files");
-DEFINE_double(max_grid_unit, utility::ObjFeatures().max_grid_unit,
-              "Maximum size of a grid unit in the rendered mesh covering the"
-              " road surface");
-DEFINE_double(min_grid_resolution, utility::ObjFeatures().min_grid_resolution,
-              "Minimum number of grid-units in either lateral or longitudinal"
-              " direction in the rendered mesh covering the road surface");
-
->>>>>>> intial
 int main(int argc, char* argv[]) {
   drake::log()->debug("main()");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
@@ -102,7 +74,6 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-<<<<<<< HEAD
   drake::log()->info("Loading road geometry...");
   std::unique_ptr<const drake::maliput::api::RoadGeometry> rg{};
   switch (GetMaliputImplementation(FLAGS_yaml_file)) {
@@ -123,16 +94,10 @@ int main(int argc, char* argv[]) {
       break;
     }
   }
-=======
-  drake::log()->info("Loading road geometry.");
-  auto rg = mono::LoadFile(FLAGS_yaml_file);
-
->>>>>>> intial
 
   utility::ObjFeatures features;
   features.max_grid_unit = FLAGS_max_grid_unit;
   features.min_grid_resolution = FLAGS_min_grid_resolution;
-<<<<<<< HEAD
   features.draw_elevation_bounds = FLAGS_draw_elevation_bounds;
 
   drake::log()->info("Generating OBJ.");
@@ -149,11 +114,3 @@ int main(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
   return drake::maliput::utility::main(argc, argv);
 }
-=======
-
-  drake::log()->info("Generating OBJ.");
-  utility::GenerateObjFile(rg.get(), FLAGS_obj_dir, FLAGS_obj_file, features);
-
-  return 0;
-}
->>>>>>> intial

@@ -74,11 +74,7 @@ class OracularStateEstimation : public systems::LeafSystem<T> {
     return msg;
   }
 
-<<<<<<< HEAD
   inline const systems::InputPort<T>& get_input_port_state() const {
-=======
-  inline const systems::InputPortDescriptor<T>& get_input_port_state() const {
->>>>>>> intial
     return this->get_input_port(input_port_index_state_);
   }
 

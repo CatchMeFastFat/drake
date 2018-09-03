@@ -80,11 +80,7 @@ class TestCppConst(unittest.TestCase):
         # Dictionary.
         d = {"a": 0, "b": 1, "z": [25]}
         d_const = cpp_const.to_const(d)
-<<<<<<< HEAD
         self.assertEqual(d_const["a"], 0)
-=======
-        self.assertEquals(d_const["a"], 0)
->>>>>>> intial
         with self._ex():
             d_const["c"] = 2
         with self._ex():
@@ -97,13 +93,8 @@ class TestCppConst(unittest.TestCase):
         obj = Basic("Tim")
         obj_const = cpp_const.to_const(obj)
         obj.new_attr = "Something"
-<<<<<<< HEAD
         self.assertEqual(obj_const.get_name(), "Tim")
         self.assertEqual(obj_const.__dict__["_name"], "Tim")
-=======
-        self.assertEquals(obj_const.get_name(), "Tim")
-        self.assertEquals(obj_const.__dict__["_name"], "Tim")
->>>>>>> intial
         with self._ex():
             obj_const.set_name("Bob")
         with self._ex():
@@ -124,11 +115,7 @@ class TestCppConst(unittest.TestCase):
         obj.add("z", [10])
         obj_const = cpp_const.to_const(obj)
         self.assertTrue(cpp_const.is_const_test(obj_const.get_values()))
-<<<<<<< HEAD
         self.assertEqual(obj_const.get("a"), 0)
-=======
-        self.assertEquals(obj_const.get("a"), 0)
->>>>>>> intial
         with self._ex():
             obj_const.add("c", 2)
         with self._ex():
@@ -146,11 +133,7 @@ class TestCppConst(unittest.TestCase):
         obj = AdvancedChild()
         obj.add("a", 0)
         obj_const = cpp_const.to_const(obj)
-<<<<<<< HEAD
         self.assertEqual(obj_const.const_safe("a"), 0)
-=======
-        self.assertEquals(obj_const.const_safe("a"), 0)
->>>>>>> intial
         with self._ex():
             obj_const.const_unsafe("a")
         with self._ex():

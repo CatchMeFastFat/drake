@@ -4,10 +4,7 @@
 #include <memory>
 
 #include "drake/common/drake_assert.h"
-<<<<<<< HEAD
 #include "drake/common/drake_throw.h"
-=======
->>>>>>> intial
 
 using std::runtime_error;
 using std::vector;
@@ -107,13 +104,8 @@ PiecewisePolynomial<T>::integral(
 
 template <typename T>
 double PiecewisePolynomial<T>::scalarValue(double t,
-<<<<<<< HEAD
                                            Eigen::Index row,
                                            Eigen::Index col) const {
-=======
-                                                         Eigen::Index row,
-                                                         Eigen::Index col) {
->>>>>>> intial
   int segment_index = this->get_segment_index(t);
   return segmentValueAtGlobalAbscissa(segment_index, t, row, col);
 }
@@ -276,7 +268,6 @@ bool PiecewisePolynomial<T>::isApprox(
 }
 
 template <typename T>
-<<<<<<< HEAD
 void PiecewisePolynomial<T>::ConcatenateInTime(
     const PiecewisePolynomial<T>& other) {
   if (!empty()) {
@@ -309,8 +300,6 @@ void PiecewisePolynomial<T>::ConcatenateInTime(
 }
 
 template <typename T>
-=======
->>>>>>> intial
 void PiecewisePolynomial<T>::shiftRight(double offset) {
   std::vector<double>& breaks = this->get_mutable_breaks();
   for (auto it = breaks.begin(); it != breaks.end(); ++it) {
@@ -773,28 +762,18 @@ PiecewisePolynomial<T>::Cubic(
 }
 
 // Makes a cubic piecewise polynomial.
-<<<<<<< HEAD
 // Internal knot points have continuous values, first and second derivatives.
 // If `periodic_end_condition` is `true`, the first and second derivatives will
 // be continuous between the end of the last segment and the beginning of
 // the first. Otherwise, the third derivative is made continuous between the
 // first two segments and between the last two segments (the "not-a-knot"
 // end condition).
-=======
-// Internal knot points have continuous values, first and second derivatives,
-// Third derivative is also continuous at the end of the first segment and the
-// beginning of the last segment.
->>>>>>> intial
 template <typename T>
 PiecewisePolynomial<T>
 PiecewisePolynomial<T>::Cubic(
     const std::vector<double>& breaks,
-<<<<<<< HEAD
     const std::vector<CoefficientMatrix>& knots,
     bool periodic_end_condition) {
-=======
-    const std::vector<CoefficientMatrix>& knots) {
->>>>>>> intial
   const std::vector<double>& times = breaks;
   const std::vector<CoefficientMatrix>& Y = knots;
   CheckSplineGenerationInputValidityOrThrow(times, Y, 3);
@@ -821,7 +800,6 @@ PiecewisePolynomial<T>::Cubic(
       int row_idx =
           SetupCubicSplineInteriorCoeffsLinearSystem(times, Y, j, k, &A, &b);
 
-<<<<<<< HEAD
       if (periodic_end_condition) {
         // Time during the last segment.
         const double end_dt = times[times.size() - 1] - times[times.size() - 2];
@@ -861,25 +839,6 @@ PiecewisePolynomial<T>::Cubic(
           A(row_idx, 4 + 3) = 1;
           b(row_idx++) = 0;
         }
-=======
-      if (N > 3) {
-        // Ydddot(times[1]) is continuous.
-        A(row_idx, 3) = 1;
-        A(row_idx, 4 + 3) = -1;
-        b(row_idx++) = 0;
-
-        // Ydddot(times[N-2]) is continuous.
-        A(row_idx, 4 * (N - 3) + 3) = 1;
-        A(row_idx, 4 * (N - 2) + 3) = -1;
-        b(row_idx++) = 0;
-      } else {
-        // Set Jerk to zero if only have 3 points, becomes a quadratic.
-        A(row_idx, 3) = 1;
-        b(row_idx++) = 0;
-
-        A(row_idx, 4 + 3) = 1;
-        b(row_idx++) = 0;
->>>>>>> intial
       }
 
       // TODO(siyuan.feng): Should switch to a sparse solver.
@@ -969,19 +928,12 @@ PiecewisePolynomial<T> PiecewisePolynomial<T>::Cubic(
 template <typename T>
 PiecewisePolynomial<T> PiecewisePolynomial<T>::Cubic(
     const Eigen::Ref<const Eigen::VectorXd>& breaks,
-<<<<<<< HEAD
     const Eigen::Ref<const MatrixX<T>>& knots,
     bool periodic_end_condition) {
   DRAKE_DEMAND(knots.cols() == breaks.size());
   std::vector<double> my_breaks(breaks.data(), breaks.data() + breaks.size());
   return PiecewisePolynomial<T>::Cubic(my_breaks, ColsToStdVector(knots),
                                        periodic_end_condition);
-=======
-    const Eigen::Ref<const MatrixX<T>>& knots) {
-  DRAKE_DEMAND(knots.cols() == breaks.size());
-  std::vector<double> my_breaks(breaks.data(), breaks.data() + breaks.size());
-  return PiecewisePolynomial<T>::Cubic(my_breaks, ColsToStdVector(knots));
->>>>>>> intial
 }
 
 // Computes the cubic spline coefficients based on the given values and first
@@ -1009,7 +961,4 @@ template class PiecewisePolynomial<double>;
 
 }  // namespace trajectories
 }  // namespace drake
-<<<<<<< HEAD
 
-=======
->>>>>>> intial

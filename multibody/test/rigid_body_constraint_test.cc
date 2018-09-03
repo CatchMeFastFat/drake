@@ -4,13 +4,9 @@
 
 #include <gtest/gtest.h>
 
-<<<<<<< HEAD
 #include "drake/common/eigen_types.h"
 #include "drake/common/find_resource.h"
 #include "drake/common/symbolic.h"
-=======
-#include "drake/common/find_resource.h"
->>>>>>> intial
 #include "drake/multibody/joints/floating_base_types.h"
 #include "drake/multibody/parsers/urdf_parser.h"
 #include "drake/multibody/rigid_body_tree.h"
@@ -41,7 +37,6 @@ GTEST_TEST(RigidBodyConstraintTest, TestWorldComConstraint) {
   EXPECT_NE(world_com_constraint, nullptr);
 }
 
-<<<<<<< HEAD
 GTEST_TEST(MinDistanceConstraintTests, PenaltyTest) {
   // Verifies that `MinDistanceConstraint::Penalty()`implements the following
   // piecewise function:
@@ -91,8 +86,6 @@ GTEST_TEST(MinDistanceConstraintTests, PenaltyTest) {
   }
 }
 
-=======
->>>>>>> intial
 }  // namespace
 }  // namespace multibody
 }  // namespace drake

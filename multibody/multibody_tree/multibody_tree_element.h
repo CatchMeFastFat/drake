@@ -2,10 +2,7 @@
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/drake_copyable.h"
-<<<<<<< HEAD
 #include "drake/multibody/multibody_tree/multibody_tree_indexes.h"
-=======
->>>>>>> intial
 #include "drake/multibody/multibody_tree/multibody_tree_topology.h"
 
 namespace drake {
@@ -14,7 +11,6 @@ namespace multibody {
 // Forward declaration.
 template<typename T> class MultibodyTree;
 
-<<<<<<< HEAD
 namespace internal {
 // This is a class used by MultibodyTree internals to create the implementation
 // for a particular joint object.
@@ -22,8 +18,6 @@ template <typename T>
 class JointImplementationBuilder;
 }  // namespace internal
 
-=======
->>>>>>> intial
 // Primary template defining the signature of this class.
 // Two template arguments are required in general, the type of the class
 // inheriting from MultibodyTreeElement (i.e. this is a CRTP class), and the
@@ -99,12 +93,9 @@ class MultibodyTreeElement<ElementType<T>, ElementIndexType> {
   /// Returns this element's unique index in its parent MultibodyTree.
   ElementIndexType index() const { return index_;}
 
-<<<<<<< HEAD
   /// Returns this element's model instance index in its parent MultibodyTree.
   ModelInstanceIndex model_instance() const { return model_instance_;}
 
-=======
->>>>>>> intial
   /// Checks whether this MultibodyTreeElement has been registered into a
   /// MultibodyTree. If not, it throws an exception of type std::logic_error.
   void HasParentTreeOrThrow() const {
@@ -151,13 +142,10 @@ class MultibodyTreeElement<ElementType<T>, ElementIndexType> {
   /// their default constructors if they need to.
   MultibodyTreeElement() {}
 
-<<<<<<< HEAD
   /// Constructor which allows specifying a model instance.
   explicit MultibodyTreeElement(ModelInstanceIndex model_instance)
       : model_instance_(model_instance) {}
 
-=======
->>>>>>> intial
   /// Gives MultibodyTree elements the opportunity to retrieve their topology
   /// when MultibodyTree::Finalize() is invoked.
   /// NVI to pure virtual method DoSetTopology().
@@ -176,13 +164,10 @@ class MultibodyTreeElement<ElementType<T>, ElementIndexType> {
     parent_tree_ = tree;
   }
 
-<<<<<<< HEAD
   void set_model_instance(ModelInstanceIndex model_instance) {
     model_instance_ = model_instance;
   }
 
-=======
->>>>>>> intial
   // MultibodyTree<T> is a natural friend of MultibodyTreeElement objects and
   // therefore it can set the owning parent tree and unique index in that tree.
   friend class MultibodyTree<T>;
@@ -192,13 +177,10 @@ class MultibodyTreeElement<ElementType<T>, ElementIndexType> {
   // The default index value is *invalid*. This must be set to a valid index
   // value before the element is released to the wild.
   ElementIndexType index_;
-<<<<<<< HEAD
 
   // The default model instance id is *invalid*. This must be set to a
   // valid index value before the element is released to the wild.
   ModelInstanceIndex model_instance_;
-=======
->>>>>>> intial
 };
 
 }  // namespace multibody

@@ -61,11 +61,7 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
   template <typename Derived>
   explicit PiecewisePolynomial(const Eigen::MatrixBase<Derived>& value)
       : PiecewiseTrajectory<T>(std::vector<double>(
-<<<<<<< HEAD
             {0.0, std::numeric_limits<double>::infinity()})) {
-=======
-            {{0.0, std::numeric_limits<double>::infinity()}})) {
->>>>>>> intial
     polynomials_.push_back(value.template cast<PolynomialType>());
   }
 
@@ -256,7 +252,6 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
   /**
    * Constructs a third order PiecewisePolynomial from `breaks` and `knots`.
    * The PiecewisePolynomial is constructed such that the interior segments
-<<<<<<< HEAD
    * have the same value, first and second derivatives at `breaks`. If
    * `periodic_end_condition` is `false` (default), then the "Not-a-knot" end
    * condition is used here, which means the third derivatives are
@@ -279,19 +274,6 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
    *
    * @param periodic_end_condition Determines whether the "not-a-knot" 
    * (`false`) or the periodic spline (`true`) end condition is used.
-=======
-   * have the same value, first and second derivatives at `breaks`.
-   * "Not-a-knot" end condition is used here, which means the third derivatives
-   * are continuous for the first two and last two segments.
-   * See https://en.wikipedia.org/wiki/Spline_interpolation for more details
-   * about "Not-a-knot" condition.
-   * The matlab file "spline.m" and
-   * http://home.uchicago.edu/~sctchoi/courses/cs138/interp.pdf are also good
-   * references.
-   *
-   * @p breaks and @p knots must have at least 3 elements. Otherwise there is
-   * not enough information to solve for the coefficients.
->>>>>>> intial
    *
    * @throws std::runtime_error if
    *    `breaks` and `knots` have different length,
@@ -301,12 +283,8 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
    */
   static PiecewisePolynomial<T> Cubic(
       const std::vector<double>& breaks,
-<<<<<<< HEAD
       const std::vector<CoefficientMatrix>& knots,
       bool periodic_end_condition = false);
-=======
-      const std::vector<CoefficientMatrix>& knots);
->>>>>>> intial
 
   /**
    * Eigen version of Cubic(breaks, knots) where each column of knots is used
@@ -316,13 +294,9 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
    */
   static PiecewisePolynomial<T> Cubic(
       const Eigen::Ref<const Eigen::VectorXd>& breaks,
-<<<<<<< HEAD
       const Eigen::Ref<const MatrixX<T>>& knots,
       bool periodic_end_condition = false);
 
-=======
-      const Eigen::Ref<const MatrixX<T>>& knots);
->>>>>>> intial
 
 
   /// Takes the derivative of this PiecewisePolynomial.
@@ -369,12 +343,8 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
 
   bool empty() const { return polynomials_.empty(); }
 
-<<<<<<< HEAD
   double scalarValue(double t, Eigen::Index row = 0,
                      Eigen::Index col = 0) const;
-=======
-  double scalarValue(double t, Eigen::Index row = 0, Eigen::Index col = 0);
->>>>>>> intial
 
   /**
    * Evaluates the PiecewisePolynomial at the given time \p t.
@@ -392,15 +362,10 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
   int getSegmentPolynomialDegree(int segment_index, Eigen::Index row = 0,
                                  Eigen::Index col = 0) const;
 
-<<<<<<< HEAD
   /// Returns the row count of each and every PolynomialMatrix segment.
   Eigen::Index rows() const override;
 
   /// Returns the column count of each and every PolynomialMatrix segment.
-=======
-  Eigen::Index rows() const override;
-
->>>>>>> intial
   Eigen::Index cols() const override;
 
   /// @throws std::runtime_error if other.segment_times is not within
@@ -451,7 +416,6 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
    */
   bool isApprox(const PiecewisePolynomial& other, double tol) const;
 
-<<<<<<< HEAD
   /// Concatenates @p other at the end, yielding a continuous trajectory
   /// from current start_time() to @p other end_time().
   ///
@@ -464,8 +428,6 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
   ///                           from each other.
   void ConcatenateInTime(const PiecewisePolynomial& other);
 
-=======
->>>>>>> intial
   void shiftRight(double offset);
 
   void setPolynomialMatrixBlock(const PolynomialMatrix& replacement,
@@ -539,7 +501,4 @@ class PiecewisePolynomial final : public PiecewiseTrajectory<T> {
 
 }  // namespace trajectories
 }  // namespace drake
-<<<<<<< HEAD
 
-=======
->>>>>>> intial

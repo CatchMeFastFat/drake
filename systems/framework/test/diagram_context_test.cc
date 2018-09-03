@@ -6,26 +6,16 @@
 #include <Eigen/Dense>
 #include <gtest/gtest.h>
 
-<<<<<<< HEAD
 #include "drake/common/pointer_cast.h"
 #include "drake/common/test_utilities/eigen_matrix_compare.h"
 #include "drake/systems/framework/basic_vector.h"
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/common/test_utilities/eigen_matrix_compare.h"
-#include "drake/systems/framework/basic_vector.h"
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 #include "drake/systems/framework/leaf_context.h"
 #include "drake/systems/framework/leaf_system.h"
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/test_utilities/pack_value.h"
 #include "drake/systems/primitives/adder.h"
 #include "drake/systems/primitives/integrator.h"
-<<<<<<< HEAD
-=======
-#include "drake/systems/primitives/zero_order_hold.h"
->>>>>>> intial
 
 namespace drake {
 namespace systems {
@@ -35,7 +25,6 @@ constexpr int kSize = 1;
 constexpr int kNumSystems = 8;
 constexpr double kTime = 12.0;
 
-<<<<<<< HEAD
 class SystemWithDiscreteState : public LeafSystem<double> {
  public:
   SystemWithDiscreteState() {
@@ -50,57 +39,29 @@ class SystemWithAbstractState : public LeafSystem<double> {
     DeclareAbstractState(AbstractValue::Make<int>(42));
   }
   ~SystemWithAbstractState() override {}
-=======
-class SystemWithAbstractState : public LeafSystem<double> {
- public:
-  SystemWithAbstractState() {}
-  ~SystemWithAbstractState() override {}
-
-  std::unique_ptr<AbstractValues> AllocateAbstractState() const override {
-    return std::make_unique<AbstractValues>(PackValue(42));
-  }
->>>>>>> intial
 };
 
 class SystemWithNumericParameters : public LeafSystem<double> {
  public:
-<<<<<<< HEAD
   SystemWithNumericParameters() {
     DeclareNumericParameter(BasicVector<double>(2));
   }
   ~SystemWithNumericParameters() override {}
-=======
-  SystemWithNumericParameters() {}
-  ~SystemWithNumericParameters() override {}
-
-
-  std::unique_ptr<Parameters<double>> AllocateParameters() const override {
-    return std::make_unique<Parameters<double>>(
-        std::make_unique<BasicVector<double>>(2));
-  }
->>>>>>> intial
 };
 
 class SystemWithAbstractParameters : public LeafSystem<double> {
  public:
   SystemWithAbstractParameters() {
-<<<<<<< HEAD
     DeclareAbstractParameter(Value<int>(2048));
-=======
-    this->DeclareAbstractParameter(Value<int>(2048));
->>>>>>> intial
   }
   ~SystemWithAbstractParameters() override {}
 };
 
-<<<<<<< HEAD
 }  // namespace
 
 // This class must be outside the anonymous namespace to permit the
 // DiagramContext friend declaration to work.
 
-=======
->>>>>>> intial
 class DiagramContextTest : public ::testing::Test {
  protected:
   void SetUp() override {
@@ -111,44 +72,28 @@ class DiagramContextTest : public ::testing::Test {
 
     integrator0_.reset(new Integrator<double>(kSize));
     integrator1_.reset(new Integrator<double>(kSize));
-<<<<<<< HEAD
 
     discrete_state_system_ = std::make_unique<SystemWithDiscreteState>();
-=======
-    hold_ = std::make_unique<ZeroOrderHold<double>>(13.0 /* sec */, kSize);
-
->>>>>>> intial
     abstract_state_system_ = std::make_unique<SystemWithAbstractState>();
     system_with_numeric_parameters_ =
         std::make_unique<SystemWithNumericParameters>();
     system_with_abstract_parameters_ =
         std::make_unique<SystemWithAbstractParameters>();
 
-<<<<<<< HEAD
     // This chunk of code is partially mimicking Diagram::DoAllocateContext()
     // which is normally in charge of making DiagramContexts.
     context_ = std::make_unique<DiagramContext<double>>(kNumSystems);
 
     // Don't change these indexes -- tests below depend on them.
-=======
-    context_ = std::make_unique<DiagramContext<double>>(kNumSystems);
-    context_->set_time(kTime);
-
->>>>>>> intial
     AddSystem(*adder0_, SubsystemIndex(0));
     AddSystem(*adder1_, SubsystemIndex(1));
     AddSystem(*integrator0_, SubsystemIndex(2));
     AddSystem(*integrator1_, SubsystemIndex(3));
-<<<<<<< HEAD
     AddSystem(*discrete_state_system_, SubsystemIndex(4));
-=======
-    AddSystem(*hold_, SubsystemIndex(4));
->>>>>>> intial
     AddSystem(*abstract_state_system_, SubsystemIndex(5));
     AddSystem(*system_with_numeric_parameters_, SubsystemIndex(6));
     AddSystem(*system_with_abstract_parameters_, SubsystemIndex(7));
 
-<<<<<<< HEAD
     // Fake up some input ports for this diagram.
     context_->AddInputPort(InputPortIndex(0), DependencyTicket(100));
     context_->AddInputPort(InputPortIndex(1), DependencyTicket(101));
@@ -158,15 +103,6 @@ class DiagramContextTest : public ::testing::Test {
     context_->SubscribeDiagramCompositeTrackersToChildrens();
 
     context_->set_time(kTime);
-=======
-    context_->ExportInput(
-        {SubsystemIndex(0) /* adder0_ */, InputPortIndex(1) /* port 1 */});
-    context_->ExportInput(
-        {SubsystemIndex(1) /* adder1_ */, InputPortIndex(0) /* port 0 */});
-
-    context_->MakeState();
-    context_->MakeParameters();
->>>>>>> intial
     ContinuousState<double>& xc = context_->get_mutable_continuous_state();
     xc.get_mutable_vector().SetAtIndex(0, 42.0);
     xc.get_mutable_vector().SetAtIndex(1, 43.0);
@@ -176,7 +112,6 @@ class DiagramContextTest : public ::testing::Test {
 
     context_->get_mutable_numeric_parameter(0).SetAtIndex(0, 76.0);
     context_->get_mutable_numeric_parameter(0).SetAtIndex(1, 77.0);
-<<<<<<< HEAD
 
     // Sanity checks: tests below count on these dimensions.
     EXPECT_EQ(context_->get_continuous_state().size(), 2);
@@ -309,28 +244,6 @@ class DiagramContextTest : public ::testing::Test {
     const auto& tracker = context.get_tracker(ticket);
     return tracker.num_notifications_received()
         - tracker.num_ignored_notifications();
-=======
-  }
-
-  void AddSystem(const System<double>& sys, SubsystemIndex index) {
-    auto subcontext = sys.CreateDefaultContext();
-    auto suboutput = sys.AllocateOutput(*subcontext);
-    context_->AddSystem(index, std::move(subcontext), std::move(suboutput));
-  }
-
-  void AttachInputPorts() {
-    context_->FixInputPort(0, BasicVector<double>::Make({128}));
-    context_->FixInputPort(1, BasicVector<double>::Make({256}));
-  }
-
-  // Mocks up a descriptor sufficient to read a FreestandingInputPortValue
-  // connected to @p context at @p index.
-  static const BasicVector<double>* ReadVectorInputPort(
-      const Context<double>& context, int index) {
-    InputPortDescriptor<double> descriptor(nullptr, InputPortIndex(index),
-                                           kVectorValued, 0, nullopt);
-    return context.EvalVectorInput(nullptr, descriptor);
->>>>>>> intial
   }
 
   std::unique_ptr<DiagramContext<double>> context_;
@@ -338,22 +251,15 @@ class DiagramContextTest : public ::testing::Test {
   std::unique_ptr<Adder<double>> adder1_;
   std::unique_ptr<Integrator<double>> integrator0_;
   std::unique_ptr<Integrator<double>> integrator1_;
-<<<<<<< HEAD
   std::unique_ptr<SystemWithDiscreteState> discrete_state_system_;
-=======
-  std::unique_ptr<ZeroOrderHold<double>> hold_;
->>>>>>> intial
   std::unique_ptr<SystemWithAbstractState> abstract_state_system_;
   std::unique_ptr<SystemWithNumericParameters> system_with_numeric_parameters_;
   std::unique_ptr<SystemWithAbstractParameters>
       system_with_abstract_parameters_;
 };
 
-<<<<<<< HEAD
 namespace {
 
-=======
->>>>>>> intial
 // Verifies that @p state is a clone of the state constructed in
 // DiagramContextTest::SetUp.
 void VerifyClonedState(const State<double>& clone) {
@@ -379,18 +285,13 @@ void VerifyClonedParameters(const Parameters<double>& params) {
   EXPECT_EQ(2048, UnpackIntValue(params.get_abstract_parameter(0)));
 }
 
-<<<<<<< HEAD
 // Tests that subsystems have contexts in the DiagramContext.
-=======
-// Tests that subsystems have outputs and contexts in the DiagramContext.
->>>>>>> intial
 TEST_F(DiagramContextTest, RetrieveConstituents) {
   // All of the subsystems should be leaf Systems.
   for (SubsystemIndex i(0); i < kNumSystems; ++i) {
     auto context = dynamic_cast<const LeafContext<double>*>(
         &context_->GetSubsystemContext(i));
     EXPECT_TRUE(context != nullptr);
-<<<<<<< HEAD
   }
 }
 
@@ -672,35 +573,6 @@ TEST_F(DiagramContextTest, MutableEverythingNotifications) {
                       SystemBase::xd_ticket(), &xd_before);
   VerifyNotifications("SetTimeStateAndParametersFrom: xa", has_abstract_state(),
                       SystemBase::xa_ticket(), &xa_before);
-=======
-
-    auto output = dynamic_cast<const LeafSystemOutput<double>*>(
-        context_->GetSubsystemOutput(i));
-    EXPECT_TRUE(output != nullptr);
-  }
-}
-
-// Tests that the time writes through to the subsystem contexts.
-TEST_F(DiagramContextTest, Time) {
-  context_->set_time(42.0);
-  EXPECT_EQ(42.0, context_->get_time());
-  for (SubsystemIndex i(0); i < kNumSystems; ++i) {
-    EXPECT_EQ(42.0, context_->GetSubsystemContext(i).get_time());
-  }
-}
-
-// Tests that the accuracy writes through to the subsystem contexts.
-TEST_F(DiagramContextTest, Accuracy) {
-  const double kAccuracy = 1e-12;
-  context_->set_accuracy(kAccuracy);
-  EXPECT_TRUE(context_->get_accuracy());
-  EXPECT_EQ(kAccuracy, context_->get_accuracy().value());
-  for (SubsystemIndex i(0); i < kNumSystems; ++i) {
-    EXPECT_TRUE(context_->GetSubsystemContext(i).get_accuracy());
-    EXPECT_EQ(kAccuracy,
-              context_->GetSubsystemContext(i).get_accuracy().value());
-  }
->>>>>>> intial
 }
 
 // Tests that state variables appear in the diagram context, and write
@@ -713,11 +585,7 @@ TEST_F(DiagramContextTest, State) {
   EXPECT_EQ(0, xc.get_generalized_velocity().size());
   EXPECT_EQ(2, xc.get_misc_continuous_state().size());
 
-<<<<<<< HEAD
   // The discrete state vector has length 1.
-=======
-  // The zero-order hold has a discrete state vector of length 1.
->>>>>>> intial
   DiscreteValues<double>& xd = context_->get_mutable_discrete_state();
   EXPECT_EQ(1, xd.num_groups());
   EXPECT_EQ(1, xd.get_vector(0).size());
@@ -733,28 +601,17 @@ TEST_F(DiagramContextTest, State) {
   EXPECT_EQ(42.0, integrator0_xc.get_vector().GetAtIndex(0));
   EXPECT_EQ(43.0, integrator1_xc.get_vector().GetAtIndex(0));
   // - Discrete
-<<<<<<< HEAD
   DiscreteValues<double>& discrete_xd =
       context_->GetMutableSubsystemContext(SubsystemIndex(4))
           .get_mutable_discrete_state();
   EXPECT_EQ(44.0, discrete_xd.get_vector(0).GetAtIndex(0));
-=======
-  DiscreteValues<double>& hold_xd =
-      context_->GetMutableSubsystemContext(SubsystemIndex(4))
-          .get_mutable_discrete_state();
-  EXPECT_EQ(44.0, hold_xd.get_vector(0).GetAtIndex(0));
->>>>>>> intial
 
   // Changes to constituent system states appear in the diagram state.
   // - Continuous
   integrator1_xc.get_mutable_vector().SetAtIndex(0, 1000.0);
   EXPECT_EQ(1000.0, xc.get_vector().GetAtIndex(1));
   // - Discrete
-<<<<<<< HEAD
   discrete_xd.get_mutable_vector(0).SetAtIndex(0, 1001.0);
-=======
-  hold_xd.get_mutable_vector(0).SetAtIndex(0, 1001.0);
->>>>>>> intial
   EXPECT_EQ(1001.0, xd.get_vector(0).GetAtIndex(0));
 }
 
@@ -773,15 +630,9 @@ TEST_F(DiagramContextTest, DiagramState) {
 // Tests that no exception is thrown when connecting a valid source
 // and destination port.
 TEST_F(DiagramContextTest, ConnectValid) {
-<<<<<<< HEAD
   EXPECT_NO_THROW(context_->SubscribeInputPortToOutputPort(
       {SubsystemIndex(0) /* adder0_ */, OutputPortIndex(0)},
       {SubsystemIndex(1) /* adder1_ */, InputPortIndex(1)}));
-=======
-  EXPECT_NO_THROW(
-      context_->Connect({SubsystemIndex(0) /* adder0_ */, OutputPortIndex(0)},
-                        {SubsystemIndex(1) /* adder1_ */, InputPortIndex(1)}));
->>>>>>> intial
 }
 
 // Tests that input ports can be assigned to the DiagramContext and then
@@ -793,7 +644,6 @@ TEST_F(DiagramContextTest, SetAndGetInputPorts) {
   EXPECT_EQ(256, ReadVectorInputPort(*context_, 1)->get_value()[0]);
 }
 
-<<<<<<< HEAD
 // Test that start_next_change_event() returns a sequentially increasing
 // number regardless of from where in the DiagramContext tree the request
 // is initiated. Also, it should continue counting up after cloning.
@@ -825,15 +675,6 @@ TEST_F(DiagramContextTest, Clone) {
   AttachInputPorts();
 
   auto clone = dynamic_pointer_cast<DiagramContext<double>>(context_->Clone());
-=======
-TEST_F(DiagramContextTest, Clone) {
-  context_->Connect({SubsystemIndex(0) /* adder0_ */, OutputPortIndex(0)},
-                    {SubsystemIndex(1) /* adder1_ */, InputPortIndex(1)});
-  AttachInputPorts();
-
-  std::unique_ptr<DiagramContext<double>> clone(
-      dynamic_cast<DiagramContext<double>*>(context_->Clone().release()));
->>>>>>> intial
   ASSERT_TRUE(clone != nullptr);
 
   // Verify that the time was copied.

@@ -6,11 +6,7 @@
 
 #include "drake/common/autodiff.h"
 #include "drake/systems/framework/basic_vector.h"
-<<<<<<< HEAD
 #include "drake/systems/framework/fixed_input_port_value.h"
-=======
-#include "drake/systems/framework/input_port_value.h"
->>>>>>> intial
 #include "drake/systems/framework/test_utilities/scalar_conversion.h"
 
 using Eigen::AutoDiffScalar;

@@ -69,20 +69,12 @@ class RigidBodyFrame final {
   /**
    * Returns the name of this frame.
    */
-<<<<<<< HEAD
   const std::string& get_name() const { return name_; }
-=======
-  const std::string& get_name() const;
->>>>>>> intial
 
   /**
    * Returns the rigid body to which this frame is attached.
    */
-<<<<<<< HEAD
   const RigidBody<T>& get_rigid_body() const { return *body_; }
-=======
-  const RigidBody<T>& get_rigid_body() const;
->>>>>>> intial
 
   /**
    * Returns the rigid body to which this frame is attached.
@@ -112,13 +104,9 @@ class RigidBodyFrame final {
    * p_B = T_BF * p_F;
    * </pre>
    */
-<<<<<<< HEAD
   const Eigen::Isometry3d& get_transform_to_body() const {
     return transform_to_body_;
   }
-=======
-  const Eigen::Isometry3d& get_transform_to_body() const;
->>>>>>> intial
 
   // TODO(liang.fok) Remove this method once it's no longer needed by
   // drake/systems/plants/constructModelmex.cpp.
@@ -135,11 +123,7 @@ class RigidBodyFrame final {
    * Returns the index of this `RigidBodyFrame` within the vector of
    * `RigidBodyFrame` objects in the `RigidBodyTree`.
    */
-<<<<<<< HEAD
   int get_frame_index() const { return frame_index_; }
-=======
-  int get_frame_index() const;
->>>>>>> intial
 
   /**
    * Sets the name of this `RigidBodyFrame`.
@@ -180,11 +164,7 @@ class RigidBodyFrame final {
    * @see RigidBodyFrame::get_transform_to_body
    */
   // Frames' poses should only be specified at construction as described in
-<<<<<<< HEAD
   // #4407. Fix parsers to use constructor instead.
-=======
-  // #4407. Fix parsers to use construtor instead.
->>>>>>> intial
   void set_transform_to_body(const Eigen::Isometry3d& transform_to_body);
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW

@@ -1,18 +1,11 @@
 # -*- python -*-
 
 load(
-<<<<<<< HEAD
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_binary",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
-=======
-    "//tools:drake.bzl",
-    "drake_cc_binary",
-    "drake_cc_googletest",
-    "drake_cc_library",
->>>>>>> intial
 )
 load(
     "@drake//tools/skylark:drake_py.bzl",
@@ -24,16 +17,8 @@ load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "common",
-=======
-# This should encompass every non-testonly cc_library in this package,
-# except for items that should only ever be linked into main() programs.
-drake_cc_library(
-    name = "common",
-    srcs = [],
->>>>>>> intial
     deps = [
         ":autodiff",
         ":autodiffxd_make_coherent",
@@ -53,10 +38,7 @@ drake_cc_library(
         ":is_less_than_comparable",
         ":nice_type_name",
         ":number_traits",
-<<<<<<< HEAD
         ":pointer_cast",
-=======
->>>>>>> intial
         ":polynomial",
         ":reset_after_move",
         ":reset_on_copy",
@@ -69,12 +51,6 @@ drake_cc_library(
         ":type_safe_index",
         ":unused",
     ],
-<<<<<<< HEAD
-=======
-    # Intentionally excluded items:
-    # - text_logging_gflags
-    # - text_logging_gflags_h
->>>>>>> intial
 )
 
 # A library of things that EVERYONE should want and MUST EAT.
@@ -100,10 +76,7 @@ drake_cc_library(
     ],
     deps = [
         "@eigen",
-<<<<<<< HEAD
         "@fmt",
-=======
->>>>>>> intial
         "@spdlog",
         "@stx",
     ],
@@ -226,11 +199,8 @@ drake_cc_library(
         "symbolic_monomial_util.h",
         "symbolic_polynomial.cc",
         "symbolic_polynomial.h",
-<<<<<<< HEAD
         "symbolic_simplification.cc",
         "symbolic_simplification.h",
-=======
->>>>>>> intial
         "symbolic_variable.cc",
         "symbolic_variable.h",
         "symbolic_variables.cc",
@@ -303,7 +273,6 @@ drake_cc_library(
     ],
 )
 
-<<<<<<< HEAD
 # Provides an anchor for finding resources.
 drake_cc_binary(
     name = "libdrake_marker.so",
@@ -324,8 +293,6 @@ drake_cc_library(
     visibility = ["//tools/install/libdrake:__pkg__"],
 )
 
-=======
->>>>>>> intial
 drake_cc_library(
     name = "find_resource",
     srcs = [
@@ -345,10 +312,7 @@ drake_cc_library(
         "//conditions:default": [],
     }),
     deps = [
-<<<<<<< HEAD
         ":drake_marker_shared_library",
-=======
->>>>>>> intial
         ":essential",
         "@spruce",
     ],
@@ -408,7 +372,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-<<<<<<< HEAD
     name = "pointer_cast",
     srcs = ["pointer_cast.cc"],
     hdrs = ["pointer_cast.h"],
@@ -418,8 +381,6 @@ drake_cc_library(
 )
 
 drake_cc_library(
-=======
->>>>>>> intial
     name = "sorted_vectors_have_intersection",
     hdrs = ["sorted_vectors_have_intersection.h"],
     deps = [
@@ -447,7 +408,6 @@ drake_cc_library(
         "//tools/cc_toolchain:linux": ["-pthread"],
         "//conditions:default": [],
     }),
-<<<<<<< HEAD
     tags = [
         # Don't add this library into the ":common" package library.
         # Only programs with a main() function should ever use this header.
@@ -460,8 +420,6 @@ drake_cc_library(
         # installation.
         "exclude_from_libdrake",
     ],
-=======
->>>>>>> intial
     deps = [
         ":essential",
         "@gflags",
@@ -474,7 +432,6 @@ drake_cc_library(
 drake_cc_library(
     name = "text_logging_gflags_h",
     hdrs = ["text_logging_gflags.h"],
-<<<<<<< HEAD
     tags = [
         # Don't add this library into the ":common" package library.
         # This rule should only be used for install purposes.
@@ -482,8 +439,6 @@ drake_cc_library(
     ],
     # This rule should only be used for install purposes, not within the
     # in-source bazel build.  We limit its visibility to enforce that.
-=======
->>>>>>> intial
     visibility = ["//tools/install/libdrake:__pkg__"],
 )
 
@@ -539,14 +494,10 @@ drake_py_binary(
 install(
     name = "install",
     install_tests = [":test/resource_tool_installed_test.py"],
-<<<<<<< HEAD
     targets = [
         ":libdrake_marker.so",
         ":resource_tool",
     ],
-=======
-    targets = [":resource_tool"],
->>>>>>> intial
     # TODO(jwnimmer-tri) The install rule should offer more specific options
     # for programs not in bin/, and including the workspace and/or package name
     # in the installed path.  For now, we'll just specify it manually.
@@ -627,7 +578,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-<<<<<<< HEAD
     name = "pointer_cast_test",
     deps = [
         ":pointer_cast",
@@ -636,8 +586,6 @@ drake_cc_googletest(
 )
 
 drake_cc_googletest(
-=======
->>>>>>> intial
     name = "cond_test",
     deps = [
         ":cond",
@@ -696,7 +644,6 @@ drake_cc_googletest(
     ],
 )
 
-<<<<<<< HEAD
 # Functional test that mistyped DRAKE_ASSERTs will fail to compile.
 sh_test(
     name = "drake_assert_test_compile_variants",
@@ -722,34 +669,6 @@ alias(
     actual = "//tools/cc_toolchain:print_host_settings",
 )
 
-=======
-# Needed by :drake_assert_test_compile_variants.
-genrule(
-    name = "capture_cc",
-    outs = ["capture_cc.env"],
-    cmd = "echo \"BAZEL_CC=$(CC)\" > '$@'",
-    visibility = ["//visibility:private"],
-)
-
-# Functional test that mistyped DRAKE_ASSERTs will failt to compile.
-sh_test(
-    name = "drake_assert_test_compile_variants",
-    srcs = ["test/drake_assert_test_compile_variants.sh"],
-    args = [
-        "$(location :capture_cc.env)",
-        "$(location :test/drake_assert_test_compile.cc)",
-    ],
-    data = [
-        "capture_cc.env",
-        "drake_assert.h",
-        "test/drake_assert_test_compile.cc",
-        "unused.h",
-        "//third_party:com_github_bazelbuild_bazel/tools/cpp/osx_cc_wrapper.sh",  # noqa
-        "//tools/cc_toolchain:osx_cc_wrapper.sh",
-    ],
-)
-
->>>>>>> intial
 drake_cc_googletest(
     name = "is_cloneable_test",
     deps = [
@@ -894,7 +813,6 @@ drake_cc_googletest(
     deps = [
         ":essential",
         ":symbolic",
-<<<<<<< HEAD
         "//common/test_utilities:expect_throws_message",
         "//common/test_utilities:symbolic_test_util",
     ],
@@ -904,8 +822,6 @@ drake_cc_googletest(
     name = "symbolic_simplification_test",
     deps = [
         ":symbolic",
-=======
->>>>>>> intial
         "//common/test_utilities:symbolic_test_util",
     ],
 )
@@ -1011,10 +927,7 @@ drake_cc_googletest(
     deps = [
         ":essential",
         ":symbolic",
-<<<<<<< HEAD
         "//common/test_utilities:expect_throws_message",
-=======
->>>>>>> intial
         "//common/test_utilities:symbolic_test_util",
     ],
 )
@@ -1039,11 +952,6 @@ drake_cc_googletest(
 
 drake_cc_googletest(
     name = "symbolic_polynomial_test",
-<<<<<<< HEAD
-=======
-    # Test size increased to not timeout when run with Valgrind.
-    size = "medium",
->>>>>>> intial
     deps = [
         ":symbolic",
         "//common/test_utilities:symbolic_test_util",

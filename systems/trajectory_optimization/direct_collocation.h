@@ -51,19 +51,9 @@ class DirectCollocation : public MultipleShooting {
 
   ~DirectCollocation() override {}
 
-<<<<<<< HEAD
   trajectories::PiecewisePolynomial<double> ReconstructInputTrajectory()
   const override;
 
-=======
-  /// Get the input trajectory at the solution as a
-  /// %PiecewisePolynomialTrajectory%.
-  trajectories::PiecewisePolynomial<double> ReconstructInputTrajectory()
-  const override;
-
-  /// Get the state trajectory at the solution as a
-  /// %PiecewisePolynomialTrajectory%.
->>>>>>> intial
   trajectories::PiecewisePolynomial<double> ReconstructStateTrajectory()
   const override;
 
@@ -76,11 +66,7 @@ class DirectCollocation : public MultipleShooting {
   const System<double>* system_{nullptr};
   const std::unique_ptr<Context<double>> context_{nullptr};
   const std::unique_ptr<ContinuousState<double>> continuous_state_{nullptr};
-<<<<<<< HEAD
   FixedInputPortValue* input_port_value_{nullptr};
-=======
-  FreestandingInputPortValue* input_port_value_{nullptr};
->>>>>>> intial
 };
 
 /// Implements the direct collocation constraints for a first-order hold on
@@ -105,7 +91,6 @@ class DirectCollocationConstraint : public solvers::Constraint {
 
  protected:
   void DoEval(const Eigen::Ref<const Eigen::VectorXd>& x,
-<<<<<<< HEAD
               Eigen::VectorXd* y) const override;
 
   void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
@@ -113,12 +98,6 @@ class DirectCollocationConstraint : public solvers::Constraint {
 
   void DoEval(const Eigen::Ref<const VectorX<symbolic::Variable>>& x,
               VectorX<symbolic::Expression>* y) const override;
-=======
-              Eigen::VectorXd& y) const override;
-
-  void DoEval(const Eigen::Ref<const AutoDiffVecXd>& x,
-              AutoDiffVecXd& y) const override;
->>>>>>> intial
 
  private:
   DirectCollocationConstraint(const System<double>& system,
@@ -130,11 +109,7 @@ class DirectCollocationConstraint : public solvers::Constraint {
 
   std::unique_ptr<System<AutoDiffXd>> system_;
   std::unique_ptr<Context<AutoDiffXd>> context_;
-<<<<<<< HEAD
   FixedInputPortValue* input_port_value_{nullptr};
-=======
-  FreestandingInputPortValue* input_port_value_{nullptr};
->>>>>>> intial
   std::unique_ptr<ContinuousState<AutoDiffXd>> derivatives_;
 
   const int num_states_{0};

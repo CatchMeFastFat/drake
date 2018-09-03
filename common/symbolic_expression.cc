@@ -3,10 +3,6 @@
 #include <cmath>
 #include <cstddef>
 #include <ios>
-<<<<<<< HEAD
-=======
-#include <limits>
->>>>>>> intial
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -15,11 +11,8 @@
 #include <vector>
 
 #include <Eigen/Core>
-<<<<<<< HEAD
 #include <fmt/format.h>
 #include <fmt/ostream.h>
-=======
->>>>>>> intial
 
 #include "drake/common/drake_assert.h"
 #include "drake/common/never_destroyed.h"
@@ -31,10 +24,7 @@
 namespace drake {
 namespace symbolic {
 
-<<<<<<< HEAD
 using std::logic_error;
-=======
->>>>>>> intial
 using std::make_shared;
 using std::map;
 using std::numeric_limits;
@@ -83,12 +73,8 @@ Expression NegateMultiplication(const Expression& e) {
 Expression::Expression(const Variable& var)
     : ptr_{make_shared<ExpressionVar>(var)} {}
 Expression::Expression(const double d) : ptr_{make_cell(d)} {}
-<<<<<<< HEAD
 Expression::Expression(std::shared_ptr<ExpressionCell> ptr)
     : ptr_{std::move(ptr)} {}
-=======
-Expression::Expression(shared_ptr<ExpressionCell> ptr) : ptr_{std::move(ptr)} {}
->>>>>>> intial
 
 ExpressionKind Expression::get_kind() const {
   DRAKE_ASSERT(ptr_ != nullptr);
@@ -854,7 +840,6 @@ const Expression& get_else_expression(const Expression& e) {
 Expression operator+(const Variable& var) { return Expression{var}; }
 Expression operator-(const Variable& var) { return -Expression{var}; }
 
-<<<<<<< HEAD
 VectorX<Variable> GetVariableVector(
     const Eigen::Ref<const VectorX<Expression>>& evec) {
   VectorX<Variable> vec(evec.size());
@@ -869,8 +854,6 @@ VectorX<Variable> GetVariableVector(
   return vec;
 }
 
-=======
->>>>>>> intial
 MatrixX<Expression> Jacobian(const Eigen::Ref<const VectorX<Expression>>& f,
                              const vector<Variable>& vars) {
   DRAKE_DEMAND(!vars.empty());
@@ -890,7 +873,6 @@ MatrixX<Expression> Jacobian(const Eigen::Ref<const VectorX<Expression>>& f,
   return Jacobian(f, vector<Variable>(vars.data(), vars.data() + vars.size()));
 }
 
-<<<<<<< HEAD
 namespace {
 // Helper functions for TaylorExpand.
 //
@@ -1020,8 +1002,6 @@ Expression TaylorExpand(const Expression& f, const Environment& a,
   return factory.GetExpression();
 }
 
-=======
->>>>>>> intial
 Variables GetDistinctVariables(const Eigen::Ref<const MatrixX<Expression>>& v) {
   Variables vars{};
   // Note: Default storage order for Eigen is column-major.

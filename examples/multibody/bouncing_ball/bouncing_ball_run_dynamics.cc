@@ -5,16 +5,9 @@
 #include "drake/common/drake_assert.h"
 #include "drake/common/text_logging_gflags.h"
 #include "drake/examples/multibody/bouncing_ball/make_bouncing_ball_plant.h"
-<<<<<<< HEAD
 #include "drake/geometry/geometry_visualization.h"
 #include "drake/geometry/scene_graph.h"
 #include "drake/lcm/drake_lcm.h"
-=======
-#include "drake/geometry/geometry_system.h"
-#include "drake/geometry/geometry_visualization.h"
-#include "drake/lcm/drake_lcm.h"
-#include "drake/lcmt_viewer_draw.hpp"
->>>>>>> intial
 #include "drake/math/random_rotation.h"
 #include "drake/multibody/multibody_tree/quaternion_floating_mobilizer.h"
 #include "drake/systems/analysis/implicit_euler_integrator.h"
@@ -23,12 +16,6 @@
 #include "drake/systems/analysis/semi_explicit_euler_integrator.h"
 #include "drake/systems/analysis/simulator.h"
 #include "drake/systems/framework/diagram_builder.h"
-<<<<<<< HEAD
-=======
-#include "drake/systems/lcm/lcm_publisher_system.h"
-#include "drake/systems/lcm/serializer.h"
-#include "drake/systems/rendering/pose_bundle_to_draw_message.h"
->>>>>>> intial
 
 namespace drake {
 namespace examples {
@@ -52,7 +39,6 @@ using Eigen::AngleAxisd;
 using Eigen::Isometry3d;
 using Eigen::Matrix3d;
 using Eigen::Vector3d;
-<<<<<<< HEAD
 using geometry::SceneGraph;
 using geometry::SourceId;
 using lcm::DrakeLcm;
@@ -66,33 +52,12 @@ using drake::multibody::multibody_plant::CoulombFriction;
 using drake::multibody::multibody_plant::MultibodyPlant;
 using drake::multibody::MultibodyTree;
 using drake::multibody::QuaternionFloatingMobilizer;
-=======
-using geometry::GeometrySystem;
-using geometry::SourceId;
-using lcm::DrakeLcm;
-using drake::multibody::multibody_plant::MultibodyPlant;
-using drake::multibody::MultibodyTree;
-using drake::multibody::QuaternionFloatingMobilizer;
-using drake::systems::ImplicitEulerIntegrator;
-using drake::systems::lcm::LcmPublisherSystem;
-using drake::systems::lcm::Serializer;
-using drake::systems::rendering::PoseBundleToDrawMessage;
-using drake::systems::RungeKutta2Integrator;
-using drake::systems::RungeKutta3Integrator;
-using drake::systems::SemiExplicitEulerIntegrator;
->>>>>>> intial
 
 int do_main() {
   systems::DiagramBuilder<double> builder;
 
-<<<<<<< HEAD
   SceneGraph<double>& scene_graph = *builder.AddSystem<SceneGraph>();
   scene_graph.set_name("scene_graph");
-=======
-  GeometrySystem<double>& geometry_system =
-      *builder.AddSystem<GeometrySystem>();
-  geometry_system.set_name("geometry_system");
->>>>>>> intial
 
   // The target accuracy determines the size of the actual time steps taken
   // whenever a variable time step integrator is used.
@@ -103,18 +68,11 @@ int do_main() {
   const double mass = 0.1;      // kg
   const double g = 9.81;        // m/s^2
   const double z0 = 0.3;        // Initial height.
-<<<<<<< HEAD
   const CoulombFriction<double> coulomb_friction(
       0.8 /* static friction */, 0.3 /* dynamic friction */);
 
   MultibodyPlant<double>& plant = *builder.AddSystem(MakeBouncingBallPlant(
       radius, mass, coulomb_friction, -g * Vector3d::UnitZ(), &scene_graph));
-=======
-
-  MultibodyPlant<double>& plant =
-      *builder.AddSystem(MakeBouncingBallPlant(
-          radius, mass, -g * Vector3d::UnitZ(), &geometry_system));
->>>>>>> intial
   const MultibodyTree<double>& model = plant.model();
   // Set how much penetration (in meters) we are willing to accept.
   plant.set_penetration_allowance(0.001);
@@ -128,25 +86,10 @@ int do_main() {
   DRAKE_DEMAND(plant.num_velocities() == 6);
   DRAKE_DEMAND(plant.num_positions() == 7);
 
-<<<<<<< HEAD
-=======
-  // Boilerplate used to connect the plant to a GeometrySystem for
-  // visualization.
-  DrakeLcm lcm;
-  const PoseBundleToDrawMessage& converter =
-      *builder.template AddSystem<PoseBundleToDrawMessage>();
-  LcmPublisherSystem& publisher =
-      *builder.template AddSystem<LcmPublisherSystem>(
-          "DRAKE_VIEWER_DRAW",
-          std::make_unique<Serializer<drake::lcmt_viewer_draw>>(), &lcm);
-  publisher.set_publish_period(1 / 60.0);
-
->>>>>>> intial
   // Sanity check on the availability of the optional source id before using it.
   DRAKE_DEMAND(!!plant.get_source_id());
 
   builder.Connect(
-<<<<<<< HEAD
       plant.get_geometry_poses_output_port(),
       scene_graph.get_source_pose_port(plant.get_source_id().value()));
   builder.Connect(scene_graph.get_query_output_port(),
@@ -160,27 +103,6 @@ int do_main() {
 
   // Load message must be sent before creating a Context.
   geometry::DispatchLoadMessage(scene_graph, &lcm);
-=======
-      plant.get_geometry_ids_output_port(),
-      geometry_system.get_source_frame_id_port(
-          plant.get_source_id().value()));
-  builder.Connect(
-      plant.get_geometry_poses_output_port(),
-      geometry_system.get_source_pose_port(plant.get_source_id().value()));
-  builder.Connect(geometry_system.get_query_output_port(),
-                  plant.get_geometry_query_input_port());
-
-  builder.Connect(geometry_system.get_pose_bundle_output_port(),
-                  converter.get_input_port(0));
-  builder.Connect(converter, publisher);
-
-  // Last thing before building the diagram; dispatch the message to load
-  // geometry.
-  geometry::DispatchLoadMessage(geometry_system);
-
-  // And build the Diagram:
-  std::unique_ptr<systems::Diagram<double>> diagram = builder.Build();
->>>>>>> intial
 
   // Create a context for this system:
   std::unique_ptr<systems::Context<double>> diagram_context =
@@ -281,11 +203,7 @@ int do_main() {
 int main(int argc, char* argv[]) {
   gflags::SetUsageMessage(
       "A simple acrobot demo using Drake's MultibodyTree,"
-<<<<<<< HEAD
       "with SceneGraph visualization. "
-=======
-      "with GeometrySystem visualization. "
->>>>>>> intial
       "Launch drake-visualizer before running this example.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   drake::logging::HandleSpdlogGflags();

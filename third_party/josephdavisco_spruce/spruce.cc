@@ -398,7 +398,6 @@ bool spruce::dir::rename(const spruce::path& source, const spruce::path& dest) {
     dir::chdir
 ---------------------------------------------------------*/
 bool spruce::dir::chdir(const spruce::path& p) {
-<<<<<<< HEAD
   std::string target = p.getStr();
   if (target.empty()) {  // Empty denotes the root folder.
     target = "/";
@@ -412,8 +411,3 @@ spruce::path spruce::dir::getcwd() {
   result.setAsCurrent();
   return result;
 }
-=======
-  if (SPRUCE_CHDIR((p.getStr()).c_str()) != 0) return false;
-  return true;
-}
->>>>>>> intial

@@ -45,17 +45,11 @@ class RevoluteJoint final : public Joint<T> {
   /// body B, rotate relatively to one another about a common axis. See this
   /// class's documentation for further details on the definition of these
   /// frames and rotation angle.
-<<<<<<< HEAD
   /// This constructor signature creates a joint with no joint limits, i.e. the
   /// joint limits are the pair `(-∞, ∞)`.
   /// The first three arguments to this constructor are those of the Joint class
   /// constructor. See the Joint class's documentation for details.
   /// The additional parameters are:
-=======
-  /// The first three arguments to this constructor are those of the Joint class
-  /// constructor. See the Joint class's documentation for details.
-  /// The additional parameter `axis` is:
->>>>>>> intial
   /// @param[in] axis
   ///   A vector in ℝ³ specifying the axis of revolution for this joint. Given
   ///   that frame M only rotates with respect to F and their origins are
@@ -65,7 +59,6 @@ class RevoluteJoint final : public Joint<T> {
   ///   equal to one.
   ///   This vector can have any length, only the direction is used. This method
   ///   aborts if `axis` is the zero vector.
-<<<<<<< HEAD
   /// @param[in] damping
   ///   Viscous damping coefficient, in N⋅m⋅s, used to model losses within the
   ///   joint. The damping torque (in N⋅m) is modeled as `τ = -damping⋅ω`, i.e.
@@ -124,15 +117,6 @@ class RevoluteJoint final : public Joint<T> {
     damping_ = damping;
     lower_limit_ = lower_limit;
     upper_limit_ = upper_limit;
-=======
-  RevoluteJoint(const std::string& name,
-                const Frame<T>& frame_on_parent, const Frame<T>& frame_on_child,
-                const Vector3<double>& axis) :
-      Joint<T>(name, frame_on_parent, frame_on_child) {
-    const double kEpsilon = std::numeric_limits<double>::epsilon();
-    DRAKE_DEMAND(!axis.isZero(kEpsilon));
-    axis_ = axis.normalized();
->>>>>>> intial
   }
 
   /// Returns the axis of revolution of `this` joint as a unit vector.
@@ -143,7 +127,6 @@ class RevoluteJoint final : public Joint<T> {
     return axis_;
   }
 
-<<<<<<< HEAD
   /// Returns `this` joint's damping constant in N⋅m⋅s.
   double damping() const { return damping_; }
 
@@ -153,8 +136,6 @@ class RevoluteJoint final : public Joint<T> {
   /// Returns the upper limit for `this` joint in radians.
   double upper_limit() const { return upper_limit_; }
 
-=======
->>>>>>> intial
   /// @name Context-dependent value access
   ///
   /// These methods require the provided context to be an instance of
@@ -252,7 +233,6 @@ class RevoluteJoint final : public Joint<T> {
     tau_mob(joint_dof) += joint_tau;
   }
 
-<<<<<<< HEAD
   /// Joint<T> override called through public NVI, Joint::AddInDamping().
   /// Therefore arguments were already checked to be valid.
   /// This method adds into `forces` a dissipative torque according to the
@@ -263,14 +243,11 @@ class RevoluteJoint final : public Joint<T> {
     AddInTorque(context, damping_torque, forces);
   }
 
-=======
->>>>>>> intial
  private:
   int do_get_num_dofs() const override {
     return 1;
   }
 
-<<<<<<< HEAD
   const T& DoGetOnePosition(const systems::Context<T>& context) const override {
     return get_angle(context);
   }
@@ -279,8 +256,6 @@ class RevoluteJoint final : public Joint<T> {
     return get_angular_rate(context);
   }
 
-=======
->>>>>>> intial
   // Joint<T> overrides:
   std::unique_ptr<typename Joint<T>::BluePrint>
   MakeImplementationBlueprint() const override {
@@ -325,7 +300,6 @@ class RevoluteJoint final : public Joint<T> {
 
   // This is the joint's axis expressed in either M or F since axis_M = axis_F.
   Vector3<double> axis_;
-<<<<<<< HEAD
 
   // This joint's damping constant in N⋅m⋅s.
   double damping_{0};
@@ -334,8 +308,6 @@ class RevoluteJoint final : public Joint<T> {
   // lower_limit_ <= upper_limit_ always (enforced at construction).
   double lower_limit_{-std::numeric_limits<double>::infinity()};
   double upper_limit_{std::numeric_limits<double>::infinity()};
-=======
->>>>>>> intial
 };
 
 }  // namespace multibody

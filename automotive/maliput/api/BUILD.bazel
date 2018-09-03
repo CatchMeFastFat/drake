@@ -1,20 +1,15 @@
 # -*- python -*-
 
-<<<<<<< HEAD
 load(
     "@drake//tools/skylark:drake_cc.bzl",
     "drake_cc_googletest",
     "drake_cc_library",
     "drake_cc_package_library",
 )
-=======
-load("//tools:drake.bzl", "drake_cc_googletest", "drake_cc_library")
->>>>>>> intial
 load("//tools/lint:lint.bzl", "add_lint_tests")
 
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
 drake_cc_package_library(
     name = "api",
     deps = [
@@ -26,20 +21,12 @@ drake_cc_library(
     name = "everything",
     srcs = [
         "basic_id_index.cc",
-=======
-drake_cc_library(
-    name = "api",
-    srcs = [
->>>>>>> intial
         "lane.cc",
         "lane_data.cc",
         "road_geometry.cc",
     ],
     hdrs = [
-<<<<<<< HEAD
         "basic_id_index.h",
-=======
->>>>>>> intial
         "branch_point.h",
         "junction.h",
         "lane.h",
@@ -52,10 +39,7 @@ drake_cc_library(
         "segment.h",
         "type_specific_identifier.h",
     ],
-<<<<<<< HEAD
     visibility = ["//visibility:private"],
-=======
->>>>>>> intial
     deps = [
         "//common:default_scalars",
         "//common:essential",

@@ -25,17 +25,10 @@ namespace automotive {
 ///
 /// Input Port 0: a LaneDirection representing the requested lane and direction
 ///   of travel.
-<<<<<<< HEAD
 ///   (InputPort getter: lane_input())
 ///
 /// Input Port 1: PoseVector for the ego car.
 ///   (InputPort getter: ego_pose_input())
-=======
-///   (InputPortDescriptor getter: lane_input())
-///
-/// Input Port 1: PoseVector for the ego car.
-///   (InputPortDescriptor getter: ego_pose_input())
->>>>>>> intial
 ///
 /// Output Port 0: A BasicVector of size one with the commanded steering angle.
 ///   (OutputPort getter: steering_command_output())
@@ -57,13 +50,8 @@ class PurePursuitController : public systems::LeafSystem<T> {
   ~PurePursuitController() override;
 
   /// Returns the port to the individual input/output ports.
-<<<<<<< HEAD
   const systems::InputPort<T>& lane_input() const;
   const systems::InputPort<T>& ego_pose_input() const;
-=======
-  const systems::InputPortDescriptor<T>& lane_input() const;
-  const systems::InputPortDescriptor<T>& ego_pose_input() const;
->>>>>>> intial
   const systems::OutputPort<T>& steering_command_output() const;
 
  private:

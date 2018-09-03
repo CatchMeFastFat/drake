@@ -1,9 +1,5 @@
 #include "drake/common/trajectories/piecewise_polynomial.h"
 
-<<<<<<< HEAD
-=======
-#include <iostream>
->>>>>>> intial
 #include <random>
 #include <vector>
 
@@ -95,15 +91,12 @@ void testBasicFunctionality() {
     PiecewisePolynomialType piecewise2 =
         test::MakeRandomPiecewisePolynomial<CoefficientType>(
             rows, cols, num_coefficients, segment_times);
-<<<<<<< HEAD
     PiecewisePolynomialType piecewise3_not_matching_rows =
         test::MakeRandomPiecewisePolynomial<CoefficientType>(
             rows + 1, cols, num_coefficients, segment_times);
     PiecewisePolynomialType piecewise4_not_matching_cols =
         test::MakeRandomPiecewisePolynomial<CoefficientType>(
             rows, cols + 1, num_coefficients, segment_times);
-=======
->>>>>>> intial
 
     normal_distribution<double> normal;
     double shift = normal(generator);
@@ -118,7 +111,6 @@ void testBasicFunctionality() {
     piecewise1_shifted.shiftRight(shift);
     PiecewisePolynomialType product = piecewise1 * piecewise2;
 
-<<<<<<< HEAD
     const double total_time = segment_times.back() - segment_times.front();
     PiecewisePolynomialType piecewise2_twice = piecewise2;
     PiecewisePolynomialType piecewise2_shifted = piecewise2;
@@ -149,8 +141,6 @@ void testBasicFunctionality() {
 
     piecewise2_twice.ConcatenateInTime(piecewise2_shifted);
 
-=======
->>>>>>> intial
     uniform_real_distribution<double> uniform(piecewise1.start_time(),
                                               piecewise1.end_time());
     double t = uniform(generator);
@@ -179,7 +169,6 @@ void testBasicFunctionality() {
         product.value(t),
         (piecewise1.value(t).array() * piecewise2.value(t).array()).matrix(),
         1e-8, MatrixCompareType::absolute));
-<<<<<<< HEAD
 
     // Checks that `piecewise2_twice` is effectively the concatenation of
     // `piecewise2` and a copy of `piecewise2` that is shifted to the right
@@ -191,8 +180,6 @@ void testBasicFunctionality() {
     EXPECT_TRUE(CompareMatrices(
         piecewise2_twice.value(t), piecewise2_twice.value(t + total_time),
         1e-8, MatrixCompareType::absolute));
-=======
->>>>>>> intial
   }
 }
 
@@ -216,7 +203,6 @@ void testValueOutsideOfRange() {
                               1e-10, MatrixCompareType::absolute));
 }
 
-<<<<<<< HEAD
 // Test the generation of cubic splines with first and second derivatives
 // continuous between the end of the last segment and the beginning of the
 // first.
@@ -254,8 +240,6 @@ GTEST_TEST(testPiecewisePolynomial, CubicSplinePeriodicBoundaryConditionTest) {
   EXPECT_TRUE(ddt_diff.template lpNorm<Eigen::Infinity>() < 1e-14);
 }
 
-=======
->>>>>>> intial
 GTEST_TEST(testPiecewisePolynomial, AllTests
 ) {
 testIntegralAndDerivative<double>();
@@ -268,7 +252,4 @@ testValueOutsideOfRange<double>();
 }  // namespace
 }  // namespace trajectories
 }  // namespace drake
-<<<<<<< HEAD
 
-=======
->>>>>>> intial

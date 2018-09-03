@@ -56,11 +56,7 @@ class ContactResultTest : public ContactResultTestCommon<double> {
     plant_->set_contact_model_parameters(model_parameters);
 
     context_ = plant_->CreateDefaultContext();
-<<<<<<< HEAD
     output_ = plant_->AllocateOutput();
-=======
-    output_ = plant_->AllocateOutput(*context_);
->>>>>>> intial
     plant_->CalcOutput(*context_.get(), output_.get());
 
     const int port_index = plant_->contact_results_output_port().get_index();

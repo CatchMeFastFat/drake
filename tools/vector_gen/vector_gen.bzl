@@ -26,16 +26,10 @@ def _relative_dirname_basename(label):
 def _vector_gen_outs(srcs, kind):
     """Return the list of output filenames.  The `kind` is one of "vector"
     (foo.h, foo.cc), "translator" (foo_translator.h, foo_translator.cc),
-<<<<<<< HEAD
     or "lcm" (lcmt_foo_t.lcm).  For compatibility with past practice, C++
     output will appear under a "gen" folder, but *.lcm output will not.
     """
 
-=======
-    or "lcm" (lcmt_foo_t.lcm).  For compatiblity with past practice, C++
-    output will appear under a "gen" folder, but *.lcm output will not.
-    """
->>>>>>> intial
     # Find and remove the dirname and extension shared by all srcs.
     # For srcs in the current directory, the dirname will be ".".
     subdir, _ = _relative_dirname_basename(srcs[0])
@@ -85,7 +79,6 @@ def _vector_gen_impl(ctx):
         inputs = ctx.files.srcs,
         outputs = ctx.outputs.outs,
         arguments = [
-<<<<<<< HEAD
             "--src=%s" % src.path
             for src in ctx.files.srcs
         ] + [
@@ -95,11 +88,6 @@ def _vector_gen_impl(ctx):
             "--include_prefix=%s" % x
             for x in [ctx.attr.include_prefix]
             if x
-=======
-            "--src=%s" % src.path for src in ctx.files.srcs
-        ] + [
-            "--out=%s" % out.path for out in ctx.outputs.outs
->>>>>>> intial
         ],
         env = ctx.attr.env,
         executable = ctx.executable.lcm_vector_gen,
@@ -111,10 +99,7 @@ _vector_gen = rule(
     attrs = {
         "srcs": attr.label_list(allow_files = True),
         "outs": attr.output_list(),
-<<<<<<< HEAD
         "include_prefix": attr.string(),
-=======
->>>>>>> intial
         "lcm_vector_gen": attr.label(
             cfg = "host",
             executable = True,
@@ -129,7 +114,6 @@ _vector_gen = rule(
     implementation = _vector_gen_impl,
 )
 
-<<<<<<< HEAD
 def drake_cc_vector_gen(
         name,
         srcs = [],
@@ -175,8 +159,6 @@ def drake_cc_vector_gen(
         ]],
     )
 
-=======
->>>>>>> intial
 def drake_cc_vector_gen_library(
         name,
         srcs = [],
@@ -186,7 +168,6 @@ def drake_cc_vector_gen_library(
     with the given `name`, containing the generated BasicVector subclasses for
     those `srcs`.  The `deps` are passed through to the declared library.
     """
-<<<<<<< HEAD
     generated = drake_cc_vector_gen(
         name = name + "_codegen",
         srcs = srcs,
@@ -201,25 +182,6 @@ def drake_cc_vector_gen_library(
         deps = deps + generated.deps,
         **kwargs
     )
-=======
-    outs = _vector_gen_outs(srcs = srcs, kind = "vector")
-    _vector_gen(
-        name = name + "_codegen",
-        srcs = srcs,
-        outs = outs.srcs + outs.hdrs,
-        visibility = [],
-        env = hermetic_python_env())
-    drake_cc_library(
-        name = name,
-        srcs = outs.srcs,
-        hdrs = outs.hdrs,
-        deps = deps + [
-            "//common:essential",
-            "//common:symbolic",
-            "//systems/framework:vector",
-        ],
-        **kwargs)
->>>>>>> intial
 
 def drake_cc_vector_gen_translator_library(
         name,
@@ -238,15 +200,10 @@ def drake_cc_vector_gen_translator_library(
         name = name + "_codegen",
         srcs = srcs,
         outs = outs.srcs + outs.hdrs,
-<<<<<<< HEAD
         include_prefix = "drake",
         visibility = [],
         env = hermetic_python_env(),
     )
-=======
-        visibility = [],
-        env = hermetic_python_env())
->>>>>>> intial
     drake_cc_library(
         name = name,
         srcs = outs.srcs,
@@ -255,12 +212,8 @@ def drake_cc_vector_gen_translator_library(
             "//common:essential",
             "//systems/lcm:translator",
         ],
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial
 
 def drake_vector_gen_lcm_sources(
         name,
@@ -276,9 +229,5 @@ def drake_vector_gen_lcm_sources(
         srcs = srcs,
         outs = outs.outs,
         env = hermetic_python_env(),
-<<<<<<< HEAD
         **kwargs
     )
-=======
-        **kwargs)
->>>>>>> intial

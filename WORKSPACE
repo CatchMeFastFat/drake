@@ -1,11 +1,7 @@
 # -*- python -*-
 
 # This file marks a workspace root for the Bazel build system. see
-<<<<<<< HEAD
 # https://bazel.build/ .
-=======
-# http://bazel.io/ .
->>>>>>> intial
 
 workspace(name = "drake")
 
@@ -23,7 +19,6 @@ add_external_data_test_repositories(__workspace_dir__)
 load("//tools/clion:repository.bzl", "drake_clion_environment")
 
 drake_clion_environment()
-<<<<<<< HEAD
 
 load("@bazel_skylib//:lib.bzl", "versions")
 
@@ -31,5 +26,3 @@ load("@bazel_skylib//:lib.bzl", "versions")
 # to actually be defined. The minimum_bazel_version value should match the
 # version passed to the find_package(Bazel) call in the root CMakeLists.txt.
 versions.check(minimum_bazel_version = "0.16.1")
-=======
->>>>>>> intial

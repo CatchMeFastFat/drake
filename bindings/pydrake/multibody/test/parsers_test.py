@@ -4,7 +4,6 @@ import unittest
 import os.path
 
 from pydrake import getDrakePath
-<<<<<<< HEAD
 from pydrake.common import FindResourceOrThrow
 from pydrake.multibody.parsers import PackageMap
 from pydrake.multibody.rigid_body_tree import (
@@ -15,14 +14,6 @@ from pydrake.multibody.rigid_body_tree import (
     AddModelInstancesFromSdfStringSearchingInRosPackages,
     FloatingBaseType,
     RigidBodyActuator,
-=======
-from pydrake.multibody.parsers import PackageMap
-from pydrake.multibody.rigid_body_tree import (
-    AddModelInstanceFromUrdfStringSearchingInRosPackages,
-    AddModelInstancesFromSdfString,
-    AddModelInstancesFromSdfStringSearchingInRosPackages,
-    FloatingBaseType,
->>>>>>> intial
     RigidBodyTree,
 )
 
@@ -57,7 +48,6 @@ class TestParsers(unittest.TestCase):
                          msg='Incorrect number of bodies: {0} vs. {1}'.format(
                              robot.get_num_bodies(), expected_num_bodies))
 
-<<<<<<< HEAD
         # Check actuators.
         actuator = robot.GetActuator("head_pan_motor")
         self.assertIsInstance(actuator, RigidBodyActuator)
@@ -71,8 +61,6 @@ class TestParsers(unittest.TestCase):
         for actuator in robot.actuators:
             self.assertIsInstance(actuator, RigidBodyActuator)
 
-=======
->>>>>>> intial
     def test_sdf(self):
         sdf_file = os.path.join(
             getDrakePath(), "examples/acrobot/Acrobot.sdf")
@@ -95,7 +83,6 @@ class TestParsers(unittest.TestCase):
             floating_base_type,
             weld_frame,
             robot_2)
-<<<<<<< HEAD
         robot_3 = RigidBodyTree()
         AddModelInstancesFromSdfFile(
             sdf_file,
@@ -145,13 +132,6 @@ class TestParsers(unittest.TestCase):
             self.assertFalse(
                 load_robot(filename, do_compile=False).initialized())
 
-=======
-
-        for robot in robot_1, robot_2:
-            expected_num_bodies = 4
-            self.assertEqual(robot.get_num_bodies(), expected_num_bodies)
-
->>>>>>> intial
     def test_package_map(self):
         pm = PackageMap()
         self.assertFalse(pm.Contains("foo"))
@@ -163,11 +143,7 @@ class TestParsers(unittest.TestCase):
 
         # Populate from folder.
         # TODO(eric.cousineau): This mismatch between casing is confusing, with
-<<<<<<< HEAD
         # `Atlas` being the package name, but `atlas` being the directory name.
-=======
-        # `Atlas` being the package name, but `atlas` being the dirctory name.
->>>>>>> intial
         pm = PackageMap()
         self.assertEqual(pm.size(), 0)
         pm.PopulateFromFolder(

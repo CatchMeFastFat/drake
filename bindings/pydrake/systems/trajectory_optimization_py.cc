@@ -1,8 +1,5 @@
 #include "pybind11/eigen.h"
-<<<<<<< HEAD
 #include "pybind11/functional.h"
-=======
->>>>>>> intial
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
 
@@ -18,11 +15,8 @@ PYBIND11_MODULE(trajectory_optimization, m) {
   // NOLINTNEXTLINE(build/namespaces): Emulate placement in namespace.
   using namespace drake::systems::trajectory_optimization;
 
-<<<<<<< HEAD
   using solvers::VectorXDecisionVariable;
 
-=======
->>>>>>> intial
   py::module::import("pydrake.symbolic");
   py::module::import("pydrake.systems.framework");
   py::module::import("pydrake.systems.primitives");
@@ -33,7 +27,6 @@ PYBIND11_MODULE(trajectory_optimization, m) {
       .def("time", &MultipleShooting::time)
       .def("timestep", &MultipleShooting::timestep)
       .def("fixed_timestep", &MultipleShooting::fixed_timestep)
-<<<<<<< HEAD
       // TODO(eric.cousineau): The original bindings returned references
       // instead of copies using VectorXBlock. Restore this once dtype=custom
       // is resolved.
@@ -63,24 +56,6 @@ PYBIND11_MODULE(trajectory_optimization, m) {
                 VectorXDecisionVariable {
              return self.input(index);
            })
-=======
-      .def("state",
-           overload_cast_explicit<const solvers::VectorXDecisionVariable&>(
-               &MultipleShooting::state))
-      .def("state",
-           overload_cast_explicit<
-               Eigen::VectorBlock<const solvers::VectorXDecisionVariable>, int>(
-               &MultipleShooting::state))
-      .def("initial_state", &MultipleShooting::initial_state)
-      .def("final_state", &MultipleShooting::final_state)
-      .def("input",
-           overload_cast_explicit<const solvers::VectorXDecisionVariable&>(
-               &MultipleShooting::input))
-      .def("input",
-           overload_cast_explicit<
-               Eigen::VectorBlock<const solvers::VectorXDecisionVariable>, int>(
-               &MultipleShooting::input))
->>>>>>> intial
       .def("AddRunningCost",
            [](MultipleShooting& prog, const symbolic::Expression& g) {
              prog.AddRunningCost(g);
@@ -102,7 +77,6 @@ PYBIND11_MODULE(trajectory_optimization, m) {
            py::overload_cast<
                const Eigen::Ref<const MatrixX<symbolic::Expression>>&>(
                &MultipleShooting::AddFinalCost))
-<<<<<<< HEAD
       .def("AddInputTrajectoryCallback",
            &MultipleShooting::AddInputTrajectoryCallback)
       .def("AddStateTrajectoryCallback",
@@ -110,10 +84,6 @@ PYBIND11_MODULE(trajectory_optimization, m) {
       .def("SetInitialTrajectory", &MultipleShooting::SetInitialTrajectory)
       .def("GetSampleTimes", overload_cast_explicit<Eigen::VectorXd>(
                                  &MultipleShooting::GetSampleTimes))
-=======
-      .def("SetInitialTrajectory", &MultipleShooting::SetInitialTrajectory)
-      .def("GetSampleTimes", &MultipleShooting::GetSampleTimes)
->>>>>>> intial
       .def("GetInputSamples", &MultipleShooting::GetInputSamples)
       .def("GetStateSamples", &MultipleShooting::GetStateSamples)
       .def("ReconstructInputTrajectory",

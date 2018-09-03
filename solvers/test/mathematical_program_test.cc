@@ -81,11 +81,7 @@ struct Movable {
   static size_t numInputs() { return 1; }
   static size_t numOutputs() { return 1; }
   template <typename ScalarType>
-<<<<<<< HEAD
   void eval(VecIn<ScalarType> const&, VecOut<ScalarType>*) const {}
-=======
-  void eval(VecIn<ScalarType> const&, VecOut<ScalarType>&) const {}
->>>>>>> intial
 };
 
 struct Copyable {
@@ -95,11 +91,7 @@ struct Copyable {
   static size_t numInputs() { return 1; }
   static size_t numOutputs() { return 1; }
   template <typename ScalarType>
-<<<<<<< HEAD
   void eval(VecIn<ScalarType> const&, VecOut<ScalarType>*) const {}
-=======
-  void eval(VecIn<ScalarType> const&, VecOut<ScalarType>&) const {}
->>>>>>> intial
 };
 
 struct Unique {
@@ -109,11 +101,7 @@ struct Unique {
   static size_t numInputs() { return 1; }
   static size_t numOutputs() { return 1; }
   template <typename ScalarType>
-<<<<<<< HEAD
   void eval(VecIn<ScalarType> const&, VecOut<ScalarType>*) const {}
-=======
-  void eval(VecIn<ScalarType> const&, VecOut<ScalarType>&) const {}
->>>>>>> intial
 };
 // TODO(naveenoid) : tests need to be purged of Random initializations.
 
@@ -842,13 +830,8 @@ void VerifyAddedCost1(const MathematicalProgram& prog,
   EXPECT_EQ(static_cast<int>(prog.generic_costs().size()),
             num_generic_costs_expected);
   Eigen::VectorXd y, y_expected;
-<<<<<<< HEAD
   prog.generic_costs().back().evaluator()->Eval(x_value, &y);
   cost->Eval(x_value, &y_expected);
-=======
-  prog.generic_costs().back().evaluator()->Eval(x_value, y);
-  cost->Eval(x_value, y_expected);
->>>>>>> intial
   EXPECT_TRUE(CompareMatrices(y, y_expected));
 }
 
@@ -863,17 +846,10 @@ void VerifyAddedCost2(const MathematicalProgram& prog,
   EXPECT_EQ(static_cast<int>(prog.generic_costs().size()),
             num_generic_costs_expected);
   Eigen::VectorXd y(1), y_expected(1), y_returned;
-<<<<<<< HEAD
   prog.generic_costs().back().evaluator()->Eval(x_value, &y);
   cost.eval<double>(x_value, &y_expected);
   EXPECT_TRUE(CompareMatrices(y, y_expected));
   returned_cost->Eval(x_value, &y_returned);
-=======
-  prog.generic_costs().back().evaluator()->Eval(x_value, y);
-  cost.eval<double>(x_value, y_expected);
-  EXPECT_TRUE(CompareMatrices(y, y_expected));
-  returned_cost->Eval(x_value, y_returned);
->>>>>>> intial
   EXPECT_TRUE(CompareMatrices(y, y_returned));
 }
 
@@ -2506,13 +2482,8 @@ GTEST_TEST(testMathematicalProgram, TestL2NormCost) {
   x0 << 7, 8;
 
   for (int i = 0; i < 6; i++) {
-<<<<<<< HEAD
     obj1->Eval(x0, &y1);
     obj2->Eval(x0, &y2);
-=======
-    obj1->Eval(x0, y1);
-    obj2->Eval(x0, y2);
->>>>>>> intial
 
     EXPECT_TRUE(CompareMatrices(y1, y2));
     EXPECT_TRUE(CompareMatrices(y2, (A * x0 - b).transpose() * (A * x0 - b)));
@@ -2908,11 +2879,7 @@ GTEST_TEST(testMathematicalProgram, testSetSolverResult) {
   EXPECT_TRUE(std::isnan(prog.GetLowerBoundCost()));
 }
 
-<<<<<<< HEAD
 GTEST_TEST(testMathematicalProgram, testAddVisualizationCallback) {
-=======
-GTEST_TEST(testMathematicalProgram, testAddCallback) {
->>>>>>> intial
   MathematicalProgram prog;
 
   auto x = prog.NewContinuousVariables<2>();
@@ -2943,11 +2910,7 @@ GTEST_TEST(testMathematicalProgram, testAddCallback) {
   // Call it directly via the double interface.
   VectorXd test_y(0);
   was_called = false;
-<<<<<<< HEAD
   b.evaluator()->Eval(test_x, &test_y);
-=======
-  b.evaluator()->Eval(test_x, test_y);
->>>>>>> intial
   EXPECT_TRUE(was_called);
 
   // Call it directly via the autodiff interface.
@@ -2955,7 +2918,6 @@ GTEST_TEST(testMathematicalProgram, testAddCallback) {
       math::initializeAutoDiff(VectorXd{test_x});
   VectorX<AutoDiffXd> test_y_autodiff(0);
   was_called = false;
-<<<<<<< HEAD
   b.evaluator()->Eval(test_x_autodiff, &test_y_autodiff);
   EXPECT_TRUE(was_called);
 }
@@ -2978,12 +2940,6 @@ GTEST_TEST(testMathematicalProgram, TestSolverOptions) {
   EXPECT_EQ(prog.GetSolverOptionsStr(wrong_solver_id).size(), 0);
 }
 
-=======
-  b.evaluator()->Eval(test_x_autodiff, test_y_autodiff);
-  EXPECT_TRUE(was_called);
-}
-
->>>>>>> intial
 }  // namespace test
 }  // namespace solvers
 }  // namespace drake

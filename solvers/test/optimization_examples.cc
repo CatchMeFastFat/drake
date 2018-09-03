@@ -89,11 +89,7 @@ double OptimizationProgram::GetSolverSolutionDefaultCompareTolerance(
       return 1E-6;
     }
     case SolverType::kOsqp : {
-<<<<<<< HEAD
       return 1E-10;
-=======
-      return 3E-6;
->>>>>>> intial
     }
     case SolverType::kScs : {
       return 3E-5;  // Scs is not very accurate.

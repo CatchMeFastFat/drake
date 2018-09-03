@@ -35,10 +35,6 @@ class LinearSolver {
   explicit LinearSolver(const MatrixX<T>& m);
 
   VectorX<T> Solve(const VectorX<T>& v) const;
-<<<<<<< HEAD
-=======
-  MatrixX<T> Solve(const MatrixX<T>& v) const;
->>>>>>> intial
 
  private:
   Eigen::ColPivHouseholderQR<MatrixX<T>> qr_;
@@ -68,19 +64,6 @@ VectorX<T> LinearSolver<T>::Solve(
   return qr_.solve(v);
 }
 
-<<<<<<< HEAD
-=======
-template <class T>
-MatrixX<T> LinearSolver<T>::Solve(
-    const MatrixX<T>& m) const {
-  if (m.rows() == 0) {
-    DRAKE_DEMAND(qr_.rows() == 0);
-    return MatrixX<T>(0, m.cols());
-  }
-  return qr_.solve(m);
-}
-
->>>>>>> intial
 template <>
 VectorX<double> LinearSolver<double>::Solve(
     const VectorX<double>& v) const {
@@ -90,19 +73,6 @@ VectorX<double> LinearSolver<double>::Solve(
   }
   return lu_.solve(v);
 }
-<<<<<<< HEAD
-=======
-
-template <>
-MatrixX<double> LinearSolver<double>::Solve(
-    const MatrixX<double>& m) const {
-  if (m.rows() == 0) {
-    DRAKE_DEMAND(lu_.rows() == 0);
-    return MatrixX<double>(0, m.cols());
-  }
-  return lu_.solve(m);
-}
->>>>>>> intial
 }  // anonymous namespace
 
 template <>

@@ -45,11 +45,7 @@ class Geometry {
    * @returns `true` if this geometry can return faces.
    */
   virtual bool hasFaces() const {
-<<<<<<< HEAD
     // By default, arbitrary geometry doesn't know how to provide faces.
-=======
-    // By default, arbitary geometry doesn't know how to provide faces.
->>>>>>> intial
     return false;
   }
   /**

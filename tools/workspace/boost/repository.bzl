@@ -36,15 +36,10 @@ def _impl(repository_ctx):
     elif repository_ctx.os.name == "linux":
         prefix = LINUX_PREFIX
     else:
-<<<<<<< HEAD
         fail(
             "Operating system is NOT supported",
             attr = repository_ctx.os.name,
         )
-=======
-        fail("Operating system is NOT supported",
-             attr = repository_ctx.os.name)
->>>>>>> intial
 
     repository_ctx.symlink("{}/include/boost".format(prefix), "boost")
 
@@ -62,7 +57,6 @@ cc_library(
 )
     """.format(HDRS_PATTERNS)
 
-<<<<<<< HEAD
     repository_ctx.file(
         "BUILD.bazel",
         content = file_content,
@@ -73,9 +67,3 @@ boost_repository = repository_rule(
     local = True,
     implementation = _impl,
 )
-=======
-    repository_ctx.file("BUILD.bazel", content = file_content,
-                        executable = False)
-
-boost_repository = repository_rule(implementation = _impl)
->>>>>>> intial

@@ -246,13 +246,8 @@ class Mobilizer : public MultibodyTreeElement<Mobilizer<T>, MobilizerIndex> {
   /// generalized coordinate representing the rotational degree of freedom about
   /// a given axis between the inboard and outboard frames. Another example
   /// would be a 6 DOF "free" mobilizer internally using a quaternion
-<<<<<<< HEAD
   /// representation to parameterize free rotations and a position vector to
   /// parameterize free translations; this method would return 7 (a quaternion
-=======
-  /// representation to parametrize free rotations and a position vector to
-  /// parametrize free translations; this method would return 7 (a quaternion
->>>>>>> intial
   /// plus a position vector).
   /// @see num_velocities()
   virtual int num_positions() const = 0;
@@ -331,11 +326,7 @@ class Mobilizer : public MultibodyTreeElement<Mobilizer<T>, MobilizerIndex> {
 
   /// Computes the across-mobilizer transform `X_FM(q)` between the inboard
   /// frame F and the outboard frame M as a function of the vector of
-<<<<<<< HEAD
   /// generalized positions `q`.
-=======
-  /// generalized postions `q`.
->>>>>>> intial
   /// %Mobilizer subclasses implementing this method can retrieve the fixed-size
   /// vector of generalized positions for `this` mobilizer from `context` with:
   ///
@@ -452,12 +443,7 @@ class Mobilizer : public MultibodyTreeElement<Mobilizer<T>, MobilizerIndex> {
   /// Returns a const Eigen expression of the vector of generalized positions
   /// for `this` mobilizer from a vector `q_array` of generalized positions for
   /// the entire MultibodyTree model.
-<<<<<<< HEAD
   /// @pre @p q_array is of size MultibodyTree::num_positions().
-=======
-  /// This method aborts if `q_array` is not of size
-  /// MultibodyTree::num_positions().
->>>>>>> intial
   Eigen::VectorBlock<const Eigen::Ref<const VectorX<T>>>
   get_positions_from_array(const Eigen::Ref<const VectorX<T>>& q_array) const {
     DRAKE_DEMAND(
@@ -479,12 +465,7 @@ class Mobilizer : public MultibodyTreeElement<Mobilizer<T>, MobilizerIndex> {
   /// Returns a const Eigen expression of the vector of generalized velocities
   /// for `this` mobilizer from a vector `v_array` of generalized velocities for
   /// the entire MultibodyTree model.
-<<<<<<< HEAD
   /// @pre @p v_array is of size MultibodyTree::num_velocities().
-=======
-  /// This method aborts if the input array is not of size
-  /// MultibodyTree::num_velocities().
->>>>>>> intial
   Eigen::VectorBlock<const Eigen::Ref<const VectorX<T>>>
   get_velocities_from_array(const Eigen::Ref<const VectorX<T>>& v_array) const {
     DRAKE_DEMAND(
